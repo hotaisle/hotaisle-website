@@ -7,7 +7,7 @@ Meta Title: Creating Your Own ChatXYZ Powered by Hot Aisle and Open WebUI
 Meta Description: Step-by-step guide to building a private ChatGPT-style interface using Open WebUI connected to a self-hosted vLLM server on Hot Aisle. Includes SSH tunneling and architecture overview.
 Meta Keywords: Hot Aisle, vLLM, Open WebUI, AMD MI300X, ROCm, self-hosted LLM, inference, SSH tunnel, GPU
 Author: Melissa PalmerDate: 03/17/2026
-Description: A practical guide to building a private ChatXYZ-style environment using Open WebUI and a self-hosted vLLM instance on Hot Aisle. Covers architecture, SSH tunneling, and connecting a local interface to GPU-hosted inference.
+Description: A practical guide to building a private ChatXYZ style environment using Open WebUI and a self-hosted vLLM instance on Hot Aisle. Covers architecture, SSH tunneling, and connecting a local interface to GPU-hosted inference.
 Featured: No
 Tags: GPU, vLLM, Open WebUI, ROCm, Inference
 
