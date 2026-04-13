@@ -28,12 +28,12 @@ export default function Home() {
 			<VideoSection />
 
 			{/* Footer CTA */}
-			<section className="border-t border-border/60 py-24 text-center">
+			<section className="border-border/60 border-t py-24 text-center">
 				<div className="mx-auto max-w-2xl px-6">
 					<h2 className="mb-4 font-bold text-3xl tracking-tight sm:text-4xl">
 						Ready to accelerate?
 					</h2>
-					<p className="mb-8 text-muted-foreground text-lg">
+					<p className="mb-8 text-lg text-muted-foreground">
 						Launch a GPU instance in under 60 seconds. No contracts required.
 					</p>
 					<AppLink

@@ -1,5 +1,5 @@
-import sharp from 'sharp';
 import { mkdirSync } from 'node:fs';
+import sharp from 'sharp';
 
 const OUT = 'content/blog/assets/soc2-is-broken';
 mkdirSync(OUT, { recursive: true });

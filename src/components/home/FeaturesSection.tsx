@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, CreditCard, Cpu, Lock, MemoryStick, Zap } from 'lucide-react';
+import { ArrowRight, Clock, Cpu, CreditCard, Lock, MemoryStick, Zap } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 
 const FEATURES = [
@@ -48,7 +48,7 @@ const FEATURES = [
 
 export function FeaturesSection() {
 	return (
-		<section className="border-t border-border/60 bg-background py-24">
+		<section className="border-border/60 border-t bg-background py-24">
 			<div className="mx-auto max-w-7xl px-6">
 				{/* Section header */}
 				<div className="mb-16 text-center">
@@ -58,7 +58,7 @@ export function FeaturesSection() {
 					<h2 className="font-bold text-3xl tracking-tight sm:text-4xl">
 						GPU infrastructure that gets out of your way
 					</h2>
-					<p className="mx-auto mt-4 max-w-2xl text-muted-foreground text-lg">
+					<p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
 						Everything you need to run serious AI workloads — none of the enterprise
 						friction.
 					</p>
@@ -70,16 +70,16 @@ export function FeaturesSection() {
 						const Icon = feature.icon;
 						return (
 							<div
-								className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-hot-orange/30 hover:shadow-lg hover:shadow-hot-orange/5"
+								className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-hot-orange/30 hover:shadow-hot-orange/5 hover:shadow-lg"
 								key={feature.title}
 							>
 								<div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-hot-orange/10">
 									<Icon className="h-5 w-5 text-hot-orange" />
 								</div>
-								<div className="mb-1 font-semibold text-xs text-hot-orange uppercase tracking-wider">
+								<div className="mb-1 font-semibold text-hot-orange text-xs uppercase tracking-wider">
 									{feature.label}
 								</div>
-								<h3 className="mb-2 font-semibold text-lg text-foreground">
+								<h3 className="mb-2 font-semibold text-foreground text-lg">
 									{feature.title}
 								</h3>
 								<p className="text-muted-foreground text-sm leading-relaxed">

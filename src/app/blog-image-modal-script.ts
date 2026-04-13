@@ -54,7 +54,7 @@ export function initializeBlogImageModalScript(): void {
 
 	const openModal = (img: HTMLImageElement) => {
 		ensureModal();
-		if (!modalImg || !overlay) {
+		if (!(modalImg && overlay)) {
 			return;
 		}
 		modalImg.src = img.currentSrc || img.src;

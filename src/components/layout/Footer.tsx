@@ -39,7 +39,7 @@ const FOOTER_COLUMNS = [
 
 export function Footer() {
 	return (
-		<footer className="border-t border-border/60 bg-card">
+		<footer className="border-border/60 border-t bg-card">
 			{/* Top accent line */}
 			<div className="h-px w-full bg-linear-to-r from-transparent via-hot-orange/40 to-transparent" />
 
@@ -69,7 +69,7 @@ export function Footer() {
 				</div>
 
 				{/* Divider */}
-				<div className="border-t border-border/60" />
+				<div className="border-border/60 border-t" />
 
 				{/* Bottom row */}
 				<div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">

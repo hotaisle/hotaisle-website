@@ -45,7 +45,7 @@ export function Navbar() {
 	return (
 		<>
 			{/* Top Navbar */}
-			<header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/95 backdrop-blur-md">
+			<header className="sticky top-0 z-40 w-full border-border/60 border-b bg-background/95 backdrop-blur-md">
 				<div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
 					{/* Left: Logo + Primary Nav */}
 					<div className="flex items-center gap-8">
@@ -178,7 +178,9 @@ export function Navbar() {
 								<Mail className="h-4 w-4" />
 								Contact
 							</AppLink>
-							<span className="text-muted-foreground text-sm opacity-60">© 2026 Hot Aisle</span>
+							<span className="text-muted-foreground text-sm opacity-60">
+								© 2026 Hot Aisle
+							</span>
 						</div>
 					</div>
 				</div>
