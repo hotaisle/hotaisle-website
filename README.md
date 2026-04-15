@@ -64,7 +64,9 @@ hotaisle-next/
 
 The **Hot Aisle** brand is defined by:
 -   **Hot Aisle**: Name is "Hot Aisle"
--   **Primary Color**: Hot Orange (`#f97316`)
+-   **Primary Color**: Hot Orange
+-   **Light Theme Orange**: `#ce4c11` (WCAG AA on white)
+-   **Dark Theme Orange**: `#e46711` (WCAG AA on dark surfaces)
 -   **Secondary**: Neutral Grays / Dark Mode Black
 -   **Aesthetic**: "Glassy", Technical, Premium, Minimalist.
 

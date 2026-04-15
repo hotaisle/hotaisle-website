@@ -32,8 +32,11 @@
 	--radius: 0.5rem;
 
 	/* Hot Aisle Brand Color */
-	--hot-orange: #f97316;
-	/* Orange 500 */
+	--hot-orange-light: #ce4c11;
+	/* Adjusted brand orange to meet WCAG AA contrast on white */
+	--hot-orange-dark: #e46711;
+	/* Adjusted dark-mode brand orange to meet WCAG AA on dark surfaces */
+	--hot-orange: var(--theme-hot-orange, var(--hot-orange-light));
 }
 
 .dark {
@@ -63,6 +66,7 @@
 	--border: #262626;
 	--input: #262626;
 	--ring: #d4d4d4;
+	--theme-hot-orange: var(--hot-orange-dark);
 }
 
 /* @vscode/css-language-service-ignore */
