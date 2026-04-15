@@ -8,7 +8,7 @@ export default function NotFound() {
 			<div className="pointer-events-none absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-hot-orange/15 blur-3xl" />
 
 			<div className="relative mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center px-6 py-16 text-center">
-				<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-hot-orange/30 bg-hot-orange/10 px-3 py-1 font-bold text-hot-orange text-xs uppercase tracking-widest">
+				<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-hot-orange/30 bg-hot-orange/10 px-3 py-1 font-bold text-hot-orange-contrast text-xs uppercase tracking-widest">
 					<Compass size={14} />
 					Page Not Found
 				</div>

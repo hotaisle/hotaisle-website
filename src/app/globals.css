@@ -34,9 +34,17 @@
 	/* Hot Aisle Brand Color */
 	--hot-orange-light: #ce4c11;
 	/* Adjusted brand orange to meet WCAG AA contrast on white */
+	--hot-orange-contrast-light: #9a3308;
+	/* Higher-contrast orange for small text on light surfaces */
 	--hot-orange-dark: #e46711;
 	/* Adjusted dark-mode brand orange to meet WCAG AA on dark surfaces */
+	--hot-orange-contrast-dark: #f08a36;
+	/* Slightly brighter variant for small text on dark surfaces */
 	--hot-orange: var(--theme-hot-orange, var(--hot-orange-light));
+	--hot-orange-contrast: var(
+		--theme-hot-orange-contrast,
+		var(--hot-orange-contrast-light)
+	);
 }
 
 .dark {
@@ -67,6 +75,7 @@
 	--input: #262626;
 	--ring: #d4d4d4;
 	--theme-hot-orange: var(--hot-orange-dark);
+	--theme-hot-orange-contrast: var(--hot-orange-contrast-dark);
 }
 
 /* @vscode/css-language-service-ignore */
@@ -93,6 +102,7 @@
 	--radius-lg: calc(var(--radius) + 2px);
 
 	--color-hot-orange: var(--hot-orange);
+	--color-hot-orange-contrast: var(--hot-orange-contrast);
 }
 
 html {

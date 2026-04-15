@@ -57,7 +57,7 @@ export default function AboutPage() {
 								/>
 							</div>
 							<h3 className="mb-2 font-bold text-2xl text-foreground">Jon Stevens</h3>
-							<div className="mb-6 font-bold text-hot-orange text-sm uppercase tracking-wider">
+							<div className="mb-6 font-bold text-hot-orange-contrast text-sm uppercase tracking-wider">
 								Founder / CEO
 							</div>
 
@@ -86,7 +86,7 @@ export default function AboutPage() {
 							<h3 className="mb-2 font-bold text-2xl text-foreground">
 								Clint Armstrong
 							</h3>
-							<div className="mb-6 font-bold text-hot-orange text-sm uppercase tracking-wider">
+							<div className="mb-6 font-bold text-hot-orange-contrast text-sm uppercase tracking-wider">
 								Founder / Head of Engineering
 							</div>
 

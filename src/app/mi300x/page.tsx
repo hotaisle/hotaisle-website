@@ -33,7 +33,7 @@ export default function MI300XPage() {
 				<div className="container relative z-10 mx-auto max-w-7xl">
 					<div className="flex flex-col items-center gap-16 lg:flex-row">
 						<div className="flex-1">
-							<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-hot-orange/20 bg-hot-orange/10 px-3 py-1 font-bold text-hot-orange text-xs uppercase tracking-widest dark:text-hot-orange">
+							<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-hot-orange/20 bg-hot-orange/10 px-3 py-1 font-bold text-hot-orange-contrast text-xs uppercase tracking-widest">
 								<Zap className="fill-current" size={12} /> AMD Instinct™ Accelerator
 							</div>
 							<h1 className="mb-6 font-black text-5xl leading-tight tracking-tighter md:text-8xl">

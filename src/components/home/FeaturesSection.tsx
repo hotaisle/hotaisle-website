@@ -52,7 +52,7 @@ export function FeaturesSection() {
 			<div className="mx-auto max-w-7xl px-6">
 				{/* Section header */}
 				<div className="mb-16 text-center">
-					<p className="mb-4 font-semibold text-hot-orange text-sm uppercase tracking-widest">
+					<p className="mb-4 font-semibold text-hot-orange-contrast text-sm uppercase tracking-widest">
 						Why Hot Aisle
 					</p>
 					<h2 className="font-bold text-3xl tracking-tight sm:text-4xl">
@@ -76,7 +76,7 @@ export function FeaturesSection() {
 								<div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-hot-orange/10">
 									<Icon className="h-5 w-5 text-hot-orange" />
 								</div>
-								<div className="mb-1 font-semibold text-hot-orange text-xs uppercase tracking-wider">
+								<div className="mb-1 font-semibold text-hot-orange-contrast text-xs uppercase tracking-wider">
 									{feature.label}
 								</div>
 								<h3 className="mb-2 font-semibold text-foreground text-lg">
@@ -93,7 +93,7 @@ export function FeaturesSection() {
 				{/* Bottom CTA */}
 				<div className="mt-12 text-center">
 					<AppLink
-						className="group inline-flex items-center gap-2 font-medium text-hot-orange text-sm transition hover:opacity-80"
+						className="group inline-flex items-center gap-2 font-medium text-hot-orange-contrast text-sm transition hover:opacity-80"
 						href="/compute"
 					>
 						Explore the full infrastructure

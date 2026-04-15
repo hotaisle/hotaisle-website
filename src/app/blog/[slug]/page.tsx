@@ -121,7 +121,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 					<div className="mb-6 flex flex-wrap gap-2">
 						{post.tags?.map((tag: string) => (
 							<span
-								className="rounded-full border border-hot-orange/20 bg-hot-orange/10 px-3 py-1 font-bold text-hot-orange text-xs uppercase tracking-wider backdrop-blur-sm"
+								className="rounded-full border border-hot-orange/20 bg-hot-orange/10 px-3 py-1 font-bold text-hot-orange-contrast text-xs uppercase tracking-wider backdrop-blur-sm"
 								key={tag}
 							>
 								{tag}

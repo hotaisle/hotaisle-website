@@ -173,7 +173,7 @@ export default function QuickStartPage() {
 								sticks around after the container exits.
 							</p>
 							<a
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange text-sm hover:underline"
+								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
 								href="https://rocm.docs.amd.com/projects/install-on-linux/en/latest/how-to/docker.html"
 								rel="noopener"
 								target="_blank"
@@ -193,7 +193,7 @@ export default function QuickStartPage() {
 								automating your deployment? Check out our tight API integration.
 							</p>
 							<a
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange text-sm hover:underline"
+								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
 								href="https://dstack.ai/blog/hotaisle/"
 								rel="noopener"
 								target="_blank"
@@ -213,7 +213,7 @@ export default function QuickStartPage() {
 								guide.
 							</p>
 							<a
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange text-sm hover:underline"
+								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
 								href="https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/3rd-party/pytorch-install.html"
 								rel="noopener"
 								target="_blank"
@@ -232,7 +232,7 @@ export default function QuickStartPage() {
 								If you’re more into TinyGrad, follow their setup here.
 							</p>
 							<a
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange text-sm hover:underline"
+								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
 								href="https://github.com/tinygrad/tinygrad/#installation"
 								rel="noopener"
 								target="_blank"

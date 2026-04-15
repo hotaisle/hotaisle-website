@@ -40,7 +40,7 @@ export default function MI355XContent() {
 					>
 						Reserve Now <ArrowRight className="ml-2" size={20} />
 					</a>
-					<p className="mt-4 font-bold text-hot-orange text-xs uppercase tracking-widest">
+					<p className="mt-4 font-bold text-hot-orange-contrast text-xs uppercase tracking-widest">
 						🔥 Scroll to the bottom to reserve 🔥
 					</p>
 				</div>

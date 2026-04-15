@@ -146,7 +146,7 @@ export default function NetworkingPage() {
 									<div className="flex flex-wrap gap-4">
 										{item.links.map((link) => (
 											<a
-												className="flex items-center gap-1 font-bold text-hot-orange text-sm transition-colors hover:text-foreground"
+												className="flex items-center gap-1 font-bold text-hot-orange-contrast text-sm transition-colors hover:text-foreground"
 												href={link.url}
 												key={link.url}
 												rel="noopener noreferrer"
