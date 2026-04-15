@@ -1,13 +1,13 @@
+import { initializeBlogImageModalScript } from '@/app/blog-image-modal-script.ts';
+import { initializeCopyCommandScript } from '@/app/copy-command-script.ts';
+import { initializeHeroStarsScript } from '@/app/hero-stars-script.ts';
+import { initializeMobileNavScript } from '@/app/mobile-nav-script.ts';
+import { initializeThemeScript } from '@/app/theme-script.ts';
 import { Footer } from '@/components/layout/Footer.tsx';
 import { Navbar } from '@/components/layout/Navbar.tsx';
 import JsonLd from '@/components/seo/JsonLd.tsx';
 import './globals.css';
 import type * as React from 'react';
-import { initializeBlogImageModalScript } from './blog-image-modal-script.ts';
-import { initializeCopyCommandScript } from './copy-command-script.ts';
-import { initializeHeroStarsScript } from './hero-stars-script.ts';
-import { initializeMobileNavScript } from './mobile-nav-script.ts';
-import { initializeThemeScript } from './theme-script.ts';
 
 const GTM_CONTAINER_ID = 'GTM-NK8WLZV8';
 const GTM_SCRIPT = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

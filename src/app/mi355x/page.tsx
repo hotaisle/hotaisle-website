@@ -1,5 +1,5 @@
+import MI355XContent from '@/app/mi355x/MI355XContent.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
-import MI355XContent from './MI355XContent.tsx';
 
 export function generateMetadata() {
 	return createPageMetadata({

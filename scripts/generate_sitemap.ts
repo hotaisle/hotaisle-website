@@ -1,5 +1,5 @@
-import { BLOG_POSTS } from '../src/generated/blog-data.ts';
-import { POLICIES } from '../src/generated/static-content-data.ts';
+import { BLOG_POSTS } from '@/generated/blog-data.ts';
+import { POLICIES } from '@/generated/static-content-data.ts';
 
 const BASE_URL = 'https://hotaisle.xyz';
 const CURRENT_ISO_DATE = new Date().toISOString();

@@ -3,9 +3,9 @@ import { cp, mkdir, readdir, readFile, rm, stat, utimes, writeFile } from 'node:
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { minify as minifyWithRolldown } from 'rolldown/utils';
+import { BLOG_POSTS } from '@/generated/blog-data.ts';
+import { POLICIES } from '@/generated/static-content-data.ts';
 import { appRouter } from '../node_modules/vinext/dist/routing/app-router.js';
-import { BLOG_POSTS } from '../src/generated/blog-data.ts';
-import { POLICIES } from '../src/generated/static-content-data.ts';
 import { createSitemapXml } from './generate_sitemap.ts';
 
 const EXPORT_ORIGIN = 'https://static.hotaisle.local';

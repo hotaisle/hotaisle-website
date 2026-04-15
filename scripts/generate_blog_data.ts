@@ -11,7 +11,7 @@ import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import sharp from 'sharp';
-import { getModernImageVariants } from '../src/lib/image-optimization.ts';
+import { getModernImageVariants } from '@/lib/image-optimization.ts';
 import {
 	isGeneratedMermaidDiagramFile,
 	renderMermaidMarkdownToImageMarkdown,
@@ -84,10 +84,27 @@ interface RawBlogPost {
 	metaDescription?: string;
 	metaKeywords?: string;
 	metaTitle?: string;
-	published: boolean;
 	slug: string;
 	sourceFileName: string;
 	sourceModifiedAtMs: number;
+	tags: string[];
+	title: string;
+}
+
+interface ParsedBlogPost {
+	author?: string;
+	authorProfile?: BlogAuthorProfile;
+	contentMarkdown: string;
+	coverImage?: string;
+	date: string;
+	description: string;
+	haFooter: boolean;
+	metaDescription?: string;
+	metaKeywords?: string;
+	metaTitle?: string;
+	published: boolean;
+	slug: string;
+	sourceFileName: string;
 	tags: string[];
 	title: string;
 }
@@ -458,7 +475,7 @@ function parseBlogFile(
 	authorProfiles: Record<string, BlogAuthorProfile>,
 	fileName: string,
 	fileContents: string
-): RawBlogPost {
+): ParsedBlogPost {
 	const parsedMatter = matter(fileContents);
 	const frontmatter = parsedMatter.data as Record<string, unknown>;
 	const hasFrontmatter = Object.keys(frontmatter).length > 0;

@@ -14,7 +14,6 @@
 		"allowImportingTsExtensions": true,
 		"allowSyntheticDefaultImports": true,
 		"strict": true,
-		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"]
 		}
@@ -22,7 +21,8 @@
 	"include": [
 		"vite.config.ts",
 		"scripts/*.ts",
+		"src/lib/**/*.ts",
 		"src/generated/*.ts",
-		"src/lib/search.ts"
+		"src/vite-env.d.ts"
 	]
 }
