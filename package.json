@@ -18,11 +18,13 @@
 		"preview:vinext": "vinext start",
 		"preview:static": "bun run build && bun run scripts/preview_static.ts",
 		"deploy": "bun run build && bun run wrangler deploy --config wrangler.jsonc",
+		"tailwind:lint": "bun run scripts/fix_tailwind_lint.ts",
+		"tailwind:lint:dry": "bun run scripts/fix_tailwind_lint.ts --dry-run",
 		"check:imports": "bun run scripts/check_import_paths.ts",
 		"lighthouse": "bun run build && bunx @lhci/cli@0.15.1 autorun",
 		"typecheck": "bun run tsc -b",
-		"check": "bun ./node_modules/ultracite/dist/index.js check && bun run check:imports && bun run typecheck",
-		"fix": "bun ./node_modules/ultracite/dist/index.js fix"
+		"check": "bun ./node_modules/ultracite/dist/index.js check && bun run check:imports && bun run typecheck && bun run tailwind:lint:dry",
+		"fix": "bun ./node_modules/ultracite/dist/index.js fix && bun run tailwind:lint"
 	},
 	"dependencies": {
 		"@tailwindcss/typography": "^0.5.19",
@@ -47,6 +49,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.11",
 		"@cloudflare/vite-plugin": "^1.32.2",
+		"@tailwindcss/language-server": "^0.14.29",
 		"@tailwindcss/postcss": "^4.2.2",
 		"@tailwindcss/vite": "^4.2.2",
 		"@types/node": "^25.6.0",

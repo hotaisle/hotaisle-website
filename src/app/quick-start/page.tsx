@@ -19,9 +19,21 @@ export default function QuickStartPage() {
 			{/* Hero Header with Banner */}
 			<div className="relative h-100 w-full overflow-hidden border-border border-b">
 				<div className="absolute inset-0 bg-background">
-					<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgb(154_51_8_/_0.2),_transparent_45%),linear-gradient(180deg,_rgb(12_12_12)_0%,_rgb(0_0_0)_55%,_rgb(0_0_0)_100%)]" />
+					<video
+						autoPlay
+						className="absolute inset-0 h-full w-full object-cover opacity-50"
+						loop
+						muted
+						playsInline
+					>
+						<source
+							src="/assets/quickstart/Data_Bits_and_Information_Video.mp4"
+							type="video/mp4"
+						/>
+					</video>
+					<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(154_51_8/0.2),transparent_45%),linear-gradient(180deg,rgb(12_12_12)_0%,rgb(0_0_0)_55%,rgb(0_0_0)_100%)]" />
 					<div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-hot-orange/60 to-transparent" />
-					<div className="absolute inset-0 bg-[linear-gradient(rgb(255_255_255_/_0.04)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255_/_0.04)_1px,transparent_1px)] bg-[size:48px_48px] opacity-25" />
+					<div className="absolute inset-0 bg-[linear-gradient(rgb(255_255_255/0.04)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.04)_1px,transparent_1px)] bg-size-[48px_48px] opacity-25" />
 					<div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent" />
 				</div>
 
