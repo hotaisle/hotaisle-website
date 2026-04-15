@@ -36,6 +36,7 @@
 					}
 				],
 				"network-dependency-tree-insight": "warn",
+				"color-contrast": "warn",
 				"categories:performance": [
 					"warn",
 					{
