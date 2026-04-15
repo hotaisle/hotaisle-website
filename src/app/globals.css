@@ -32,12 +32,12 @@
 	--radius: 0.5rem;
 
 	/* Hot Aisle Brand Color */
-	--hot-orange-light: #ce4c11;
-	/* Adjusted brand orange to meet WCAG AA contrast on white */
-	--hot-orange-contrast-light: #9a3308;
+	--hot-orange-light: #9a3308;
+	/* Higher-contrast brand orange for white text and UI on light surfaces */
+	--hot-orange-contrast-light: #7f2805;
 	/* Higher-contrast orange for small text on light surfaces */
-	--hot-orange-dark: #e46711;
-	/* Adjusted dark-mode brand orange to meet WCAG AA on dark surfaces */
+	--hot-orange-dark: #9a3308;
+	/* Darkened to preserve white-on-orange button contrast in dark mode */
 	--hot-orange-contrast-dark: #f08a36;
 	/* Slightly brighter variant for small text on dark surfaces */
 	--hot-orange: var(--theme-hot-orange, var(--hot-orange-light));

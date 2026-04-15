@@ -5,9 +5,9 @@
 			"numberOfRuns": 1,
 			"url": [
 				"http://localhost/",
-				"http://localhost/compute",
-				"http://localhost/pricing",
-				"http://localhost/quick-start"
+				"http://localhost/compute/",
+				"http://localhost/pricing/",
+				"http://localhost/quick-start/"
 			],
 			"settings": {
 				"preset": "desktop",
@@ -35,6 +35,7 @@
 						"minScore": 0.9
 					}
 				],
+				"network-dependency-tree-insight": "warn",
 				"categories:performance": [
 					"warn",
 					{

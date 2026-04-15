@@ -70,7 +70,7 @@ export default function ComputePage() {
 							OFFICIAL DELL TECHNOLOGIES PARTNER
 						</div>
 						<h1 className="mb-6 font-black text-5xl text-foreground leading-tight tracking-tighter md:text-7xl">
-							Dell PowerEdge <span className="text-hot-orange">XE9680</span>
+							Dell PowerEdge <span className="text-hot-orange-contrast">XE9680</span>
 						</h1>
 						<p className="mb-8 max-w-2xl font-light text-muted-foreground text-xl leading-relaxed md:text-2xl">
 							<span>We offer remote access to the Dell PowerEdge XE9680 with </span>
@@ -104,9 +104,10 @@ export default function ComputePage() {
 							<OptimizedImage
 								alt="Dell PowerEdge XE9680"
 								className="h-auto w-full object-contain transition-transform duration-700 hover:scale-105"
-								height={600}
-								src="/assets/compute/hero.png"
-								width={800}
+								fetchPriority="high"
+								height={316}
+								src="/assets/compute/hero-compact.webp"
+								width={544}
 							/>
 						</div>
 						{/* GPU Detail - Bottom Left */}
@@ -114,9 +115,9 @@ export default function ComputePage() {
 							<OptimizedImage
 								alt="AMD MI300X Detail"
 								className="h-full w-full object-cover"
-								height={200}
-								src="/assets/compute/gpu.png"
-								width={200}
+								height={184}
+								src="/assets/compute/gpu-compact.webp"
+								width={184}
 							/>
 						</div>
 						<div className="absolute -right-6 -bottom-6 flex animate-bounce-slow items-center gap-3 rounded-xl border border-border bg-background p-4 shadow-xl">
@@ -186,22 +187,22 @@ export default function ComputePage() {
 											Total Capacity
 										</span>
 										{spec.item === 'RAM' && (
-											<span className="font-black text-3xl text-hot-orange">
+											<span className="font-black text-3xl text-hot-orange-contrast">
 												2,048 GB
 											</span>
 										)}
 										{spec.item === 'Disk' && (
-											<span className="font-black text-3xl text-hot-orange">
+											<span className="font-black text-3xl text-hot-orange-contrast">
 												122.88 TB
 											</span>
 										)}
 										{spec.item === 'GPU' && (
-											<span className="font-black text-3xl text-hot-orange">
+											<span className="font-black text-3xl text-hot-orange-contrast">
 												1.5 TB HBM3
 											</span>
 										)}
 										{spec.item === 'Network' && (
-											<span className="font-black text-3xl text-hot-orange">
+											<span className="font-black text-3xl text-hot-orange-contrast">
 												3.2 Tbps
 											</span>
 										)}
@@ -282,9 +283,9 @@ export default function ComputePage() {
 								<OptimizedImage
 									alt="Hot Aisle Server Racks"
 									className="h-auto w-full object-cover"
-									height={800}
-									src="/assets/compute/racks.png"
-									width={1000}
+									height={836}
+									src="/assets/compute/racks-compact.webp"
+									width={600}
 								/>
 							</div>
 						</div>

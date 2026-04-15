@@ -19,20 +19,10 @@ export default function QuickStartPage() {
 			{/* Hero Header with Banner */}
 			<div className="relative h-100 w-full overflow-hidden border-border border-b">
 				<div className="absolute inset-0 bg-background">
-					{/* Video Background */}
-					<video
-						autoPlay
-						className="absolute inset-0 h-full w-full object-cover opacity-50"
-						loop
-						muted
-						playsInline
-					>
-						<source
-							src="/assets/quickstart/Data_Bits_and_Information_Video.mp4"
-							type="video/mp4"
-						/>
-					</video>
-					<div className="absolute inset-0 bg-linear-to-t from-background via-background/80 to-transparent" />
+					<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgb(154_51_8_/_0.2),_transparent_45%),linear-gradient(180deg,_rgb(12_12_12)_0%,_rgb(0_0_0)_55%,_rgb(0_0_0)_100%)]" />
+					<div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-hot-orange/60 to-transparent" />
+					<div className="absolute inset-0 bg-[linear-gradient(rgb(255_255_255_/_0.04)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255_/_0.04)_1px,transparent_1px)] bg-[size:48px_48px] opacity-25" />
+					<div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent" />
 				</div>
 
 				<div className="absolute bottom-0 left-0 flex w-full flex-col items-center p-8 pb-12 text-center">
@@ -64,7 +54,7 @@ export default function QuickStartPage() {
 					<p className="mt-4 max-w-xl text-center text-muted-foreground text-sm">
 						If you need a terminal app, use
 						<a
-							className="mx-1 font-medium text-hot-orange hover:underline"
+							className="mx-1 font-medium text-hot-orange-contrast hover:underline"
 							href="https://www.cmux.dev/"
 							rel="noopener"
 							target="_blank"
@@ -73,7 +63,7 @@ export default function QuickStartPage() {
 						</a>
 						on macOS,
 						<a
-							className="mx-1 font-medium text-hot-orange hover:underline"
+							className="mx-1 font-medium text-hot-orange-contrast hover:underline"
 							href="https://ghostty.org/"
 							rel="noopener"
 							target="_blank"
@@ -84,7 +74,7 @@ export default function QuickStartPage() {
 						<br />
 						and
 						<a
-							className="mx-1 font-medium text-hot-orange hover:underline"
+							className="mx-1 font-medium text-hot-orange-contrast hover:underline"
 							href="https://wezterm.org/"
 							rel="noopener"
 							target="_blank"
@@ -124,7 +114,7 @@ export default function QuickStartPage() {
 							</div>
 							<div>
 								<h3 className="mb-1 font-bold text-lg">Launch Instance</h3>
-								<p className="text-neutral-400 text-sm">
+								<p className="text-muted-foreground text-sm">
 									Select your GPU configuration and start computing instantly.
 								</p>
 							</div>
@@ -292,7 +282,7 @@ export default function QuickStartPage() {
 					<div className="rounded-xl border border-hot-orange/10 bg-hot-orange/5 p-8 text-center">
 						<h3 className="mb-2 font-bold text-4xl">Questions?</h3>
 						<a
-							className="flex items-center justify-center gap-2 font-bold text-hot-orange text-xl hover:underline"
+							className="flex items-center justify-center gap-2 font-bold text-hot-orange-contrast text-xl hover:underline"
 							href="mailto:hello@hotaisle.ai"
 						>
 							<Mail size={20} /> hello@hotaisle.ai

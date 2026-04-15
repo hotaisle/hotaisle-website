@@ -47,8 +47,8 @@ export default function PricingPage() {
 					{/* Small Tier */}
 					<div className="flex flex-col rounded-2xl border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
 						<div className="mb-6">
-							<h3 className="mb-2 font-bold text-2xl text-foreground">Small</h3>
-							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange">
+							<h2 className="mb-2 font-bold text-2xl text-foreground">Small</h2>
+							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
 								<span>1x</span>
 								<span className="font-normal text-lg text-muted-foreground">
 									MI300x
@@ -92,8 +92,8 @@ export default function PricingPage() {
 							POPULAR
 						</div>
 						<div className="mb-6">
-							<h3 className="mb-2 font-bold text-2xl text-foreground">Medium</h3>
-							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange">
+							<h2 className="mb-2 font-bold text-2xl text-foreground">Medium</h2>
+							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
 								<span>2-4x</span>
 								<span className="font-normal text-lg text-muted-foreground">
 									MI300x
@@ -134,8 +134,8 @@ export default function PricingPage() {
 					{/* Large Tier */}
 					<div className="flex flex-col rounded-2xl border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
 						<div className="mb-6">
-							<h3 className="mb-2 font-bold text-2xl text-foreground">Large</h3>
-							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange">
+							<h2 className="mb-2 font-bold text-2xl text-foreground">Large</h2>
+							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
 								<span>8x</span>
 								<span className="font-normal text-lg text-muted-foreground">
 									MI300x
@@ -178,7 +178,7 @@ export default function PricingPage() {
 			{/* Features List */}
 			<div className="container mx-auto mt-24 px-6">
 				<h2 className="mb-16 text-center font-black text-4xl tracking-tight md:text-5xl">
-					All Plans <span className="text-hot-orange">Include</span>
+					All Plans <span className="text-hot-orange-contrast">Include</span>
 				</h2>
 				<div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{[
@@ -219,7 +219,7 @@ export default function PricingPage() {
 						>
 							<feature.icon className="mr-4 h-6 w-6 shrink-0 text-hot-orange" />
 							<div>
-								<h4 className="mb-1 font-bold text-foreground">{feature.title}</h4>
+								<p className="mb-1 font-bold text-foreground">{feature.title}</p>
 								<p className="text-muted-foreground text-sm">{feature.desc}</p>
 							</div>
 						</div>
