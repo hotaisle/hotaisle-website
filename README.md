@@ -42,7 +42,7 @@ The site is hosted on CloudFlare workers and is just static generated without an
     bun run dev
     ```
 
-    Open [http://localhost:3000](http://localhost:3000) to view the application.
+    Open [http://127.0.0.1:4174](http://127.0.0.1:4174) to view the application.
 
 
 ## 📂 Project Structure
