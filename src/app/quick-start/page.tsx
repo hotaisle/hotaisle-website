@@ -15,13 +15,13 @@ export function generateMetadata() {
 
 export default function QuickStartPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
+		<div className="min-h-screen bg-background pb-20 text-foreground">
 			{/* Hero Header with Banner */}
 			<div className="relative h-100 w-full overflow-hidden border-border border-b">
 				<div className="absolute inset-0 bg-background">
 					<video
 						autoPlay
-						className="absolute inset-0 h-full w-full object-cover opacity-50"
+						className="absolute inset-0 h-full w-full object-cover"
 						loop
 						muted
 						playsInline
@@ -31,7 +31,7 @@ export default function QuickStartPage() {
 							type="video/mp4"
 						/>
 					</video>
-					<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(154_51_8/0.2),transparent_45%),linear-gradient(180deg,rgb(12_12_12)_0%,rgb(0_0_0)_55%,rgb(0_0_0)_100%)]" />
+					<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(154_51_8/0.2),transparent_45%)]" />
 					<div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-hot-orange/60 to-transparent" />
 					<div className="absolute inset-0 bg-[linear-gradient(rgb(255_255_255/0.04)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.04)_1px,transparent_1px)] bg-size-[48px_48px] opacity-25" />
 					<div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent" />
