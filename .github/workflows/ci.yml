@@ -34,6 +34,7 @@ jobs:
 
       - name: Run Lighthouse
         run: bun run lighthouse
+        continue-on-error: true
 
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v6

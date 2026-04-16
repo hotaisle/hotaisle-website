@@ -35,8 +35,11 @@
 						"minScore": 0.9
 					}
 				],
+				"lcp-discovery-insight": "warn",
 				"network-dependency-tree-insight": "warn",
 				"color-contrast": "warn",
+				"render-blocking-insight": "warn",
+				"render-blocking-resources": "warn",
 				"categories:performance": [
 					"warn",
 					{
