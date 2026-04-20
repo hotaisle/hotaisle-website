@@ -1,4 +1,3 @@
-import { initializeActiveNavScript } from '@/app/active-nav-script.ts';
 import { initializeBlogImageModalScript } from '@/app/blog-image-modal-script.ts';
 import { initializeCopyCommandScript } from '@/app/copy-command-script.ts';
 import { initializeHeroStarsScript } from '@/app/hero-stars-script.ts';
@@ -21,7 +20,6 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`;
-const ACTIVE_NAV_SCRIPT = `(${initializeActiveNavScript.toString()})();`;
 const BLOG_IMAGE_MODAL_SCRIPT = `(${initializeBlogImageModalScript.toString()})();`;
 const COPY_COMMAND_SCRIPT = `(${initializeCopyCommandScript.toString()})();`;
 const HERO_STARS_SCRIPT = `(${initializeHeroStarsScript.toString()})();`;
@@ -85,7 +83,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<JsonLd />
 				{ENABLE_GTM && <link href={GTM_ORIGIN} rel="preconnect" />}
 				{ENABLE_GTM && <link crossOrigin="" href={GTM_ORIGIN} rel="dns-prefetch" />}
-				<script>{ACTIVE_NAV_SCRIPT}</script>
 				<script>{BLOG_IMAGE_MODAL_SCRIPT}</script>
 				<script>{COPY_COMMAND_SCRIPT}</script>
 				<script>{HERO_STARS_SCRIPT}</script>

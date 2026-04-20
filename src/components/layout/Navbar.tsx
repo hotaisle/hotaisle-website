@@ -1,3 +1,5 @@
+'use client';
+
 import {
 	BarChart3,
 	BookOpen,
@@ -14,9 +16,13 @@ import {
 	X,
 	Zap,
 } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { AppLink } from '@/components/AppLink.tsx';
 import { HEADER_CONTACT_LINK, HEADER_CTA_LINK, PRIMARY_NAV_LINKS } from '@/lib/navigation.ts';
 
+type NavMatchMode = 'exact' | 'section';
+
+const ARIA_CURRENT_PAGE = 'page';
 const LOGO_ALT = 'Hot Aisle';
 const LOGO_HEIGHT = 32;
 const LOGO_SRC = '/hotaisle-logo.svg';
@@ -27,6 +33,8 @@ const MOBILE_NAV_LINK_CLASS_NAME =
 	'ha-nav-link flex items-center gap-3 rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const CONTACT_LINK_CLASS_NAME =
 	'ha-nav-link hidden rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:flex';
+const INDEX_FILE_SUFFIX = '/index.html';
+const SECTION_MATCH_MODE: NavMatchMode = 'section';
 
 const ALL_NAV_ITEMS = [
 	{ href: '/quick-start', label: 'Quick Start', icon: Zap },
@@ -44,7 +52,40 @@ const ALL_NAV_ITEMS = [
 	{ href: '/policies', label: 'Policies', icon: Scale },
 ];
 
+function normalizePathname(pathname: string): string {
+	if (pathname === '/') {
+		return pathname;
+	}
+
+	if (pathname.endsWith(INDEX_FILE_SUFFIX)) {
+		return pathname.slice(0, -INDEX_FILE_SUFFIX.length) || '/';
+	}
+
+	return pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+}
+
+function isNavItemActive(currentPath: string, href: string, matchMode: NavMatchMode): boolean {
+	const targetPath = normalizePathname(href);
+
+	if (matchMode === 'exact') {
+		return currentPath === targetPath;
+	}
+
+	return currentPath === targetPath || currentPath.startsWith(`${targetPath}/`);
+}
+
 export function Navbar() {
+	const pathname = usePathname();
+	const currentPath = normalizePathname(pathname);
+	const getNavLinkProps = (href: string, matchMode: NavMatchMode = SECTION_MATCH_MODE) => {
+		const isActive = isNavItemActive(currentPath, href, matchMode);
+
+		return {
+			'aria-current': isActive ? ARIA_CURRENT_PAGE : undefined,
+			'data-active': isActive ? 'true' : undefined,
+		} as const;
+	};
+
 	return (
 		<>
 			{/* Top Navbar */}
@@ -67,9 +108,9 @@ export function Navbar() {
 							{PRIMARY_NAV_LINKS.map((item) => (
 								<AppLink
 									className={NAV_LINK_CLASS_NAME}
-									data-nav-link
 									href={item.href}
 									key={item.href}
+									{...getNavLinkProps(item.href)}
 								>
 									{item.label}
 								</AppLink>
@@ -81,10 +122,9 @@ export function Navbar() {
 					<div className="flex items-center gap-2">
 						<AppLink
 							className={CONTACT_LINK_CLASS_NAME}
-							data-nav-link
-							data-nav-match="exact"
 							href={HEADER_CONTACT_LINK.href}
 							title="Contact"
+							{...getNavLinkProps(HEADER_CONTACT_LINK.href, 'exact')}
 						>
 							<Mail className="h-4 w-4" />
 						</AppLink>
@@ -156,10 +196,10 @@ export function Navbar() {
 								return (
 									<AppLink
 										className={MOBILE_NAV_LINK_CLASS_NAME}
-										data-nav-link
 										data-mobile-nav-close
 										href={item.href}
 										key={item.href}
+										{...getNavLinkProps(item.href)}
 									>
 										<Icon className="h-5 w-5 shrink-0" />
 										<span>{item.label}</span>
@@ -180,10 +220,9 @@ export function Navbar() {
 						<div className="mt-3 flex items-center justify-between">
 							<AppLink
 								className="ha-nav-link flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground text-sm transition-colors hover:text-foreground"
-								data-nav-link
-								data-nav-match="exact"
 								data-mobile-nav-close
 								href="/contact"
+								{...getNavLinkProps('/contact', 'exact')}
 							>
 								<Mail className="h-4 w-4" />
 								Contact
