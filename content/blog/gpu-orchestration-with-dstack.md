@@ -9,7 +9,7 @@ Date: 03/02/2026
 Description: Step-by-step guide to configuring `dstack` with Hot Aisle for AMD MI300X provisioning, development, inference, and training workflows.
 Featured: No
 HA Footer: true
-Tags: GPU, Orchestration, dstack, AMD, MI300X
+Tags: GPU, Orchestration, dstack, AMD, MI300X, Guest
 
 # Orchestrating AMD GPUs with dstack
 

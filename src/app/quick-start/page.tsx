@@ -204,6 +204,42 @@ export default function QuickStartPage() {
 							</a>
 						</div>
 
+						{/* ChatXYZ */}
+						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
+							<div className="mb-4 flex items-center gap-3">
+								<Server className="h-5 w-5 shrink-0 text-hot-orange" />
+								<h3 className="font-bold text-lg">ChatXYZ + Open WebUI</h3>
+							</div>
+							<p className="text-muted-foreground text-sm">
+								Build a private ChatGPT-style interface on Hot Aisle with Open
+								WebUI, vLLM, and an SSH tunnel to your GPU VM.
+							</p>
+							<a
+								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
+								href="/blog/chatxyz-openwebui-hotaisle"
+							>
+								Read Blog Post <Terminal className="ml-1" size={14} />
+							</a>
+						</div>
+
+						{/* OpenCode */}
+						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
+							<div className="mb-4 flex items-center gap-3">
+								<Server className="h-5 w-5 shrink-0 text-hot-orange" />
+								<h3 className="font-bold text-lg">OpenCode + vLLM</h3>
+							</div>
+							<p className="text-muted-foreground text-sm">
+								Connect OpenCode to a self-hosted vLLM server on Hot Aisle with SSH
+								tunneling and AMD MI300X GPUs.
+							</p>
+							<a
+								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
+								href="/blog/opencode-vllm-hotaisle"
+							>
+								Read Blog Post <Terminal className="ml-1" size={14} />
+							</a>
+						</div>
+
 						{/* PyTorch */}
 						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
 							<div className="mb-4 flex items-center gap-3">

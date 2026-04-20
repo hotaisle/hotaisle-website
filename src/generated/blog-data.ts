@@ -76,7 +76,8 @@ export const BLOG_POSTS: GeneratedBlogPost[] = [
       "vLLM",
       "Open WebUI",
       "ROCm",
-      "Inference"
+      "Inference",
+      "Guest"
     ],
     "author": "Melissa Palmer",
     "authorProfile": {
@@ -118,7 +119,8 @@ export const BLOG_POSTS: GeneratedBlogPost[] = [
       "Orchestration",
       "dstack",
       "AMD",
-      "MI300X"
+      "MI300X",
+      "Guest"
     ],
     "author": "Andrey Cheptsov",
     "authorProfile": {
@@ -159,7 +161,8 @@ export const BLOG_POSTS: GeneratedBlogPost[] = [
       "vLLM",
       "OpenCode",
       "ROCm",
-      "Agents"
+      "Agents",
+      "Guest"
     ],
     "author": "Melissa Palmer",
     "authorProfile": {

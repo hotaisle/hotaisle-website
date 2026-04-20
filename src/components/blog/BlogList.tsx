@@ -11,16 +11,21 @@ const PUBLISH_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
 	timeZone: 'UTC',
 });
 
+const GUEST_TAG = 'Guest';
+
 export function BlogList({ posts }: { posts: BlogPost[] }) {
 	return (
 		<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 			{posts.map((post, index) => {
 				const isLatest = index === 0;
+				const isGuestPost = post.tags?.includes(GUEST_TAG) ?? false;
 
 				return (
 					<AppLink
 						className={cn(
 							'group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-lg dark:hover:border-hot-orange/50',
+							isGuestPost &&
+								'border-hot-orange/40 bg-linear-to-br from-hot-orange/10 via-card to-card shadow-hot-orange/10',
 							isLatest &&
 								'border-hot-orange bg-hot-orange/5 shadow-hot-orange/10 shadow-lg hover:border-hot-orange/70'
 						)}
@@ -47,15 +52,22 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 						{/* Content */}
 						<div className="flex flex-1 flex-col p-6">
 							<div className="mb-3 flex items-center gap-2 text-muted-foreground text-xs">
-								{isLatest ? (
-									<span className="rounded-full bg-hot-orange px-2 py-1 font-semibold text-[10px] text-white uppercase tracking-[0.2em]">
-										Latest
+								<div className="flex min-w-0 items-center gap-2">
+									{isLatest ? (
+										<span className="rounded-full bg-hot-orange px-2 py-1 font-semibold text-[10px] text-white uppercase tracking-[0.2em]">
+											Latest
+										</span>
+									) : null}
+									<Calendar size={14} />
+									<time dateTime={post.date}>
+										{PUBLISH_DATE_FORMATTER.format(new Date(post.date))}
+									</time>
+								</div>
+								{isGuestPost ? (
+									<span className="ml-auto rounded-full border border-hot-orange/30 bg-hot-orange/10 px-2 py-1 font-semibold text-[10px] text-hot-orange uppercase tracking-[0.2em]">
+										Guest Feature
 									</span>
 								) : null}
-								<Calendar size={14} />
-								<time dateTime={post.date}>
-									{PUBLISH_DATE_FORMATTER.format(new Date(post.date))}
-								</time>
 							</div>
 
 							<h3 className="mb-2 line-clamp-2 font-bold text-xl transition-colors group-hover:text-hot-orange">

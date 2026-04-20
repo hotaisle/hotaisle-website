@@ -11,7 +11,7 @@ Date: 03/17/2026
 Description: A practical guide to building a private ChatXYZ style environment using Open WebUI and a self-hosted vLLM instance on Hot Aisle. Covers architecture, SSH tunneling, and connecting a local interface to GPU-hosted inference.
 Featured: No
 HA Footer: true
-Tags: GPU, vLLM, Open WebUI, ROCm, Inference
+Tags: GPU, vLLM, Open WebUI, ROCm, Inference, Guest
 
 # Creating Your Own ChatXYZ Powered by Hot Aisle and Open WebUI
 
