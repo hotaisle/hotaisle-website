@@ -21,6 +21,12 @@ const LOGO_ALT = 'Hot Aisle';
 const LOGO_HEIGHT = 32;
 const LOGO_SRC = '/hotaisle-logo.svg';
 const LOGO_WIDTH = 104;
+const NAV_LINK_CLASS_NAME =
+	'ha-nav-link rounded-md px-3 py-2 font-medium text-muted-foreground text-sm transition-colors hover:bg-muted hover:text-foreground';
+const MOBILE_NAV_LINK_CLASS_NAME =
+	'ha-nav-link flex items-center gap-3 rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
+const CONTACT_LINK_CLASS_NAME =
+	'ha-nav-link hidden rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:flex';
 
 const ALL_NAV_ITEMS = [
 	{ href: '/quick-start', label: 'Quick Start', icon: Zap },
@@ -60,7 +66,8 @@ export function Navbar() {
 						<nav className="hidden items-center gap-1 lg:flex">
 							{PRIMARY_NAV_LINKS.map((item) => (
 								<AppLink
-									className="rounded-md px-3 py-2 font-medium text-muted-foreground text-sm transition-colors hover:bg-muted hover:text-foreground"
+									className={NAV_LINK_CLASS_NAME}
+									data-nav-link
 									href={item.href}
 									key={item.href}
 								>
@@ -73,7 +80,9 @@ export function Navbar() {
 					{/* Right: Actions */}
 					<div className="flex items-center gap-2">
 						<AppLink
-							className="hidden rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:flex"
+							className={CONTACT_LINK_CLASS_NAME}
+							data-nav-link
+							data-nav-match="exact"
 							href={HEADER_CONTACT_LINK.href}
 							title="Contact"
 						>
@@ -146,7 +155,8 @@ export function Navbar() {
 								const Icon = item.icon;
 								return (
 									<AppLink
-										className="flex items-center gap-3 rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+										className={MOBILE_NAV_LINK_CLASS_NAME}
+										data-nav-link
 										data-mobile-nav-close
 										href={item.href}
 										key={item.href}
@@ -169,7 +179,9 @@ export function Navbar() {
 						</AppLink>
 						<div className="mt-3 flex items-center justify-between">
 							<AppLink
-								className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground text-sm transition-colors hover:text-foreground"
+								className="ha-nav-link flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground text-sm transition-colors hover:text-foreground"
+								data-nav-link
+								data-nav-match="exact"
 								data-mobile-nav-close
 								href="/contact"
 							>

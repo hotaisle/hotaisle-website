@@ -221,6 +221,15 @@ body {
 	border-radius: calc(var(--radius) + 2px);
 }
 
+.ha-nav-link[data-active="true"] {
+	color: var(--foreground);
+	background-color: color-mix(in srgb, var(--hot-orange) 14%, var(--muted));
+}
+
+.ha-nav-link[data-active="true"]:hover {
+	background-color: color-mix(in srgb, var(--hot-orange) 18%, var(--muted));
+}
+
 @keyframes ha-machine-home-signal-enter {
 	0% {
 		opacity: 0;
