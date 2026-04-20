@@ -12,9 +12,13 @@ import './globals.css';
 import type * as React from 'react';
 
 const GTM_CONTAINER_ID = 'GTM-NK8WLZV8';
+const GOOGLE_FONTS_ORIGIN = 'https://fonts.googleapis.com';
+const GOOGLE_FONTS_STATIC_ORIGIN = 'https://fonts.gstatic.com';
 const GTM_ORIGIN = 'https://www.googletagmanager.com';
 const SITE_URL = 'https://hotaisle.xyz';
 const ENABLE_GTM = import.meta.env.VITE_ENABLE_GTM === 'true';
+const FONT_STYLESHEET_URL =
+	'https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Sora:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap';
 const GTM_SCRIPT = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -81,6 +85,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				<JsonLd />
+				<link href={GOOGLE_FONTS_ORIGIN} rel="preconnect" />
+				<link crossOrigin="" href={GOOGLE_FONTS_STATIC_ORIGIN} rel="preconnect" />
+				<link href={FONT_STYLESHEET_URL} rel="stylesheet" />
 				{ENABLE_GTM && <link href={GTM_ORIGIN} rel="preconnect" />}
 				{ENABLE_GTM && <link crossOrigin="" href={GTM_ORIGIN} rel="dns-prefetch" />}
 				<script>{BLOG_IMAGE_MODAL_SCRIPT}</script>

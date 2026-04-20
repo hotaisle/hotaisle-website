@@ -19,7 +19,7 @@ export default function MI300XPage() {
 		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
 			{/* MI355x Announcement Banner */}
 			<div className="animate-pulse bg-linear-to-r from-emerald-900 to-green-800 px-4 py-3 text-center font-bold text-sm text-white md:text-base">
-				🔥 We are now accepting MI355x reservations!
+				🔥 We are accepting MI355x reservations!
 				<AppLink className="ml-2 underline hover:text-white/90" href="/mi355x">
 					Reserve now
 				</AppLink>

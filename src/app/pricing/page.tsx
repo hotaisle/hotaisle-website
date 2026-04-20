@@ -16,7 +16,7 @@ export default function PricingPage() {
 		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
 			{/* MI355x Announcement Banner */}
 			<div className="animate-pulse bg-linear-to-r from-hot-orange to-red-600 px-4 py-3 text-center font-bold text-sm text-white md:text-base">
-				🔥 We are now accepting MI355x reservations!
+				🔥 We are accepting MI355x reservations!
 				<AppLink className="ml-2 underline hover:text-white/90" href="/mi355x">
 					Reserve now
 				</AppLink>
@@ -31,10 +31,14 @@ export default function PricingPage() {
 					<h1 className="mb-6 font-black text-5xl tracking-tighter md:text-7xl">
 						Transparent <span className="text-hot-orange">Pricing</span>
 					</h1>
-					<p className="mx-auto max-w-2xl text-muted-foreground text-xl">
-						<span className="font-bold text-foreground">$1.99/GPU/hr</span>.
-						Self-service. No contracts. Billed by the minute.
-					</p>
+					<div className="mx-auto max-w-2xl space-y-2 text-xl text-muted-foreground">
+						<p>
+							<span className="font-bold text-3xl text-foreground md:text-4xl">
+								$1.99/GPU/hr
+							</span>
+						</p>
+						<p>Self-service. Pay-as-you-go. Billed by the minute.</p>
+					</div>
 				</div>
 			</div>
 

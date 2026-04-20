@@ -234,17 +234,19 @@ export default function HotAisleHero() {
 						</div>
 
 						{/* Headline */}
-						<h1 className="animation-fade-in font-semibold text-5xl tracking-tight sm:text-6xl xl:text-7xl">
-							<span>Deploy MI300X GPUs</span>
+						<h1 className="animation-fade-in font-semibold text-4xl tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
+							<span className="mb-2 inline-block sm:mb-3">Deploy</span>
+							<br />
+							<span className="inline-block whitespace-nowrap">AMD MI300X GPUs</span>
 							<br />
 							<span
 								className="bg-clip-text text-transparent"
 								style={{
 									backgroundImage:
-										'linear-gradient(to right, var(--ha-hero-gradient-start), var(--ha-hero-gradient-mid), var(--ha-hero-gradient-end))',
+										'linear-gradient(to right, var(--ha-hero-gradient-mid), var(--ha-hero-gradient-end))',
 								}}
 							>
-								on demand.
+								on demand
 							</span>
 						</h1>
 
@@ -284,7 +286,7 @@ export default function HotAisleHero() {
 							className="animation-fade-in mt-8 text-sm uppercase tracking-[0.2em]"
 							style={{ color: 'var(--ha-hero-muted-soft)' }}
 						>
-							No contracts · No commitments · No drama
+							No contracts · No commitments
 						</p>
 					</div>
 				</div>
