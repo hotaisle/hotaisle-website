@@ -16,7 +16,7 @@ import {
 	X,
 	Zap,
 } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname } from 'vinext/shims/navigation';
 import { AppLink } from '@/components/AppLink.tsx';
 import { HEADER_CONTACT_LINK, HEADER_CTA_LINK, PRIMARY_NAV_LINKS } from '@/lib/navigation.ts';
 
