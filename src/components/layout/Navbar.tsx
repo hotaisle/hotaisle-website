@@ -28,11 +28,13 @@ const LOGO_HEIGHT = 32;
 const LOGO_SRC = '/hotaisle-logo.svg';
 const LOGO_WIDTH = 104;
 const NAV_LINK_CLASS_NAME =
-	'ha-nav-link rounded-md px-3 py-2 font-medium text-muted-foreground text-sm transition-colors hover:bg-muted hover:text-foreground';
+	'ha-nav-link rounded-md px-3 py-2 font-medium text-[0.95rem] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const MOBILE_NAV_LINK_CLASS_NAME =
 	'ha-nav-link flex items-center gap-3 rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const CONTACT_LINK_CLASS_NAME =
-	'ha-nav-link hidden rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:flex';
+	'ha-nav-link hidden min-h-10 min-w-10 items-center justify-center rounded-md p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:flex';
+const ICON_BUTTON_CLASS_NAME =
+	'min-h-10 min-w-10 rounded-md p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const INDEX_FILE_SUFFIX = '/index.html';
 const SECTION_MATCH_MODE: NavMatchMode = 'section';
 
@@ -126,17 +128,17 @@ export function Navbar() {
 							title="Contact"
 							{...getNavLinkProps(HEADER_CONTACT_LINK.href, 'exact')}
 						>
-							<Mail className="h-4 w-4" />
+							<Mail className="h-[1.125rem] w-[1.125rem]" />
 						</AppLink>
 
 						<button
 							aria-label="Switch to dark mode"
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+							className={ICON_BUTTON_CLASS_NAME}
 							data-theme-toggle
 							title="Switch to dark mode"
 							type="button"
 						>
-							<span aria-hidden="true" className="text-sm">
+							<span aria-hidden="true" className="text-3xl leading-none">
 								◐
 							</span>
 						</button>
