@@ -247,6 +247,30 @@ h6 {
 	border-radius: calc(var(--radius) + 2px);
 }
 
+.ha-theme-toggle {
+	position: relative;
+}
+
+.ha-theme-toggle__icon {
+	display: block;
+}
+
+.ha-theme-toggle [data-theme-icon="light"] {
+	display: none;
+}
+
+.dark .ha-theme-toggle [data-theme-icon="dark"] {
+	display: none;
+}
+
+.dark .ha-theme-toggle [data-theme-icon="light"] {
+	display: block;
+}
+
+.ha-theme-toggle__icon[hidden] {
+	display: none;
+}
+
 .ha-nav-link[data-active="true"] {
 	color: var(--foreground);
 	background-color: color-mix(in srgb, var(--hot-orange) 14%, var(--muted));
