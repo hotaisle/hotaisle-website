@@ -99,8 +99,10 @@ export default function ClusterPage() {
 					</div>
 
 					<h1 className="mb-8 font-black text-5xl text-foreground leading-tight tracking-tighter md:text-7xl">
-						Unlock the Full Potential of <br className="hidden md:block" />
-						<span className="text-hot-orange">AI & HPC</span>
+						Unlock the Full Potential <br className="hidden md:block" />
+						<span className="whitespace-nowrap">
+							of <span className="text-hot-orange">AI & HPC</span>
+						</span>
 					</h1>
 
 					{/* Cluster Photo */}

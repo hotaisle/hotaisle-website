@@ -1,3 +1,4 @@
+import type { ComponentPropsWithoutRef } from 'react';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 
 interface ImageData {
@@ -7,6 +8,12 @@ interface ImageData {
 	width: number;
 }
 
+type ClickableImageProps = ImageData &
+	Omit<ComponentPropsWithoutRef<'img'>, keyof ImageData | 'role' | 'tabIndex'> & {
+		className?: string;
+		imgClassName?: string;
+	};
+
 export function ClickableImage({
 	src,
 	alt,
@@ -14,12 +21,11 @@ export function ClickableImage({
 	height,
 	className = '',
 	imgClassName = '',
-}: ImageData & {
-	className?: string;
-	imgClassName?: string;
-}) {
+	...imgProps
+}: ClickableImageProps) {
 	return (
 		<OptimizedImage
+			{...imgProps}
 			aria-haspopup="dialog"
 			alt={alt}
 			className={
