@@ -1,5 +1,6 @@
 export function initializeBlogImageModalScript(): void {
-	const MODAL_IMAGE_SELECTOR = 'img.blog-inline-image';
+	const MODAL_IMAGE_SELECTOR = 'img.blog-inline-image, img[data-image-modal="true"]';
+	const MODAL_ACTIVATION_KEYS = new Set(['Enter', ' ']);
 
 	let overlay: HTMLElement | null = null;
 	let modalImg: HTMLImageElement | null = null;
@@ -69,23 +70,47 @@ export function initializeBlogImageModalScript(): void {
 		}
 		overlay.style.display = 'flex';
 		document.body.style.overflow = 'hidden';
+		overlay.focus();
+	};
+
+	const findModalImage = (target: EventTarget | null): HTMLImageElement | null => {
+		if (!(target instanceof Element)) {
+			return null;
+		}
+
+		const img = target.closest(MODAL_IMAGE_SELECTOR);
+		if (!(img instanceof HTMLImageElement)) {
+			return null;
+		}
+
+		return img;
 	};
 
 	document.addEventListener('click', (event) => {
-		const target = event.target;
-		if (!(target instanceof Element)) {
+		const img = findModalImage(event.target);
+		if (!img) {
 			return;
 		}
-		const img = target.closest(MODAL_IMAGE_SELECTOR);
-		if (!(img instanceof HTMLImageElement)) {
-			return;
-		}
+
 		openModal(img);
 	});
 
 	document.addEventListener('keydown', (event) => {
 		if (event.key === 'Escape' && overlay && overlay.style.display !== 'none') {
 			closeModal();
+			return;
 		}
+
+		if (!MODAL_ACTIVATION_KEYS.has(event.key)) {
+			return;
+		}
+
+		const img = findModalImage(event.target);
+		if (!img) {
+			return;
+		}
+
+		event.preventDefault();
+		openModal(img);
 	});
 }

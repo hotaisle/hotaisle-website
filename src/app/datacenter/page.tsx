@@ -9,7 +9,7 @@ import {
 	Video,
 	Zap,
 } from 'lucide-react';
-import { OptimizedImage } from '@/components/OptimizedImage.tsx';
+import { ClickableImage } from '@/components/ClickableImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
 export function generateMetadata() {
@@ -105,7 +105,7 @@ export default function DatacenterPage() {
 					{/* Hero Image - Inside View */}
 					<div className="relative w-full flex-1">
 						<div className="relative aspect-video overflow-hidden rounded-2xl border-4 border-background shadow-2xl">
-							<OptimizedImage
+							<ClickableImage
 								alt="Switch Datacenter Interior"
 								className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
 								height={1080}
@@ -167,14 +167,14 @@ export default function DatacenterPage() {
 							className="relative overflow-hidden rounded-2xl border-4 border-background shadow-2xl"
 							style={{ aspectRatio: '4/3' }}
 						>
-							<OptimizedImage
+							<ClickableImage
 								alt="Switch Pyramid Datacenter Exterior"
 								className="h-full w-full object-cover"
 								height={1080}
 								src="/assets/datacenter/outside.png"
 								width={1920}
 							/>
-							<div className="absolute inset-0 flex items-end bg-linear-to-t from-black/60 to-transparent p-8">
+							<div className="pointer-events-none absolute inset-0 flex items-end bg-linear-to-t from-black/60 to-transparent p-8">
 								<div className="text-white">
 									<div className="font-bold text-2xl">The Pyramid</div>
 									<div className="text-sm opacity-80">Grand Rapids, Michigan</div>

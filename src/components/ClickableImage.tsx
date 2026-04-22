@@ -20,10 +20,18 @@ export function ClickableImage({
 }) {
 	return (
 		<OptimizedImage
+			aria-haspopup="dialog"
 			alt={alt}
-			className={className.length > 0 ? `${className} ${imgClassName}` : imgClassName}
+			className={
+				className.length > 0
+					? `${className} ${imgClassName} cursor-zoom-in`
+					: `${imgClassName} cursor-zoom-in`
+			}
+			data-image-modal="true"
 			height={height}
+			role="button"
 			src={src}
+			tabIndex={0}
 			width={width}
 		/>
 	);
