@@ -1,10 +1,12 @@
 const SITE_NAME = 'Hot Aisle';
 const SITE_URL = 'https://hotaisle.xyz';
 const SITE_LOCALE = 'en_US';
+const SITE_TWITTER_HANDLE = '@HotAisle';
 const DEFAULT_IMAGE = '/assets/og/hot-aisle-share.png';
 const DEFAULT_IMAGE_ALT = 'Hot Aisle branded share image';
 const DEFAULT_IMAGE_WIDTH = 1200;
 const DEFAULT_IMAGE_HEIGHT = 630;
+const DEFAULT_IMAGE_TYPE = 'image/png';
 const SITE_METADATA_BASE = new URL(SITE_URL);
 
 interface PageMetadataOptions {
@@ -29,6 +31,7 @@ export function createPageMetadata({
 	const imageMetadata = {
 		alt: imageAlt,
 		height: DEFAULT_IMAGE_HEIGHT,
+		type: DEFAULT_IMAGE_TYPE,
 		url: imageUrl,
 		width: DEFAULT_IMAGE_WIDTH,
 	};
@@ -55,6 +58,7 @@ export function createPageMetadata({
 		},
 		twitter: {
 			card: 'summary_large_image',
+			site: SITE_TWITTER_HANDLE,
 			title,
 			description,
 			images: [imageMetadata],
