@@ -8,6 +8,7 @@ import { initializeWebMcpScript } from '@/app/webmcp-script.ts';
 import { Footer } from '@/components/layout/Footer.tsx';
 import { Navbar } from '@/components/layout/Navbar.tsx';
 import JsonLd from '@/components/seo/JsonLd.tsx';
+import { createPageMetadata } from '@/lib/metadata.ts';
 import './globals.css';
 import type * as React from 'react';
 
@@ -15,7 +16,6 @@ const GTM_CONTAINER_ID = 'GTM-NK8WLZV8';
 const GOOGLE_FONTS_ORIGIN = 'https://fonts.googleapis.com';
 const GOOGLE_FONTS_STATIC_ORIGIN = 'https://fonts.gstatic.com';
 const GTM_ORIGIN = 'https://www.googletagmanager.com';
-const SITE_URL = 'https://hotaisle.xyz';
 const ENABLE_GTM = import.meta.env.VITE_ENABLE_GTM === 'true';
 const FONT_STYLESHEET_URL =
 	'https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Sora:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap';
@@ -33,47 +33,12 @@ const THEME_SCRIPT = `(${initializeThemeScript.toString()})();`;
 const WEB_MCP_SCRIPT = `(${initializeWebMcpScript.toString()})();`;
 
 export const metadata = {
-	title: 'Hot Aisle - AMD Exclusive AI Cloud',
-	description:
-		'AMD GPU cloud for AI and HPC workloads. MI300X instances, cluster design, networking, and direct human support.',
-	alternates: {
-		canonical: SITE_URL,
-	},
-	robots: {
-		follow: true,
-		index: true,
-	},
-	openGraph: {
-		title: 'Hot Aisle - AMD Exclusive AI Cloud',
+	...createPageMetadata({
 		description:
 			'AMD GPU cloud for AI and HPC workloads. MI300X instances, cluster design, networking, and direct human support.',
-		images: [
-			{
-				alt: 'Hot Aisle branded share image',
-				height: 630,
-				url: `${SITE_URL}/assets/og/hot-aisle-share.png`,
-				width: 1200,
-			},
-		],
-		locale: 'en_US',
-		siteName: 'Hot Aisle',
-		type: 'website',
-		url: SITE_URL,
-	},
-	twitter: {
-		card: 'summary_large_image',
-		description:
-			'AMD GPU cloud for AI and HPC workloads. MI300X instances, cluster design, networking, and direct human support.',
-		images: [
-			{
-				alt: 'Hot Aisle branded share image',
-				height: 630,
-				url: `${SITE_URL}/assets/og/hot-aisle-share.png`,
-				width: 1200,
-			},
-		],
+		path: '/',
 		title: 'Hot Aisle - AMD Exclusive AI Cloud',
-	},
+	}),
 	icons: {
 		icon: '/assets/branding/hotaisle-favicon.svg',
 		shortcut: '/assets/branding/hotaisle-favicon.svg',

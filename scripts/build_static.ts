@@ -38,6 +38,7 @@ const MAX_REDIRECT_HOPS = 10;
 const INLINE_SCRIPT_REGEX = /<script([^>]*)>([\s\S]*?)<\/script>/g;
 const INLINE_STYLE_REGEX = /<style([^>]*)>([\s\S]*?)<\/style>/g;
 const LINK_TAG_REGEX = /<link\b[^>]*>/g;
+const META_TAG_REGEX = /<meta\b[^>]*>/g;
 const STYLESHEET_PRELOAD_REGEX =
 	/<link\b[^>]*\brel=(?:"preload"|'preload'|preload)\b[^>]*\bas=(?:"style"|'style'|style)\b[^>]*\/?>/g;
 const MODULE_PRELOAD_REGEX =
@@ -49,6 +50,14 @@ const CSS_COMMENT_REGEX = /\/\*[\s\S]*?\*\//g;
 const UNICODE_DIACRITICS_REGEX = /[\u0300-\u036f]/g;
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]+/g;
 const EDGE_DASHES_REGEX = /^-+|-+$/g;
+const IMAGE_MIME_TYPES_BY_EXTENSION = {
+	'.avif': 'image/avif',
+	'.gif': 'image/gif',
+	'.jpeg': 'image/jpeg',
+	'.jpg': 'image/jpeg',
+	'.png': 'image/png',
+	'.webp': 'image/webp',
+} as const;
 
 process.env.NODE_ENV = 'production';
 
@@ -138,7 +147,8 @@ function toRequestPath(routePath: string): string {
 
 async function normalizeExportedHtml(html: string): Promise<string> {
 	const stripped = stripClientBootstrap(html);
-	const withStyles = await inlineStylesheetLinks(stripped);
+	const withOpenGraphImageType = insertOpenGraphImageTypeMeta(stripped);
+	const withStyles = await inlineStylesheetLinks(withOpenGraphImageType);
 	const withMinifiedJs = minifyInlineScripts(withStyles);
 	const withMinifiedCss = minifyInlineStyles(withMinifiedJs);
 	return minifyHtml(Buffer.from(withMinifiedCss), { minify_js: false, minify_css: false }).toString('utf8');
@@ -387,6 +397,42 @@ function stripClientBootstrap(html: string): string {
 		.replace(/<script>self\.__VINEXT_RSC_PARAMS__=.*?<\/script>/g, '')
 		.replace(/<script>self\.__VINEXT_RSC_NAV__=.*?<\/script>/g, '')
 		.replace(/<script id="_R_">[\s\S]*?<\/script>/g, '');
+}
+
+function insertOpenGraphImageTypeMeta(html: string): string {
+	if (html.includes('property="og:image:type"')) {
+		return html;
+	}
+
+	const metaTags = [...html.matchAll(META_TAG_REGEX)];
+	const imageMetaTag = metaTags.find((match) => {
+		const [tag] = match;
+		const attributes = getTagAttributes(tag);
+		return attributes.property === 'og:image' && Boolean(attributes.content);
+	});
+
+	if (!imageMetaTag) {
+		return html;
+	}
+
+	const [fullMatch] = imageMetaTag;
+	const imageUrl = getTagAttributes(fullMatch).content;
+	const mimeType = getImageMimeType(imageUrl);
+
+	if (!mimeType) {
+		return html;
+	}
+
+	return html.replace(fullMatch, `${fullMatch}<meta property="og:image:type" content="${mimeType}">`);
+}
+
+function getImageMimeType(imageUrl: string): string | null {
+	const pathname = new URL(imageUrl, EXPORT_ORIGIN).pathname;
+	const extension = path.extname(pathname).toLowerCase();
+
+	return IMAGE_MIME_TYPES_BY_EXTENSION[
+		extension as keyof typeof IMAGE_MIME_TYPES_BY_EXTENSION
+	] ?? null;
 }
 
 async function inlineStylesheetLinks(html: string): Promise<string> {
