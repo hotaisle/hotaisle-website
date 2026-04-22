@@ -12,6 +12,9 @@ type ClickableImageProps = ImageData &
 	Omit<ComponentPropsWithoutRef<'img'>, keyof ImageData | 'role' | 'tabIndex'> & {
 		className?: string;
 		imgClassName?: string;
+		modalHeight?: number;
+		modalSrc?: string;
+		modalWidth?: number;
 	};
 
 export function ClickableImage({
@@ -21,6 +24,9 @@ export function ClickableImage({
 	height,
 	className = '',
 	imgClassName = '',
+	modalHeight,
+	modalSrc,
+	modalWidth,
 	...imgProps
 }: ClickableImageProps) {
 	return (
@@ -34,6 +40,9 @@ export function ClickableImage({
 					: `${imgClassName} cursor-zoom-in`
 			}
 			data-image-modal="true"
+			data-image-modal-height={modalHeight}
+			data-image-modal-src={modalSrc}
+			data-image-modal-width={modalWidth}
 			height={height}
 			role="button"
 			src={src}
