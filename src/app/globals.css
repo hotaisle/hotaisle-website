@@ -344,6 +344,11 @@ h6 {
 	cursor: pointer;
 }
 
+img.blog-inline-image,
+img[data-image-modal="true"] {
+	cursor: pointer;
+}
+
 .prose h1,
 .prose h2,
 .prose h3 {
