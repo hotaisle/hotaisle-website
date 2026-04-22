@@ -104,6 +104,9 @@ export default function ComputePage() {
 								className="h-auto w-full object-contain transition-transform duration-700 hover:scale-105"
 								fetchPriority="high"
 								height={316}
+								modalHeight={723}
+								modalSrc="/assets/compute/hero.webp"
+								modalWidth={1243}
 								src="/assets/compute/hero-compact.webp"
 								width={544}
 							/>
@@ -114,6 +117,9 @@ export default function ComputePage() {
 								alt="AMD MI300X Detail"
 								className="h-full w-full object-cover"
 								height={184}
+								modalHeight={745}
+								modalSrc="/assets/compute/gpu.webp"
+								modalWidth={864}
 								src="/assets/compute/gpu-compact.webp"
 								width={184}
 							/>

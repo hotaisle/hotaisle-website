@@ -34,12 +34,13 @@ export function initializeBlogImageModalScript(): void {
 		closeBtn.addEventListener('click', closeModal);
 
 		const imgWrapper = document.createElement('div');
-		imgWrapper.style.cssText = 'max-height:100%;max-width:72rem';
+		imgWrapper.style.cssText =
+			'display:flex;align-items:center;justify-content:center;max-height:100%;max-width:min(96vw,92rem);border-radius:0.875rem;background:#fff;padding:1rem;box-shadow:0 25px 50px -12px rgba(0,0,0,0.35)';
 
 		modalImg = document.createElement('img');
 		modalImg.alt = '';
 		modalImg.style.cssText =
-			'max-height:85vh;width:auto;max-width:100%;border-radius:0.75rem;object-fit:contain;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);border:2px solid rgba(255,255,255,0.35)';
+			'display:block;max-height:82vh;min-width:min(42rem,100%);width:auto;max-width:100%;border-radius:0.5rem;object-fit:contain';
 
 		imgWrapper.appendChild(modalImg);
 		overlay.appendChild(closeBtn);
@@ -58,10 +59,10 @@ export function initializeBlogImageModalScript(): void {
 		if (!(modalImg && overlay)) {
 			return;
 		}
-		modalImg.src = img.currentSrc || img.src;
+		modalImg.src = img.dataset.imageModalSrc ?? img.currentSrc ?? img.src;
 		modalImg.alt = img.alt;
-		const w = img.getAttribute('width');
-		const h = img.getAttribute('height');
+		const w = img.dataset.imageModalWidth ?? img.getAttribute('width');
+		const h = img.dataset.imageModalHeight ?? img.getAttribute('height');
 		if (w) {
 			modalImg.width = Number(w);
 		}
