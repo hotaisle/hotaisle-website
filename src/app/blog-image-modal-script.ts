@@ -3,6 +3,7 @@ export function initializeBlogImageModalScript(): void {
 	const MODAL_ACTIVATION_KEYS = new Set(['Enter', ' ']);
 
 	let overlay: HTMLElement | null = null;
+	let modalImageFrame: HTMLElement | null = null;
 	let modalImg: HTMLImageElement | null = null;
 
 	const closeModal = () => {
@@ -35,7 +36,8 @@ export function initializeBlogImageModalScript(): void {
 
 		const imgWrapper = document.createElement('div');
 		imgWrapper.style.cssText =
-			'display:flex;align-items:center;justify-content:center;max-height:100%;max-width:min(96vw,92rem);border-radius:0.875rem;background:#fff;padding:1rem;box-shadow:0 25px 50px -12px rgba(0,0,0,0.35)';
+			'display:flex;align-items:center;justify-content:center;max-height:100%;max-width:min(96vw,92rem);border:1px solid var(--border);border-radius:0.875rem;background:var(--background);padding:1rem;box-shadow:0 25px 50px -12px rgba(0,0,0,0.35)';
+		modalImageFrame = imgWrapper;
 
 		modalImg = document.createElement('img');
 		modalImg.alt = '';
@@ -61,6 +63,13 @@ export function initializeBlogImageModalScript(): void {
 		}
 		modalImg.src = img.dataset.imageModalSrc ?? img.currentSrc ?? img.src;
 		modalImg.alt = img.alt;
+		const rootStyle = window.getComputedStyle(document.documentElement);
+		if (modalImageFrame) {
+			modalImageFrame.style.backgroundColor = rootStyle
+				.getPropertyValue('--background')
+				.trim();
+			modalImageFrame.style.borderColor = rootStyle.getPropertyValue('--border').trim();
+		}
 		const w = img.dataset.imageModalWidth ?? img.getAttribute('width');
 		const h = img.dataset.imageModalHeight ?? img.getAttribute('height');
 		if (w) {

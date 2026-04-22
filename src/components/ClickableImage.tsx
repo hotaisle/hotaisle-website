@@ -36,8 +36,8 @@ export function ClickableImage({
 			alt={alt}
 			className={
 				className.length > 0
-					? `${className} ${imgClassName} cursor-zoom-in`
-					: `${imgClassName} cursor-zoom-in`
+					? `${className} ${imgClassName} cursor-pointer`
+					: `${imgClassName} cursor-pointer`
 			}
 			data-image-modal="true"
 			data-image-modal-height={modalHeight}
