@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { usePathname } from 'vinext/shims/navigation';
 import { AppLink } from '@/components/AppLink.tsx';
+import { ThemeToggle } from '@/components/ThemeToggle.tsx';
 import { HEADER_CONTACT_LINK, HEADER_CTA_LINK, PRIMARY_NAV_LINKS } from '@/lib/navigation.ts';
 
 type NavMatchMode = 'exact' | 'section';
@@ -33,8 +34,6 @@ const MOBILE_NAV_LINK_CLASS_NAME =
 	'ha-nav-link flex items-center gap-3 rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const CONTACT_LINK_CLASS_NAME =
 	'ha-nav-link hidden min-h-10 min-w-10 items-center justify-center rounded-md p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:flex';
-const ICON_BUTTON_CLASS_NAME =
-	'min-h-10 min-w-10 rounded-md p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const INDEX_FILE_SUFFIX = '/index.html';
 const SECTION_MATCH_MODE: NavMatchMode = 'section';
 
@@ -131,17 +130,7 @@ export function Navbar() {
 							<Mail className="h-[1.125rem] w-[1.125rem]" />
 						</AppLink>
 
-						<button
-							aria-label="Switch to dark mode"
-							className={ICON_BUTTON_CLASS_NAME}
-							data-theme-toggle
-							title="Switch to dark mode"
-							type="button"
-						>
-							<span aria-hidden="true" className="text-3xl leading-none">
-								◐
-							</span>
-						</button>
+						<ThemeToggle />
 
 						<AppLink
 							className="ha-header-cta hidden bg-hot-orange px-4 py-2 font-medium text-sm text-white shadow-sm transition hover:opacity-90 lg:inline-flex"

@@ -15,6 +15,7 @@ import {
 	Zap,
 } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
+import { ThemeToggle } from '@/components/ThemeToggle.tsx';
 import { cn } from '@/lib/utils.ts';
 
 const NAV_ITEMS = [
@@ -55,15 +56,7 @@ export function Sidebar() {
 						</div>
 					</AppLink>
 					<div className="flex items-center gap-2">
-						<button
-							aria-label="Switch to dark mode"
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
-							data-theme-toggle
-							title="Switch to dark mode"
-							type="button"
-						>
-							<span aria-hidden="true">◐</span>
-						</button>
+						<ThemeToggle className="hover:bg-hot-orange/10 hover:text-hot-orange" />
 						<button
 							aria-controls="mobile-sidebar-nav"
 							aria-expanded="false"
@@ -190,15 +183,7 @@ export function Sidebar() {
 							>
 								<Mail size={20} />
 							</AppLink>
-							<button
-								aria-label="Switch to dark mode"
-								className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
-								data-theme-toggle
-								title="Switch to dark mode"
-								type="button"
-							>
-								<span aria-hidden="true">◐</span>
-							</button>
+							<ThemeToggle className="hover:bg-hot-orange/10 hover:text-hot-orange" />
 						</div>
 						<div className="min-w-0 flex-1 text-right">
 							<span className="font-medium text-muted-foreground text-sm opacity-70">
