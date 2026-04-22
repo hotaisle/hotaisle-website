@@ -1,6 +1,6 @@
 import { Server, ShieldCheck } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
-import { OptimizedImage } from '@/components/OptimizedImage.tsx';
+import { ClickableImage } from '@/components/ClickableImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
 export function generateMetadata() {
@@ -99,7 +99,7 @@ export default function ComputePage() {
 					{/* Hero Image */}
 					<div className="group relative w-full flex-1">
 						<div className="relative overflow-hidden rounded-3xl border border-border p-8 shadow-2xl">
-							<OptimizedImage
+							<ClickableImage
 								alt="Dell PowerEdge XE9680"
 								className="h-auto w-full object-contain transition-transform duration-700 hover:scale-105"
 								fetchPriority="high"
@@ -110,7 +110,7 @@ export default function ComputePage() {
 						</div>
 						{/* GPU Detail - Bottom Left */}
 						<div className="absolute -bottom-8 -left-8 z-20 h-32 w-32 overflow-hidden rounded-xl border border-border bg-background shadow-2xl md:h-40 md:w-40">
-							<OptimizedImage
+							<ClickableImage
 								alt="AMD MI300X Detail"
 								className="h-full w-full object-cover"
 								height={184}
@@ -278,7 +278,7 @@ export default function ComputePage() {
 						{/* Racks Image Visual */}
 						<div className="relative">
 							<div className="relative z-10 overflow-hidden rounded-2xl border-4 border-background shadow-2xl">
-								<OptimizedImage
+								<ClickableImage
 									alt="Hot Aisle Server Racks"
 									className="h-auto w-full object-cover"
 									height={836}
