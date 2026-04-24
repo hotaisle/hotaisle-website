@@ -57,12 +57,12 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - `bun run check` runs formatting, import checks, and TypeScript.
 - `bun run test` runs the test suite.
 - `bun run build` generates the static output used for deploys.
-- `bun run preview` builds the static output and serves it locally over HTTPS at `https://localhost:4174`. This is a static-only server — the Worker is not running, so `/ws` and `/machine-status` are unavailable.
+- `bun run preview` builds the static output and serves it locally over HTTPS at `https://localhost:4174`. This is a static-only server — the Worker is not running, so `/api/ws` and `/api/machine-status` are unavailable.
 - `bun run test:toast` posts a sample machine-status event to the local Worker.
 
 ### Previewing with the Worker (WSS / machine-status)
 
-`bun run preview` does not start the Cloudflare Worker, so the WebSocket endpoint (`/ws`) and machine-status push (`/machine-status`) will not work. To test the full stack locally, build first then start Wrangler dev in a second terminal:
+`bun run preview` does not start the Cloudflare Worker, so the WebSocket endpoint (`/api/ws`) and machine-status push (`/api/machine-status`) will not work. To test the full stack locally, build first then start Wrangler dev in a second terminal:
 
 ```bash
 # Terminal 1
@@ -78,18 +78,18 @@ Wrangler dev handles both static asset serving and the Worker, so `bun run previ
 
 The local Worker exposes:
 
-- `POST /machine-status`
-- `GET /ws`
+- `POST /api/machine-status`
+- `GET /api/ws`
 
-`POST /machine-status` expects the shared secret header:
+`POST /api/machine-status` expects the shared secret header:
 
 ```text
-x-hotaisle-machine-status-secret: <secret>
+x-hotaisle-auth: <secret>
 ```
 
 Local dev defaults:
 
-- URL: `https://localhost:4174/machine-status`
+- URL: `https://localhost:4174/api/machine-status`
 - Secret: `dev-secret`
 
 Payloads:
@@ -113,8 +113,8 @@ bun run test:toast vm reserved 4
 Optional overrides:
 
 ```bash
-HOTAISLE_MACHINE_STATUS_SECRET=your-secret \
-HOTAISLE_MACHINE_STATUS_URL=https://localhost:4174/machine-status \
+HOTAISLE_SECRET=your-secret \
+HOTAISLE_MACHINE_STATUS_URL=https://localhost:4174/api/machine-status \
 bun run test:toast vm deleted 8
 ```
 
