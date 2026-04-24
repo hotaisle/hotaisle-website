@@ -17,6 +17,8 @@ const GOOGLE_FONTS_ORIGIN = 'https://fonts.googleapis.com';
 const GOOGLE_FONTS_STATIC_ORIGIN = 'https://fonts.gstatic.com';
 const GTM_ORIGIN = 'https://www.googletagmanager.com';
 const ENABLE_GTM = import.meta.env.VITE_ENABLE_GTM === 'true';
+const API_BASE_PATH = '/api';
+const ENABLE_WEBSOCKET = !import.meta.env.PROD;
 const FONT_STYLESHEET_URL =
 	'https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Sora:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap';
 const GTM_SCRIPT = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -27,7 +29,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 const BLOG_IMAGE_MODAL_SCRIPT = `(${initializeBlogImageModalScript.toString()})();`;
 const COPY_COMMAND_SCRIPT = `(${initializeCopyCommandScript.toString()})();`;
 const HERO_STARS_SCRIPT = `(${initializeHeroStarsScript.toString()})();`;
-const MACHINE_STATUS_SCRIPT = `(${initializeMachineStatusScript.toString()})();`;
+const MACHINE_STATUS_SCRIPT = `(${initializeMachineStatusScript.toString()})(${JSON.stringify({
+	apiBasePath: API_BASE_PATH,
+	enabled: ENABLE_WEBSOCKET,
+})});`;
 const MOBILE_NAV_SCRIPT = `(${initializeMobileNavScript.toString()})();`;
 const THEME_SCRIPT = `(${initializeThemeScript.toString()})();`;
 const WEB_MCP_SCRIPT = `(${initializeWebMcpScript.toString()})();`;

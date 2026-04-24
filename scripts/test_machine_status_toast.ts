@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process';
 const DEFAULT_SECRET = 'dev-secret';
 const DEFAULT_STATUS = 'deleted';
 const DEFAULT_TYPE = 'bm';
-const DEFAULT_URL = 'https://localhost:4174/machine-status';
+const DEFAULT_URL = 'https://localhost:4174/api/machine-status';
 const VALID_STATUSES = ['reserved', 'deleted'] as const;
 const VALID_TYPES = ['vm', 'bm'] as const;
 
@@ -59,7 +59,7 @@ const parseArgs = (): MachineStatusPayload => {
 
 const run = (): void => {
 	const payload = parseArgs();
-	const secret = process.env.HOTAISLE_MACHINE_STATUS_SECRET ?? DEFAULT_SECRET;
+	const secret = process.env.HOTAISLE_SECRET ?? DEFAULT_SECRET;
 	const url = process.env.HOTAISLE_MACHINE_STATUS_URL ?? DEFAULT_URL;
 
 	const processResult = spawnSync(
@@ -73,7 +73,7 @@ const run = (): void => {
 			'-H',
 			'content-type: application/json',
 			'-H',
-			`x-hotaisle-machine-status-secret: ${secret}`,
+			`x-hotaisle-auth: ${secret}`,
 			'--data',
 			JSON.stringify(payload),
 		],

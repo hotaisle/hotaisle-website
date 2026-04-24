@@ -34,7 +34,7 @@ export default function Home() {
 						Ready to accelerate?
 					</h2>
 					<p className="mb-8 text-lg text-muted-foreground">
-						Launch a GPU instance in under 60 seconds. No contracts required.
+						Launch a GPU instance in under 60 seconds.
 					</p>
 					<AppLink
 						className="inline-flex items-center gap-2 rounded-xl bg-hot-orange px-8 py-4 font-semibold text-base text-white shadow-hot-orange/20 shadow-lg transition hover:-translate-y-0.5 hover:opacity-90"

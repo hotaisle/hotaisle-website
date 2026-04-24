@@ -27,6 +27,8 @@
 	/* Sky 100 */
 	--accent-foreground: #0284c7;
 	/* Sky 600 */
+	--success: #16a34a;
+	--success-foreground: #ffffff;
 	--destructive: #ef4444;
 	--destructive-foreground: #ffffff;
 	--border: #e2e8f0;
@@ -73,6 +75,8 @@
 	/* Sky 900 */
 	--accent-foreground: #38bdf8;
 	/* Sky 400 */
+	--success: #22c55e;
+	--success-foreground: #052e16;
 	--destructive: #7f1d1d;
 	--destructive-foreground: #fafafa;
 	--border: #262626;
@@ -96,6 +100,8 @@
 	--color-muted-foreground: var(--muted-foreground);
 	--color-accent: var(--accent);
 	--color-accent-foreground: var(--accent-foreground);
+	--color-success: var(--success);
+	--color-success-foreground: var(--success-foreground);
 	--color-destructive: var(--destructive);
 	--color-destructive-foreground: var(--destructive-foreground);
 	--color-border: var(--border);
@@ -152,21 +158,37 @@ h6 {
 	clip: rect(0, 0, 0, 0);
 }
 
-.ha-machine-home-signal {
+.ha-machine-home-signal-stack {
 	position: fixed;
 	top: 5.5rem;
 	right: 1rem;
 	z-index: 80;
-	width: min(22rem, calc(100vw - 1.5rem));
-	min-height: 10.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.85rem;
+	width: min(28rem, calc(100vw - 1.5rem));
+	max-width: calc(100vw - 1.5rem);
 	pointer-events: none;
+}
+
+.ha-machine-home-signal {
+	position: relative;
+	width: 100%;
+	min-height: 10.5rem;
+	pointer-events: auto;
 	opacity: 0;
 	transform: translateY(18px) scale(0.96);
+	cursor: pointer;
 }
 
 .ha-machine-home-signal.is-active {
 	animation: ha-machine-home-signal-enter 420ms
 		cubic-bezier(0.18, 0.89, 0.32, 1.18) forwards;
+}
+
+.ha-machine-home-signal.is-exiting {
+	animation: ha-machine-home-signal-exit 260ms ease forwards;
 }
 
 .ha-machine-home-signal__glow {
@@ -182,6 +204,53 @@ h6 {
 	filter: blur(28px);
 }
 
+.ha-machine-home-signal__dismiss {
+	position: absolute;
+	top: 0.7rem;
+	right: 0.7rem;
+	z-index: 2;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.5rem;
+	height: 2.5rem;
+	padding: 0 0.85rem;
+	background: linear-gradient(180deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.04));
+	border: 1px solid rgb(255 255 255 / 0.12);
+	border-radius: 999px;
+	box-shadow:
+		0 10px 24px rgb(0 0 0 / 0.22),
+		0 0 0 1px rgb(255 255 255 / 0.02) inset;
+	color: var(--foreground);
+	font-size: 0.95rem;
+	font-weight: 800;
+	line-height: 1;
+	cursor: pointer;
+	transition:
+		background-color 160ms ease,
+		border-color 160ms ease,
+		box-shadow 160ms ease,
+		color 160ms ease,
+		transform 160ms ease;
+}
+
+.ha-machine-home-signal__dismiss:hover {
+	background: linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.07));
+	border-color: rgb(255 255 255 / 0.18);
+	box-shadow:
+		0 12px 28px rgb(0 0 0 / 0.26),
+		0 0 0 1px rgb(255 255 255 / 0.04) inset;
+	color: var(--foreground);
+	transform: scale(1.04);
+}
+
+.ha-machine-home-signal__dismiss:focus-visible {
+	outline: none;
+	border-color: color-mix(in srgb, var(--hot-orange) 48%, transparent);
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--hot-orange) 28%, transparent);
+	color: var(--foreground);
+}
+
 .ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__glow {
 	background: radial-gradient(
 		circle,
@@ -193,26 +262,184 @@ h6 {
 .ha-machine-home-signal__frame {
 	position: relative;
 	display: grid;
-	gap: 0.7rem;
-	padding: 1.2rem 1.2rem 1.35rem;
-	background: linear-gradient(
-		135deg,
-		color-mix(in srgb, var(--background) 54%, transparent),
-		color-mix(in srgb, var(--card) 88%, transparent)
-	);
-	border: 1px solid color-mix(in srgb, var(--hot-orange) 28%, var(--border));
-	border-radius: 1.4rem;
+	gap: 1rem;
+	width: 100%;
+	padding: 1rem;
+	background:
+		linear-gradient(180deg, rgb(255 255 255 / 0.05), transparent 38%),
+		radial-gradient(circle at top left, rgb(255 124 49 / 0.18), transparent 34%),
+		linear-gradient(
+			135deg,
+			color-mix(in srgb, var(--background) 48%, transparent),
+			color-mix(in srgb, var(--card) 92%, transparent)
+		);
+	border: 1px solid color-mix(in srgb, var(--hot-orange) 42%, var(--border));
+	border-radius: 1.6rem;
 	box-shadow:
-		0 24px 60px rgb(0 0 0 / 0.24),
-		0 0 0 1px color-mix(in srgb, var(--hot-orange) 14%, transparent) inset;
+		0 24px 60px rgb(0 0 0 / 0.32),
+		0 0 0 1px color-mix(in srgb, var(--hot-orange) 20%, transparent) inset,
+		0 0 32px color-mix(in srgb, var(--hot-orange) 14%, transparent);
 	backdrop-filter: blur(20px);
+	overflow: hidden;
+}
+
+.ha-machine-home-signal:hover .ha-machine-home-signal__frame {
+	transform: translateY(-2px);
+	box-shadow:
+		0 28px 64px rgb(0 0 0 / 0.36),
+		0 0 0 1px color-mix(in srgb, var(--hot-orange) 22%, transparent) inset,
+		0 0 36px color-mix(in srgb, var(--hot-orange) 16%, transparent);
+}
+
+.ha-machine-home-signal:focus-visible {
+	outline: none;
+}
+
+.ha-machine-home-signal:focus-visible .ha-machine-home-signal__frame {
+	box-shadow:
+		0 24px 60px rgb(0 0 0 / 0.32),
+		0 0 0 1px color-mix(in srgb, var(--hot-orange) 20%, transparent) inset,
+		0 0 0 2px color-mix(in srgb, var(--hot-orange) 68%, transparent),
+		0 0 32px color-mix(in srgb, var(--hot-orange) 14%, transparent);
+}
+
+.ha-machine-home-signal__frame::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(90deg, rgb(255 255 255 / 0.08), transparent 24%),
+		repeating-linear-gradient(
+			180deg,
+			rgb(255 255 255 / 0.03) 0,
+			rgb(255 255 255 / 0.03) 1px,
+			transparent 1px,
+			transparent 10px
+		);
+	mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.85), transparent 88%);
+	pointer-events: none;
 }
 
 .ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__frame {
 	border-color: color-mix(in srgb, var(--destructive) 18%, var(--border));
 	box-shadow:
-		0 24px 60px rgb(0 0 0 / 0.24),
-		0 0 0 1px color-mix(in srgb, var(--destructive) 14%, transparent) inset;
+		0 24px 60px rgb(0 0 0 / 0.32),
+		0 0 0 1px color-mix(in srgb, var(--destructive) 14%, transparent) inset,
+		0 0 28px color-mix(in srgb, var(--destructive) 12%, transparent);
+}
+
+.ha-machine-home-signal[data-status="deleted"]:hover .ha-machine-home-signal__frame {
+	box-shadow:
+		0 28px 64px rgb(0 0 0 / 0.36),
+		0 0 0 1px color-mix(in srgb, var(--destructive) 16%, transparent) inset,
+		0 0 36px color-mix(in srgb, var(--destructive) 14%, transparent);
+}
+
+.ha-machine-home-signal[data-status="deleted"]:focus-visible .ha-machine-home-signal__frame {
+	box-shadow:
+		0 24px 60px rgb(0 0 0 / 0.32),
+		0 0 0 1px color-mix(in srgb, var(--destructive) 14%, transparent) inset,
+		0 0 0 2px color-mix(in srgb, var(--destructive) 42%, transparent),
+		0 0 28px color-mix(in srgb, var(--destructive) 12%, transparent);
+}
+
+.ha-machine-home-signal__topline {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1rem;
+	padding-right: 3.4rem;
+}
+
+.ha-machine-home-signal__body {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 1rem;
+}
+
+.ha-machine-home-signal__metric {
+	display: grid;
+	place-items: center;
+	min-width: 6.4rem;
+	min-height: 5.75rem;
+	padding: 0.9rem 0.95rem;
+	background:
+		linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02)),
+		linear-gradient(
+			135deg,
+			color-mix(in srgb, var(--hot-orange) 24%, transparent),
+			color-mix(in srgb, var(--background) 28%, transparent)
+		);
+	border: 1px solid color-mix(in srgb, var(--hot-orange) 38%, transparent);
+	border-radius: 1.2rem;
+	box-shadow:
+		0 12px 28px rgb(0 0 0 / 0.24),
+		0 0 0 1px rgb(255 255 255 / 0.03) inset;
+}
+
+.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__metric {
+	background:
+		linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)),
+		linear-gradient(
+			135deg,
+			color-mix(in srgb, var(--destructive) 22%, transparent),
+			color-mix(in srgb, var(--background) 28%, transparent)
+		);
+	border-color: color-mix(in srgb, var(--destructive) 30%, transparent);
+}
+
+.ha-machine-home-signal__metric-count {
+	font-size: 2.15rem;
+	font-weight: 800;
+	line-height: 0.95;
+	text-align: center;
+	color: var(--foreground);
+	letter-spacing: -0.06em;
+}
+
+.ha-machine-home-signal__metric-label {
+	margin-top: 0.3rem;
+	font-size: 0.68rem;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	color: color-mix(in srgb, var(--muted-foreground) 88%, var(--hot-orange));
+	text-transform: uppercase;
+	letter-spacing: 0.22em;
+}
+
+.ha-machine-home-signal__copy {
+	display: grid;
+	gap: 0.5rem;
+}
+
+.ha-machine-home-signal__live-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.35rem 0.7rem;
+	background: rgb(255 255 255 / 0.06);
+	border: 1px solid rgb(255 255 255 / 0.08);
+	border-radius: 999px;
+	font-size: 0.68rem;
+	font-weight: 700;
+	color: var(--foreground);
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+}
+
+.ha-machine-home-signal__live-pill::before {
+	content: '';
+	width: 0.45rem;
+	height: 0.45rem;
+	background: #5dff89;
+	border-radius: 999px;
+	box-shadow: 0 0 12px rgb(93 255 137 / 0.9);
 }
 
 .ha-machine-home-signal__eyebrow {
@@ -224,9 +451,10 @@ h6 {
 }
 
 .ha-machine-home-signal__title {
-	font-size: clamp(1.6rem, 2vw, 2rem);
+	font-size: clamp(1.55rem, 2vw, 1.95rem);
 	font-weight: 800;
-	line-height: 1;
+	line-height: 0.95;
+	white-space: nowrap;
 	color: var(--foreground);
 	text-transform: uppercase;
 	letter-spacing: -0.04em;
@@ -234,13 +462,22 @@ h6 {
 
 .ha-machine-home-signal__meta {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	gap: 0.65rem;
 	font-size: 0.82rem;
 	font-weight: 600;
+	white-space: nowrap;
 	color: var(--muted-foreground);
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
+}
+
+.ha-machine-home-signal__status {
+	color: var(--success);
+}
+
+.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__status {
+	color: var(--destructive);
 }
 
 .ha-header-cta {
@@ -292,12 +529,94 @@ h6 {
 	}
 }
 
+@keyframes ha-machine-home-signal-exit {
+	0% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(-10px) scale(0.98);
+	}
+}
+
 @media (max-width: 640px) {
-	.ha-machine-home-signal {
-		top: 5rem;
+	.ha-machine-home-signal-stack {
+		top: auto;
 		right: 0.75rem;
+		bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
 		left: 0.75rem;
+		max-width: none;
+		gap: 0.55rem;
+	}
+
+	.ha-machine-home-signal {
 		width: auto;
+		min-height: 0;
+	}
+
+	.ha-machine-home-signal__frame {
+		gap: 0.75rem;
+		padding: 1rem 0.85rem 0.9rem;
+		border-radius: 1.25rem;
+	}
+
+	.ha-machine-home-signal__dismiss {
+		top: 0.55rem;
+		right: 0.55rem;
+		min-width: 2.15rem;
+		height: 2.15rem;
+		padding: 0 0.7rem;
+		font-size: 0.82rem;
+	}
+
+	.ha-machine-home-signal__topline {
+		gap: 0.6rem;
+		padding-right: 2.8rem;
+	}
+
+	.ha-machine-home-signal__eyebrow {
+		font-size: 0.62rem;
+		letter-spacing: 0.16em;
+	}
+
+	.ha-machine-home-signal__live-pill {
+		padding: 0.28rem 0.58rem;
+		font-size: 0.6rem;
+	}
+
+	.ha-machine-home-signal__body {
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.ha-machine-home-signal__metric {
+		min-width: 4.8rem;
+		min-height: 4.2rem;
+		padding: 0.65rem 0.7rem;
+	}
+
+	.ha-machine-home-signal__metric-count {
+		font-size: 1.8rem;
+	}
+
+	.ha-machine-home-signal__metric-label {
+		margin-top: 0.2rem;
+		font-size: 0.58rem;
+		letter-spacing: 0.18em;
+	}
+
+	.ha-machine-home-signal__title {
+		font-size: 1.12rem;
+		line-height: 0.95;
+		white-space: normal;
+	}
+
+	.ha-machine-home-signal__meta {
+		font-size: 0.72rem;
+		white-space: normal;
 	}
 }
 

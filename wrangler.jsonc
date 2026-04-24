@@ -9,7 +9,7 @@
 		"directory": "./dist-static",
 		"html_handling": "auto-trailing-slash",
 		"not_found_handling": "single-page-application",
-		"run_worker_first": ["/machine-status", "/ws"]
+		"run_worker_first": ["/api/machine-status", "/api/ws"]
 	},
 	"durable_objects": {
 		"bindings": [
