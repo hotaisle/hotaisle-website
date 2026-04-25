@@ -25,10 +25,12 @@ export default function AboutPage() {
 						Our Story
 					</div>
 
-					<h1 className="mb-8 font-black text-4xl text-foreground tracking-tighter md:text-6xl">
-						Thanks for stopping by.
+					<h1 className="mb-6 font-black text-3xl text-foreground leading-tight tracking-tighter sm:text-4xl md:mb-8 md:text-6xl">
+						Nice to meet you.
 					</h1>
-					<h1 className="text-3xl text-hot-orange">Nice to meet you.</h1>
+					<p className="text-2xl text-hot-orange leading-snug sm:text-3xl">
+						Thanks for stopping by.
+					</p>
 				</div>
 			</div>
 
