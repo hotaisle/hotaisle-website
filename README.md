@@ -113,7 +113,7 @@ bun run test:toast vm reserved 4
 Optional overrides:
 
 ```bash
-HOTAISLE_SECRET=your-secret \
+HOTAISLE_WEBSITE_SECRET=your-secret \
 HOTAISLE_MACHINE_STATUS_URL=https://localhost:4174/api/machine-status \
 bun run test:toast vm deleted 8
 ```
