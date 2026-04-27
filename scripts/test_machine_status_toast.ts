@@ -59,7 +59,7 @@ const parseArgs = (): MachineStatusPayload => {
 
 const run = (): void => {
 	const payload = parseArgs();
-	const secret = process.env.HOTAISLE_SECRET ?? DEFAULT_SECRET;
+	const secret = process.env.HOTAISLE_WEBSITE_SECRET ?? DEFAULT_SECRET;
 	const url = process.env.HOTAISLE_MACHINE_STATUS_URL ?? DEFAULT_URL;
 
 	const processResult = spawnSync(

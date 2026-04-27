@@ -9,7 +9,7 @@ const NO_CONTENT_STATUS = 204;
 const SWITCHING_PROTOCOLS_STATUS = 101;
 const UPGRADE_REQUIRED_STATUS = 426;
 const API_BASE_PATH = '/api';
-const HOTAISLE_SECRET = 'dev-secret';
+const HOTAISLE_WEBSITE_SECRET = 'dev-secret';
 const HOTAISLE_SECRET_HEADER = 'x-hotaisle-auth';
 const HUB_OBJECT_NAME = 'global-machine-status-hub';
 const HUB_SOCKET_TAG = 'machine-status-client';
@@ -21,7 +21,7 @@ const IS_PRODUCTION = import.meta.env.PROD;
 
 interface Env {
 	ASSETS: FetcherLike;
-	HOTAISLE_SECRET?: string;
+	HOTAISLE_WEBSITE_SECRET?: string;
 	MACHINE_STATUS_HUB: DurableObjectNamespaceLike;
 }
 
@@ -139,9 +139,10 @@ async function handleEventRequest(request: Request, env?: Env): Promise<Response
 		return new Response('Missing worker environment', { status: INTERNAL_SERVER_ERROR_STATUS });
 	}
 
-	const machineStatusSecret = env.HOTAISLE_SECRET ?? (!IS_PRODUCTION ? HOTAISLE_SECRET : null);
+	const machineStatusSecret =
+		env.HOTAISLE_WEBSITE_SECRET ?? (!IS_PRODUCTION ? HOTAISLE_WEBSITE_SECRET : null);
 	if (!machineStatusSecret) {
-		return new Response('Missing HOTAISLE_SECRET binding', {
+		return new Response('Missing HOTAISLE_WEBSITE_SECRET binding', {
 			status: INTERNAL_SERVER_ERROR_STATUS,
 		});
 	}
