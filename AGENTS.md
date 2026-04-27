@@ -11,12 +11,14 @@ Agents must follow:
 - Ask for clarification if instructions are ambiguous.
 - When unsure, prefer retrieval-led reasoning over pre-training-led reasoning
 - Write code that is **accessible, performant, type-safe, and maintainable**. Focus on clarity and explicit intent over brevity.
-- Automated commit messages should be in the format of Conventional Commits
+- Automated detailed commit messages should be in the format of Conventional Commits
+- If there are multiple different groups of changes, separate them into individual commits. Go through the entire list of pending changes until all changes are addressed.
 
 ### Environment
 - Package manager: bun (never anything else)
 - Tests: `bun run test` (not any other service test, like pnpm or node).
 - It is always ok to run `bun run`
+- If Jon or Clint is making a change and `gh` will be used, switch `gh` to the correct `jon-hotaisle` or `clint-hotaisle` user first.
 
 ### Code style
 - Prefer for...of over forEach.
