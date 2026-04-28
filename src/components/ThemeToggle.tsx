@@ -15,10 +15,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
 
 	return (
 		<button
-			aria-label="Switch to dark mode"
+			aria-label="Toggle color theme"
 			className={resolvedClassName}
 			data-theme-toggle
-			title="Switch to dark mode"
+			title="Toggle color theme"
 			type="button"
 		>
 			<Moon

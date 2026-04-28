@@ -3,7 +3,6 @@ export function initializeThemeScript(): void {
 	const DARK_CLASS = 'dark';
 	const LIGHT_CLASS = 'light';
 	const THEME_TOGGLE_SELECTOR = '[data-theme-toggle]';
-	const THEME_ICON_SELECTOR = '[data-theme-icon]';
 
 	const getStoredTheme = () => {
 		try {
@@ -35,23 +34,6 @@ export function initializeThemeScript(): void {
 		root.classList.remove(LIGHT_CLASS, DARK_CLASS);
 		root.classList.add(theme);
 		root.dataset.theme = theme;
-
-		const nextTheme = theme === DARK_CLASS ? LIGHT_CLASS : DARK_CLASS;
-		for (const button of document.querySelectorAll<HTMLElement>(THEME_TOGGLE_SELECTOR)) {
-			button.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
-			button.setAttribute('title', `Switch to ${nextTheme} mode`);
-			button.setAttribute('data-theme-current', theme);
-			const label = button.querySelector('[data-theme-label]');
-			if (label) {
-				label.textContent = theme === DARK_CLASS ? 'Dark' : 'Light';
-			}
-
-			for (const icon of button.querySelectorAll<HTMLElement>(THEME_ICON_SELECTOR)) {
-				const iconTheme = icon.getAttribute('data-theme-icon');
-				const shouldShowIcon = iconTheme === nextTheme;
-				icon.toggleAttribute('hidden', !shouldShowIcon);
-			}
-		}
 	};
 
 	const toggleTheme = () => {
