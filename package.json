@@ -12,6 +12,7 @@
 		"generate:content": "bun run generate:blog && bun run generate:images && bun run generate:static-content && bun run generate:search",
 		"watch:content": "bun run scripts/watch_content.ts",
 		"test:toast": "bun run scripts/test_machine_status_toast.ts",
+		"test:toast:prod": "bun run scripts/test_machine_status_production.ts",
 		"prebuild": "bun run generate:content",
 		"dev": "bun run preflight && bun run generate:content && (bun run watch:content & vinext dev --port 4174 --hostname localhost)",
 		"build:internal": "bun run scripts/build_static.ts",

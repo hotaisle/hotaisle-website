@@ -59,6 +59,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - `bun run build` generates the static output used for deploys.
 - `bun run preview` builds the static output and serves it locally over HTTPS at `https://localhost:4174`. This is a static-only server — the Worker is not running, so `/api/ws` and `/api/machine-status` are unavailable.
 - `bun run test:toast` posts a sample machine-status event to the local Worker.
+- `bun run test:toast:prod` opens the production websocket, posts a production machine-status event, and waits for the matching broadcast.
 
 ### Previewing with the Worker (WSS / machine-status)
 
@@ -116,6 +117,47 @@ Optional overrides:
 HOTAISLE_WEBSITE_SECRET=your-secret \
 HOTAISLE_MACHINE_STATUS_URL=https://localhost:4174/api/machine-status \
 bun run test:toast vm deleted 8
+```
+
+### Production machine-status probe
+
+The production Worker exposes:
+
+- `POST https://hotaisle.xyz/api/machine-status`
+- `GET wss://hotaisle.xyz/api/ws`
+
+To verify that production `reserved` and `deleted` events are both broadcast to connected websocket clients, run:
+
+```bash
+HOTAISLE_WEBSITE_SECRET=your-production-secret \
+bun run test:toast:prod
+```
+
+Single-event examples:
+
+```bash
+HOTAISLE_WEBSITE_SECRET=your-production-secret \
+bun run test:toast:prod bm reserved
+```
+
+```bash
+HOTAISLE_WEBSITE_SECRET=your-production-secret \
+bun run test:toast:prod vm deleted 8
+```
+
+VM two-event example:
+
+```bash
+HOTAISLE_WEBSITE_SECRET=your-production-secret \
+bun run test:toast:prod vm 8
+```
+
+Optional timeout override:
+
+```bash
+HOTAISLE_WEBSITE_SECRET=your-production-secret \
+HOTAISLE_MACHINE_STATUS_TIMEOUT_MS=15000 \
+bun run test:toast:prod
 ```
 
 
