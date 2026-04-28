@@ -2,12 +2,14 @@ import type { ComponentPropsWithoutRef } from 'react';
 import { getModernImageVariants } from '@/lib/image-optimization.ts';
 
 interface OptimizedImageProps extends Omit<ComponentPropsWithoutRef<'img'>, 'height' | 'width'> {
+	disableAvif?: boolean;
 	height: number;
 	pictureClassName?: string;
 	width: number;
 }
 
 export function OptimizedImage({
+	disableAvif = false,
 	pictureClassName,
 	src,
 	alt,
@@ -19,7 +21,9 @@ export function OptimizedImage({
 		return <img alt={alt} height={height} src={src} width={width} {...imgProps} />;
 	}
 
-	const variants = getModernImageVariants(src);
+	const variants = getModernImageVariants(src).filter((variant) => {
+		return !(disableAvif && variant.type === 'image/avif');
+	});
 	if (variants.length === 0) {
 		return <img alt={alt} height={height} src={src} width={width} {...imgProps} />;
 	}

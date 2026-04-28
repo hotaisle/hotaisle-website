@@ -187,7 +187,7 @@ export const BLOG_POSTS: GeneratedBlogPost[] = [
         }
       ]
     },
-    "coverImage": "/assets/blog/opencode-vllm-hotaisle/cloud-init-results.png",
+    "coverImage": "/assets/blog/opencode-vllm-hotaisle/opencode-connected.png",
     "metaTitle": "Connecting OpenCode to vLLM on Hot Aisle",
     "metaDescription": "Step-by-step guide to running OpenCode against a self-hosted vLLM server on Hot Aisle using an AMD MI300X, with notes on tool calling, SSH tunneling, and GPU memory concurrency tradeoffs.",
     "metaKeywords": "Hot Aisle, vLLM, OpenCode, AMD, MI300X, ROCm, coding agents, tool calling, KV cache, concurrency, SSH tunnel"

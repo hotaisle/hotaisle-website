@@ -7,7 +7,7 @@ interface AppLinkProps extends Omit<React.ComponentProps<'a'>, 'href'> {
 
 export function AppLink({ children, href, ...props }: AppLinkProps) {
 	return (
-		<a href={href} {...props}>
+		<a data-prefetch-link="true" href={href} {...props}>
 			{children}
 		</a>
 	);

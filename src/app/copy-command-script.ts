@@ -70,16 +70,20 @@ export function initializeCopyCommandScript(): void {
 		const text = button.getAttribute(COPY_TEXT_ATTRIBUTE) ?? '';
 		const copiedClassName = button.getAttribute(COPY_COPIED_CLASS_ATTRIBUTE);
 
+		if (copiedClassName) {
+			button.classList.add(copiedClassName);
+		}
+		button.textContent = 'Copied';
+		scheduleReset(button);
+
 		try {
 			await copyWithFallback(text);
-			if (copiedClassName) {
-				button.classList.add(copiedClassName);
-			}
-			button.textContent = 'Copied';
 		} catch {
+			if (copiedClassName) {
+				button.classList.remove(copiedClassName);
+			}
 			button.textContent = 'Failed';
+			scheduleReset(button);
 		}
-
-		scheduleReset(button);
 	});
 }

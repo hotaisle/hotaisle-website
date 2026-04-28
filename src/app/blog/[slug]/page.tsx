@@ -78,6 +78,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 						<OptimizedImage
 							alt={post.title}
 							className="h-full w-full object-cover"
+							disableAvif
 							height={720}
 							src={post.coverImage}
 							width={1280}
