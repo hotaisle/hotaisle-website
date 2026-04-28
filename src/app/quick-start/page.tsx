@@ -1,4 +1,5 @@
 import { BookOpen, Box, Code, Mail, Server, Terminal } from 'lucide-react';
+import { AppLink } from '@/components/AppLink.tsx';
 import CopyCommand from '@/components/CopyCommand.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
@@ -208,12 +209,12 @@ export default function QuickStartPage() {
 								Build a private ChatGPT-style interface on Hot Aisle with Open
 								WebUI, vLLM, and an SSH tunnel to your GPU VM.
 							</p>
-							<a
+							<AppLink
 								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
 								href="/blog/chatxyz-openwebui-hotaisle"
 							>
 								Read Blog Post <Terminal className="ml-1" size={14} />
-							</a>
+							</AppLink>
 						</div>
 
 						{/* OpenCode */}
@@ -226,12 +227,12 @@ export default function QuickStartPage() {
 								Connect OpenCode to a self-hosted vLLM server on Hot Aisle with SSH
 								tunneling and AMD MI300X GPUs.
 							</p>
-							<a
+							<AppLink
 								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
 								href="/blog/opencode-vllm-hotaisle"
 							>
 								Read Blog Post <Terminal className="ml-1" size={14} />
-							</a>
+							</AppLink>
 						</div>
 
 						{/* PyTorch */}

@@ -1,6 +1,7 @@
 import { initializeBlogImageModalScript } from '@/app/blog-image-modal-script.ts';
 import { initializeCopyCommandScript } from '@/app/copy-command-script.ts';
 import { initializeHeroStarsScript } from '@/app/hero-stars-script.ts';
+import { initializeLinkPrefetchScript } from '@/app/link-prefetch-script.ts';
 import { initializeMachineStatusScript } from '@/app/machine-status-script.ts';
 import { initializeMobileNavScript } from '@/app/mobile-nav-script.ts';
 import { initializeThemeScript } from '@/app/theme-script.ts';
@@ -29,6 +30,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 const BLOG_IMAGE_MODAL_SCRIPT = `(${initializeBlogImageModalScript.toString()})();`;
 const COPY_COMMAND_SCRIPT = `(${initializeCopyCommandScript.toString()})();`;
 const HERO_STARS_SCRIPT = `(${initializeHeroStarsScript.toString()})();`;
+const LINK_PREFETCH_SCRIPT = `(${initializeLinkPrefetchScript.toString()})();`;
 const MACHINE_STATUS_SCRIPT = `(${initializeMachineStatusScript.toString()})(${JSON.stringify({
 	apiBasePath: API_BASE_PATH,
 	enabled: ENABLE_WEBSOCKET,
@@ -63,6 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<script>{BLOG_IMAGE_MODAL_SCRIPT}</script>
 				<script>{COPY_COMMAND_SCRIPT}</script>
 				<script>{HERO_STARS_SCRIPT}</script>
+				<script>{LINK_PREFETCH_SCRIPT}</script>
 				<script>{MACHINE_STATUS_SCRIPT}</script>
 				<script>{MOBILE_NAV_SCRIPT}</script>
 				<script>{THEME_SCRIPT}</script>

@@ -511,26 +511,35 @@ function parseBlogFile(
 	const normalizedContent = authorProfile
 		? stripAuthorSection(withoutDuplicateHeading || parsed.contentMarkdown)
 		: withoutDuplicateHeading || parsed.contentMarkdown;
+	const configuredCoverImagePath = parsed.metadata['cover image']?.trim();
 
-	const imageMatches = normalizedContent.matchAll(MARKDOWN_IMAGE_REGEX);
 	let coverImagePath: string | undefined;
-	for (const imageMatch of imageMatches) {
-		const source = imageMatch[2];
-		if (!(source && isLikelyImageReference(source))) {
-			continue;
+	if (configuredCoverImagePath?.toLowerCase() === 'none') {
+		coverImagePath = undefined;
+	} else if (configuredCoverImagePath) {
+		coverImagePath = decodeMarkdownPath(configuredCoverImagePath);
+	} else {
+		const imageMatches = normalizedContent.matchAll(MARKDOWN_IMAGE_REGEX);
+		for (const imageMatch of imageMatches) {
+			const source = imageMatch[2];
+			if (!(source && isLikelyImageReference(source))) {
+				continue;
+			}
+			coverImagePath = decodeMarkdownPath(source);
+			break;
 		}
-		coverImagePath = decodeMarkdownPath(source);
-		break;
-	}
-	if (!coverImagePath) {
-		const coverMatch = normalizedContent.match(FIRST_MARKDOWN_IMAGE_REGEX);
-		coverImagePath = coverMatch?.[2] ? decodeMarkdownPath(coverMatch[2]) : undefined;
+
+		if (!coverImagePath) {
+			const coverMatch = normalizedContent.match(FIRST_MARKDOWN_IMAGE_REGEX);
+			coverImagePath = coverMatch?.[2] ? decodeMarkdownPath(coverMatch[2]) : undefined;
+		}
 	}
 	const coverImage =
 		coverImagePath && !EXTERNAL_OR_SPECIAL_LINK_REGEX.test(coverImagePath)
 			? toAssetUrl(coverImagePath)
 			: coverImagePath;
 	const headerImage = resolveBlogHeaderImage(slug);
+	const hasExplicitCoverImageSetting = configuredCoverImagePath !== undefined;
 
 	return {
 		slug,
@@ -546,7 +555,7 @@ function parseBlogFile(
 		metaDescription: parsed.metadata['meta description'],
 		metaKeywords: parsed.metadata['meta keywords'],
 		contentMarkdown: normalizedContent,
-		coverImage: headerImage ?? coverImage,
+		coverImage: hasExplicitCoverImageSetting ? coverImage : (headerImage ?? coverImage),
 		sourceFileName: fileName,
 	};
 }

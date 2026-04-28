@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { mkdir, stat } from 'node:fs/promises';
+import { mkdir, rm, stat } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
@@ -21,6 +21,13 @@ interface CliCommandResult {
 	stderr: string;
 	stdout: string;
 }
+
+const PUPPETEER_CACHE_MISS_SNIPPETS = [
+	'failed to set up chrome',
+	'browser folder',
+	'the executable',
+	'is missing',
+] as const;
 
 function toDiagramBaseName(index: number): string {
 	return `${GENERATED_DIAGRAM_FILE_PREFIX}${index}`;
@@ -105,6 +112,27 @@ async function runMermaidCliToFile(
 	});
 }
 
+function shouldResetMermaidCliCache(cliResult: CliCommandResult): boolean {
+	const commandOutput = `${cliResult.stdout}\n${cliResult.stderr}`.toLowerCase();
+
+	return PUPPETEER_CACHE_MISS_SNIPPETS.every((snippet) => commandOutput.includes(snippet));
+}
+
+async function runMermaidCliToFileWithRecovery(
+	diagramDefinition: string,
+	outputPath: string,
+	theme: string
+): Promise<CliCommandResult> {
+	const initialResult = await runMermaidCliToFile(diagramDefinition, outputPath, theme);
+	if (!(initialResult.exitCode !== 0 && shouldResetMermaidCliCache(initialResult))) {
+		return initialResult;
+	}
+
+	await rm(CLI_BUNX_HOME_DIRECTORY, { force: true, recursive: true });
+
+	return await runMermaidCliToFile(diagramDefinition, outputPath, theme);
+}
+
 async function renderMermaidDiagramFiles(
 	diagramDefinition: string,
 	assetDirectory: string,
@@ -136,7 +164,11 @@ async function renderMermaidDiagramFiles(
 	for (const { appearance, cliTheme } of MERMAID_THEMES) {
 		const fileName = toDiagramFileName(diagramIndex, appearance);
 		const outputPath = path.join(assetDirectory, fileName);
-		const cliResult = await runMermaidCliToFile(diagramDefinition, outputPath, cliTheme);
+		const cliResult = await runMermaidCliToFileWithRecovery(
+			diagramDefinition,
+			outputPath,
+			cliTheme
+		);
 
 		if (cliResult.exitCode === 0) {
 			continue;
