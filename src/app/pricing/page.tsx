@@ -2,10 +2,13 @@ import { Check, Server, Shield, Zap } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
+const vmPrice = '$1.99/GPU/hr';
+const bareMetalPrice = '$3.39/GPU/hr';
+
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
-			'Transparent AMD GPU pricing from Hot Aisle with self-service hourly billing and no long-term contracts.',
+			'Transparent AMD GPU pricing from Hot Aisle with hourly VM billing and 8x MI300x bare-metal monthly terms.',
 		path: '/pricing',
 		title: 'Pricing',
 	});
@@ -23,39 +26,61 @@ export default function PricingPage() {
 			</div>
 
 			{/* Hero Header */}
-			<div className="relative overflow-hidden border-border border-b px-6 py-24 text-center">
+			<div className="relative overflow-hidden border-border border-b px-6 py-20 text-center md:py-24">
 				<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-200 via-background to-background opacity-80 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-950" />
-				<div className="absolute top-1/2 left-1/2 h-150 w-150 -translate-x-1/2 -translate-y-1/2 rounded-full bg-hot-orange/10 blur-3xl" />
 
 				<div className="relative z-10 mx-auto max-w-4xl">
 					<h1 className="mb-6 font-black text-5xl tracking-tighter md:text-7xl">
 						Transparent <span className="text-hot-orange">Pricing</span>
 					</h1>
-					<div className="mx-auto max-w-2xl space-y-2 text-xl text-muted-foreground">
-						<p>
-							<span className="font-bold text-3xl text-foreground md:text-4xl">
-								$1.99/GPU/hr
-							</span>
-						</p>
-						<p>Self-service. Pay-as-you-go. Billed by the minute.</p>
+					<p className="mx-auto max-w-2xl text-muted-foreground text-xl">
+						VMs stay self-service and pay-as-you-go. Full 8x bare-metal
+						nodes are available on monthly terms.
+					</p>
+					<div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 text-left md:grid-cols-2">
+						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">
+							<p className="font-bold text-hot-orange text-sm uppercase tracking-wide">
+								Virtual machines
+							</p>
+							<p className="mt-3 font-black text-3xl text-foreground md:text-4xl">
+								{vmPrice}
+							</p>
+							<p className="mt-2 text-muted-foreground text-sm">
+								1, 2, 4x MI300x VMs. Billed by the minute.
+							</p>
+						</div>
+						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">
+							<p className="font-bold text-hot-orange text-sm uppercase tracking-wide">
+								8x bare metal
+							</p>
+							<p className="mt-3 font-black text-3xl text-foreground md:text-4xl">
+								{bareMetalPrice}
+							</p>
+							<p className="mt-2 text-muted-foreground text-sm">
+								Dedicated full-node access. One-month minimum.
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			{/* Pricing Grid */}
 			<div className="container relative z-20 mx-auto -mt-12 px-6">
-				{/* ... (Existing Pricing Grid) ... */}
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-3">
 					{/* Small Tier */}
-					<div className="flex flex-col rounded-2xl border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
+					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
 						<div className="mb-6">
+							<p className="mb-2 font-bold text-hot-orange text-sm uppercase tracking-wide">
+								VM
+							</p>
 							<h2 className="mb-2 font-bold text-2xl text-foreground">Small</h2>
-							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
+							<div className="mb-2 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
 								<span>1x</span>
 								<span className="font-normal text-lg text-muted-foreground">
 									MI300x
 								</span>
 							</div>
+							<p className="mb-3 font-bold text-foreground">{vmPrice}</p>
 							<p className="text-muted-foreground text-sm">
 								Ideal for experimentation and development.
 							</p>
@@ -89,44 +114,45 @@ export default function PricingPage() {
 					</div>
 
 					{/* Medium Tier */}
-					<div className="relative flex flex-col rounded-2xl border-2 border-hot-orange bg-card p-8 shadow-[0_0_40px] shadow-hot-orange/10 backdrop-blur-md transition-all hover:-translate-y-2 hover:transform">
-						<div className="absolute top-0 right-0 rounded-tr-lg rounded-bl-lg bg-hot-orange px-3 py-1 font-bold text-white text-xs">
-							POPULAR
-						</div>
+					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
 						<div className="mb-6">
+							<p className="mb-2 font-bold text-hot-orange text-sm uppercase tracking-wide">
+								VM
+							</p>
 							<h2 className="mb-2 font-bold text-2xl text-foreground">Medium</h2>
-							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
-								<span>2-4x</span>
+							<div className="mb-2 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
+								<span>2x &amp; 4x</span>
 								<span className="font-normal text-lg text-muted-foreground">
 									MI300x
 								</span>
 							</div>
+							<p className="mb-3 font-bold text-foreground">{vmPrice}</p>
 							<p className="text-muted-foreground text-sm">
 								For model fine-tuning and medium workloads.
 							</p>
 						</div>
 						<ul className="mb-8 flex-1 space-y-4">
 							<li className="flex items-start text-muted-foreground">
-								<Check className="mr-3 h-5 w-5 shrink-0 text-hot-orange" />
+								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>
-									<strong className="text-foreground">384GB - 768GB</strong> HBM3
+									<strong className="text-foreground">384GB or 768GB</strong> HBM3
 								</span>
 							</li>
 							<li className="flex items-start text-muted-foreground">
-								<Check className="mr-3 h-5 w-5 shrink-0 text-hot-orange" />
-								<span>26 - 52 CPU Cores</span>
+								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
+								<span>26 or 52 CPU Cores</span>
 							</li>
 							<li className="flex items-start text-muted-foreground">
-								<Check className="mr-3 h-5 w-5 shrink-0 text-hot-orange" />
-								<span>448GB - 896GB RAM</span>
+								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
+								<span>448GB or 896GB RAM</span>
 							</li>
 							<li className="flex items-start text-muted-foreground">
-								<Check className="mr-3 h-5 w-5 shrink-0 text-hot-orange" />
+								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>12TB NVMe Storage</span>
 							</li>
 						</ul>
 						<AppLink
-							className="w-full rounded-lg bg-hot-orange py-3 text-center font-bold text-white shadow-hot-orange/20 shadow-lg transition-opacity hover:opacity-90"
+							className="w-full rounded-lg bg-foreground py-3 text-center font-bold text-background transition-colors hover:bg-foreground/90"
 							href="/quick-start"
 						>
 							Deploy Medium
@@ -134,17 +160,29 @@ export default function PricingPage() {
 					</div>
 
 					{/* Large Tier */}
-					<div className="flex flex-col rounded-2xl border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
+					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
 						<div className="mb-6">
+							<p className="mb-2 font-bold text-hot-orange text-sm uppercase tracking-wide">
+								Bare metal
+							</p>
 							<h2 className="mb-2 font-bold text-2xl text-foreground">Large</h2>
-							<div className="mb-1 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
+							<div className="mb-2 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
 								<span>8x</span>
 								<span className="font-normal text-lg text-muted-foreground">
 									MI300x
 								</span>
 							</div>
+							<div className="mb-3 space-y-1">
+								<p className="font-bold text-foreground">
+									{bareMetalPrice}
+									<span className="font-normal text-muted-foreground">
+										{' '}
+										bare metal, one-month minimum
+									</span>
+								</p>
+							</div>
 							<p className="text-muted-foreground text-sm">
-								Full node power for training and massive inference.
+								Dedicated full-node power for training and massive inference.
 							</p>
 						</div>
 						<ul className="mb-8 flex-1 space-y-4">
@@ -156,11 +194,11 @@ export default function PricingPage() {
 							</li>
 							<li className="flex items-start text-muted-foreground">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
-								<span>BARE METAL Options</span>
+								<span>Dedicated bare-metal option</span>
 							</li>
 							<li className="flex items-start text-muted-foreground">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
-								<span>64 - 102 CPU Cores</span>
+								<span>64 or 102 CPU Cores</span>
 							</li>
 							<li className="flex items-start text-muted-foreground">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
@@ -169,9 +207,9 @@ export default function PricingPage() {
 						</ul>
 						<AppLink
 							className="w-full rounded-lg bg-foreground py-3 text-center font-bold text-background transition-colors hover:bg-foreground/90"
-							href="/quick-start"
+							href="/contact"
 						>
-							Deploy Large
+							Reserve Bare Metal
 						</AppLink>
 					</div>
 				</div>
