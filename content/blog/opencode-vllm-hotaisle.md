@@ -100,6 +100,25 @@ runcmd:
     echo "API should be available on port 8000 (host networking)."
 ```
 
+## A note on the `rocm/vllm:latest` image tag
+
+The `rocm/vllm:latest` image above is the easy default and works for the model in this guide, but it is currently frozen at a December 2025 build (vLLM 0.11.2 / transformers 4.57.3).  That means it predates newer model architectures: for example Qwen3.5 / Qwen3.6 (`model_type: qwen3_5`) fail to load on it with `model type qwen3_5 not recognized`.
+
+If you are running a current or bleeding-edge model, use the upstream vLLM ROCm image **`vllm/vllm-openai-rocm:latest`** instead.  Its `ENTRYPOINT` is already `["vllm", "serve"]`, so pass `serve <model> ...` as the container command (drop the leading `vllm`):
+
+```yaml
+      rocm/vllm:latest \           # frozen Dec 2025 — fine here, rejects Qwen3.5/3.6
+```
+
+becomes:
+
+```yaml
+      vllm/vllm-openai-rocm:latest \   # tracks upstream vLLM, day-0 new-model support
+      serve Qwen/Qwen3-Coder-30B-A3B-Instruct \
+```
+
+This was validated on a single MI300X with Qwen3.6-27B in June 2026.
+
 ## vLLM Configuration Explained
 
 If you are new to vLLM, here are the key configuration parameters to understand:
