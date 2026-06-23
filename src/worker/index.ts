@@ -73,9 +73,7 @@ export class MachineStatusHub {
 		return new Response('Not found', { status: 404 });
 	}
 
-	webSocketClose(webSocket: WebSocket, code: number, reason: string, _wasClean: boolean): void {
-		webSocket.close(code, reason);
-	}
+	webSocketClose(_webSocket: WebSocket, _code: number, _reason: string, _wasClean: boolean): void {}
 
 	webSocketMessage(_webSocket: WebSocket, _message: string | ArrayBuffer): void {}
 
