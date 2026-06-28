@@ -149,7 +149,7 @@ VM two-event example:
 
 ```bash
 HOTAISLE_WEBSITE_SECRET=your-production-secret \
-bun run test:toast:prod vm 8
+bun run test:toast:prod vm deleted 8
 ```
 
 Optional timeout override:
