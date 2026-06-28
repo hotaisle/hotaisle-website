@@ -16,7 +16,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 	const MOBILE_VISIBLE_HOME_SIGNALS = 2;
 	const RETRY_BASE_DELAY_MS = 1000;
 	const RETRY_MAX_DELAY_MS = 15_000;
-	const HOME_SIGNAL_DURATION_MS = 5000;
+	const HOME_SIGNAL_DURATION_MS = 60_000;
 
 	type MachineType = 'vm' | 'bm';
 	type MachineStatus = 'reserved' | 'deleted';
