@@ -73,7 +73,13 @@ export class MachineStatusHub {
 		return new Response('Not found', { status: 404 });
 	}
 
-	webSocketClose(_webSocket: WebSocket, _code: number, _reason: string, _wasClean: boolean): void {}
+	webSocketClose(webSocket: WebSocket, _code: number, _reason: string, _wasClean: boolean): void {
+		this.discardSocket(webSocket);
+	}
+
+	webSocketError(webSocket: WebSocket, _error: unknown): void {
+		this.discardSocket(webSocket);
+	}
 
 	webSocketMessage(_webSocket: WebSocket, _message: string | ArrayBuffer): void {}
 
@@ -125,6 +131,14 @@ export class MachineStatusHub {
 		}
 
 		return new Response(null, { status: NO_CONTENT_STATUS });
+	}
+
+	private discardSocket(webSocket: WebSocket): void {
+		try {
+			webSocket.close();
+		} catch {
+			return;
+		}
 	}
 }
 
