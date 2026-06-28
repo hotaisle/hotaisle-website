@@ -17,6 +17,9 @@
 		]
 	},
 	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["MachineStatusHub"] }],
+	"secrets": {
+		"required": ["HOTAISLE_WEBSITE_SECRET"]
+	},
 	"observability": {
 		"enabled": true,
 		"head_sampling_rate": 1,
