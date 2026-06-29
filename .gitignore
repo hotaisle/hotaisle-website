@@ -45,6 +45,7 @@ logs
 worker
 !src/worker/
 !src/worker/**
+.vinext/*
 
 # typescript
 *.tsbuildinfo
