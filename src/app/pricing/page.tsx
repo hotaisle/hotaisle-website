@@ -34,8 +34,8 @@ export default function PricingPage() {
 						Transparent <span className="text-hot-orange">Pricing</span>
 					</h1>
 					<p className="mx-auto max-w-2xl text-muted-foreground text-xl">
-						VMs stay self-service and pay-as-you-go. Full 8x bare-metal
-						nodes are available on monthly terms.
+						VMs stay self-service and pay-as-you-go. Full 8x bare-metal nodes are
+						available on monthly terms.
 					</p>
 					<div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 text-left md:grid-cols-2">
 						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">

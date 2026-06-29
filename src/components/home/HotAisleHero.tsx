@@ -87,7 +87,6 @@ function ParticleField() {
 					className="ha-hero-particle absolute rounded-full"
 					data-hero-star
 					key={particle.id}
-					suppressHydrationWarning
 					style={{
 						animationDelay: `${particle.delay}s`,
 						animationDuration: `${particle.duration}s`,
@@ -97,6 +96,7 @@ function ParticleField() {
 						top: particle.top,
 						width: particle.size,
 					}}
+					suppressHydrationWarning
 				/>
 			))}
 		</div>

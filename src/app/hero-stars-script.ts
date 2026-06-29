@@ -2,9 +2,7 @@ export function initializeHeroStarsScript(): void {
 	const STAR_FIELD_SELECTOR = '[data-hero-star-field]';
 	const STAR_SELECTOR = '[data-hero-star]';
 
-	const randomPercent = (): string => {
-		return `${Math.round(Math.random() * 100)}%`;
-	};
+	const randomPercent = (): string => `${Math.round(Math.random() * 100)}%`;
 
 	const positionStarField = (starField: Element): void => {
 		for (const star of starField.querySelectorAll(STAR_SELECTOR)) {

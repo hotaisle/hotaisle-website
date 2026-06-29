@@ -367,7 +367,7 @@ function resolveBlogHeaderImage(slug: string): string | undefined {
 	const headerDirectory = path.join(BLOG_ASSET_SOURCE_DIR, slug);
 
 	if (!fs.existsSync(headerDirectory)) {
-		return undefined;
+		return;
 	}
 
 	for (const fileName of BLOG_HEADER_FILE_NAMES) {
@@ -377,7 +377,7 @@ function resolveBlogHeaderImage(slug: string): string | undefined {
 		}
 	}
 
-	return undefined;
+	return;
 }
 
 function parseLegacyMetadataLine(line: string): { key: string; value: string } | null {
@@ -476,22 +476,7 @@ function parseBlogFile(
 	fileName: string,
 	fileContents: string
 ): ParsedBlogPost {
-	const parsedMatter = matter(fileContents);
-	const frontmatter = parsedMatter.data as Record<string, unknown>;
-	const hasFrontmatter = Object.keys(frontmatter).length > 0;
-	const parsed = hasFrontmatter
-		? {
-				title: String(frontmatter.title ?? ''),
-				metadata: Object.fromEntries(
-					Object.entries(frontmatter).map(([key, value]) => [
-						normalizeMetadataKey(key),
-						String(value ?? ''),
-					])
-				),
-				contentMarkdown: parsedMatter.content.trim(),
-			}
-		: parseLegacyMarkdown(fileContents);
-
+	const parsed = parseMarkdownMetadata(fileContents);
 	const sourceStem = normalizeFileStem(fileName);
 	const metadataSlug = parsed.metadata.slug?.trim();
 	const slug = slugify(metadataSlug || sourceStem);
@@ -512,34 +497,9 @@ function parseBlogFile(
 		? stripAuthorSection(withoutDuplicateHeading || parsed.contentMarkdown)
 		: withoutDuplicateHeading || parsed.contentMarkdown;
 	const configuredCoverImagePath = parsed.metadata['cover image']?.trim();
-
-	let coverImagePath: string | undefined;
-	if (configuredCoverImagePath?.toLowerCase() === 'none') {
-		coverImagePath = undefined;
-	} else if (configuredCoverImagePath) {
-		coverImagePath = decodeMarkdownPath(configuredCoverImagePath);
-	} else {
-		const imageMatches = normalizedContent.matchAll(MARKDOWN_IMAGE_REGEX);
-		for (const imageMatch of imageMatches) {
-			const source = imageMatch[2];
-			if (!(source && isLikelyImageReference(source))) {
-				continue;
-			}
-			coverImagePath = decodeMarkdownPath(source);
-			break;
-		}
-
-		if (!coverImagePath) {
-			const coverMatch = normalizedContent.match(FIRST_MARKDOWN_IMAGE_REGEX);
-			coverImagePath = coverMatch?.[2] ? decodeMarkdownPath(coverMatch[2]) : undefined;
-		}
-	}
-	const coverImage =
-		coverImagePath && !EXTERNAL_OR_SPECIAL_LINK_REGEX.test(coverImagePath)
-			? toAssetUrl(coverImagePath)
-			: coverImagePath;
 	const headerImage = resolveBlogHeaderImage(slug);
 	const hasExplicitCoverImageSetting = configuredCoverImagePath !== undefined;
+	const coverImage = resolveBlogCoverImage(configuredCoverImagePath, normalizedContent);
 
 	return {
 		slug,
@@ -558,6 +518,70 @@ function parseBlogFile(
 		coverImage: hasExplicitCoverImageSetting ? coverImage : (headerImage ?? coverImage),
 		sourceFileName: fileName,
 	};
+}
+
+function parseMarkdownMetadata(fileContents: string): ParsedLegacyMarkdown {
+	const parsedMatter = matter(fileContents);
+	const frontmatter = parsedMatter.data as Record<string, unknown>;
+	if (Object.keys(frontmatter).length === 0) {
+		return parseLegacyMarkdown(fileContents);
+	}
+
+	return {
+		title: String(frontmatter.title ?? ''),
+		metadata: Object.fromEntries(
+			Object.entries(frontmatter).map(([key, value]) => [
+				normalizeMetadataKey(key),
+				String(value ?? ''),
+			])
+		),
+		contentMarkdown: parsedMatter.content.trim(),
+	};
+}
+
+function resolveBlogCoverImage(
+	configuredCoverImagePath: string | undefined,
+	normalizedContent: string
+): string | undefined {
+	const coverImagePath = resolveBlogCoverImagePath(configuredCoverImagePath, normalizedContent);
+	if (!(coverImagePath && !EXTERNAL_OR_SPECIAL_LINK_REGEX.test(coverImagePath))) {
+		return coverImagePath;
+	}
+
+	return toAssetUrl(coverImagePath);
+}
+
+function resolveBlogCoverImagePath(
+	configuredCoverImagePath: string | undefined,
+	normalizedContent: string
+): string | undefined {
+	if (configuredCoverImagePath?.toLowerCase() === 'none') {
+		return;
+	}
+
+	if (configuredCoverImagePath) {
+		return decodeMarkdownPath(configuredCoverImagePath);
+	}
+
+	const likelyImagePath = findLikelyMarkdownImagePath(normalizedContent);
+	if (likelyImagePath) {
+		return likelyImagePath;
+	}
+
+	const coverMatch = normalizedContent.match(FIRST_MARKDOWN_IMAGE_REGEX);
+	return coverMatch?.[2] ? decodeMarkdownPath(coverMatch[2]) : undefined;
+}
+
+function findLikelyMarkdownImagePath(markdown: string): string | undefined {
+	const imageMatches = markdown.matchAll(MARKDOWN_IMAGE_REGEX);
+	for (const imageMatch of imageMatches) {
+		const source = imageMatch[2];
+		if (source && isLikelyImageReference(source)) {
+			return decodeMarkdownPath(source);
+		}
+	}
+
+	return;
 }
 
 function resolveInternalMarkdownLink(rawPath: string, fileStemToSlug: Map<string, string>): string {
@@ -618,7 +642,7 @@ async function renderMarkdown(markdown: string): Promise<string> {
 
 function toBlogAssetPath(assetUrl: string): string | undefined {
 	if (!assetUrl.startsWith(BLOG_ASSET_PREFIX)) {
-		return undefined;
+		return;
 	}
 
 	const relativeAssetPath = assetUrl.slice(BLOG_ASSET_PREFIX.length);
@@ -649,7 +673,7 @@ function resolveSluggedAssetPath(relativeAssetPath: string): string | undefined 
 			(directoryEntry) => toSlugSegment(directoryEntry.name) === pathSegment
 		);
 		if (!matchingEntry) {
-			return undefined;
+			return;
 		}
 
 		currentDirectory = path.join(currentDirectory, matchingEntry.name);

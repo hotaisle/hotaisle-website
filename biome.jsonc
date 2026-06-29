@@ -2,7 +2,7 @@
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"extends": ["ultracite/biome/core", "ultracite/biome/react"],
 	"files": {
-		"includes": ["!.*"]
+		"includes": ["!.*", "!**/*.svg"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -11,6 +11,7 @@
 		"lineWidth": 100
 	},
 	"javascript": {
+		"globals": ["WebSocketPair"],
 		"formatter": {
 			"indentStyle": "tab",
 			"indentWidth": 4,

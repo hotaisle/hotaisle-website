@@ -4,9 +4,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-	--font-sans: "Geist Mono", "SFMono-Regular", "Cascadia Code", Consolas,
+	--font-sans:
+		"Geist Mono", "SFMono-Regular", "Cascadia Code", Consolas,
 		"Liberation Mono", monospace;
-	--font-display: "Geist Mono", "SFMono-Regular", "Cascadia Code", Consolas,
+	--font-display:
+		"Geist Mono", "SFMono-Regular", "Cascadia Code", Consolas,
 		"Liberation Mono", monospace;
 	/* Arctic Light Theme */
 	--background: #ffffff;
@@ -120,8 +122,8 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: var(--foreground);
-	background-color: var(--background);
 	letter-spacing: -0.01em;
+	background-color: var(--background);
 }
 
 button,
@@ -165,8 +167,8 @@ h6 {
 	z-index: 80;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
 	gap: 0.85rem;
+	align-items: flex-end;
 	width: min(28rem, calc(100vw - 1.5rem));
 	max-width: calc(100vw - 1.5rem);
 	pointer-events: none;
@@ -177,9 +179,9 @@ h6 {
 	width: 100%;
 	min-height: 10.5rem;
 	pointer-events: auto;
+	cursor: pointer;
 	opacity: 0;
 	transform: translateY(18px) scale(0.96);
-	cursor: pointer;
 }
 
 .ha-machine-home-signal.is-active {
@@ -212,43 +214,46 @@ h6 {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	min-width: 2.5rem;
-	height: 2.5rem;
-	padding: 0 0.85rem;
-	background: linear-gradient(180deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.04));
-	border: 1px solid rgb(255 255 255 / 0.12);
-	border-radius: 999px;
-	box-shadow:
-		0 10px 24px rgb(0 0 0 / 0.22),
-		0 0 0 1px rgb(255 255 255 / 0.02) inset;
-	color: var(--foreground);
-	font-size: 0.95rem;
-	font-weight: 800;
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
 	line-height: 1;
+	color: color-mix(in srgb, var(--foreground) 72%, transparent);
 	cursor: pointer;
-	transition:
-		background-color 160ms ease,
-		border-color 160ms ease,
-		box-shadow 160ms ease,
-		color 160ms ease,
-		transform 160ms ease;
+	background: transparent;
+	border: 0;
+	border-radius: 999px;
+	transition: color 160ms ease;
+}
+
+.ha-machine-home-signal__dismiss::before,
+.ha-machine-home-signal__dismiss::after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0.9rem;
+	height: 0.125rem;
+	content: "";
+	background: currentColor;
+	border-radius: 999px;
+}
+
+.ha-machine-home-signal__dismiss::before {
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.ha-machine-home-signal__dismiss::after {
+	transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .ha-machine-home-signal__dismiss:hover {
-	background: linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.07));
-	border-color: rgb(255 255 255 / 0.18);
-	box-shadow:
-		0 12px 28px rgb(0 0 0 / 0.26),
-		0 0 0 1px rgb(255 255 255 / 0.04) inset;
 	color: var(--foreground);
-	transform: scale(1.04);
 }
 
 .ha-machine-home-signal__dismiss:focus-visible {
-	outline: none;
-	border-color: color-mix(in srgb, var(--hot-orange) 48%, transparent);
-	box-shadow: 0 0 0 2px color-mix(in srgb, var(--hot-orange) 28%, transparent);
 	color: var(--foreground);
+	outline: 2px solid color-mix(in srgb, var(--hot-orange) 48%, transparent);
+	outline-offset: 2px;
 }
 
 .ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__glow {
@@ -265,13 +270,18 @@ h6 {
 	gap: 1rem;
 	width: 100%;
 	padding: 1rem;
+	overflow: hidden;
 	background:
 		linear-gradient(180deg, rgb(255 255 255 / 0.05), transparent 38%),
-		radial-gradient(circle at top left, rgb(255 124 49 / 0.18), transparent 34%),
+		radial-gradient(
+			circle at top left,
+			rgb(255 124 49 / 0.16),
+			transparent 34%
+		),
 		linear-gradient(
 			135deg,
-			color-mix(in srgb, var(--background) 48%, transparent),
-			color-mix(in srgb, var(--card) 92%, transparent)
+			color-mix(in srgb, var(--background) 72%, var(--card)),
+			var(--card)
 		);
 	border: 1px solid color-mix(in srgb, var(--hot-orange) 42%, var(--border));
 	border-radius: 1.6rem;
@@ -279,16 +289,6 @@ h6 {
 		0 24px 60px rgb(0 0 0 / 0.32),
 		0 0 0 1px color-mix(in srgb, var(--hot-orange) 20%, transparent) inset,
 		0 0 32px color-mix(in srgb, var(--hot-orange) 14%, transparent);
-	backdrop-filter: blur(20px);
-	overflow: hidden;
-}
-
-.ha-machine-home-signal:hover .ha-machine-home-signal__frame {
-	transform: translateY(-2px);
-	box-shadow:
-		0 28px 64px rgb(0 0 0 / 0.36),
-		0 0 0 1px color-mix(in srgb, var(--hot-orange) 22%, transparent) inset,
-		0 0 36px color-mix(in srgb, var(--hot-orange) 16%, transparent);
 }
 
 .ha-machine-home-signal:focus-visible {
@@ -304,9 +304,10 @@ h6 {
 }
 
 .ha-machine-home-signal__frame::before {
-	content: '';
 	position: absolute;
 	inset: 0;
+	pointer-events: none;
+	content: "";
 	background:
 		linear-gradient(90deg, rgb(255 255 255 / 0.08), transparent 24%),
 		repeating-linear-gradient(
@@ -317,7 +318,6 @@ h6 {
 			transparent 10px
 		);
 	mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.85), transparent 88%);
-	pointer-events: none;
 }
 
 .ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__frame {
@@ -328,14 +328,8 @@ h6 {
 		0 0 28px color-mix(in srgb, var(--destructive) 12%, transparent);
 }
 
-.ha-machine-home-signal[data-status="deleted"]:hover .ha-machine-home-signal__frame {
-	box-shadow:
-		0 28px 64px rgb(0 0 0 / 0.36),
-		0 0 0 1px color-mix(in srgb, var(--destructive) 16%, transparent) inset,
-		0 0 36px color-mix(in srgb, var(--destructive) 14%, transparent);
-}
-
-.ha-machine-home-signal[data-status="deleted"]:focus-visible .ha-machine-home-signal__frame {
+.ha-machine-home-signal[data-status="deleted"]:focus-visible
+	.ha-machine-home-signal__frame {
 	box-shadow:
 		0 24px 60px rgb(0 0 0 / 0.32),
 		0 0 0 1px color-mix(in srgb, var(--destructive) 14%, transparent) inset,
@@ -347,9 +341,9 @@ h6 {
 	position: relative;
 	z-index: 1;
 	display: flex;
+	gap: 1rem;
 	align-items: center;
 	justify-content: flex-start;
-	gap: 1rem;
 	padding-right: 3.4rem;
 }
 
@@ -358,8 +352,8 @@ h6 {
 	z-index: 1;
 	display: grid;
 	grid-template-columns: auto 1fr;
-	align-items: center;
 	gap: 1rem;
+	align-items: center;
 }
 
 .ha-machine-home-signal__metric {
@@ -369,7 +363,11 @@ h6 {
 	min-height: 5.75rem;
 	padding: 0.9rem 0.95rem;
 	background:
-		linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02)),
+		linear-gradient(
+			180deg,
+			rgb(255 255 255 / 0.08),
+			rgb(255 255 255 / 0.02)
+		),
 		linear-gradient(
 			135deg,
 			color-mix(in srgb, var(--hot-orange) 24%, transparent),
@@ -377,14 +375,15 @@ h6 {
 		);
 	border: 1px solid color-mix(in srgb, var(--hot-orange) 38%, transparent);
 	border-radius: 1.2rem;
-	box-shadow:
-		0 12px 28px rgb(0 0 0 / 0.24),
-		0 0 0 1px rgb(255 255 255 / 0.03) inset;
 }
 
 .ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__metric {
 	background:
-		linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)),
+		linear-gradient(
+			180deg,
+			rgb(255 255 255 / 0.06),
+			rgb(255 255 255 / 0.015)
+		),
 		linear-gradient(
 			135deg,
 			color-mix(in srgb, var(--destructive) 22%, transparent),
@@ -397,8 +396,8 @@ h6 {
 	font-size: 2.15rem;
 	font-weight: 800;
 	line-height: 0.95;
-	text-align: center;
 	color: var(--foreground);
+	text-align: center;
 	letter-spacing: -0.06em;
 }
 
@@ -407,8 +406,8 @@ h6 {
 	font-size: 0.68rem;
 	font-weight: 700;
 	line-height: 1;
-	text-align: center;
 	color: color-mix(in srgb, var(--muted-foreground) 88%, var(--hot-orange));
+	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 0.22em;
 }
@@ -420,23 +419,23 @@ h6 {
 
 .ha-machine-home-signal__live-pill {
 	display: inline-flex;
-	align-items: center;
 	gap: 0.45rem;
+	align-items: center;
 	padding: 0.35rem 0.7rem;
-	background: rgb(255 255 255 / 0.06);
-	border: 1px solid rgb(255 255 255 / 0.08);
-	border-radius: 999px;
 	font-size: 0.68rem;
 	font-weight: 700;
 	color: var(--foreground);
 	text-transform: uppercase;
 	letter-spacing: 0.18em;
+	background: rgb(255 255 255 / 0.06);
+	border: 1px solid rgb(255 255 255 / 0.08);
+	border-radius: 999px;
 }
 
 .ha-machine-home-signal__live-pill::before {
-	content: '';
 	width: 0.45rem;
 	height: 0.45rem;
+	content: "";
 	background: #5dff89;
 	border-radius: 999px;
 	box-shadow: 0 0 12px rgb(93 255 137 / 0.9);
@@ -454,10 +453,10 @@ h6 {
 	font-size: clamp(1.55rem, 2vw, 1.95rem);
 	font-weight: 800;
 	line-height: 0.95;
-	white-space: nowrap;
 	color: var(--foreground);
 	text-transform: uppercase;
 	letter-spacing: -0.04em;
+	white-space: nowrap;
 }
 
 .ha-machine-home-signal__meta {
@@ -466,10 +465,10 @@ h6 {
 	gap: 0.65rem;
 	font-size: 0.82rem;
 	font-weight: 600;
-	white-space: nowrap;
 	color: var(--muted-foreground);
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
+	white-space: nowrap;
 }
 
 .ha-machine-home-signal__status {
@@ -478,6 +477,44 @@ h6 {
 
 .ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__status {
 	color: var(--destructive);
+}
+
+.ha-machine-home-signal__progress-track {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	height: 0.25rem;
+	overflow: hidden;
+	background: rgb(255 255 255 / 0.08);
+}
+
+.ha-machine-home-signal__progress-bar {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		color-mix(in srgb, var(--hot-orange) 72%, white),
+		var(--hot-orange)
+	);
+	box-shadow: 0 0 14px color-mix(in srgb, var(--hot-orange) 52%, transparent);
+	clip-path: inset(0 0 0 0);
+}
+
+.ha-machine-home-signal.is-active .ha-machine-home-signal__progress-bar {
+	animation: ha-machine-home-signal-progress
+		var(--ha-machine-home-signal-duration, 60s) linear forwards;
+}
+
+.ha-machine-home-signal[data-status="deleted"]
+	.ha-machine-home-signal__progress-bar {
+	background: linear-gradient(
+		90deg,
+		color-mix(in srgb, var(--destructive) 68%, white),
+		var(--destructive)
+	);
+	box-shadow: 0 0 14px color-mix(in srgb, var(--destructive) 38%, transparent);
 }
 
 .ha-header-cta {
@@ -541,14 +578,24 @@ h6 {
 	}
 }
 
+@keyframes ha-machine-home-signal-progress {
+	0% {
+		clip-path: inset(0 0 0 0);
+	}
+
+	100% {
+		clip-path: inset(0 100% 0 0);
+	}
+}
+
 @media (max-width: 640px) {
 	.ha-machine-home-signal-stack {
 		top: auto;
 		right: 0.75rem;
 		bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
 		left: 0.75rem;
-		max-width: none;
 		gap: 0.55rem;
+		max-width: none;
 	}
 
 	.ha-machine-home-signal {
@@ -565,10 +612,8 @@ h6 {
 	.ha-machine-home-signal__dismiss {
 		top: 0.55rem;
 		right: 0.55rem;
-		min-width: 2.15rem;
-		height: 2.15rem;
-		padding: 0 0.7rem;
-		font-size: 0.82rem;
+		width: 1.9rem;
+		height: 1.9rem;
 	}
 
 	.ha-machine-home-signal__topline {
@@ -588,8 +633,8 @@ h6 {
 
 	.ha-machine-home-signal__body {
 		grid-template-columns: auto 1fr;
-		align-items: center;
 		gap: 0.75rem;
+		align-items: center;
 	}
 
 	.ha-machine-home-signal__metric {
@@ -657,10 +702,6 @@ h6 {
 	max-width: 24rem;
 	margin-right: 0;
 	margin-left: 0;
-}
-
-.prose img.blog-inline-image {
-	cursor: pointer;
 }
 
 img.blog-inline-image,

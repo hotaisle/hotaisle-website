@@ -77,7 +77,7 @@ function isNavItemActive(currentPath: string, href: string, matchMode: NavMatchM
 
 export function Navbar() {
 	const pathname = usePathname();
-	const currentPath = normalizePathname(pathname);
+	const currentPath = normalizePathname(pathname ?? '/');
 	const getNavLinkProps = (href: string, matchMode: NavMatchMode = SECTION_MATCH_MODE) => {
 		const isActive = isNavItemActive(currentPath, href, matchMode);
 

@@ -32,8 +32,8 @@ export function ClickableImage({
 	return (
 		<OptimizedImage
 			{...imgProps}
-			aria-haspopup="dialog"
 			alt={alt}
+			aria-haspopup="dialog"
 			className={
 				className.length > 0
 					? `${className} ${imgClassName} cursor-pointer`

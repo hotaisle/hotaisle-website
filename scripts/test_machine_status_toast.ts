@@ -16,13 +16,11 @@ interface MachineStatusPayload {
 	type: MachineType;
 }
 
-const isMachineType = (value: string): value is MachineType => {
-	return VALID_TYPES.includes(value as MachineType);
-};
+const isMachineType = (value: string): value is MachineType =>
+	VALID_TYPES.includes(value as MachineType);
 
-const isMachineStatus = (value: string): value is MachineStatus => {
-	return VALID_STATUSES.includes(value as MachineStatus);
-};
+const isMachineStatus = (value: string): value is MachineStatus =>
+	VALID_STATUSES.includes(value as MachineStatus);
 
 const parseArgs = (): MachineStatusPayload => {
 	const [, , rawType = DEFAULT_TYPE, rawStatus = DEFAULT_STATUS, rawGpuCount] = process.argv;

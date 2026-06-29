@@ -3,7 +3,7 @@ interface DurableObjectState {
 	getWebSockets(tag?: string): WebSocket[];
 }
 
-interface DurableObjectId {}
+type DurableObjectId = object;
 
 interface DurableObjectNamespaceLike {
 	get(id: DurableObjectId): FetcherLike;
