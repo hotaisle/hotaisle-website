@@ -151,7 +151,10 @@ async function normalizeExportedHtml(html: string): Promise<string> {
 	const withStyles = await inlineStylesheetLinks(withOpenGraphImageType);
 	const withMinifiedJs = minifyInlineScripts(withStyles);
 	const withMinifiedCss = minifyInlineStyles(withMinifiedJs);
-	return minifyHtml(Buffer.from(withMinifiedCss), { minify_js: false, minify_css: false }).toString('utf8');
+	return minifyHtml(Buffer.from(withMinifiedCss), {
+		minify_js: false,
+		minify_css: false,
+	}).toString('utf8');
 }
 
 async function writeSitemapFiles(): Promise<void> {
@@ -265,7 +268,9 @@ async function copyBlogAssetsToOutput(
 		allEntries.map(async (relativePath) => {
 			const sourcePath = path.join(sourceDirectory, relativePath);
 			const sourceStats = await stat(sourcePath).catch(() => null);
-			if (!sourceStats?.isFile()) return;
+			if (!sourceStats?.isFile()) {
+				return;
+			}
 
 			const sluggedRelativePath = relativePath
 				.split(path.sep)
@@ -274,7 +279,11 @@ async function copyBlogAssetsToOutput(
 			const destPath = path.join(destinationDirectory, sluggedRelativePath);
 
 			const destStats = await stat(destPath).catch(() => null);
-			if (destStats && destStats.size === sourceStats.size && destStats.mtimeMs >= sourceStats.mtimeMs) {
+			if (
+				destStats &&
+				destStats.size === sourceStats.size &&
+				destStats.mtimeMs >= sourceStats.mtimeMs
+			) {
 				return;
 			}
 
@@ -423,16 +432,20 @@ function insertOpenGraphImageTypeMeta(html: string): string {
 		return html;
 	}
 
-	return html.replace(fullMatch, `${fullMatch}<meta property="og:image:type" content="${mimeType}">`);
+	return html.replace(
+		fullMatch,
+		`${fullMatch}<meta property="og:image:type" content="${mimeType}">`
+	);
 }
 
 function getImageMimeType(imageUrl: string): string | null {
 	const pathname = new URL(imageUrl, EXPORT_ORIGIN).pathname;
 	const extension = path.extname(pathname).toLowerCase();
 
-	return IMAGE_MIME_TYPES_BY_EXTENSION[
-		extension as keyof typeof IMAGE_MIME_TYPES_BY_EXTENSION
-	] ?? null;
+	return (
+		IMAGE_MIME_TYPES_BY_EXTENSION[extension as keyof typeof IMAGE_MIME_TYPES_BY_EXTENSION] ??
+		null
+	);
 }
 
 async function inlineStylesheetLinks(html: string): Promise<string> {
