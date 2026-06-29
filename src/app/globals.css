@@ -4,12 +4,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-	--font-sans:
-		"Geist Mono", "SFMono-Regular", "Cascadia Code", Consolas,
-		"Liberation Mono", monospace;
-	--font-display:
-		"Geist Mono", "SFMono-Regular", "Cascadia Code", Consolas,
-		"Liberation Mono", monospace;
+	--font-sans: "Inter", sans-serif;
+	--font-display: "Space Grotesk", sans-serif;
+	--font-mono: "JetBrains Mono", monospace;
+	--font-serif: "IBM Plex Serif", serif;
 	/* Arctic Light Theme */
 	--background: #ffffff;
 	--foreground: #0f172a;
@@ -112,6 +110,10 @@
 	--radius-sm: calc(var(--radius) - 2px);
 	--radius-md: calc(var(--radius));
 	--radius-lg: calc(var(--radius) + 2px);
+	--font-sans: "Inter", sans-serif;
+	--font-display: "Space Grotesk", sans-serif;
+	--font-mono: "JetBrains Mono", monospace;
+	--font-serif: "IBM Plex Serif", serif;
 
 	--color-hot-orange: var(--hot-orange);
 	--color-hot-orange-contrast: var(--hot-orange-contrast);
@@ -121,8 +123,9 @@ body {
 	font-family: var(--font-sans);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	line-height: 1.6;
 	color: var(--foreground);
-	letter-spacing: -0.01em;
+	letter-spacing: 0;
 	background-color: var(--background);
 }
 
@@ -145,7 +148,8 @@ h3,
 h4,
 h5,
 h6 {
-	letter-spacing: -0.03em;
+	line-height: 1.08;
+	letter-spacing: 0;
 }
 
 .ha-visually-hidden {
