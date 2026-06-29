@@ -1,9 +1,38 @@
 export function initializeLinkPrefetchScript(): void {
 	const PREFETCHABLE_LINK_SELECTOR = 'a[data-prefetch-link="true"]';
+	const ROOT_PATH = '/';
 	const prefetchedHrefs = new Set<string>();
 
 	const isPrefetchableInternalHref = (href: string): boolean =>
 		href.startsWith('/') && !href.startsWith('//');
+
+	const hasLastPathSegmentExtension = (pathname: string): boolean => {
+		const lastSlashIndex = pathname.lastIndexOf(ROOT_PATH);
+		const lastPathSegment = pathname.slice(lastSlashIndex + 1);
+		return lastPathSegment.includes('.') && !lastPathSegment.startsWith('.');
+	};
+
+	const toCanonicalPrefetchHref = (href: string): string | null => {
+		try {
+			const hrefUrl = new URL(href, window.location.origin);
+			if (hrefUrl.origin !== window.location.origin) {
+				return null;
+			}
+
+			const { hash, pathname, search } = hrefUrl;
+			if (
+				pathname === ROOT_PATH ||
+				pathname.endsWith(ROOT_PATH) ||
+				hasLastPathSegmentExtension(pathname)
+			) {
+				return `${pathname}${search}${hash}`;
+			}
+
+			return `${pathname}/${search}${hash}`;
+		} catch {
+			return null;
+		}
+	};
 
 	const prefetchHref = (href: string): void => {
 		if (!isPrefetchableInternalHref(href)) {
@@ -40,7 +69,12 @@ export function initializeLinkPrefetchScript(): void {
 			return;
 		}
 
-		prefetchHref(link.href.replace(window.location.origin, ''));
+		const canonicalHref = toCanonicalPrefetchHref(link.href);
+		if (!canonicalHref) {
+			return;
+		}
+
+		prefetchHref(canonicalHref);
 	};
 
 	document.addEventListener('focusin', (event) => {

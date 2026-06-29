@@ -11,6 +11,7 @@ import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import sharp from 'sharp';
+import { toCanonicalDocumentHref } from '@/lib/canonical-href.ts';
 import { getModernImageVariants } from '@/lib/image-optimization.ts';
 import {
 	isGeneratedMermaidDiagramFile,
@@ -613,12 +614,16 @@ function rewriteMarkdownLinks(markdown: string, fileStemToSlug: Map<string, stri
 
 	return withImages.replaceAll(MARKDOWN_LINK_REGEX, (_match, label, rawPath) => {
 		const decoded = decodeMarkdownPath(rawPath);
+		if (decoded.startsWith('/') && !decoded.startsWith('//')) {
+			return `[${label}](${toCanonicalDocumentHref(decoded)})`;
+		}
+
 		if (EXTERNAL_OR_SPECIAL_LINK_REGEX.test(decoded)) {
 			return `[${label}](${rawPath})`;
 		}
 
 		const resolvedPath = resolveInternalMarkdownLink(rawPath, fileStemToSlug);
-		return `[${label}](${resolvedPath})`;
+		return `[${label}](${toCanonicalDocumentHref(resolvedPath)})`;
 	});
 }
 

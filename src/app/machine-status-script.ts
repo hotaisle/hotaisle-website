@@ -8,7 +8,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 	const EVENT_TYPES = new Set(['vm', 'bm']);
 	const EVENT_STATUSES = new Set(['reserved', 'deleted']);
 	const HOME_SIGNAL_ID = 'ha-machine-status-signal';
-	const HOME_SIGNAL_LINK_PATH = '/quick-start';
+	const HOME_SIGNAL_LINK_PATH = '/quick-start/';
 	const LIVE_REGION_ID = 'ha-machine-status-live-region';
 	const HOME_SIGNAL_EXIT_DURATION_MS = 260;
 	const MOBILE_HOME_SIGNAL_MEDIA_QUERY = '(max-width: 640px)';

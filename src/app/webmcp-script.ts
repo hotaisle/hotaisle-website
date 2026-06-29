@@ -1,19 +1,19 @@
 export function initializeWebMcpScript(): void {
 	const internalPagePaths = {
-		about: '/about',
-		apiDocs: '/docs/api',
-		blog: '/blog',
-		cluster: '/cluster',
-		compute: '/compute',
-		contact: '/contact',
-		datacenter: '/datacenter',
+		about: '/about/',
+		apiDocs: '/docs/api/',
+		blog: '/blog/',
+		cluster: '/cluster/',
+		compute: '/compute/',
+		contact: '/contact/',
+		datacenter: '/datacenter/',
 		home: '/',
-		mi300x: '/mi300x',
-		mi355x: '/mi355x',
-		networking: '/networking',
-		partnerships: '/partners',
-		pricing: '/pricing',
-		quickStart: '/quick-start',
+		mi300x: '/mi300x/',
+		mi355x: '/mi355x/',
+		networking: '/networking/',
+		partnerships: '/partners/',
+		pricing: '/pricing/',
+		quickStart: '/quick-start/',
 	} as const;
 	const externalApiDocsUrl = 'https://admin.hotaisle.app/api/docs/' as const;
 	const toolNamePrefix = 'hotaisle_' as const;

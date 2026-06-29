@@ -1,3 +1,5 @@
+import { toCanonicalDocumentHref } from '@/lib/canonical-href.ts';
+
 const SITE_NAME = 'Hot Aisle';
 const SITE_URL = 'https://hotaisle.xyz';
 const SITE_LOCALE = 'en_US';
@@ -26,7 +28,7 @@ export function createPageMetadata({
 	title,
 	type = 'website',
 }: PageMetadataOptions) {
-	const url = new URL(path, SITE_URL).toString();
+	const url = new URL(toCanonicalDocumentHref(path), SITE_URL).toString();
 	const imageUrl = new URL(image, SITE_URL).toString();
 	const imageMetadata = {
 		alt: imageAlt,
