@@ -50,6 +50,8 @@ const CSS_COMMENT_REGEX = /\/\*[\s\S]*?\*\//g;
 const UNICODE_DIACRITICS_REGEX = /[\u0300-\u036f]/g;
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]+/g;
 const EDGE_DASHES_REGEX = /^-+|-+$/g;
+const VINEXT_BOOTSTRAP_SCRIPT_ID = '_R_';
+const VINEXT_NAVIGATION_RUNTIME_MARKER = 'vinext.navigationRuntime';
 const IMAGE_MIME_TYPES_BY_EXTENSION = {
 	'.avif': 'image/avif',
 	'.gif': 'image/gif',
@@ -399,13 +401,24 @@ function minifyInlineStyles(html: string): string {
 }
 
 function stripClientBootstrap(html: string): string {
-	return html
+	const withoutPreloads = html
 		.replace(STYLESHEET_PRELOAD_REGEX, '')
 		.replace(MODULE_PRELOAD_REGEX, '')
-		.replace(TRAILING_RSC_SCRIPTS_REGEX, '$1')
-		.replace(/<script>self\.__VINEXT_RSC_PARAMS__=.*?<\/script>/g, '')
-		.replace(/<script>self\.__VINEXT_RSC_NAV__=.*?<\/script>/g, '')
-		.replace(/<script id="_R_">[\s\S]*?<\/script>/g, '');
+		.replace(TRAILING_RSC_SCRIPTS_REGEX, '$1');
+
+	return withoutPreloads.replace(INLINE_SCRIPT_REGEX, (fullMatch, attributes, content) =>
+		isVinextBootstrapScript(attributes, content) ? '' : fullMatch
+	);
+}
+
+function isVinextBootstrapScript(attributes: string, content: string): boolean {
+	const scriptAttributes = getTagAttributes(`<script${attributes}>`);
+
+	if (scriptAttributes.id === VINEXT_BOOTSTRAP_SCRIPT_ID) {
+		return true;
+	}
+
+	return content.includes(VINEXT_NAVIGATION_RUNTIME_MARKER);
 }
 
 function insertOpenGraphImageTypeMeta(html: string): string {
@@ -495,11 +508,13 @@ function getTagAttributes(tag: string): Record<string, string> {
 }
 
 function toLocalAssetPath(href: string): string | null {
-	if (!href.startsWith('/assets/')) {
+	const { pathname } = new URL(href, EXPORT_ORIGIN);
+
+	if (!(pathname.startsWith('/assets/') || pathname.startsWith('/_next/static/'))) {
 		return null;
 	}
 
-	return path.join(STATIC_DIST_DIRECTORY, href.slice(1));
+	return path.join(STATIC_DIST_DIRECTORY, pathname.slice(1));
 }
 
 async function scrubExportedHtmlFiles(directory: string): Promise<void> {
