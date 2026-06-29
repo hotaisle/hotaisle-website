@@ -9,6 +9,14 @@ const CI_ENVIRONMENT_VALUE = 'true';
 const FORCE_MERMAID_DIAGRAM_GENERATION_VALUE = 'true';
 const BLOG_ASSET_PREFIX = '/assets/blog/';
 const CLI_BUNX_HOME_DIRECTORY = path.join(os.tmpdir(), 'hotaisle-bunx-home');
+const PUPPETEER_EXECUTABLE_PATH_ENV = 'PUPPETEER_EXECUTABLE_PATH';
+const LOCAL_CHROME_EXECUTABLE_CANDIDATES = [
+	'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+	'/Applications/Chromium.app/Contents/MacOS/Chromium',
+	'/usr/bin/google-chrome',
+	'/usr/bin/chromium',
+	'/usr/bin/chromium-browser',
+] as const;
 const MERMAID_THEMES = [
 	{ appearance: 'light', cliTheme: 'default' },
 	{ appearance: 'dark', cliTheme: 'dark' },
@@ -23,6 +31,7 @@ interface CliCommandResult {
 }
 
 const PUPPETEER_CACHE_MISS_SNIPPETS = [
+	'could not find chrome',
 	'failed to set up chrome',
 	'browser folder',
 	'the executable',
@@ -59,10 +68,22 @@ async function runMermaidCliToFile(
 ): Promise<CliCommandResult> {
 	const bunInstallDirectory = path.join(CLI_BUNX_HOME_DIRECTORY, 'bun-install');
 	const bunCacheDirectory = path.join(CLI_BUNX_HOME_DIRECTORY, '.cache');
+	const puppeteerExecutablePath = await resolvePuppeteerExecutablePath();
 	await mkdir(bunInstallDirectory, { recursive: true });
 	await mkdir(bunCacheDirectory, { recursive: true });
 
 	return await new Promise((resolve, reject) => {
+		const commandEnv: Record<string, string | undefined> = {
+			...process.env,
+			BUN_INSTALL: bunInstallDirectory,
+			HOME: CLI_BUNX_HOME_DIRECTORY,
+			TMPDIR: os.tmpdir(),
+			XDG_CACHE_HOME: bunCacheDirectory,
+		};
+		if (puppeteerExecutablePath) {
+			commandEnv[PUPPETEER_EXECUTABLE_PATH_ENV] = puppeteerExecutablePath;
+		}
+
 		const command = spawn(
 			'bunx',
 			[
@@ -80,13 +101,7 @@ async function runMermaidCliToFile(
 				'svg',
 			],
 			{
-				env: {
-					...process.env,
-					BUN_INSTALL: bunInstallDirectory,
-					HOME: CLI_BUNX_HOME_DIRECTORY,
-					TMPDIR: os.tmpdir(),
-					XDG_CACHE_HOME: bunCacheDirectory,
-				},
+				env: commandEnv,
 				stdio: ['pipe', 'pipe', 'pipe'],
 			}
 		);
@@ -110,6 +125,26 @@ async function runMermaidCliToFile(
 			});
 		});
 	});
+}
+
+async function resolvePuppeteerExecutablePath(): Promise<string | undefined> {
+	const configuredExecutablePath = process.env[PUPPETEER_EXECUTABLE_PATH_ENV];
+	if (configuredExecutablePath) {
+		return configuredExecutablePath;
+	}
+
+	for (const executablePath of LOCAL_CHROME_EXECUTABLE_CANDIDATES) {
+		try {
+			const executableStats = await stat(executablePath);
+			if (executableStats.isFile()) {
+				return executablePath;
+			}
+		} catch {
+			continue;
+		}
+	}
+
+	return undefined;
 }
 
 function shouldResetMermaidCliCache(cliResult: CliCommandResult): boolean {
