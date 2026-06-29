@@ -236,10 +236,16 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 		homeSignal.className = 'ha-machine-home-signal';
 		homeSignal.dataset.status = machineEvent.status;
 		homeSignal.dataset.type = machineEvent.type;
-		homeSignal.style.setProperty('--ha-machine-home-signal-duration', `${HOME_SIGNAL_DURATION_MS}ms`);
+		homeSignal.style.setProperty(
+			'--ha-machine-home-signal-duration',
+			`${HOME_SIGNAL_DURATION_MS}ms`
+		);
 		homeSignal.setAttribute('role', 'link');
 		homeSignal.tabIndex = 0;
-		homeSignal.setAttribute('aria-label', `${formatDisplayLabel(machineEvent)} ${statusLabel}. Open quick start.`);
+		homeSignal.setAttribute(
+			'aria-label',
+			`${formatDisplayLabel(machineEvent)} ${statusLabel}. Open quick start.`
+		);
 		homeSignal.addEventListener('click', () => {
 			window.location.assign(HOME_SIGNAL_LINK_PATH);
 		});
@@ -306,7 +312,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 			homeSignalStack.lastElementChild?.remove();
 		}
 
-		homeSignal.offsetWidth;
+		homeSignal.getBoundingClientRect();
 		homeSignal.classList.add('is-active');
 
 		window.setTimeout(() => {

@@ -1,5 +1,5 @@
-import { parseMachineStatusEvent } from '@/lib/machine-status.ts';
 import appHandler from 'vinext/server/app-router-entry';
+import { parseMachineStatusEvent } from '@/lib/machine-status.ts';
 
 const BAD_REQUEST_STATUS = 400;
 const FORBIDDEN_STATUS = 403;
@@ -31,11 +31,7 @@ interface ExecutionContextLike {
 }
 
 const worker = {
-	async fetch(
-		request: Request,
-		env?: Env,
-		ctx?: ExecutionContextLike
-	): Promise<Response> {
+	async fetch(request: Request, env?: Env, ctx?: ExecutionContextLike): Promise<Response> {
 		const requestUrl = new URL(request.url);
 
 		if (requestUrl.pathname === MACHINE_STATUS_PATH) {
@@ -46,7 +42,7 @@ const worker = {
 			return await handleWebSocketRequest(request, env);
 		}
 
-		if (!IS_PRODUCTION || !env?.ASSETS) {
+		if (!(IS_PRODUCTION && env?.ASSETS)) {
 			return await appHandler.fetch(request, env, ctx);
 		}
 
@@ -57,7 +53,11 @@ const worker = {
 export default worker;
 
 export class MachineStatusHub {
-	constructor(private readonly state: DurableObjectState, _env: Env) {}
+	private readonly state: DurableObjectState;
+
+	constructor(state: DurableObjectState, _env: Env) {
+		this.state = state;
+	}
 
 	async fetch(request: Request): Promise<Response> {
 		const requestUrl = new URL(request.url);
@@ -81,7 +81,9 @@ export class MachineStatusHub {
 		this.discardSocket(webSocket);
 	}
 
-	webSocketMessage(_webSocket: WebSocket, _message: string | ArrayBuffer): void {}
+	webSocketMessage(_webSocket: WebSocket, _message: string | ArrayBuffer): void {
+		return;
+	}
 
 	private handleConnectionRequest(request: Request): Response {
 		if (request.method !== 'GET') {
@@ -152,7 +154,7 @@ async function handleEventRequest(request: Request, env?: Env): Promise<Response
 	}
 
 	const machineStatusSecret =
-		env.HOTAISLE_WEBSITE_SECRET ?? (!IS_PRODUCTION ? HOTAISLE_WEBSITE_SECRET : null);
+		env.HOTAISLE_WEBSITE_SECRET ?? (IS_PRODUCTION ? null : HOTAISLE_WEBSITE_SECRET);
 	if (!machineStatusSecret) {
 		return new Response('Missing HOTAISLE_WEBSITE_SECRET binding', {
 			status: INTERNAL_SERVER_ERROR_STATUS,

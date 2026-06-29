@@ -140,11 +140,11 @@ async function resolvePuppeteerExecutablePath(): Promise<string | undefined> {
 				return executablePath;
 			}
 		} catch {
-			continue;
+			// Ignore missing local Chrome candidates and keep looking.
 		}
 	}
 
-	return undefined;
+	return;
 }
 
 function shouldResetMermaidCliCache(cliResult: CliCommandResult): boolean {
