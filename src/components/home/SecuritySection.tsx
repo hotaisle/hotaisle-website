@@ -3,9 +3,9 @@ import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 interface SecurityLogo {
 	alt: string;
 	className: string;
-	imageClassName?: string;
 	height: number;
 	href?: string;
+	imageClassName?: string;
 	logoSurfaceClassName?: string;
 	src: string;
 	width: number;
@@ -74,9 +74,9 @@ export function SecuritySection() {
 						if (logo.href) {
 							return (
 								<a
-									key={logo.src}
 									className="flex min-h-28 items-center justify-center rounded-xl border border-border/60 bg-background/40 px-6 py-5 transition-colors hover:border-border hover:bg-background/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 dark:border-white/8 dark:bg-white/2 dark:hover:border-white/14 dark:hover:bg-white/4"
 									href={logo.href}
+									key={logo.src}
 								>
 									{content}
 								</a>
@@ -85,8 +85,8 @@ export function SecuritySection() {
 
 						return (
 							<div
-								key={logo.src}
 								className="flex min-h-28 items-center justify-center rounded-xl border border-border/60 bg-background/40 px-6 py-5 dark:border-white/8 dark:bg-white/2"
+								key={logo.src}
 							>
 								{content}
 							</div>

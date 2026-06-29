@@ -50,9 +50,8 @@ export function initializeWebMcpScript(): void {
 		};
 	};
 
-	const isInternalPageKey = (value: unknown): value is keyof typeof internalPagePaths => {
-		return typeof value === 'string' && value in internalPagePaths;
-	};
+	const isInternalPageKey = (value: unknown): value is keyof typeof internalPagePaths =>
+		typeof value === 'string' && value in internalPagePaths;
 
 	const tools = [
 		{

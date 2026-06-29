@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { PluginOption } from 'vite';
 import { cloudflare } from '@cloudflare/vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import vinext from 'vinext';
+import type { PluginOption } from 'vite';
 import { defineConfig } from 'vite';
 
 const APP_DIRECTORY = path.resolve(import.meta.dirname, './src/app');
@@ -16,7 +16,7 @@ const getInlineScriptHotReloadPaths = (): Set<string> => {
 	const appEntries = fs.readdirSync(APP_DIRECTORY, { withFileTypes: true });
 
 	for (const entry of appEntries) {
-		if (!entry.isFile() || !entry.name.endsWith('-script.ts')) {
+		if (!(entry.isFile() && entry.name.endsWith('-script.ts'))) {
 			continue;
 		}
 

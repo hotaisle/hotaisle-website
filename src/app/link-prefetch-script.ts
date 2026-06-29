@@ -2,9 +2,8 @@ export function initializeLinkPrefetchScript(): void {
 	const PREFETCHABLE_LINK_SELECTOR = 'a[data-prefetch-link="true"]';
 	const prefetchedHrefs = new Set<string>();
 
-	const isPrefetchableInternalHref = (href: string): boolean => {
-		return href.startsWith('/') && !href.startsWith('//');
-	};
+	const isPrefetchableInternalHref = (href: string): boolean =>
+		href.startsWith('/') && !href.startsWith('//');
 
 	const prefetchHref = (href: string): void => {
 		if (!isPrefetchableInternalHref(href)) {

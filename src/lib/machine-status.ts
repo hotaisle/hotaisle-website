@@ -24,11 +24,11 @@ function isMachineStatus(value: string): value is MachineStatus {
 
 function normalizeGpuCount(value: unknown): number | undefined {
 	if (value === undefined) {
-		return undefined;
+		return;
 	}
 
 	if (typeof value !== 'number' || !Number.isInteger(value) || value <= 0) {
-		return undefined;
+		return;
 	}
 
 	return value;

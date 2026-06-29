@@ -165,7 +165,7 @@ function parseChromeFlags(chromeFlags: string | undefined): string[] {
 
 function getLighthouseConfig(settings: LighthouseCollectSettings | undefined): object | undefined {
 	if (!settings?.preset) {
-		return undefined;
+		return;
 	}
 
 	if (settings.preset === 'desktop') {
@@ -262,7 +262,9 @@ async function runBuild(): Promise<void> {
 			}
 
 			if (exitCode !== 0) {
-				reject(new Error(`bun run build:internal exited with code ${exitCode ?? 'unknown'}`));
+				reject(
+					new Error(`bun run build:internal exited with code ${exitCode ?? 'unknown'}`)
+				);
 				return;
 			}
 

@@ -21,9 +21,9 @@ export function OptimizedImage({
 		return <img alt={alt} height={height} src={src} width={width} {...imgProps} />;
 	}
 
-	const variants = getModernImageVariants(src).filter((variant) => {
-		return !(disableAvif && variant.type === 'image/avif');
-	});
+	const variants = getModernImageVariants(src).filter(
+		(variant) => !(disableAvif && variant.type === 'image/avif')
+	);
 	if (variants.length === 0) {
 		return <img alt={alt} height={height} src={src} width={width} {...imgProps} />;
 	}

@@ -20,13 +20,11 @@ interface ScriptConfig {
 	timeoutMs: number;
 }
 
-const isMachineType = (value: string): value is MachineType => {
-	return VALID_TYPES.includes(value as MachineType);
-};
+const isMachineType = (value: string): value is MachineType =>
+	VALID_TYPES.includes(value as MachineType);
 
-const isMachineStatus = (value: string): value is MachineStatus => {
-	return VALID_STATUSES.includes(value as MachineStatus);
-};
+const isMachineStatus = (value: string): value is MachineStatus =>
+	VALID_STATUSES.includes(value as MachineStatus);
 
 const createPayload = (
 	type: MachineType,
@@ -62,9 +60,7 @@ const parsePayloads = (): MachineStatusPayload[] => {
 	}
 
 	if (rawStatus === undefined) {
-		return VALID_STATUSES.map((status) => {
-			return createPayload(type, status, rawGpuCount);
-		});
+		return VALID_STATUSES.map((status) => createPayload(type, status, rawGpuCount));
 	}
 
 	const status = rawStatus.trim().toLowerCase();
@@ -132,7 +128,9 @@ const createBroadcastClient = (timeoutMs: number): BroadcastClient => {
 	});
 
 	return {
-		awaitMatchingBroadcast(expectedPayload: MachineStatusPayload): Promise<MachineStatusPayload> {
+		awaitMatchingBroadcast(
+			expectedPayload: MachineStatusPayload
+		): Promise<MachineStatusPayload> {
 			return new Promise((resolve, reject) => {
 				let settled = false;
 
@@ -165,7 +163,11 @@ const createBroadcastClient = (timeoutMs: number): BroadcastClient => {
 
 				const handleError = () => {
 					settle(() => {
-						reject(new Error(`WebSocket connection failed for ${MACHINE_STATUS_WEBSOCKET_URL}.`));
+						reject(
+							new Error(
+								`WebSocket connection failed for ${MACHINE_STATUS_WEBSOCKET_URL}.`
+							)
+						);
 					});
 				};
 
@@ -215,8 +217,8 @@ const createBroadcastClient = (timeoutMs: number): BroadcastClient => {
 const postMachineStatus = async (
 	payload: MachineStatusPayload,
 	secret: string
-): Promise<Response> => {
-	return await fetch(MACHINE_STATUS_URL, {
+): Promise<Response> =>
+	await fetch(MACHINE_STATUS_URL, {
 		body: JSON.stringify(payload),
 		headers: {
 			'content-type': 'application/json',
@@ -224,7 +226,6 @@ const postMachineStatus = async (
 		},
 		method: 'POST',
 	});
-};
 
 const run = async (): Promise<void> => {
 	const { payloads, secret, timeoutMs } = parseConfig();
