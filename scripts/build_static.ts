@@ -24,6 +24,25 @@ const SERVER_ENTRY_CANDIDATES = [
 	path.join(DIST_DIRECTORY, 'server', 'index.js'),
 	path.join(DIST_DIRECTORY, 'server', 'ssr', 'index.js'),
 ] as const;
+const VINEXT_PACKAGE_DIRECTORY = path.join(PROJECT_ROOT, 'node_modules', 'vinext');
+const VINEXT_NAVIGATION_RUNTIME_SOURCE_PATH = path.join(
+	VINEXT_PACKAGE_DIRECTORY,
+	'dist',
+	'client',
+	'navigation-runtime.js'
+);
+const VINEXT_APP_SSR_ENTRY_SOURCE_PATH = path.join(
+	VINEXT_PACKAGE_DIRECTORY,
+	'dist',
+	'server',
+	'app-ssr-entry.js'
+);
+const VINEXT_APP_SSR_STREAM_SOURCE_PATH = path.join(
+	VINEXT_PACKAGE_DIRECTORY,
+	'dist',
+	'server',
+	'app-ssr-stream.js'
+);
 const GENERATED_DEPLOY_WRANGLER_CONFIG_PATH = path.join(DIST_DIRECTORY, 'server', 'wrangler.json');
 const STATIC_DEPLOY_WRANGLER_CONFIG_PATH = path.join(
 	DIST_DIRECTORY,
@@ -52,6 +71,28 @@ const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]+/g;
 const EDGE_DASHES_REGEX = /^-+|-+$/g;
 const VINEXT_BOOTSTRAP_SCRIPT_ID = '_R_';
 const VINEXT_NAVIGATION_RUNTIME_MARKER = 'vinext.navigationRuntime';
+const VINEXT_RSC_BOOTSTRAP_MARKER = 'bootstrap.rsc';
+const VINEXT_ROUTE_MANIFEST_MARKER = 'routeManifest';
+const VINEXT_BOOTSTRAP_SCRIPT_MARKERS = [
+	'__VINEXT_',
+	'Symbol.for(`vinext',
+	'Symbol.for("vinext',
+	"Symbol.for('vinext",
+	'vinext.',
+	'vinext:',
+	'vinext/',
+	VINEXT_RSC_BOOTSTRAP_MARKER,
+	VINEXT_ROUTE_MANIFEST_MARKER,
+	'navigationRuntime',
+] as const;
+const FORBIDDEN_EXPORTED_HTML_MARKERS = [
+	'__VINEXT_',
+	'Symbol.for(`vinext',
+	'Symbol.for("vinext',
+	"Symbol.for('vinext",
+	VINEXT_NAVIGATION_RUNTIME_MARKER,
+	VINEXT_RSC_BOOTSTRAP_MARKER,
+] as const;
 const IMAGE_MIME_TYPES_BY_EXTENSION = {
 	'.avif': 'image/avif',
 	'.gif': 'image/gif',
@@ -62,6 +103,8 @@ const IMAGE_MIME_TYPES_BY_EXTENSION = {
 } as const;
 
 process.env.NODE_ENV = 'production';
+
+await assertVinextBootstrapContracts();
 
 await rm(STATIC_DIST_DIRECTORY, { force: true, recursive: true });
 
@@ -129,6 +172,7 @@ for (const routePath of exportedPaths) {
 }
 
 await scrubExportedHtmlFiles(STATIC_DIST_DIRECTORY);
+await assertNoClientBootstrapMarkers(STATIC_DIST_DIRECTORY);
 
 function toOutputPath(routePath: string): string {
 	if (routePath === '/') {
@@ -418,7 +462,12 @@ function isVinextBootstrapScript(attributes: string, content: string): boolean {
 		return true;
 	}
 
-	return content.includes(VINEXT_NAVIGATION_RUNTIME_MARKER);
+	const normalizedContent = content.trim();
+	if (normalizedContent.length === 0) {
+		return false;
+	}
+
+	return VINEXT_BOOTSTRAP_SCRIPT_MARKERS.some((marker) => normalizedContent.includes(marker));
 }
 
 function insertOpenGraphImageTypeMeta(html: string): string {
@@ -517,6 +566,44 @@ function toLocalAssetPath(href: string): string | null {
 	return path.join(STATIC_DIST_DIRECTORY, pathname.slice(1));
 }
 
+async function assertVinextBootstrapContracts(): Promise<void> {
+	const [navigationRuntimeSource, appSsrEntrySource, appSsrStreamSource] = await Promise.all([
+		readFile(VINEXT_NAVIGATION_RUNTIME_SOURCE_PATH, 'utf8'),
+		readFile(VINEXT_APP_SSR_ENTRY_SOURCE_PATH, 'utf8'),
+		readFile(VINEXT_APP_SSR_STREAM_SOURCE_PATH, 'utf8'),
+	]);
+
+	const missingContracts = [
+		{
+			found: navigationRuntimeSource.includes(
+				`NAVIGATION_RUNTIME_SYMBOL_DESCRIPTION = "${VINEXT_NAVIGATION_RUNTIME_MARKER}"`
+			),
+			name: `${path.relative(PROJECT_ROOT, VINEXT_NAVIGATION_RUNTIME_SOURCE_PATH)} exports ${VINEXT_NAVIGATION_RUNTIME_MARKER}`,
+		},
+		{
+			found: appSsrEntrySource.includes(`id=\\"${VINEXT_BOOTSTRAP_SCRIPT_ID}\\"`),
+			name: `${path.relative(PROJECT_ROOT, VINEXT_APP_SSR_ENTRY_SOURCE_PATH)} emits script id ${VINEXT_BOOTSTRAP_SCRIPT_ID}`,
+		},
+		{
+			found:
+				appSsrStreamSource.includes('NAVIGATION_RUNTIME_SYMBOL_DESCRIPTION') &&
+				appSsrStreamSource.includes('Symbol.for') &&
+				appSsrStreamSource.includes(VINEXT_RSC_BOOTSTRAP_MARKER),
+			name: `${path.relative(PROJECT_ROOT, VINEXT_APP_SSR_STREAM_SOURCE_PATH)} emits ${VINEXT_RSC_BOOTSTRAP_MARKER} from NAVIGATION_RUNTIME_SYMBOL_DESCRIPTION`,
+		},
+	].filter(({ found }) => !found);
+
+	if (missingContracts.length === 0) {
+		return;
+	}
+
+	throw new Error(
+		`vinext static-export bootstrap assumptions changed after upgrade:\n${missingContracts
+			.map(({ name }) => `- Missing: ${name}`)
+			.join('\n')}`
+	);
+}
+
 async function scrubExportedHtmlFiles(directory: string): Promise<void> {
 	const allEntries = await readdir(directory, { recursive: true });
 
@@ -532,6 +619,31 @@ async function scrubExportedHtmlFiles(directory: string): Promise<void> {
 				}
 			})
 	);
+}
+
+async function assertNoClientBootstrapMarkers(directory: string): Promise<void> {
+	const allEntries = await readdir(directory, { recursive: true });
+
+	for (const relativePath of allEntries) {
+		if (!relativePath.endsWith('.html')) {
+			continue;
+		}
+
+		const fullPath = path.join(directory, relativePath);
+		const html = await readFile(fullPath, 'utf8');
+		const leakedMarker = FORBIDDEN_EXPORTED_HTML_MARKERS.find((marker) =>
+			html.includes(marker)
+		);
+		if (!leakedMarker) {
+			continue;
+		}
+
+		throw new Error(
+			`Static export still contains client bootstrap marker ${JSON.stringify(
+				leakedMarker
+			)} in ${path.relative(PROJECT_ROOT, fullPath)}`
+		);
+	}
 }
 
 function shouldExcludeFromStaticExport(sourcePath: string): boolean {
