@@ -10,13 +10,17 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 	const HOME_SIGNAL_ID = 'ha-machine-status-signal';
 	const HOME_SIGNAL_LINK_PATH = '/quick-start';
 	const LIVE_REGION_ID = 'ha-machine-status-live-region';
-	const HOME_SIGNAL_EXIT_DURATION_MS = 300;
+	const HOME_SIGNAL_EXIT_DURATION_MS = 260;
 	const MOBILE_HOME_SIGNAL_MEDIA_QUERY = '(max-width: 640px)';
 	const MAX_VISIBLE_HOME_SIGNALS = 3;
 	const MOBILE_VISIBLE_HOME_SIGNALS = 2;
 	const RETRY_BASE_DELAY_MS = 1000;
 	const RETRY_MAX_DELAY_MS = 15_000;
 	const HOME_SIGNAL_DURATION_MS = 60_000;
+	const HOME_SIGNAL_AUTO_DISMISS_DELAY_MS = Math.max(
+		0,
+		HOME_SIGNAL_DURATION_MS - HOME_SIGNAL_EXIT_DURATION_MS
+	);
 
 	type MachineType = 'vm' | 'bm';
 	type MachineStatus = 'reserved' | 'deleted';
@@ -226,10 +230,13 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 		const title = document.createElement('div');
 		const meta = document.createElement('div');
 		const status = document.createElement('span');
+		const progressTrack = document.createElement('div');
+		const progressBar = document.createElement('div');
 
 		homeSignal.className = 'ha-machine-home-signal';
 		homeSignal.dataset.status = machineEvent.status;
 		homeSignal.dataset.type = machineEvent.type;
+		homeSignal.style.setProperty('--ha-machine-home-signal-duration', `${HOME_SIGNAL_DURATION_MS}ms`);
 		homeSignal.setAttribute('role', 'link');
 		homeSignal.tabIndex = 0;
 		homeSignal.setAttribute('aria-label', `${formatDisplayLabel(machineEvent)} ${statusLabel}. Open quick start.`);
@@ -248,7 +255,6 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 		dismissButton.className = 'ha-machine-home-signal__dismiss';
 		dismissButton.setAttribute('aria-label', 'Dismiss alert');
 		dismissButton.type = 'button';
-		dismissButton.textContent = 'X';
 		dismissButton.addEventListener('click', (event) => {
 			event.stopPropagation();
 			dismissHomeSignal(homeSignal);
@@ -281,13 +287,17 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 		meta.className = 'ha-machine-home-signal__meta';
 		status.className = 'ha-machine-home-signal__status';
 		status.textContent = statusLabel;
+		progressTrack.className = 'ha-machine-home-signal__progress-track';
+		progressTrack.setAttribute('aria-hidden', 'true');
+		progressBar.className = 'ha-machine-home-signal__progress-bar';
 
 		topline.append(livePill, eyebrow);
 		metric.append(metricCount, metricLabel);
 		meta.append(status);
 		copy.append(title, meta);
 		body.append(metric, copy);
-		frame.append(topline, body);
+		progressTrack.append(progressBar);
+		frame.append(topline, body, progressTrack);
 		homeSignal.append(dismissButton, glow, frame);
 
 		homeSignalStack.prepend(homeSignal);
@@ -301,7 +311,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 
 		window.setTimeout(() => {
 			dismissHomeSignal(homeSignal);
-		}, HOME_SIGNAL_DURATION_MS);
+		}, HOME_SIGNAL_AUTO_DISMISS_DELAY_MS);
 	}
 
 	function formatDisplayLabel(machineEvent: MachineStatusEvent): string {
@@ -336,7 +346,6 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 			return;
 		}
 
-		homeSignal.classList.remove('is-active');
 		homeSignal.classList.add('is-exiting');
 
 		window.setTimeout(() => {
