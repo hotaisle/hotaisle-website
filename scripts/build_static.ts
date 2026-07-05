@@ -1,13 +1,19 @@
 import { spawn } from 'node:child_process';
-import { cp, mkdir, readdir, readFile, rm, stat, utimes, writeFile } from 'node:fs/promises';
+import {
+	cp,
+	mkdir,
+	readdir,
+	readFile,
+	rename,
+	rm,
+	stat,
+	utimes,
+	writeFile,
+} from 'node:fs/promises';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { minify as minifyHtml } from '@minify-html/node';
 import { transform as transformCss } from 'lightningcss';
 import { minifySync } from 'oxc-minify';
-import { BLOG_POSTS } from '@/generated/blog-data.ts';
-import { POLICIES } from '@/generated/static-content-data.ts';
-import { appRouter } from '../node_modules/vinext/dist/routing/app-router.js';
 import { createSitemapXml } from './generate_sitemap.ts';
 
 const EXPORT_ORIGIN = 'https://static.hotaisle.local';
@@ -19,11 +25,6 @@ const STATIC_DIST_DIRECTORY = path.join(PROJECT_ROOT, 'dist-static');
 const CLIENT_DIRECTORY = path.join(DIST_DIRECTORY, 'client');
 const CLIENT_BLOG_ASSET_DIRECTORY = path.join(CLIENT_DIRECTORY, 'assets', 'blog');
 const SITEMAP_FILE_NAME = 'sitemap.xml';
-const APP_DIRECTORY = path.join(PROJECT_ROOT, 'src', 'app');
-const SERVER_ENTRY_CANDIDATES = [
-	path.join(DIST_DIRECTORY, 'server', 'index.js'),
-	path.join(DIST_DIRECTORY, 'server', 'ssr', 'index.js'),
-] as const;
 const VINEXT_PACKAGE_DIRECTORY = path.join(PROJECT_ROOT, 'node_modules', 'vinext');
 const VINEXT_NAVIGATION_RUNTIME_SOURCE_PATH = path.join(
 	VINEXT_PACKAGE_DIRECTORY,
@@ -52,8 +53,8 @@ const STATIC_DEPLOY_WRANGLER_CONFIG_PATH = path.join(
 const VITE_METADATA_DIRECTORY_NAME = '.vite';
 const WRANGLER_CONFIG_FILE_NAME = 'wrangler.json';
 const DEV_FILE_PREFIX = '.dev';
-const REDIRECT_STATUS_CODES = new Set([301, 302, 303, 307, 308]);
-const MAX_REDIRECT_HOPS = 10;
+const HTML_EXTENSION = '.html';
+const ROOT_HTML_FILE_NAMES = new Set(['404.html', 'index.html']);
 const INLINE_SCRIPT_REGEX = /<script([^>]*)>([\s\S]*?)<\/script>/g;
 const INLINE_STYLE_REGEX = /<style([^>]*)>([\s\S]*?)<\/style>/g;
 const LINK_TAG_REGEX = /<link\b[^>]*>/g;
@@ -134,62 +135,12 @@ await cp(CLIENT_DIRECTORY, STATIC_DIST_DIRECTORY, {
 await writeStaticDeployWranglerConfig();
 await writeSitemapFiles();
 
-const routes = await appRouter(APP_DIRECTORY);
-const exportedPaths = new Set<string>();
-
-for (const route of routes) {
-	if (!route.pagePath || route.isDynamic) {
-		continue;
-	}
-
-	exportedPaths.add(route.pattern);
+await nestExportedHtmlFiles(STATIC_DIST_DIRECTORY);
+const normalizedHtmlFileCount = await normalizeExportedHtmlFiles(STATIC_DIST_DIRECTORY);
+if (normalizedHtmlFileCount === 0) {
+	throw new Error('vinext static export did not produce any HTML files');
 }
-
-for (const post of BLOG_POSTS) {
-	exportedPaths.add(`/blog/${post.slug}`);
-}
-
-for (const policy of POLICIES) {
-	exportedPaths.add(`/policies/${policy.slug}`);
-}
-
-const renderRoute = await resolveRenderRoute();
-
-for (const routePath of exportedPaths) {
-	const requestPath = toRequestPath(routePath);
-	const htmlResponse = await renderStaticRoute(renderRoute, requestPath, 'text/html');
-
-	if (!htmlResponse.ok) {
-		throw new Error(`Failed to export ${routePath}: ${htmlResponse.status}`);
-	}
-	const rawHtml = await htmlResponse.text();
-	const html = await normalizeExportedHtml(rawHtml);
-	const outputPath = toOutputPath(routePath);
-	const fullPath = path.join(STATIC_DIST_DIRECTORY, outputPath);
-
-	await mkdir(path.dirname(fullPath), { recursive: true });
-	await writeFile(fullPath, html, 'utf8');
-}
-
-await scrubExportedHtmlFiles(STATIC_DIST_DIRECTORY);
 await assertNoClientBootstrapMarkers(STATIC_DIST_DIRECTORY);
-
-function toOutputPath(routePath: string): string {
-	if (routePath === '/') {
-		return 'index.html';
-	}
-
-	const normalizedPath = routePath.replace(/^\/+|\/+$/g, '');
-	return path.join(normalizedPath, 'index.html');
-}
-
-function toRequestPath(routePath: string): string {
-	if (routePath === '/') {
-		return routePath;
-	}
-
-	return routePath.endsWith('/') ? routePath : `${routePath}/`;
-}
 
 async function normalizeExportedHtml(html: string): Promise<string> {
 	const stripped = stripClientBootstrap(html);
@@ -201,6 +152,49 @@ async function normalizeExportedHtml(html: string): Promise<string> {
 		minify_js: false,
 		minify_css: false,
 	}).toString('utf8');
+}
+
+async function normalizeExportedHtmlFiles(directory: string): Promise<number> {
+	const allEntries = await readdir(directory, { recursive: true });
+	let normalizedCount = 0;
+
+	for (const relativePath of allEntries) {
+		if (!relativePath.endsWith('.html')) {
+			continue;
+		}
+
+		const fullPath = path.join(directory, relativePath);
+		const html = await readFile(fullPath, 'utf8');
+		const normalizedHtml = await normalizeExportedHtml(html);
+
+		await writeFile(fullPath, normalizedHtml, 'utf8');
+		normalizedCount += 1;
+	}
+
+	return normalizedCount;
+}
+
+async function nestExportedHtmlFiles(directory: string): Promise<void> {
+	const allEntries = await readdir(directory, { recursive: true });
+
+	for (const relativePath of allEntries) {
+		if (
+			!relativePath.endsWith(HTML_EXTENSION) ||
+			ROOT_HTML_FILE_NAMES.has(path.basename(relativePath))
+		) {
+			continue;
+		}
+
+		const sourcePath = path.join(directory, relativePath);
+		const nestedRelativePath = path.join(
+			relativePath.slice(0, -HTML_EXTENSION.length),
+			'index.html'
+		);
+		const nestedPath = path.join(directory, nestedRelativePath);
+
+		await mkdir(path.dirname(nestedPath), { recursive: true });
+		await rename(sourcePath, nestedPath);
+	}
 }
 
 async function writeSitemapFiles(): Promise<void> {
@@ -264,32 +258,6 @@ async function directoryExists(directoryPath: string): Promise<boolean> {
 	}
 }
 
-async function resolveRenderRoute(): Promise<(request: Request) => Promise<Response>> {
-	for (const serverEntryPath of SERVER_ENTRY_CANDIDATES) {
-		try {
-			await stat(serverEntryPath);
-		} catch {
-			continue;
-		}
-
-		const serverModule = await import(pathToFileURL(serverEntryPath).href);
-		const defaultExport = serverModule.default as
-			| { fetch?: (request: Request) => Promise<Response> }
-			| ((request: Request) => Promise<Response>)
-			| undefined;
-
-		if (typeof defaultExport === 'function') {
-			return defaultExport;
-		}
-
-		if (typeof defaultExport?.fetch === 'function') {
-			return defaultExport.fetch.bind(defaultExport);
-		}
-	}
-
-	throw new Error('vinext build did not produce a callable server handler');
-}
-
 function toSlugSegment(segment: string): string {
 	const parsed = path.parse(segment);
 	const normalizedBaseName = (parsed.name || parsed.base)
@@ -338,42 +306,6 @@ async function copyBlogAssetsToOutput(
 			await utimes(destPath, sourceStats.atime, sourceStats.mtime);
 		})
 	);
-}
-
-async function renderStaticRoute(
-	renderRoute: (request: Request) => Promise<Response>,
-	requestPath: string,
-	accept: string
-): Promise<Response> {
-	let currentUrl = new URL(requestPath, EXPORT_ORIGIN);
-
-	for (let hop = 0; hop < MAX_REDIRECT_HOPS; hop += 1) {
-		const response = await renderRoute(
-			new Request(currentUrl, {
-				headers: { accept },
-			})
-		);
-
-		if (!REDIRECT_STATUS_CODES.has(response.status)) {
-			return response;
-		}
-
-		const location = response.headers.get('location');
-		if (!location) {
-			throw new Error(`Redirect from ${currentUrl.pathname} missing location header`);
-		}
-
-		const nextUrl = new URL(location, currentUrl);
-		if (nextUrl.origin !== EXPORT_ORIGIN) {
-			throw new Error(
-				`External redirect while exporting ${currentUrl.pathname}: ${location}`
-			);
-		}
-
-		currentUrl = nextUrl;
-	}
-
-	throw new Error(`Too many redirects while exporting ${requestPath}`);
 }
 
 function minifyInlineScripts(html: string): string {
@@ -601,23 +533,6 @@ async function assertVinextBootstrapContracts(): Promise<void> {
 		`vinext static-export bootstrap assumptions changed after upgrade:\n${missingContracts
 			.map(({ name }) => `- Missing: ${name}`)
 			.join('\n')}`
-	);
-}
-
-async function scrubExportedHtmlFiles(directory: string): Promise<void> {
-	const allEntries = await readdir(directory, { recursive: true });
-
-	await Promise.all(
-		allEntries
-			.filter((entry) => entry.endsWith('.html'))
-			.map(async (relativePath) => {
-				const fullPath = path.join(directory, relativePath);
-				const html = await readFile(fullPath, 'utf8');
-				const strippedHtml = stripClientBootstrap(html);
-				if (strippedHtml !== html) {
-					await writeFile(fullPath, strippedHtml, 'utf8');
-				}
-			})
 	);
 }
 
