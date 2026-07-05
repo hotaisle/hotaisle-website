@@ -4,11 +4,13 @@ import { initializeHeroStarsScript } from '@/app/hero-stars-script.ts';
 import { initializeLinkPrefetchScript } from '@/app/link-prefetch-script.ts';
 import { initializeMachineStatusScript } from '@/app/machine-status-script.ts';
 import { initializeMobileNavScript } from '@/app/mobile-nav-script.ts';
+import { initializeSearchScript } from '@/app/search-script.ts';
 import { initializeThemeScript } from '@/app/theme-script.ts';
 import { initializeWebMcpScript } from '@/app/webmcp-script.ts';
 import { Footer } from '@/components/layout/Footer.tsx';
 import { Navbar } from '@/components/layout/Navbar.tsx';
 import JsonLd from '@/components/seo/JsonLd.tsx';
+import { SEARCH_DATA } from '@/generated/search-data.ts';
 import { createPageMetadata } from '@/lib/metadata.ts';
 import './globals.css';
 import type * as React from 'react';
@@ -36,6 +38,9 @@ const MACHINE_STATUS_SCRIPT = `(${initializeMachineStatusScript.toString()})(${J
 	enabled: ENABLE_WEBSOCKET,
 })});`;
 const MOBILE_NAV_SCRIPT = `(${initializeMobileNavScript.toString()})();`;
+const SEARCH_SCRIPT = `(${initializeSearchScript.toString()})(${JSON.stringify({
+	searchData: SEARCH_DATA,
+})});`;
 const THEME_SCRIPT = `(${initializeThemeScript.toString()})();`;
 const WEB_MCP_SCRIPT = `(${initializeWebMcpScript.toString()})();`;
 
@@ -68,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<script>{LINK_PREFETCH_SCRIPT}</script>
 				<script>{MACHINE_STATUS_SCRIPT}</script>
 				<script>{MOBILE_NAV_SCRIPT}</script>
+				<script>{SEARCH_SCRIPT}</script>
 				<script>{THEME_SCRIPT}</script>
 				<script>{WEB_MCP_SCRIPT}</script>
 				{ENABLE_GTM && <script>{GTM_SCRIPT}</script>}

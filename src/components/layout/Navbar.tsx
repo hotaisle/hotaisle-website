@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { usePathname } from 'vinext/shims/navigation';
 import { AppLink } from '@/components/AppLink.tsx';
+import { SearchControl } from '@/components/layout/SearchControl.tsx';
 import { ThemeToggle } from '@/components/ThemeToggle.tsx';
 import { HEADER_CONTACT_LINK, HEADER_CTA_LINK, PRIMARY_NAV_LINKS } from '@/lib/navigation.ts';
 
@@ -121,6 +122,8 @@ export function Navbar() {
 
 					{/* Right: Actions */}
 					<div className="flex items-center gap-2">
+						<SearchControl />
+
 						<AppLink
 							className={CONTACT_LINK_CLASS_NAME}
 							href={HEADER_CONTACT_LINK.href}
