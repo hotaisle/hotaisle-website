@@ -127,7 +127,7 @@ export function Navbar() {
 							title="Contact"
 							{...getNavLinkProps(HEADER_CONTACT_LINK.href, 'exact')}
 						>
-							<Mail className="h-[1.125rem] w-[1.125rem]" />
+							<Mail className="h-4.5 w-4.5" />
 						</AppLink>
 
 						<ThemeToggle />
