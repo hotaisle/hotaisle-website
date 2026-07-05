@@ -52,7 +52,7 @@ const policies = [
 
 export default function PoliciesIndexPage() {
 	return (
-		<div className="container mx-auto min-h-screen px-6 py-12">
+		<div className="container mx-auto px-6 py-12">
 			<div className="mb-12">
 				<h1 className="mb-4 font-black text-4xl tracking-tighter md:text-5xl">
 					Legal & <span className="text-hot-orange">Policies</span>

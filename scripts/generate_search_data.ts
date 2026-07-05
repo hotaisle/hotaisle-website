@@ -5,6 +5,9 @@ import { POLICIES } from '@/generated/static-content-data.ts';
 import { type SearchResult, STATIC_SEARCH_PAGES } from '@/lib/search.ts';
 
 const GENERATED_OUTPUT_PATH = path.join(process.cwd(), 'src', 'generated', 'search-data.ts');
+const HTML_TAG_REGEX = /<[^>]+>/g;
+const HTML_ENTITY_REGEX = /&(?:[a-zA-Z]+|#\d+|#x[\da-fA-F]+);/g;
+const WHITESPACE_REGEX = /\s+/g;
 
 async function generateSearchData(): Promise<void> {
 	const results: SearchResult[] = [
@@ -13,6 +16,7 @@ async function generateSearchData(): Promise<void> {
 			(post): SearchResult => ({
 				title: post.title,
 				description: post.description || 'Read our latest blog post.',
+				searchText: toSearchText(post.contentHtml),
 				url: `/blog/${post.slug}`,
 				category: 'Blog',
 				type: 'Article',
@@ -22,6 +26,7 @@ async function generateSearchData(): Promise<void> {
 			(policy): SearchResult => ({
 				title: policy.title,
 				description: policy.description || 'Legal document.',
+				searchText: toSearchText(policy.contentHtml),
 				url: `/policies/${policy.slug}`,
 				category: 'Policy',
 				type: 'Legal',
@@ -40,6 +45,14 @@ export const SEARCH_DATA: SearchResult[] = ${JSON.stringify(results, null, 2)};
 
 	await fs.mkdir(path.dirname(GENERATED_OUTPUT_PATH), { recursive: true });
 	await fs.writeFile(GENERATED_OUTPUT_PATH, fileContents, 'utf8');
+}
+
+function toSearchText(html: string): string {
+	return html
+		.replace(HTML_TAG_REGEX, ' ')
+		.replace(HTML_ENTITY_REGEX, ' ')
+		.replace(WHITESPACE_REGEX, ' ')
+		.trim();
 }
 
 try {
