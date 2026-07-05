@@ -38,7 +38,7 @@ export default async function PolicyPage({ params }: { params: Promise<{ slug: s
 	}
 
 	return (
-		<div className="container mx-auto min-h-screen max-w-5xl px-6 py-12">
+		<div className="container mx-auto max-w-5xl px-6 py-12">
 			{/* Breadcrumb / Back */}
 			{/* Breadcrumb / Back */}
 			<div className="sticky top-0 z-50 -mx-6 mb-8 border-transparent border-b bg-background/80 px-6 py-4 backdrop-blur-md transition-all data-[stuck=true]:border-border">
