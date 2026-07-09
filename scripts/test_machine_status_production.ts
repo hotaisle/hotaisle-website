@@ -60,7 +60,7 @@ const parsePayloads = (): MachineStatusPayload[] => {
 	}
 
 	if (rawStatus === undefined) {
-		return VALID_STATUSES.map((status) => createPayload(type, status, rawGpuCount));
+		return VALID_STATUSES.map((validStatus) => createPayload(type, validStatus, rawGpuCount));
 	}
 
 	const status = rawStatus.trim().toLowerCase();
@@ -108,8 +108,10 @@ const isMatchingPayload = (
 };
 
 interface BroadcastClient {
-	awaitMatchingBroadcast(expectedPayload: MachineStatusPayload): Promise<MachineStatusPayload>;
-	close(): void;
+	awaitMatchingBroadcast: (
+		expectedPayload: MachineStatusPayload
+	) => Promise<MachineStatusPayload>;
+	close: () => void;
 	waitForConnection: Promise<void>;
 }
 
@@ -235,27 +237,39 @@ const run = async (): Promise<void> => {
 	await broadcastClient.waitForConnection;
 
 	try {
-		for (const payload of payloads) {
-			console.log(`POST payload: ${JSON.stringify(payload)}`);
-			const broadcastPromise = broadcastClient.awaitMatchingBroadcast(payload);
-			const response = await postMachineStatus(payload, secret);
-			const responseBody = await response.text();
-
-			console.log(`POST ${MACHINE_STATUS_URL} -> ${response.status}`);
-			if (responseBody) {
-				console.log(responseBody);
-			}
-
-			if (!response.ok) {
-				throw new Error(`Machine status POST failed with status ${response.status}.`);
-			}
-
-			const broadcastPayload = await broadcastPromise;
-			console.log(`Received matching broadcast: ${JSON.stringify(broadcastPayload)}`);
-		}
+		await postPayloads(payloads, secret, broadcastClient);
 	} finally {
 		broadcastClient.close();
 	}
+};
+
+const postPayloads = async (
+	[payload, ...remainingPayloads]: MachineStatusPayload[],
+	secret: string,
+	broadcastClient: BroadcastClient
+): Promise<void> => {
+	if (!payload) {
+		return;
+	}
+
+	console.log(`POST payload: ${JSON.stringify(payload)}`);
+	const broadcastPromise = broadcastClient.awaitMatchingBroadcast(payload);
+	const response = await postMachineStatus(payload, secret);
+	const responseBody = await response.text();
+
+	console.log(`POST ${MACHINE_STATUS_URL} -> ${response.status}`);
+	if (responseBody) {
+		console.log(responseBody);
+	}
+
+	if (!response.ok) {
+		throw new Error(`Machine status POST failed with status ${response.status}.`);
+	}
+
+	const broadcastPayload = await broadcastPromise;
+	console.log(`Received matching broadcast: ${JSON.stringify(broadcastPayload)}`);
+
+	await postPayloads(remainingPayloads, secret, broadcastClient);
 };
 
 await run();

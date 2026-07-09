@@ -149,52 +149,47 @@ async function normalizeExportedHtml(html: string): Promise<string> {
 	const withMinifiedJs = minifyInlineScripts(withStyles);
 	const withMinifiedCss = minifyInlineStyles(withMinifiedJs);
 	return minifyHtml(Buffer.from(withMinifiedCss), {
-		minify_js: false,
 		minify_css: false,
+		minify_js: false,
 	}).toString('utf8');
 }
 
 async function normalizeExportedHtmlFiles(directory: string): Promise<number> {
 	const allEntries = await readdir(directory, { recursive: true });
-	let normalizedCount = 0;
+	const htmlEntries = allEntries.filter((relativePath) => relativePath.endsWith('.html'));
+	await Promise.all(
+		htmlEntries.map(async (relativePath) => {
+			const fullPath = path.join(directory, relativePath);
+			const html = await readFile(fullPath, 'utf8');
+			const normalizedHtml = await normalizeExportedHtml(html);
 
-	for (const relativePath of allEntries) {
-		if (!relativePath.endsWith('.html')) {
-			continue;
-		}
+			await writeFile(fullPath, normalizedHtml, 'utf8');
+		})
+	);
 
-		const fullPath = path.join(directory, relativePath);
-		const html = await readFile(fullPath, 'utf8');
-		const normalizedHtml = await normalizeExportedHtml(html);
-
-		await writeFile(fullPath, normalizedHtml, 'utf8');
-		normalizedCount += 1;
-	}
-
-	return normalizedCount;
+	return htmlEntries.length;
 }
 
 async function nestExportedHtmlFiles(directory: string): Promise<void> {
 	const allEntries = await readdir(directory, { recursive: true });
+	const htmlEntries = allEntries.filter(
+		(relativePath) =>
+			relativePath.endsWith(HTML_EXTENSION) &&
+			!ROOT_HTML_FILE_NAMES.has(path.basename(relativePath))
+	);
+	await Promise.all(
+		htmlEntries.map(async (relativePath) => {
+			const sourcePath = path.join(directory, relativePath);
+			const nestedRelativePath = path.join(
+				relativePath.slice(0, -HTML_EXTENSION.length),
+				'index.html'
+			);
+			const nestedPath = path.join(directory, nestedRelativePath);
 
-	for (const relativePath of allEntries) {
-		if (
-			!relativePath.endsWith(HTML_EXTENSION) ||
-			ROOT_HTML_FILE_NAMES.has(path.basename(relativePath))
-		) {
-			continue;
-		}
-
-		const sourcePath = path.join(directory, relativePath);
-		const nestedRelativePath = path.join(
-			relativePath.slice(0, -HTML_EXTENSION.length),
-			'index.html'
-		);
-		const nestedPath = path.join(directory, nestedRelativePath);
-
-		await mkdir(path.dirname(nestedPath), { recursive: true });
-		await rename(sourcePath, nestedPath);
-	}
+			await mkdir(path.dirname(nestedPath), { recursive: true });
+			await rename(sourcePath, nestedPath);
+		})
+	);
 }
 
 async function writeSitemapFiles(): Promise<void> {
@@ -204,10 +199,12 @@ async function writeSitemapFiles(): Promise<void> {
 		path.join(STATIC_DIST_DIRECTORY, SITEMAP_FILE_NAME),
 	];
 
-	for (const outputPath of outputPaths) {
-		await mkdir(path.dirname(outputPath), { recursive: true });
-		await writeFile(outputPath, sitemapXml, 'utf8');
-	}
+	await Promise.all(
+		outputPaths.map(async (outputPath) => {
+			await mkdir(path.dirname(outputPath), { recursive: true });
+			await writeFile(outputPath, sitemapXml, 'utf8');
+		})
+	);
 }
 
 async function writeStaticDeployWranglerConfig(): Promise<void> {
@@ -331,7 +328,7 @@ function minifyInlineScripts(html: string): string {
 		if (shouldMinify) {
 			const { code, errors } = minifySync('script.js', content, { module: false });
 			if (errors.length > 0) {
-				throw new Error(errors[0]?.message ?? 'oxc-minify failed on inline script');
+				throw new Error(errors[0].message);
 			}
 			result += `<script${attributes}>${code.trim()}</script>`;
 		} else {
@@ -420,6 +417,9 @@ function insertOpenGraphImageTypeMeta(html: string): string {
 
 	const [fullMatch] = imageMetaTag;
 	const imageUrl = getTagAttributes(fullMatch).content;
+	if (!imageUrl) {
+		return html;
+	}
 	const mimeType = getImageMimeType(imageUrl);
 
 	if (!mimeType) {
@@ -433,7 +433,7 @@ function insertOpenGraphImageTypeMeta(html: string): string {
 }
 
 function getImageMimeType(imageUrl: string): string | null {
-	const pathname = new URL(imageUrl, EXPORT_ORIGIN).pathname;
+	const { pathname } = new URL(imageUrl, EXPORT_ORIGIN);
 	const extension = path.extname(pathname).toLowerCase();
 
 	return (
@@ -450,33 +450,41 @@ async function inlineStylesheetLinks(html: string): Promise<string> {
 	}
 
 	let transformedHtml = html;
+	const linkReplacements = await Promise.all(
+		linkMatches.map(async (linkMatch) => {
+			const [fullMatch] = linkMatch;
+			const attributes = getTagAttributes(fullMatch);
+			const { href } = attributes;
+			const rel = attributes.rel?.toLowerCase();
 
-	for (const linkMatch of linkMatches) {
-		const [fullMatch] = linkMatch;
-		const attributes = getTagAttributes(fullMatch);
-		const href = attributes.href;
-		const rel = attributes.rel?.toLowerCase();
+			if (rel !== 'stylesheet' || !href) {
+				return null;
+			}
 
-		if (rel !== 'stylesheet' || !href) {
+			const stylesheetPath = toLocalAssetPath(href);
+
+			if (!stylesheetPath) {
+				return null;
+			}
+
+			const stylesheetContents = await readFile(stylesheetPath, 'utf8');
+			const inlineTag = `<style data-inline-stylesheet-href="${href}">${stylesheetContents}</style>`;
+			return { fullMatch, inlineTag };
+		})
+	);
+
+	for (const replacement of linkReplacements) {
+		if (!replacement) {
 			continue;
 		}
-
-		const stylesheetPath = toLocalAssetPath(href);
-
-		if (!stylesheetPath) {
-			continue;
-		}
-
-		const stylesheetContents = await readFile(stylesheetPath, 'utf8');
-		const inlineTag = `<style data-inline-stylesheet-href="${href}">${stylesheetContents}</style>`;
-		transformedHtml = transformedHtml.replace(fullMatch, inlineTag);
+		transformedHtml = transformedHtml.replace(replacement.fullMatch, replacement.inlineTag);
 	}
 
 	return transformedHtml;
 }
 
-function getTagAttributes(tag: string): Record<string, string> {
-	const attributes: Record<string, string> = {};
+function getTagAttributes(tag: string): Record<string, string | undefined> {
+	const attributes: Record<string, string | undefined> = {};
 
 	for (const match of tag.matchAll(ATTRIBUTE_VALUE_REGEX)) {
 		const [, rawName, doubleQuotedValue, singleQuotedValue, unquotedValue] = match;
@@ -538,26 +546,28 @@ async function assertVinextBootstrapContracts(): Promise<void> {
 
 async function assertNoClientBootstrapMarkers(directory: string): Promise<void> {
 	const allEntries = await readdir(directory, { recursive: true });
+	const htmlEntries = allEntries.filter((relativePath) => relativePath.endsWith('.html'));
+	const leakedMarkers = await Promise.all(
+		htmlEntries.map(async (relativePath) => {
+			const fullPath = path.join(directory, relativePath);
+			const html = await readFile(fullPath, 'utf8');
+			const leakedMarker = FORBIDDEN_EXPORTED_HTML_MARKERS.find((marker) =>
+				html.includes(marker)
+			);
+			if (!leakedMarker) {
+				return null;
+			}
 
-	for (const relativePath of allEntries) {
-		if (!relativePath.endsWith('.html')) {
-			continue;
-		}
-
-		const fullPath = path.join(directory, relativePath);
-		const html = await readFile(fullPath, 'utf8');
-		const leakedMarker = FORBIDDEN_EXPORTED_HTML_MARKERS.find((marker) =>
-			html.includes(marker)
-		);
-		if (!leakedMarker) {
-			continue;
-		}
-
-		throw new Error(
-			`Static export still contains client bootstrap marker ${JSON.stringify(
-				leakedMarker
-			)} in ${path.relative(PROJECT_ROOT, fullPath)}`
-		);
+			return new Error(
+				`Static export still contains client bootstrap marker ${JSON.stringify(
+					leakedMarker
+				)} in ${path.relative(PROJECT_ROOT, fullPath)}`
+			);
+		})
+	);
+	const leakedMarkerError = leakedMarkers.find((error) => error !== null);
+	if (leakedMarkerError) {
+		throw leakedMarkerError;
 	}
 }
 

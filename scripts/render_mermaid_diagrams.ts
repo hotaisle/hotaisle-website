@@ -133,18 +133,14 @@ async function resolvePuppeteerExecutablePath(): Promise<string | undefined> {
 		return configuredExecutablePath;
 	}
 
-	for (const executablePath of LOCAL_CHROME_EXECUTABLE_CANDIDATES) {
-		try {
-			const executableStats = await stat(executablePath);
-			if (executableStats.isFile()) {
-				return executablePath;
-			}
-		} catch {
-			// Ignore missing local Chrome candidates and keep looking.
-		}
-	}
+	const executablePathResults = await Promise.all(
+		LOCAL_CHROME_EXECUTABLE_CANDIDATES.map(async (executablePath) => {
+			const executableStats = await stat(executablePath).catch(() => null);
+			return executableStats?.isFile() ? executablePath : null;
+		})
+	);
 
-	return;
+	return executablePathResults.find((executablePath) => executablePath !== null);
 }
 
 function shouldResetMermaidCliCache(cliResult: CliCommandResult): boolean {
@@ -196,19 +192,27 @@ async function renderMermaidDiagramFiles(
 		return generatedFileNames;
 	}
 
-	for (const { appearance, cliTheme } of MERMAID_THEMES) {
-		const fileName = toDiagramFileName(diagramIndex, appearance);
-		const outputPath = path.join(assetDirectory, fileName);
-		const cliResult = await runMermaidCliToFileWithRecovery(
-			diagramDefinition,
-			outputPath,
-			cliTheme
-		);
+	const renderResults = await Promise.all(
+		MERMAID_THEMES.map(async ({ appearance, cliTheme }) => {
+			const fileName = toDiagramFileName(diagramIndex, appearance);
+			const outputPath = path.join(assetDirectory, fileName);
+			const cliResult = await runMermaidCliToFileWithRecovery(
+				diagramDefinition,
+				outputPath,
+				cliTheme
+			);
 
+			return {
+				cliResult,
+				outputPath,
+			};
+		})
+	);
+
+	for (const { cliResult, outputPath } of renderResults) {
 		if (cliResult.exitCode === 0) {
 			continue;
 		}
-
 		const commandOutput = [cliResult.stdout.trim(), cliResult.stderr.trim()]
 			.filter(Boolean)
 			.join('\n');
@@ -231,28 +235,41 @@ export async function renderMermaidMarkdownToImageMarkdown(
 }> {
 	const mermaidFenceRegex = /```mermaid[^\n]*\n([\s\S]*?)```/g;
 	const generatedFiles: string[] = [];
-	let diagramIndex = 0;
+	const diagramMatches = [...markdown.matchAll(mermaidFenceRegex)].map((match, matchIndex) => {
+		const [fullMatch, diagramBody = ''] = match;
+
+		return {
+			diagramBody,
+			diagramIndex: matchIndex + 1,
+			fullMatch,
+			matchIndex: match.index ?? 0,
+		};
+	});
+	const renderedDiagrams = await Promise.all(
+		diagramMatches.map(async ({ diagramBody, diagramIndex }) => {
+			const diagramFileNames = await renderMermaidDiagramFiles(
+				diagramBody.trim(),
+				assetDirectory,
+				diagramIndex,
+				sourceModifiedAtMs
+			);
+			const lightFileName =
+				diagramFileNames.find((fileName) => fileName.endsWith('-light.svg')) ??
+				toDiagramFileName(diagramIndex, 'light');
+
+			return {
+				diagramFileNames,
+				lightFileName,
+			};
+		})
+	);
 	let rewrittenMarkdown = '';
 	let lastMatchIndex = 0;
 
-	for (const match of markdown.matchAll(mermaidFenceRegex)) {
-		const fullMatch = match[0];
-		const diagramBody = match[1] ?? '';
-		const matchIndex = match.index ?? 0;
+	for (const [index, { fullMatch, matchIndex }] of diagramMatches.entries()) {
+		const { diagramFileNames, lightFileName } = renderedDiagrams[index];
 
 		rewrittenMarkdown += markdown.slice(lastMatchIndex, matchIndex);
-		diagramIndex += 1;
-
-		const diagramFileNames = await renderMermaidDiagramFiles(
-			diagramBody.trim(),
-			assetDirectory,
-			diagramIndex,
-			sourceModifiedAtMs
-		);
-		const lightFileName =
-			diagramFileNames.find((fileName) => fileName.endsWith('-light.svg')) ??
-			toDiagramFileName(diagramIndex, 'light');
-
 		generatedFiles.push(...diagramFileNames);
 		rewrittenMarkdown += `![Mermaid diagram](${BLOG_ASSET_PREFIX}${slug}/${lightFileName} "mermaid-diagram")`;
 		lastMatchIndex = matchIndex + fullMatch.length;
@@ -261,7 +278,7 @@ export async function renderMermaidMarkdownToImageMarkdown(
 	rewrittenMarkdown += markdown.slice(lastMatchIndex);
 
 	return {
-		markdown: rewrittenMarkdown,
 		generatedFiles,
+		markdown: rewrittenMarkdown,
 	};
 }

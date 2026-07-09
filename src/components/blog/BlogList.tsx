@@ -5,10 +5,10 @@ import type { BlogPost } from '@/lib/content.ts';
 import { cn } from '@/lib/utils.ts';
 
 const PUBLISH_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
-	year: 'numeric',
-	month: 'long',
 	day: 'numeric',
+	month: 'long',
 	timeZone: 'UTC',
+	year: 'numeric',
 });
 
 const GUEST_TAG = 'Guest';

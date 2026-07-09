@@ -70,13 +70,12 @@ class LspClient {
 	private readonly pending = new Map<number, Pending>();
 	private readonly diagCallbacks = new Map<string, (diags: Diagnostic[]) => void>();
 	private nextId = 1;
-	private dead = false;
 
 	constructor() {
 		this.proc = spawn(SERVER_BIN, ['--stdio'], {
 			cwd: PROJECT_ROOT,
-			stdio: ['pipe', 'pipe', 'pipe'],
 			env: { ...process.env },
+			stdio: ['pipe', 'pipe', 'pipe'],
 		});
 
 		this.proc.stdout?.on('data', (chunk: Buffer) => {
@@ -90,14 +89,10 @@ class LspClient {
 				process.stderr.write(`[lsp] ${msg}\n`);
 			}
 		});
-
-		this.proc.on('exit', () => {
-			this.dead = true;
-		});
 	}
 
 	private drain() {
-		while (true) {
+		while (this.buf.length > 0) {
 			// Find the \r\n\r\n header terminator in byte space
 			const sep = this.buf.indexOf('\r\n\r\n');
 			if (sep === -1) {
@@ -161,28 +156,28 @@ class LspClient {
 	private handleServerRequest(id: number, method: string, _params: unknown) {
 		if (method === 'workspace/configuration') {
 			// Return one config object per requested item.
-			const items = (_params as { items?: unknown[] })?.items ?? [];
+			const { items = [] } = _params as { items?: unknown[] };
 			const config = {
-				validate: true,
+				classAttributes: ['class', 'className', 'ngClass'],
+				codeActions: true,
+				colorDecorators: true,
+				emmetCompletions: false,
+				experimental: {},
+				hovers: true,
+				includeLanguages: {},
 				lint: {
 					cssConflict: 'warning',
 					invalidApply: 'error',
-					invalidScreen: 'error',
-					invalidVariant: 'error',
 					invalidConfigPath: 'error',
+					invalidScreen: 'error',
 					invalidTailwindDirective: 'error',
+					invalidVariant: 'error',
 					recommendedVariantOrder: 'warning',
 				},
-				classAttributes: ['class', 'className', 'ngClass'],
-				includeLanguages: {},
-				emmetCompletions: false,
-				showPixelEquivalents: true,
 				rootFontSize: 16,
-				colorDecorators: true,
-				hovers: true,
+				showPixelEquivalents: true,
 				suggestions: true,
-				codeActions: true,
-				experimental: {},
+				validate: true,
 			};
 			this.respond(
 				id,
@@ -195,7 +190,7 @@ class LspClient {
 	}
 
 	private respond(id: number, result: unknown) {
-		this.write({ jsonrpc: '2.0', id, result });
+		this.write({ id, jsonrpc: '2.0', result });
 	}
 
 	private write(msg: object) {
@@ -205,13 +200,14 @@ class LspClient {
 	}
 
 	request<T = unknown>(method: string, params: unknown): Promise<T> {
-		const id = this.nextId++;
+		const id = this.nextId;
+		this.nextId += 1;
 		return new Promise<T>((resolve, reject) => {
 			this.pending.set(id, {
-				resolve: resolve as (v: unknown) => void,
 				reject,
+				resolve: resolve as (v: unknown) => void,
 			});
-			this.write({ jsonrpc: '2.0', id, method, params });
+			this.write({ id, jsonrpc: '2.0', method, params });
 		});
 	}
 
@@ -233,15 +229,13 @@ class LspClient {
 	}
 
 	async shutdown() {
-		if (!this.dead) {
-			try {
-				await this.request('shutdown', null);
-				this.notify('exit', null);
-			} catch {
-				// ignore
-			}
-			this.proc.kill();
+		try {
+			await this.request('shutdown', null);
+			this.notify('exit', null);
+		} catch {
+			// ignore
 		}
+		this.proc.kill();
 	}
 }
 
@@ -250,25 +244,25 @@ class LspClient {
 // ---------------------------------------------------------------------------
 
 async function findTsxFiles(root: string): Promise<string[]> {
-	const result: string[] = [];
-
-	async function walk(dir: string) {
+	async function walk(dir: string): Promise<string[]> {
 		const entries = await readdir(dir, { withFileTypes: true });
-		for (const e of entries) {
-			if (e.name.startsWith('.') || e.name === 'node_modules') {
-				continue;
-			}
-			const full = path.join(dir, e.name);
-			if (e.isDirectory()) {
-				await walk(full);
-			} else if (e.isFile() && e.name.endsWith('.tsx')) {
-				result.push(full);
-			}
-		}
+		const fileGroups = await Promise.all(
+			entries.map(async (e): Promise<string[]> => {
+				if (e.name.startsWith('.') || e.name === 'node_modules') {
+					return [];
+				}
+				const full = path.join(dir, e.name);
+				if (e.isDirectory()) {
+					return await walk(full);
+				}
+				return e.isFile() && e.name.endsWith('.tsx') ? [full] : [];
+			})
+		);
+
+		return fileGroups.flat();
 	}
 
-	await walk(root);
-	return result;
+	return await walk(root);
 }
 
 async function resolveTargetFiles(pathsToScan: readonly string[]): Promise<string[]> {
@@ -276,29 +270,26 @@ async function resolveTargetFiles(pathsToScan: readonly string[]): Promise<strin
 		return findTsxFiles(path.join(PROJECT_ROOT, 'src'));
 	}
 
-	const resolvedFiles = new Set<string>();
-
-	for (const targetPath of pathsToScan) {
-		const absolutePath = path.resolve(PROJECT_ROOT, targetPath);
-		const stats = await stat(absolutePath).catch(() => null);
-		if (!stats) {
-			throw new Error(`Path does not exist: ${targetPath}`);
-		}
-
-		if (stats.isDirectory()) {
-			const nestedFiles = await findTsxFiles(absolutePath);
-			for (const nestedFile of nestedFiles) {
-				resolvedFiles.add(nestedFile);
+	const resolvedFileGroups = await Promise.all(
+		pathsToScan.map(async (targetPath): Promise<string[]> => {
+			const absolutePath = path.resolve(PROJECT_ROOT, targetPath);
+			const stats = await stat(absolutePath).catch(() => null);
+			if (!stats) {
+				throw new Error(`Path does not exist: ${targetPath}`);
 			}
-			continue;
-		}
 
-		if (!absolutePath.endsWith('.tsx')) {
-			continue;
-		}
+			if (stats.isDirectory()) {
+				return await findTsxFiles(absolutePath);
+			}
 
-		resolvedFiles.add(absolutePath);
-	}
+			if (!absolutePath.endsWith('.tsx')) {
+				return [];
+			}
+
+			return [absolutePath];
+		})
+	);
+	const resolvedFiles = new Set(resolvedFileGroups.flat());
 
 	return [...resolvedFiles].sort((left, right) => left.localeCompare(right));
 }
@@ -313,7 +304,7 @@ function applyEdits(content: string, edits: TextEdit[]): string {
 
 	function lineColToOffset(line: number, col: number): number {
 		let off = 0;
-		for (let i = 0; i < line; i++) {
+		for (let i = 0; i < line; i += 1) {
 			off += lines[i].length + 1; // +1 for \n
 		}
 		return off + col;
@@ -343,30 +334,33 @@ async function collectEdits(
 	uri: string,
 	diags: Diagnostic[]
 ): Promise<TextEdit[]> {
-	const edits: TextEdit[] = [];
-	for (const diag of diags) {
-		let actions: CodeAction[] | null = null;
-		try {
-			actions = await client.request<CodeAction[]>('textDocument/codeAction', {
-				textDocument: { uri },
-				range: diag.range,
-				context: { diagnostics: [diag], only: ['quickfix'] },
-			});
-		} catch {
-			continue;
-		}
-		for (const action of actions ?? []) {
-			if (action.edit?.changes?.[uri]) {
-				edits.push(...action.edit.changes[uri]);
-			}
-			for (const dc of action.edit?.documentChanges ?? []) {
-				if (dc.textDocument?.uri === uri) {
-					edits.push(...dc.edits);
+	const editGroups = await Promise.all(
+		diags.map(async (diag): Promise<TextEdit[]> => {
+			try {
+				const actions = await client.request<CodeAction[]>('textDocument/codeAction', {
+					context: { diagnostics: [diag], only: ['quickfix'] },
+					range: diag.range,
+					textDocument: { uri },
+				});
+				const edits: TextEdit[] = [];
+				for (const action of actions ?? []) {
+					if (action.edit?.changes?.[uri]) {
+						edits.push(...action.edit.changes[uri]);
+					}
+					for (const dc of action.edit?.documentChanges ?? []) {
+						if (dc.textDocument?.uri === uri) {
+							edits.push(...dc.edits);
+						}
+					}
 				}
+				return edits;
+			} catch {
+				return [];
 			}
-		}
-	}
-	return edits;
+		})
+	);
+
+	return editGroups.flat();
 }
 
 /** Returns true if the file was (or would be) fixed. */
@@ -380,7 +374,7 @@ async function processFile(
 
 	const diagsPromise = client.waitForDiagnostics(uri);
 	client.notify('textDocument/didOpen', {
-		textDocument: { uri, languageId: 'typescriptreact', version: 1, text: original },
+		textDocument: { languageId: 'typescriptreact', text: original, uri, version: 1 },
 	});
 	const diags = await diagsPromise;
 
@@ -426,36 +420,28 @@ async function main() {
 	console.log(`Scanning ${tsxFiles.length} .tsx files${DRY_RUN ? ' (dry run)' : ''}…\n`);
 
 	await client.request('initialize', {
-		processId: process.pid,
-		rootUri: pathToFileURL(PROJECT_ROOT).toString(),
-		workspaceFolders: [
-			{ uri: pathToFileURL(PROJECT_ROOT).toString(), name: path.basename(PROJECT_ROOT) },
-		],
 		capabilities: {
 			textDocument: {
-				publishDiagnostics: { relatedInformation: true },
 				codeAction: {
 					codeActionLiteralSupport: {
 						codeActionKind: { valueSet: ['quickfix', 'source', 'source.fixAll'] },
 					},
 					resolveSupport: { properties: ['edit'] },
 				},
+				publishDiagnostics: { relatedInformation: true },
 			},
 			workspace: { applyEdit: true, configuration: true, workspaceFolders: true },
 		},
 		initializationOptions: { userLanguages: { typescriptreact: 'html' } },
+		processId: process.pid,
+		rootUri: pathToFileURL(PROJECT_ROOT).toString(),
+		workspaceFolders: [
+			{ name: path.basename(PROJECT_ROOT), uri: pathToFileURL(PROJECT_ROOT).toString() },
+		],
 	});
 	client.notify('initialized', {});
 
-	let totalDiags = 0;
-	let totalFiles = 0;
-	for (const filePath of tsxFiles) {
-		const { diagCount, fixed } = await processFile(client, filePath);
-		totalDiags += diagCount;
-		if (fixed) {
-			totalFiles++;
-		}
-	}
+	const { totalDiags, totalFiles } = await processFiles(client, tsxFiles);
 
 	console.log('─'.repeat(60));
 	console.log(`Diagnostics found : ${totalDiags}`);
@@ -464,6 +450,25 @@ async function main() {
 	);
 
 	await client.shutdown();
+}
+
+async function processFiles(
+	client: LspClient,
+	[filePath, ...remainingFilePaths]: string[],
+	totalDiags = 0,
+	totalFiles = 0
+): Promise<{ totalDiags: number; totalFiles: number }> {
+	if (!filePath) {
+		return { totalDiags, totalFiles };
+	}
+
+	const { diagCount, fixed } = await processFile(client, filePath);
+	return await processFiles(
+		client,
+		remainingFilePaths,
+		totalDiags + diagCount,
+		fixed ? totalFiles + 1 : totalFiles
+	);
 }
 
 main().catch((err) => {

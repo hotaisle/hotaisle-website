@@ -223,34 +223,34 @@ export default function PricingPage() {
 				<div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{[
 						{
+							desc: 'Enterprise-grade hardware stability.',
 							icon: Server,
 							title: 'Dell XE9680 Chassis',
-							desc: 'Enterprise-grade hardware stability.',
 						},
 						{
+							desc: 'Located in our secure Michigan facility.',
 							icon: Shield,
 							title: '100% Green Datacenter',
-							desc: 'Located in our secure Michigan facility.',
 						},
 						{
+							desc: 'RoCEv2 for ultra-low latency clusters.',
 							icon: Zap,
 							title: '8x400G Networking',
-							desc: 'RoCEv2 for ultra-low latency clusters.',
 						},
 						{
+							desc: 'SSH, BMC, iDRAC - you control it all.',
 							icon: Server,
 							title: 'Full Root Access',
-							desc: 'SSH, BMC, iDRAC - you control it all.',
 						},
 						{
+							desc: 'Secure multi-node environments with public IP and firewall control.',
 							icon: Shield,
 							title: 'Private Isolated Networking',
-							desc: 'Secure multi-node environments with public IP and firewall control.',
 						},
 						{
+							desc: 'Direct Slack channel with our engineers.',
 							icon: Zap,
 							title: 'White Glove Support',
-							desc: 'Direct Slack channel with our engineers.',
 						},
 					].map((feature) => (
 						<div

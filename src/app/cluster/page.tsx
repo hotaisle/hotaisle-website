@@ -23,67 +23,67 @@ export function generateMetadata() {
 
 const clusters = [
 	{
-		title: 'Performance Beyond Compare',
 		desc: "Hot Aisle's clusters aren't just powerful, they're built for the future. Our flagship 128 GPU MI300x bare metal cluster delivers peak performance with AMD's enterprise architecture, giving you compute power that can match or exceed an H200 setup. For businesses looking to push AI boundaries or handle complex simulations, these clusters are your ticket to rapid insights and growth.",
 		icon: Zap,
+		title: 'Performance Beyond Compare',
 	},
 	{
-		title: 'Scalable & Customizable',
 		desc: "We design our clusters to scale seamlessly as your needs evolve. Whether you're looking for a compact, high-power cluster or a massive multi-data-center deployment, we are ready to tailor a solution just for you.",
 		icon: Settings,
+		title: 'Scalable & Customizable',
 	},
 ];
 
 const reasons = [
 	{
-		title: 'Trusted Expertise',
 		desc: 'Founded by industry veterans, Hot Aisle combines years of experience in open-source, large-scale compute, and data center management. Our team has deployed and optimized tens of thousands of servers across multiple environments.',
 		icon: Users,
+		title: 'Trusted Expertise',
 	},
 	{
-		title: 'Cutting-Edge Hardware',
 		desc: "With top-of-the-line AMD hardware, we're among the few providers enabling true high-density, high-performance compute. Our recent partnership with Dell for hardware and support, paired with AMD's MI300x (skip MI325x, go for MI355x), ensures you're accessing the latest tech.",
 		icon: Cpu,
+		title: 'Cutting-Edge Hardware',
 	},
 	{
-		title: 'No Hidden Costs',
 		desc: 'We provide transparent pricing and flexibility with our model, meaning you can harness supercomputer-grade resources without the hefty CapEx. Our deep relationships with vendors will ensure you get the best pricing.',
 		icon: BarChart,
+		title: 'No Hidden Costs',
 	},
 	{
-		title: 'Bring Your Own DC',
 		desc: "We've developed relationships with a number of Tier 3-5 data centers in the US. We can help negotiate your DC, Insurance and Internet contracts for you.",
 		icon: ShieldCheck,
+		title: 'Bring Your Own DC',
 	},
 ];
 
 const services = [
 	{
-		title: 'Workload Optimization',
 		desc: "We don't just deliver the hardware; we optimize it. Our team fine-tunes every aspect of your compute to squeeze out the best performance, ensuring ROI with every cycle.",
+		title: 'Workload Optimization',
 	},
 	{
-		title: 'Custom Solutions',
 		desc: "Every project is unique. Whether you're building a dedicated cluster for research or integrating a hybrid cloud environment, our architects design solutions that work in tandem with your specific goals.",
+		title: 'Custom Solutions',
 	},
 	{
-		title: 'Filling in the Gaps',
 		desc: 'Supply chain management, ensuring that nothing is left out of your deployment and everything is delivered on-time.',
+		title: 'Filling in the Gaps',
 	},
 	{
-		title: 'Expertise When You Need It',
 		desc: 'Our consulting extends beyond setup, with ongoing support to keep your workloads running smoothly and efficiently as you scale.',
+		title: 'Expertise When You Need It',
 	},
 ];
 
 const testimonials = [
 	{
-		text: "Hot Aisle's team helped us deploy our AI infrastructure within weeks, not months. The performance gains were immediate, and the ongoing support keeps our projects on track.",
 		author: 'AI Infrastructure Lead',
+		text: "Hot Aisle's team helped us deploy our AI infrastructure within weeks, not months. The performance gains were immediate, and the ongoing support keeps our projects on track.",
 	},
 	{
-		text: 'The Hot Aisle cluster outperformed our expectations, allowing us to hit milestones faster than we thought possible. The team was hands-on from start to finish, optimizing everything for our exact needs.',
 		author: 'CTO, FinTech Research Firm',
+		text: 'The Hot Aisle cluster outperformed our expectations, allowing us to hit milestones faster than we thought possible. The team was hands-on from start to finish, optimizing everything for our exact needs.',
 	},
 ];
 

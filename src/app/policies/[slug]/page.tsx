@@ -64,11 +64,11 @@ export default async function PolicyPage({ params }: { params: Promise<{ slug: s
 				<h1 className="font-black text-4xl text-foreground tracking-tighter md:text-5xl">
 					{page.title}
 				</h1>
-				{page.description && (
+				{page.description ? (
 					<p className="mt-4 font-light text-muted-foreground text-xl">
 						{page.description}
 					</p>
-				)}
+				) : null}
 			</div>
 
 			{/* Content */}

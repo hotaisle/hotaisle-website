@@ -26,8 +26,8 @@ interface Env {
 }
 
 interface ExecutionContextLike {
-	passThroughOnException?(): void;
-	waitUntil(promise: Promise<unknown>): void;
+	passThroughOnException?: () => void;
+	waitUntil: (promise: Promise<unknown>) => void;
 }
 
 const worker = {
@@ -82,7 +82,7 @@ export class MachineStatusHub {
 	}
 
 	webSocketMessage(_webSocket: WebSocket, _message: string | ArrayBuffer): void {
-		return;
+		// Clients do not send messages to the hub.
 	}
 
 	private handleConnectionRequest(request: Request): Response {
@@ -96,8 +96,7 @@ export class MachineStatusHub {
 		}
 
 		const webSocketPair = new WebSocketPair();
-		const clientSocket = webSocketPair[0];
-		const serverSocket = webSocketPair[1];
+		const [clientSocket, serverSocket] = webSocketPair;
 
 		this.state.acceptWebSocket(serverSocket, [HUB_SOCKET_TAG]);
 
@@ -139,7 +138,7 @@ export class MachineStatusHub {
 		try {
 			webSocket.close();
 		} catch {
-			return;
+			// Ignore already-closed sockets.
 		}
 	}
 }

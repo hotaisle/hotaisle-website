@@ -1,17 +1,17 @@
 interface DurableObjectState {
-	acceptWebSocket(webSocket: WebSocket, tags?: string[]): void;
-	getWebSockets(tag?: string): WebSocket[];
+	acceptWebSocket: (webSocket: WebSocket, tags?: string[]) => void;
+	getWebSockets: (tag?: string) => WebSocket[];
 }
 
 type DurableObjectId = object;
 
 interface DurableObjectNamespaceLike {
-	get(id: DurableObjectId): FetcherLike;
-	idFromName(name: string): DurableObjectId;
+	get: (id: DurableObjectId) => FetcherLike;
+	idFromName: (name: string) => DurableObjectId;
 }
 
 interface FetcherLike {
-	fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
+	fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 }
 
 interface ResponseInit {
@@ -19,8 +19,5 @@ interface ResponseInit {
 }
 
 declare const WebSocketPair: {
-	new (): {
-		0: WebSocket;
-		1: WebSocket;
-	};
+	new (): [WebSocket, WebSocket];
 };

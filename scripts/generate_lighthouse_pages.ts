@@ -19,9 +19,9 @@ const PATH_SEPARATOR_REGEX = /\\/g;
 const REPORTS_SITE_PATH_PREFIX = '/hotaisle-website';
 const CATEGORY_IDS = ['performance', 'accessibility', 'best-practices', 'seo'] as const;
 const CATEGORY_LABELS = {
-	performance: 'Performance',
 	accessibility: 'Accessibility',
 	'best-practices': 'Best Practices',
+	performance: 'Performance',
 	seo: 'SEO',
 } as const;
 type CategoryId = (typeof CATEGORY_IDS)[number];

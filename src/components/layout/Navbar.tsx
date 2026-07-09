@@ -39,19 +39,19 @@ const INDEX_FILE_SUFFIX = '/index.html';
 const SECTION_MATCH_MODE: NavMatchMode = 'section';
 
 const ALL_NAV_ITEMS = [
-	{ href: '/quick-start', label: 'Quick Start', icon: Zap },
-	{ href: '/pricing', label: 'Pricing', icon: DollarSign },
-	{ href: '/compute', label: 'Supercomputer', icon: Cpu },
-	{ href: '/datacenter', label: 'Datacenter', icon: Building },
-	{ href: '/networking', label: 'Networking', icon: Network },
-	{ href: '/cluster', label: 'Cluster Design', icon: Server },
-	{ href: '/partners', label: 'Partners', icon: Handshake },
-	{ href: '/benchmarks-and-analysis', label: 'Benchmarks', icon: BarChart3 },
-	{ href: '/mi300x', label: 'MI300X', icon: Cpu },
-	{ href: '/mi355x', label: 'MI355X', icon: Zap },
-	{ href: '/blog', label: 'Blog', icon: BookOpen },
-	{ href: '/about', label: 'About Us', icon: Info },
-	{ href: '/policies', label: 'Policies', icon: Scale },
+	{ href: '/quick-start', icon: Zap, label: 'Quick Start' },
+	{ href: '/pricing', icon: DollarSign, label: 'Pricing' },
+	{ href: '/compute', icon: Cpu, label: 'Supercomputer' },
+	{ href: '/datacenter', icon: Building, label: 'Datacenter' },
+	{ href: '/networking', icon: Network, label: 'Networking' },
+	{ href: '/cluster', icon: Server, label: 'Cluster Design' },
+	{ href: '/partners', icon: Handshake, label: 'Partners' },
+	{ href: '/benchmarks-and-analysis', icon: BarChart3, label: 'Benchmarks' },
+	{ href: '/mi300x', icon: Cpu, label: 'MI300X' },
+	{ href: '/mi355x', icon: Zap, label: 'MI355X' },
+	{ href: '/blog', icon: BookOpen, label: 'Blog' },
+	{ href: '/about', icon: Info, label: 'About Us' },
+	{ href: '/policies', icon: Scale, label: 'Policies' },
 ];
 
 function normalizePathname(pathname: string): string {

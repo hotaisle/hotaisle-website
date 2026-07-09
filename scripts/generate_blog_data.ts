@@ -112,7 +112,7 @@ interface ParsedBlogPost {
 
 interface ParsedLegacyMarkdown {
 	contentMarkdown: string;
-	metadata: Record<string, string>;
+	metadata: Record<string, string | undefined>;
 	title: string;
 }
 
@@ -175,8 +175,7 @@ function parseAuthorProfile(authorName: string, value: unknown): BlogAuthorProfi
 		throw new Error(`Author "${authorName}" must be an object.`);
 	}
 
-	const { bio, name, note } = value;
-	const links = value.links;
+	const { bio, links, name, note } = value;
 	if (typeof name !== 'string' || typeof bio !== 'string') {
 		throw new Error(`Author "${authorName}" must include string name and bio fields.`);
 	}
@@ -188,10 +187,10 @@ function parseAuthorProfile(authorName: string, value: unknown): BlogAuthorProfi
 	}
 
 	return {
-		name,
 		bio,
-		note,
 		links: links.map((link, index) => parseAuthorLink(link, authorName, index)),
+		name,
+		note,
 	};
 }
 
@@ -377,8 +376,6 @@ function resolveBlogHeaderImage(slug: string): string | undefined {
 			return `${BLOG_ASSET_PREFIX}${slug}/${fileName}`;
 		}
 	}
-
-	return;
 }
 
 function parseLegacyMetadataLine(line: string): { key: string; value: string } | null {
@@ -394,7 +391,7 @@ function parseLegacyMetadataLine(line: string): { key: string; value: string } |
 }
 
 function appendMultilineMetadataValue(
-	metadata: Record<string, string>,
+	metadata: Record<string, string | undefined>,
 	key: string,
 	line: string
 ): void {
@@ -427,7 +424,7 @@ function parseLegacyMarkdown(fileContents: string): ParsedLegacyMarkdown {
 		lineIndex += 1;
 	}
 
-	const metadata: Record<string, string> = {};
+	const metadata: Record<string, string | undefined> = {};
 	let currentMetadataKey: string | null = null;
 	while (lineIndex < lines.length) {
 		const line = lines[lineIndex] ?? '';
@@ -466,9 +463,9 @@ function parseLegacyMarkdown(fileContents: string): ParsedLegacyMarkdown {
 	const contentMarkdown = lines.slice(lineIndex).join('\n').trim();
 
 	return {
-		title,
-		metadata,
 		contentMarkdown,
+		metadata,
+		title,
 	};
 }
 
@@ -503,21 +500,21 @@ function parseBlogFile(
 	const coverImage = resolveBlogCoverImage(configuredCoverImagePath, normalizedContent);
 
 	return {
-		slug,
-		title,
-		description,
-		haFooter,
 		author,
 		authorProfile,
-		date,
-		tags,
-		published,
-		metaTitle: parsed.metadata['meta title'],
-		metaDescription: parsed.metadata['meta description'],
-		metaKeywords: parsed.metadata['meta keywords'],
 		contentMarkdown: normalizedContent,
 		coverImage: hasExplicitCoverImageSetting ? coverImage : (headerImage ?? coverImage),
+		date,
+		description,
+		haFooter,
+		metaDescription: parsed.metadata['meta description'],
+		metaKeywords: parsed.metadata['meta keywords'],
+		metaTitle: parsed.metadata['meta title'],
+		published,
+		slug,
 		sourceFileName: fileName,
+		tags,
+		title,
 	};
 }
 
@@ -529,14 +526,14 @@ function parseMarkdownMetadata(fileContents: string): ParsedLegacyMarkdown {
 	}
 
 	return {
-		title: String(frontmatter.title ?? ''),
+		contentMarkdown: parsedMatter.content.trim(),
 		metadata: Object.fromEntries(
 			Object.entries(frontmatter).map(([key, value]) => [
 				normalizeMetadataKey(key),
 				String(value ?? ''),
 			])
-		),
-		contentMarkdown: parsedMatter.content.trim(),
+		) as Record<string, string | undefined>,
+		title: String(frontmatter.title ?? ''),
 	};
 }
 
@@ -576,13 +573,11 @@ function resolveBlogCoverImagePath(
 function findLikelyMarkdownImagePath(markdown: string): string | undefined {
 	const imageMatches = markdown.matchAll(MARKDOWN_IMAGE_REGEX);
 	for (const imageMatch of imageMatches) {
-		const source = imageMatch[2];
+		const [, , source] = imageMatch;
 		if (source && isLikelyImageReference(source)) {
 			return decodeMarkdownPath(source);
 		}
 	}
-
-	return;
 }
 
 function resolveInternalMarkdownLink(rawPath: string, fileStemToSlug: Map<string, string>): string {
@@ -631,7 +626,7 @@ async function renderMarkdown(markdown: string): Promise<string> {
 	const processedContent = await remark()
 		.use(remarkGfm)
 		.use(remarkRehype)
-		.use(rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] })
+		.use(rehypeExternalLinks, { rel: ['noopener', 'noreferrer'], target: '_blank' })
 		.use(rehypeSlug)
 		.use(rehypeAutolinkHeadings, {
 			behavior: 'wrap',
@@ -707,9 +702,9 @@ async function getBlogImageMetadata(assetUrl: string): Promise<BlogImageMetadata
 	}
 
 	const imageMetadata = {
-		width,
 		height,
 		isPortrait: height / width > PORTRAIT_IMAGE_RATIO_THRESHOLD,
+		width,
 	};
 	blogImageMetadataByUrl.set(assetUrl, imageMetadata);
 	return imageMetadata;
@@ -728,8 +723,8 @@ function parseMermaidDiagramMetadata(svgContent: string): MermaidDiagramMetadata
 	const maxWidth = Number.parseFloat(maxWidthMatch?.[1] ?? '');
 
 	return {
-		width: maxWidth > 0 ? maxWidth : viewBoxWidth,
 		height: viewBoxHeight,
+		width: maxWidth > 0 ? maxWidth : viewBoxWidth,
 	};
 }
 
@@ -795,53 +790,61 @@ async function enhanceRenderedHtml(html: string): Promise<string> {
 	}
 
 	let enhancedHtml = html;
-	for (const match of matches) {
-		const fullTag = match[0];
-		const beforeSrcAttributes = match[1] ?? '';
-		const src = match[2];
-		const afterSrcAttributes = match[3] ?? '';
-		const imageAttributes = `${beforeSrcAttributes}${afterSrcAttributes}`;
-		const isMermaidDiagram =
-			imageAttributes.includes(`title="${MERMAID_DIAGRAM_TITLE}"`) ||
-			imageAttributes.includes(`title='${MERMAID_DIAGRAM_TITLE}'`);
+	const replacementResults = await Promise.all(
+		matches.map(async (match) => {
+			const [fullTag, beforeSrcAttributes = '', src, afterSrcAttributes = ''] = match;
+			const imageAttributes = `${beforeSrcAttributes}${afterSrcAttributes}`;
+			const isMermaidDiagram =
+				imageAttributes.includes(`title="${MERMAID_DIAGRAM_TITLE}"`) ||
+				imageAttributes.includes(`title='${MERMAID_DIAGRAM_TITLE}'`);
 
-		if (isMermaidDiagram) {
-			const cleanedAttributes = imageAttributes.replace(TITLE_ATTRIBUTE_REGEX, '');
-			const darkSource = toDarkMermaidDiagramSource(src);
-			const diagramMetadata = getMermaidDiagramMetadata(src);
-			const sizeAttributes = diagramMetadata
-				? ` width="${diagramMetadata.width}" height="${diagramMetadata.height}" style="width: ${diagramMetadata.width}px; max-width: 100%; height: auto;"`
-				: '';
-			const imageTag = `<picture><source srcset="${darkSource}" media="(prefers-color-scheme: dark)"><img${appendClassAttribute(cleanedAttributes, 'mermaid-diagram__image')} src="${src}"${sizeAttributes}></picture>`;
-			enhancedHtml = enhancedHtml.replace(
-				fullTag,
-				`<div class="mermaid-diagram">${imageTag}</div>`
-			);
+			if (isMermaidDiagram) {
+				const cleanedAttributes = imageAttributes.replace(TITLE_ATTRIBUTE_REGEX, '');
+				const darkSource = toDarkMermaidDiagramSource(src);
+				const diagramMetadata = getMermaidDiagramMetadata(src);
+				const sizeAttributes = diagramMetadata
+					? ` width="${diagramMetadata.width}" height="${diagramMetadata.height}" style="width: ${diagramMetadata.width}px; max-width: 100%; height: auto;"`
+					: '';
+				const imageTag = `<picture><source srcset="${darkSource}" media="(prefers-color-scheme: dark)"><img${appendClassAttribute(cleanedAttributes, 'mermaid-diagram__image')} src="${src}"${sizeAttributes}></picture>`;
+				return {
+					fullTag,
+					replacementTag: `<div class="mermaid-diagram">${imageTag}</div>`,
+				};
+			}
+
+			const imageMetadata = await getBlogImageMetadata(src);
+			if (!imageMetadata) {
+				return null;
+			}
+
+			const { cleanedAttributes, hints } = extractImageHints(imageAttributes);
+			const classNames = [INLINE_IMAGE_CLASS];
+			if (imageMetadata.isPortrait) {
+				classNames.push(PORTRAIT_IMAGE_CLASS);
+			}
+			if (hints.includes(SMALL_IMAGE_TITLE)) {
+				classNames.push(SMALL_IMAGE_CLASS);
+			}
+			let mergedAttributes = appendClassAttribute(cleanedAttributes, classNames.join(' '));
+			mergedAttributes = `${mergedAttributes} role="button" tabindex="0" aria-haspopup="dialog"`;
+			const imgTag = `<img${mergedAttributes} src="${src}" width="${imageMetadata.width}" height="${imageMetadata.height}">`;
+			const modernVariants = getModernImageVariants(src);
+			const replacementTag =
+				modernVariants.length === 0
+					? imgTag
+					: `<picture>${modernVariants.map((variant) => `<source srcset="${variant.src}" type="${variant.type}">`).join('')}${imgTag}</picture>`;
+			return { fullTag, replacementTag };
+		})
+	);
+
+	for (const replacementResult of replacementResults) {
+		if (!replacementResult) {
 			continue;
 		}
-
-		const imageMetadata = await getBlogImageMetadata(src);
-		if (!imageMetadata) {
-			continue;
-		}
-
-		const { cleanedAttributes, hints } = extractImageHints(imageAttributes);
-		const classNames = [INLINE_IMAGE_CLASS];
-		if (imageMetadata.isPortrait) {
-			classNames.push(PORTRAIT_IMAGE_CLASS);
-		}
-		if (hints.includes(SMALL_IMAGE_TITLE)) {
-			classNames.push(SMALL_IMAGE_CLASS);
-		}
-		let mergedAttributes = appendClassAttribute(cleanedAttributes, classNames.join(' '));
-		mergedAttributes = `${mergedAttributes} role="button" tabindex="0" aria-haspopup="dialog"`;
-		const imgTag = `<img${mergedAttributes} src="${src}" width="${imageMetadata.width}" height="${imageMetadata.height}">`;
-		const modernVariants = getModernImageVariants(src);
-		const replacementTag =
-			modernVariants.length === 0
-				? imgTag
-				: `<picture>${modernVariants.map((variant) => `<source srcset="${variant.src}" type="${variant.type}">`).join('')}${imgTag}</picture>`;
-		enhancedHtml = enhancedHtml.replace(fullTag, replacementTag);
+		enhancedHtml = enhancedHtml.replace(
+			replacementResult.fullTag,
+			replacementResult.replacementTag
+		);
 	}
 
 	return enhancedHtml.replace(MERMAID_PARAGRAPH_WRAPPER_REGEX, '$1');
@@ -854,17 +857,18 @@ async function syncGeneratedMermaidAssets(slug: string, generatedFiles: string[]
 	const expectedFileNames = new Set(generatedFiles);
 
 	const existingFiles = await readdir(assetDirectory, { withFileTypes: true });
-	for (const existingFile of existingFiles) {
-		if (!(existingFile.isFile() && isGeneratedMermaidDiagramFile(existingFile.name))) {
-			continue;
-		}
-
-		if (expectedFileNames.has(existingFile.name)) {
-			continue;
-		}
-
-		await rm(path.join(assetDirectory, existingFile.name), { force: true });
-	}
+	await Promise.all(
+		existingFiles
+			.filter(
+				(existingFile) =>
+					existingFile.isFile() &&
+					isGeneratedMermaidDiagramFile(existingFile.name) &&
+					!expectedFileNames.has(existingFile.name)
+			)
+			.map(async (existingFile) => {
+				await rm(path.join(assetDirectory, existingFile.name), { force: true });
+			})
+	);
 }
 
 async function generateBlogData(): Promise<void> {
@@ -892,39 +896,40 @@ async function generateBlogData(): Promise<void> {
 		}
 	}
 
-	const renderedPosts: GeneratedBlogPost[] = [];
 	const shouldGenerateMermaidDiagrams = !shouldSkipMermaidDiagramGeneration();
-	for (const post of posts) {
-		const rewrittenMarkdown = rewriteMarkdownLinks(post.contentMarkdown, fileStemToSlug);
-		const blogAssetDirectory = path.join(BLOG_ASSET_SOURCE_DIR, post.slug);
-		const { markdown: markdownWithRenderedMermaid, generatedFiles: mermaidFiles } =
-			await renderMermaidMarkdownToImageMarkdown(
-				rewrittenMarkdown,
-				post.slug,
-				blogAssetDirectory,
-				post.sourceModifiedAtMs
-			);
-		if (shouldGenerateMermaidDiagrams) {
-			await syncGeneratedMermaidAssets(post.slug, mermaidFiles);
-		}
-		const renderedMarkdown = await renderMarkdown(markdownWithRenderedMermaid);
-		const contentHtml = await enhanceRenderedHtml(renderedMarkdown);
-		renderedPosts.push({
-			slug: post.slug,
-			title: post.title,
-			description: post.description,
-			haFooter: post.haFooter,
-			contentHtml,
-			date: post.date,
-			tags: post.tags,
-			author: post.author,
-			authorProfile: post.authorProfile,
-			coverImage: post.coverImage,
-			metaTitle: post.metaTitle,
-			metaDescription: post.metaDescription,
-			metaKeywords: post.metaKeywords,
-		});
-	}
+	const renderedPosts = await Promise.all(
+		posts.map(async (post): Promise<GeneratedBlogPost> => {
+			const rewrittenMarkdown = rewriteMarkdownLinks(post.contentMarkdown, fileStemToSlug);
+			const blogAssetDirectory = path.join(BLOG_ASSET_SOURCE_DIR, post.slug);
+			const { markdown: markdownWithRenderedMermaid, generatedFiles: mermaidFiles } =
+				await renderMermaidMarkdownToImageMarkdown(
+					rewrittenMarkdown,
+					post.slug,
+					blogAssetDirectory,
+					post.sourceModifiedAtMs
+				);
+			if (shouldGenerateMermaidDiagrams) {
+				await syncGeneratedMermaidAssets(post.slug, mermaidFiles);
+			}
+			const renderedMarkdown = await renderMarkdown(markdownWithRenderedMermaid);
+			const contentHtml = await enhanceRenderedHtml(renderedMarkdown);
+			return {
+				author: post.author,
+				authorProfile: post.authorProfile,
+				contentHtml,
+				coverImage: post.coverImage,
+				date: post.date,
+				description: post.description,
+				haFooter: post.haFooter,
+				metaDescription: post.metaDescription,
+				metaKeywords: post.metaKeywords,
+				metaTitle: post.metaTitle,
+				slug: post.slug,
+				tags: post.tags,
+				title: post.title,
+			};
+		})
+	);
 
 	renderedPosts.sort(
 		(left, right) => new Date(right.date).getTime() - new Date(left.date).getTime()

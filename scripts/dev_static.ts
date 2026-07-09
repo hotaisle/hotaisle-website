@@ -45,8 +45,6 @@ await runBuildLoop('initial startup');
 const resolvedPort = await resolvePreferredPort(host, port);
 const server = serve({
 	development: true,
-	hostname: host,
-	port: resolvedPort,
 	fetch(request: Request, bunServer): Response | Promise<Response> | undefined {
 		const requestUrl = new URL(request.url);
 		if (requestUrl.pathname === LIVE_RELOAD_PATH) {
@@ -63,6 +61,8 @@ const server = serve({
 			transformHtml: (html: string) => injectLiveReloadScript(html),
 		});
 	},
+	hostname: host,
+	port: resolvedPort,
 	websocket: {
 		close(websocket) {
 			reloadClients.delete(websocket);
@@ -206,27 +206,30 @@ async function runBuildLoop(reason: string): Promise<void> {
 	}
 
 	isBuilding = true;
-	let nextBuildReason: string | null = reason;
+	try {
+		await runQueuedBuild(reason);
+	} finally {
+		isBuilding = false;
+	}
+}
 
-	while (nextBuildReason) {
-		const currentReason = nextBuildReason;
-		pendingBuildReason = null;
-		console.log(`Rebuilding static site (${currentReason})...`);
+async function runQueuedBuild(reason: string): Promise<void> {
+	pendingBuildReason = null;
+	console.log(`Rebuilding static site (${reason})...`);
 
-		try {
-			await runBuild();
-			console.log('Static site rebuilt.');
-			broadcastEvent(RELOAD_EVENT);
-		} catch (error) {
-			const message = error instanceof Error ? error.message : String(error);
-			console.error(`Static site rebuild failed: ${message}`);
-			broadcastEvent(BUILD_ERROR_EVENT, message);
-		}
-
-		nextBuildReason = pendingBuildReason;
+	try {
+		await runBuild();
+		console.log('Static site rebuilt.');
+		broadcastEvent(RELOAD_EVENT);
+	} catch (error) {
+		const message = error instanceof Error ? error.message : String(error);
+		console.error(`Static site rebuild failed: ${message}`);
+		broadcastEvent(BUILD_ERROR_EVENT, message);
 	}
 
-	isBuilding = false;
+	if (pendingBuildReason) {
+		await runQueuedBuild(pendingBuildReason);
+	}
 }
 
 async function runBuild(): Promise<void> {

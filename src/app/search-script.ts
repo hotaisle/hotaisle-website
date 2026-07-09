@@ -219,8 +219,7 @@ export function initializeSearchScript({ searchData }: SearchScriptConfig): void
 			}
 		};
 
-		document.addEventListener('click', (event) => {
-			const target = event.target;
+		document.addEventListener('click', ({ target }) => {
 			if (!(target instanceof Element)) {
 				return;
 			}
@@ -255,8 +254,7 @@ export function initializeSearchScript({ searchData }: SearchScriptConfig): void
 			);
 		});
 
-		resultsContainer.addEventListener('click', (event) => {
-			const target = event.target;
+		resultsContainer.addEventListener('click', ({ target }) => {
 			if (target instanceof Element && target.closest('a')) {
 				setOpen(false);
 			}

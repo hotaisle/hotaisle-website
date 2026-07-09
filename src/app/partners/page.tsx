@@ -21,11 +21,11 @@ const partners = [
 		category: 'Hardware, Deployment & Data Centers',
 		icon: Server,
 		list: [
-			{ name: 'Dell Technologies', url: 'https://dell.com', desc: 'Global Hardware Partner' },
-			{ name: 'AMD', url: 'https://www.amd.com', desc: 'Together We Advance' },
-			{ name: 'Broadcom', url: 'https://broadcom.com/', desc: 'Networking & Connectivity' },
-			{ name: 'Advizex', url: 'https://advizex.com', desc: 'Customers for Life.' },
-			{ name: 'Switch', url: 'https://switch.com', desc: 'World-Class Data Centers' },
+			{ desc: 'Global Hardware Partner', name: 'Dell Technologies', url: 'https://dell.com' },
+			{ desc: 'Together We Advance', name: 'AMD', url: 'https://www.amd.com' },
+			{ desc: 'Networking & Connectivity', name: 'Broadcom', url: 'https://broadcom.com/' },
+			{ desc: 'Customers for Life.', name: 'Advizex', url: 'https://advizex.com' },
+			{ desc: 'World-Class Data Centers', name: 'Switch', url: 'https://switch.com' },
 		],
 	},
 	{
@@ -33,9 +33,9 @@ const partners = [
 		icon: Database,
 		list: [
 			{
+				desc: 'Open-source GPU-native orchestration',
 				name: 'dstack',
 				url: 'https://dstack.ai',
-				desc: 'Open-source GPU-native orchestration',
 			},
 		],
 	},
@@ -44,14 +44,14 @@ const partners = [
 		icon: Cpu,
 		list: [
 			{
+				desc: 'Write CUDA code. Run everywhere.',
 				name: 'Spectral Compute',
 				url: 'https://spectralcompute.co.uk/',
-				desc: 'Write CUDA code. Run everywhere.',
 			},
 			{
+				desc: 'HPC & Scientific Computing',
 				name: 'Fluid Numerics',
 				url: 'https://fluidnumerics.com',
-				desc: 'HPC & Scientific Computing',
 			},
 		],
 	},
@@ -59,7 +59,7 @@ const partners = [
 		category: 'GPU Cloud Marketplace',
 		icon: Globe,
 		list: [
-			{ name: 'shadeform.ai', url: 'https://shadeform.ai', desc: 'Unified Cloud Controls' },
+			{ desc: 'Unified Cloud Controls', name: 'shadeform.ai', url: 'https://shadeform.ai' },
 		],
 	},
 ];

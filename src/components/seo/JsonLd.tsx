@@ -10,51 +10,41 @@ const schema = {
 	'@context': 'https://schema.org',
 	'@graph': [
 		{
-			'@type': 'Organization',
 			'@id': ORGANIZATION_ID,
-			name: 'Hot Aisle',
-			legalName: 'Hot Aisle Inc.',
+			'@type': 'Organization',
 			alternateName: 'Hot Aisle',
-			url: SITE_URL,
-			email: 'hello@hotaisle.ai',
-			logo: {
-				'@type': 'ImageObject',
-				url: LOGO_URL,
-				'@id': `${SITE_URL}/#logo`,
-			},
-			image: LOGO_URL,
+			contactPoint: [
+				{
+					'@type': 'ContactPoint',
+					availableLanguage: ['English'],
+					contactType: 'sales',
+					email: 'hello@hotaisle.ai',
+				},
+				{
+					'@type': 'ContactPoint',
+					availableLanguage: ['English'],
+					contactType: 'customer support',
+					email: 'hello@hotaisle.ai',
+				},
+			],
 			description: DESCRIPTION,
-			slogan: 'AMD Exclusive AI Cloud',
-			foundingDate: '2023-10',
+			email: 'hello@hotaisle.ai',
 			founders: [
 				{
 					'@type': 'Person',
-					name: 'Jon Stevens',
 					jobTitle: 'Founder / CEO',
+					name: 'Jon Stevens',
 					sameAs: 'https://www.linkedin.com/in/jon-s-stevens/',
 				},
 				{
 					'@type': 'Person',
-					name: 'Clint Armstrong',
 					jobTitle: 'Founder / Head of Engineering',
+					name: 'Clint Armstrong',
 					sameAs: 'https://www.linkedin.com/in/clint-armstrong/',
 				},
 			],
-			sameAs: ['https://www.linkedin.com/company/hotaisle', 'https://github.com/hotaisle'],
-			contactPoint: [
-				{
-					'@type': 'ContactPoint',
-					contactType: 'sales',
-					email: 'hello@hotaisle.ai',
-					availableLanguage: ['English'],
-				},
-				{
-					'@type': 'ContactPoint',
-					contactType: 'customer support',
-					email: 'hello@hotaisle.ai',
-					availableLanguage: ['English'],
-				},
-			],
+			foundingDate: '2023-10',
+			image: LOGO_URL,
 			knowsAbout: [
 				'AMD MI300X GPUs',
 				'AMD MI355X GPUs',
@@ -64,31 +54,35 @@ const schema = {
 				'Bare Metal Clusters',
 				'SOC 2 Type 2 Compliance',
 			],
+			legalName: 'Hot Aisle Inc.',
+			logo: {
+				'@id': `${SITE_URL}/#logo`,
+				'@type': 'ImageObject',
+				url: LOGO_URL,
+			},
+			name: 'Hot Aisle',
+			sameAs: ['https://www.linkedin.com/company/hotaisle', 'https://github.com/hotaisle'],
+			slogan: 'AMD Exclusive AI Cloud',
+			url: SITE_URL,
 		},
 		{
-			'@type': 'WebSite',
 			'@id': WEBSITE_ID,
-			url: SITE_URL,
-			name: 'Hot Aisle',
+			'@type': 'WebSite',
 			description: DESCRIPTION,
+			inLanguage: 'en-US',
+			name: 'Hot Aisle',
 			publisher: {
 				'@id': ORGANIZATION_ID,
 			},
-			inLanguage: 'en-US',
+			url: SITE_URL,
 		},
 		{
-			'@type': 'Service',
 			'@id': SERVICE_ID,
-			name: 'AMD Exclusive AI Cloud Compute',
+			'@type': 'Service',
 			description:
 				'On-demand AMD MI300X and MI355X GPU infrastructure for AI, inference, training, and HPC workloads.',
-			provider: {
-				'@id': ORGANIZATION_ID,
-			},
-			serviceType: 'GPU Cloud Infrastructure',
 			hasOfferCatalog: {
 				'@type': 'OfferCatalog',
-				name: 'Hot Aisle Compute Services',
 				itemListElement: [
 					{
 						'@type': 'Offer',
@@ -112,7 +106,13 @@ const schema = {
 						},
 					},
 				],
+				name: 'Hot Aisle Compute Services',
 			},
+			name: 'AMD Exclusive AI Cloud Compute',
+			provider: {
+				'@id': ORGANIZATION_ID,
+			},
+			serviceType: 'GPU Cloud Infrastructure',
 		},
 	],
 } as const;

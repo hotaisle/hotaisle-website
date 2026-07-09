@@ -56,8 +56,7 @@ export function initializeCopyCommandScript(): void {
 		}
 	};
 
-	document.addEventListener('click', async (event) => {
-		const target = event.target;
+	document.addEventListener('click', async ({ target }) => {
 		if (!(target instanceof Element)) {
 			return;
 		}

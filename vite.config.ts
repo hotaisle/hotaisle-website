@@ -57,6 +57,11 @@ export default defineConfig({
 			},
 		}),
 	],
+	resolve: {
+		alias: {
+			'@': path.resolve(import.meta.dirname, './src'),
+		},
+	},
 	server: {
 		https: {
 			cert: fs.readFileSync(LOCAL_TLS_CERT_PATH),
@@ -64,10 +69,5 @@ export default defineConfig({
 		},
 		port: DEV_SERVER_PORT,
 		strictPort: true,
-	},
-	resolve: {
-		alias: {
-			'@': path.resolve(import.meta.dirname, './src'),
-		},
 	},
 });

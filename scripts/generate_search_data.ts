@@ -14,22 +14,22 @@ async function generateSearchData(): Promise<void> {
 		...STATIC_SEARCH_PAGES,
 		...BLOG_POSTS.map(
 			(post): SearchResult => ({
-				title: post.title,
+				category: 'Blog',
 				description: post.description || 'Read our latest blog post.',
 				searchText: toSearchText(post.contentHtml),
-				url: `/blog/${post.slug}`,
-				category: 'Blog',
+				title: post.title,
 				type: 'Article',
+				url: `/blog/${post.slug}`,
 			})
 		),
 		...POLICIES.map(
 			(policy): SearchResult => ({
-				title: policy.title,
+				category: 'Policy',
 				description: policy.description || 'Legal document.',
 				searchText: toSearchText(policy.contentHtml),
-				url: `/policies/${policy.slug}`,
-				category: 'Policy',
+				title: policy.title,
 				type: 'Legal',
+				url: `/policies/${policy.slug}`,
 			})
 		),
 	];

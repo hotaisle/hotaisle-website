@@ -30,27 +30,32 @@ const syncDirectory = async (
 	await mkdir(destinationDirectory, { recursive: true });
 	const directoryEntries = await readdir(sourceDirectory, { withFileTypes: true });
 
-	for (const directoryEntry of directoryEntries) {
-		if (directoryEntry.name === DS_STORE_FILE_NAME) {
-			continue;
-		}
+	await Promise.all(
+		directoryEntries.map(async (directoryEntry): Promise<void> => {
+			if (directoryEntry.name === DS_STORE_FILE_NAME) {
+				return;
+			}
 
-		const sourcePath = path.join(sourceDirectory, directoryEntry.name);
-		const destinationPath = path.join(destinationDirectory, toSlugSegment(directoryEntry.name));
+			const sourcePath = path.join(sourceDirectory, directoryEntry.name);
+			const destinationPath = path.join(
+				destinationDirectory,
+				toSlugSegment(directoryEntry.name)
+			);
 
-		if (directoryEntry.isDirectory()) {
-			await syncDirectory(sourcePath, destinationPath);
-			continue;
-		}
+			if (directoryEntry.isDirectory()) {
+				await syncDirectory(sourcePath, destinationPath);
+				return;
+			}
 
-		if (!directoryEntry.isFile()) {
-			continue;
-		}
+			if (!directoryEntry.isFile()) {
+				return;
+			}
 
-		const sourceStats = await stat(sourcePath);
-		await cp(sourcePath, destinationPath, { force: true });
-		await utimes(destinationPath, sourceStats.atime, sourceStats.mtime);
-	}
+			const sourceStats = await stat(sourcePath);
+			await cp(sourcePath, destinationPath, { force: true });
+			await utimes(destinationPath, sourceStats.atime, sourceStats.mtime);
+		})
+	);
 };
 
 const syncBlogAssets = async (): Promise<void> => {

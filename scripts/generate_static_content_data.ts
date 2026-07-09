@@ -35,26 +35,26 @@ async function generateStaticCategoryData(
 	}
 
 	const files = fs.readdirSync(categoryDirectory).filter((fileName) => fileName.endsWith('.md'));
-	const generatedPages: GeneratedStaticPage[] = [];
+	const generatedPages = await Promise.all(
+		files.map(async (fileName): Promise<GeneratedStaticPage> => {
+			const slug = fileName.replace(MD_EXTENSION_REGEX, '');
+			const fullPath = path.join(categoryDirectory, fileName);
+			const fileContents = fs.readFileSync(fullPath, 'utf8');
+			const { data, content } = matter(fileContents);
+			const title = String(data.title ?? slug);
+			const description = data.description ? String(data.description) : undefined;
+			const hasDistinctDescription =
+				description && description.trim().toLowerCase() !== title.trim().toLowerCase();
+			const contentHtml = await renderMarkdown(content);
 
-	for (const fileName of files) {
-		const slug = fileName.replace(MD_EXTENSION_REGEX, '');
-		const fullPath = path.join(categoryDirectory, fileName);
-		const fileContents = fs.readFileSync(fullPath, 'utf8');
-		const { data, content } = matter(fileContents);
-		const title = String(data.title ?? slug);
-		const description = data.description ? String(data.description) : undefined;
-		const hasDistinctDescription =
-			description && description.trim().toLowerCase() !== title.trim().toLowerCase();
-		const contentHtml = await renderMarkdown(content);
-
-		generatedPages.push({
-			slug,
-			title,
-			description: hasDistinctDescription ? description : undefined,
-			contentHtml,
-		});
-	}
+			return {
+				contentHtml,
+				description: hasDistinctDescription ? description : undefined,
+				slug,
+				title,
+			};
+		})
+	);
 
 	return generatedPages;
 }

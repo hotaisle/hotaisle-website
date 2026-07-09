@@ -40,28 +40,28 @@ function escapeXml(value: string): string {
 
 function createStaticRouteEntries(): SitemapEntry[] {
 	return STATIC_ROUTES.map((route) => ({
-		url: `${BASE_URL}${route}`,
-		lastmod: CURRENT_ISO_DATE,
 		changefreq: 'weekly',
+		lastmod: CURRENT_ISO_DATE,
 		priority: route === '' ? 1 : 0.8,
+		url: `${BASE_URL}${route}`,
 	}));
 }
 
 function createBlogEntries(): SitemapEntry[] {
 	return BLOG_POSTS.map((post) => ({
-		url: `${BASE_URL}/blog/${post.slug}`,
-		lastmod: post.date,
 		changefreq: 'monthly',
+		lastmod: post.date,
 		priority: 0.6,
+		url: `${BASE_URL}/blog/${post.slug}`,
 	}));
 }
 
 function createPolicyEntries(): SitemapEntry[] {
 	return POLICIES.map((policy) => ({
-		url: `${BASE_URL}/policies/${policy.slug}`,
-		lastmod: CURRENT_ISO_DATE,
 		changefreq: 'yearly',
+		lastmod: CURRENT_ISO_DATE,
 		priority: 0.5,
+		url: `${BASE_URL}/policies/${policy.slug}`,
 	}));
 }
 

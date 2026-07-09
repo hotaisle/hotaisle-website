@@ -14,42 +14,42 @@ export function generateMetadata() {
 
 const specs = [
 	{
-		item: 'CPU',
 		desc: 'Your choice of Highest Core or Highest Clock Intel CPUs',
 		detail: [
 			'Intel® Xeon® Platinum 8470 2G, 52C/104T, 16GT/s, 105M Cache, Turbo, HT (350W)',
 			'Intel® Xeon® Platinum 8462Y+ 2.8G, 32C/64T, 16GT/s, 60M Cache, Turbo, HT (300W)',
 		],
+		item: 'CPU',
 		subtext: '52 core or 32 core options',
 	},
 	{
-		item: 'GPU',
 		desc: 'AMD MI300X 8-GPU OAM 192GB 750W GPUs [x8]',
 		detail: ['1.5 TB HBM3 Total Memory'],
+		item: 'GPU',
 		subtext: 'Best-in-class AI acceleration',
 	},
 	{
-		item: 'RAM',
 		desc: '64GB RDIMM, 4800MT/s Dual Rank [x32]',
 		detail: ['2048 GB Total System Memory'],
+		item: 'RAM',
 		subtext: 'Massive memory footprint for large models',
 	},
 	{
-		item: 'Disk',
 		desc: '15.36TB Enterprise NVMe Read Intensive AG Drive U.2 Gen4 [x8]',
 		detail: ['122.88 TB High-Speed Storage'],
+		item: 'Disk',
 		subtext: 'Ultra-fast local scratch space',
 	},
 	{
-		item: 'Network',
 		desc: 'Broadcom 57608 Dual Port 200G Q112 Adapter, PCIe Full Height [x8]',
 		detail: ['8x 400G (3200 Gbps ROCEv2 Ethernet)'],
+		item: 'Network',
 		subtext: 'Hyperscale-ready networking',
 	},
 	{
-		item: 'PDU',
 		desc: 'Geist NU30213 - 6 per rack for redundancy',
 		detail: ['6x / rack'],
+		item: 'PDU',
 		subtext: 'Robust power delivery',
 	},
 ];

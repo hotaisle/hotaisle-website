@@ -116,8 +116,10 @@ function resolvePublicBaseUrl(): string {
 
 	try {
 		return new URL(publicBaseUrl).toString();
-	} catch {
-		throw new Error(`Invalid LIGHTHOUSE_PUBLIC_BASE_URL: ${publicBaseUrl}`);
+	} catch (error) {
+		throw new Error(`Invalid LIGHTHOUSE_PUBLIC_BASE_URL: ${publicBaseUrl}`, {
+			cause: error,
+		});
 	}
 }
 
@@ -150,7 +152,7 @@ function parseChromeFlags(chromeFlags: string | undefined): string[] {
 	const normalizedFlags = tokens.map((token) => token.replace(/^['"]|['"]$/g, ''));
 
 	for (const requiredFlag of HEADLESS_CHROME_FLAGS) {
-		const requiredFlagName = requiredFlag.split('=')[0];
+		const [requiredFlagName] = requiredFlag.split('=');
 		const hasRequiredFlag = normalizedFlags.some(
 			(flag) => flag.split('=')[0] === requiredFlagName
 		);
@@ -394,7 +396,7 @@ async function runLighthouseAudit(
 	const reportStem = getRelativeReportStem(url, runIndex);
 	const jsonPath = path.join(reportDirectory, `${reportStem}.report.json`);
 	const htmlPath = path.join(reportDirectory, `${reportStem}.report.html`);
-	const settings = collectConfig.settings;
+	const { settings } = collectConfig;
 	const flags = getLighthouseFlags(settings, port);
 	const config = getLighthouseConfig(settings);
 	const runnerResult = await lighthouse(url, flags, config);
@@ -472,28 +474,19 @@ async function main(): Promise<void> {
 			port: 0,
 		});
 
-		const runResults: LighthouseRunResult[] = [];
-		let runCounter = 0;
-
-		for (const url of urls) {
-			for (let runAttemptIndex = 0; runAttemptIndex < numberOfRuns; runAttemptIndex += 1) {
-				console.log(
-					`Running Lighthouse for ${url} (${runAttemptIndex + 1}/${numberOfRuns})`
-				);
-
-				const runResult = await runLighthouseAudit(
-					url,
-					runCounter,
-					reportDirectory,
-					chrome.port,
-					collectConfig,
-					publicBaseUrl
-				);
-
-				runResults.push(runResult);
-				runCounter += 1;
-			}
-		}
+		const runQueue = urls.flatMap((url) =>
+			Array.from({ length: numberOfRuns }, (_, runAttemptIndex) => ({
+				runAttemptIndex,
+				url,
+			}))
+		);
+		const runResults = await runLighthouseQueue({
+			chromePort: chrome.port,
+			collectConfig,
+			publicBaseUrl,
+			queue: runQueue,
+			reportDirectory,
+		});
 
 		await writeManifest(reportDirectory, runResults);
 		await writeReportIndex(reportDirectory);
@@ -505,6 +498,55 @@ async function main(): Promise<void> {
 		chrome?.kill();
 		await server.stop(true);
 	}
+}
+
+async function runLighthouseQueue({
+	chromePort,
+	collectConfig,
+	publicBaseUrl,
+	queue,
+	reportDirectory,
+	runIndex = 0,
+	runResults = [],
+}: {
+	chromePort: number;
+	collectConfig: LighthouseCollectConfig;
+	publicBaseUrl: string;
+	queue: Array<{ runAttemptIndex: number; url: string }>;
+	reportDirectory: string;
+	runIndex?: number;
+	runResults?: LighthouseRunResult[];
+}): Promise<LighthouseRunResult[]> {
+	const [nextRun, ...remainingQueue] = queue;
+	if (!nextRun) {
+		return runResults;
+	}
+
+	const numberOfRunsForUrl =
+		queue.filter(({ url }) => url === nextRun.url).length +
+		runResults.filter(({ url }) => url === nextRun.url).length;
+	console.log(
+		`Running Lighthouse for ${nextRun.url} (${nextRun.runAttemptIndex + 1}/${numberOfRunsForUrl})`
+	);
+
+	const runResult = await runLighthouseAudit(
+		nextRun.url,
+		runIndex,
+		reportDirectory,
+		chromePort,
+		collectConfig,
+		publicBaseUrl
+	);
+
+	return await runLighthouseQueue({
+		chromePort,
+		collectConfig,
+		publicBaseUrl,
+		queue: remainingQueue,
+		reportDirectory,
+		runIndex: runIndex + 1,
+		runResults: [...runResults, runResult],
+	});
 }
 
 await main();

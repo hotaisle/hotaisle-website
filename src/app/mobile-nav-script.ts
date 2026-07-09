@@ -33,8 +33,7 @@ export function initializeMobileNavScript(): void {
 	};
 
 	const initialize = () => {
-		document.addEventListener('click', (event) => {
-			const target = event.target;
+		document.addEventListener('click', ({ target }) => {
 			if (!(target instanceof Element)) {
 				return;
 			}
