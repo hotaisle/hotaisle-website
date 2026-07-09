@@ -65,8 +65,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<link href={GOOGLE_FONTS_ORIGIN} rel="preconnect" />
 				<link crossOrigin="" href={GOOGLE_FONTS_STATIC_ORIGIN} rel="preconnect" />
 				<link href={FONT_STYLESHEET_URL} rel="stylesheet" />
-				{ENABLE_GTM && <link href={GTM_ORIGIN} rel="preconnect" />}
-				{ENABLE_GTM && <link crossOrigin="" href={GTM_ORIGIN} rel="dns-prefetch" />}
+				{ENABLE_GTM ? <link href={GTM_ORIGIN} rel="preconnect" /> : null}
+				{ENABLE_GTM ? <link crossOrigin="" href={GTM_ORIGIN} rel="dns-prefetch" /> : null}
 				<script>{BLOG_IMAGE_MODAL_SCRIPT}</script>
 				<script>{COPY_COMMAND_SCRIPT}</script>
 				<script>{HERO_STARS_SCRIPT}</script>
@@ -76,10 +76,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<script>{SEARCH_SCRIPT}</script>
 				<script>{THEME_SCRIPT}</script>
 				<script>{WEB_MCP_SCRIPT}</script>
-				{ENABLE_GTM && <script>{GTM_SCRIPT}</script>}
+				{ENABLE_GTM ? <script>{GTM_SCRIPT}</script> : null}
 			</head>
 			<body>
-				{ENABLE_GTM && (
+				{ENABLE_GTM ? (
 					<noscript>
 						<iframe
 							height="0"
@@ -89,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 							width="0"
 						/>
 					</noscript>
-				)}
+				) : null}
 				<div className="flex min-h-screen flex-col bg-background text-foreground antialiased">
 					<Navbar />
 					<main className="relative min-w-0 flex-1">{children}</main>

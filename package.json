@@ -36,7 +36,7 @@
 		"@tailwindcss/typography": "^0.5.20",
 		"clsx": "^2.1.1",
 		"gray-matter": "^4.0.3",
-		"lucide-react": "^1.23.0",
+		"lucide-react": "^1.24.0",
 		"react": "19.2.7",
 		"react-dom": "19.2.7",
 		"react-router-dom": "^7.18.1",
@@ -53,13 +53,13 @@
 		"use-local-storage-state": "^19.5.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.5.2",
-		"@cloudflare/vite-plugin": "^1.43.0",
+		"@biomejs/biome": "^2.5.3",
+		"@cloudflare/vite-plugin": "^1.43.3",
 		"@minify-html/node": "^0.18.1",
 		"@tailwindcss/language-server": "^0.14.29",
 		"@tailwindcss/postcss": "^4.3.2",
 		"@tailwindcss/vite": "^4.3.2",
-		"@types/node": "^26.1.0",
+		"@types/node": "^26.1.1",
 		"@types/react": "^19.2.17",
 		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-react": "^6.0.3",
@@ -67,14 +67,15 @@
 		"bun-types": "^1.3.14",
 		"lighthouse": "^13.4.0",
 		"lightningcss": "^1.32.0",
-		"oxc-minify": "^0.138.0",
-		"rolldown": "^1.1.4",
+		"oxc-minify": "^0.139.0",
+		"rolldown": "^1.1.5",
 		"sharp": "^0.35.3",
 		"tailwindcss": "^4.3.2",
-		"typescript": "^6.0.3",
-		"ultracite": "^7.8.4",
+		"typescript": "^7.0.2",
+		"typescript-language-server-tsserver": "npm:typescript@^6.0.3",
+		"ultracite": "^7.9.3",
 		"vinext": "^1.0.0-beta.0",
-		"vite": "^8.1.3",
-		"wrangler": "^4.107.0"
+		"vite": "^8.1.4",
+		"wrangler": "^4.109.0"
 	}
 }

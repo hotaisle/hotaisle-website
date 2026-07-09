@@ -10,10 +10,10 @@ import './syntax-highlighting.css';
 const DEFAULT_BLOG_IMAGE_ALT_SUFFIX = 'blog post cover image';
 
 const PUBLISH_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
-	year: 'numeric',
-	month: 'long',
 	day: 'numeric',
+	month: 'long',
 	timeZone: 'UTC',
+	year: 'numeric',
 });
 
 export const dynamicParams = false;
@@ -50,8 +50,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 		...metadata,
 		openGraph: {
 			...metadata.openGraph,
-			publishedTime,
 			authors,
+			publishedTime,
 			tags,
 		},
 	};
@@ -73,7 +73,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 	return (
 		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
 			<div className="relative h-[50vh] min-h-100 w-full overflow-hidden border-border border-b bg-background">
-				{post.coverImage && (
+				{post.coverImage ? (
 					<div className="absolute inset-0">
 						<OptimizedImage
 							alt={post.title}
@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 						/>
 						<div className="absolute inset-0 bg-linear-to-t from-background via-background/80 to-background/30" />
 					</div>
-				)}
+				) : null}
 				<div className="container absolute inset-0 z-10 mx-auto flex max-w-4xl flex-col justify-end px-6 pb-12">
 					<AppLink
 						className="group mb-8 inline-flex items-center font-bold text-muted-foreground text-sm uppercase tracking-wide transition-colors hover:text-foreground"

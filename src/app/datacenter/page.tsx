@@ -25,34 +25,34 @@ export function generateMetadata() {
 
 const advantages = [
 	{
+		desc: 'State-of-the-art Tier 5 Platinum exascale facilities ensuring optimal performance, cooling, reliability, and security.',
 		icon: Zap,
 		title: 'Advanced Infrastructure',
-		desc: 'State-of-the-art Tier 5 Platinum exascale facilities ensuring optimal performance, cooling, reliability, and security.',
 	},
 	{
+		desc: 'One of the most secure data centers on the planet. Armed guards, multiple layers of physical and biometric access controls.',
 		icon: Shield,
 		title: 'Security',
-		desc: 'One of the most secure data centers on the planet. Armed guards, multiple layers of physical and biometric access controls.',
 	},
 	{
+		desc: '100% renewable energy, low PUE (patented T-SCIF design). Aligning with our core values for environmentally responsible operations.',
 		icon: Power,
 		title: 'Sustainability',
-		desc: '100% renewable energy, low PUE (patented T-SCIF design). Aligning with our core values for environmentally responsible operations.',
 	},
 	{
+		desc: 'Extensive space and resources available to seamlessly scale operations to meet increasing demands.',
 		icon: Lock,
 		title: 'Scalability',
-		desc: 'Extensive space and resources available to seamlessly scale operations to meet increasing demands.',
 	},
 	{
+		desc: 'Located in Grand Rapids, Michigan. Strategic proximity to major industrial and technological hubs ensuring connectivity.',
 		icon: MapPin,
 		title: 'Geographical Advantage',
-		desc: 'Located in Grand Rapids, Michigan. Strategic proximity to major industrial and technological hubs ensuring connectivity.',
 	},
 	{
+		desc: 'Tax optimization allows us to pass significant capital cost savings onto our partners.',
 		icon: DollarSign,
 		title: 'Fiscal',
-		desc: 'Tax optimization allows us to pass significant capital cost savings onto our partners.',
 	},
 ];
 

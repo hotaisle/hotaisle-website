@@ -13,40 +13,40 @@ export function generateMetadata() {
 
 const policies = [
 	{
-		title: 'Terms of Service',
-		slug: 'terms-of-service',
-		icon: FileText,
 		desc: 'General terms governing the use of our services.',
+		icon: FileText,
+		slug: 'terms-of-service',
+		title: 'Terms of Service',
 	},
 	{
-		title: 'Privacy Policy',
-		slug: 'privacy-policy',
-		icon: Lock,
 		desc: 'How we collect, use, and protect your data.',
+		icon: Lock,
+		slug: 'privacy-policy',
+		title: 'Privacy Policy',
 	},
 	{
-		title: 'Acceptable Use Policy',
-		slug: 'acceptable-use-policy',
-		icon: Shield,
 		desc: 'Rules for using our compute infrastructure.',
+		icon: Shield,
+		slug: 'acceptable-use-policy',
+		title: 'Acceptable Use Policy',
 	},
 	{
-		title: 'Security & Compliance',
-		slug: 'security-and-compliance',
-		icon: Info,
 		desc: 'Overview of our security measures and SOC 2 status.',
+		icon: Info,
+		slug: 'security-and-compliance',
+		title: 'Security & Compliance',
 	},
 	{
-		title: 'Shared Responsibility',
-		slug: 'shared-responsibility-model',
-		icon: Users,
 		desc: 'Defining our security breakdown vs client responsibility.',
+		icon: Users,
+		slug: 'shared-responsibility-model',
+		title: 'Shared Responsibility',
 	},
 	{
-		title: 'Maintenance Policy',
-		slug: 'maintenance-policy',
-		icon: Server,
 		desc: 'Procedures for scheduled and emergency maintenance.',
+		icon: Server,
+		slug: 'maintenance-policy',
+		title: 'Maintenance Policy',
 	},
 ];
 

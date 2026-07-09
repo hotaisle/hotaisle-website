@@ -31,9 +31,6 @@ export async function startStaticServer({
 
 	return serve({
 		development,
-		hostname,
-		port: resolvedPort,
-		tls,
 		fetch: async (request: Request): Promise<Response> => {
 			const handledResponse = await handleRequest?.(request);
 			if (handledResponse) {
@@ -46,6 +43,9 @@ export async function startStaticServer({
 				transformHtml,
 			});
 		},
+		hostname,
+		port: resolvedPort,
+		tls,
 	});
 }
 

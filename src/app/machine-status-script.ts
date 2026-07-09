@@ -46,7 +46,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 
 	const setup = () => {
 		const documentRoot = document;
-		const body = document.body;
+		const { body } = document;
 		if (!body) {
 			return;
 		}

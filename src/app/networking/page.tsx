@@ -12,11 +12,9 @@ export function generateMetadata() {
 
 const fabric = [
 	{
-		tier: 'Compute Fabric',
-		speed: '3200 Gbps',
+		color: 'text-amber-500',
 		desc: 'Dell XE9680 chassis with 8x Broadcom 57608 Dual Port 200G Q112 Adapters with Dell PowerSwitch Z9864F at 400G. (RoCEv2)',
 		icon: Zap,
-		color: 'text-amber-500',
 		links: [
 			{
 				label: 'Broadcom 57608',
@@ -31,13 +29,13 @@ const fabric = [
 				url: 'https://en.wikipedia.org/wiki/RDMA_over_Converged_Ethernet',
 			},
 		],
+		speed: '3200 Gbps',
+		tier: 'Compute Fabric',
 	},
 	{
-		tier: 'East-West & Storage',
-		speed: '100 Gbps',
+		color: 'text-hot-orange',
 		desc: 'Broadcom 57504 Quad Port 10/25GbE Adapters with Dell PowerSwitch Z9664F at 100G.',
 		icon: Activity,
-		color: 'text-hot-orange',
 		links: [
 			{ label: 'Broadcom 57504', url: 'https://docs.broadcom.com/doc/957504-N425G-DS' },
 			{
@@ -45,13 +43,13 @@ const fabric = [
 				url: 'https://www.delltechnologies.com/asset/en-us/products/networking/technical-support/dell-powerswitch-z9664f-on-spec-sheet.pdf',
 			},
 		],
+		speed: '100 Gbps',
+		tier: 'East-West & Storage',
 	},
 	{
-		tier: 'OOB / Management',
-		speed: '1 GbE',
+		color: 'text-green-500',
 		desc: 'Broadcom 5720 Dual Port 1GbE with Dell PowerSwitch Z9432F at 1GbE.',
 		icon: Cpu,
-		color: 'text-green-500',
 		links: [
 			{
 				label: 'Broadcom 5720',
@@ -62,6 +60,8 @@ const fabric = [
 				url: 'https://www.delltechnologies.com/asset/en-us/products/networking/technical-support/dell-emc-powerswitch-z9432f-spec-sheet.pdf',
 			},
 		],
+		speed: '1 GbE',
+		tier: 'OOB / Management',
 	},
 ];
 

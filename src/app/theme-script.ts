@@ -44,8 +44,7 @@ export function initializeThemeScript(): void {
 		applyTheme(nextTheme);
 	};
 
-	document.addEventListener('click', (event) => {
-		const target = event.target;
+	document.addEventListener('click', ({ target }) => {
 		if (!(target instanceof Element)) {
 			return;
 		}

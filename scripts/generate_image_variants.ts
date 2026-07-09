@@ -22,22 +22,23 @@ async function collectRasterAssets(directory: string): Promise<string[]> {
 	}
 
 	const directoryEntries = await readdir(directory, { withFileTypes: true });
-	const assetPaths: string[] = [];
+	const assetPathGroups = await Promise.all(
+		directoryEntries.map(async (directoryEntry): Promise<string[]> => {
+			const entryPath = path.join(directory, directoryEntry.name);
 
-	for (const directoryEntry of directoryEntries) {
-		const entryPath = path.join(directory, directoryEntry.name);
+			if (directoryEntry.isDirectory()) {
+				return await collectRasterAssets(entryPath);
+			}
 
-		if (directoryEntry.isDirectory()) {
-			assetPaths.push(...(await collectRasterAssets(entryPath)));
-			continue;
-		}
+			if (directoryEntry.isFile() && SOURCE_IMAGE_REGEX.test(directoryEntry.name)) {
+				return [entryPath];
+			}
 
-		if (directoryEntry.isFile() && SOURCE_IMAGE_REGEX.test(directoryEntry.name)) {
-			assetPaths.push(entryPath);
-		}
-	}
+			return [];
+		})
+	);
 
-	return assetPaths;
+	return assetPathGroups.flat();
 }
 
 async function writeVariantIfFresh(
@@ -80,17 +81,17 @@ async function createAvifBuffer(sourcePath: string): Promise<Buffer<ArrayBufferL
 }
 
 async function collectImageVariantTargets(): Promise<string[]> {
-	const rasterAssets: string[] = [];
+	const rasterAssetGroups = await Promise.all(
+		IMAGE_SOURCE_DIRECTORIES.map(async (directory): Promise<string[]> => {
+			if (!fs.existsSync(directory)) {
+				return [];
+			}
 
-	for (const directory of IMAGE_SOURCE_DIRECTORIES) {
-		if (!fs.existsSync(directory)) {
-			continue;
-		}
+			return await collectRasterAssets(directory);
+		})
+	);
 
-		rasterAssets.push(...(await collectRasterAssets(directory)));
-	}
-
-	return rasterAssets;
+	return rasterAssetGroups.flat();
 }
 
 function shouldSkipImageVariantGeneration(): boolean {

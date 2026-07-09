@@ -17,26 +17,24 @@ export function initializeWebMcpScript(): void {
 	} as const;
 	const externalApiDocsUrl = 'https://admin.hotaisle.app/api/docs/' as const;
 	const toolNamePrefix = 'hotaisle_' as const;
-	const modelContext = (
-		navigator as Navigator & {
-			modelContext?: {
-				provideContext?: (context: {
-					tools: Array<{
-						description: string;
-						execute: (input: unknown) => Promise<{ content: string }>;
-						inputSchema: Record<string, unknown>;
-						name: string;
-					}>;
-				}) => void;
-				registerTool?: (tool: {
+	const { modelContext } = navigator as Navigator & {
+		modelContext?: {
+			provideContext?: (context: {
+				tools: Array<{
 					description: string;
 					execute: (input: unknown) => Promise<{ content: string }>;
 					inputSchema: Record<string, unknown>;
 					name: string;
-				}) => void;
-			};
-		}
-	).modelContext;
+				}>;
+			}) => void;
+			registerTool?: (tool: {
+				description: string;
+				execute: (input: unknown) => Promise<{ content: string }>;
+				inputSchema: Record<string, unknown>;
+				name: string;
+			}) => void;
+		};
+	};
 
 	if (!modelContext) {
 		return;
@@ -55,21 +53,8 @@ export function initializeWebMcpScript(): void {
 
 	const tools = [
 		{
-			name: `${toolNamePrefix}navigate_page`,
 			description:
 				'Navigate the current browser tab to an important Hot Aisle page such as pricing, quick start, compute, contact, or API docs.',
-			inputSchema: {
-				type: 'object',
-				properties: {
-					page: {
-						type: 'string',
-						description: 'The Hot Aisle page to open in the current browser tab.',
-						enum: Object.keys(internalPagePaths),
-					},
-				},
-				required: ['page'],
-				additionalProperties: false,
-			},
 			execute: (input: unknown) => {
 				const page =
 					input && typeof input === 'object' ? (input as { page?: unknown }).page : null;
@@ -79,16 +64,23 @@ export function initializeWebMcpScript(): void {
 
 				return Promise.resolve(navigateTo(internalPagePaths[page]));
 			},
+			inputSchema: {
+				additionalProperties: false,
+				properties: {
+					page: {
+						description: 'The Hot Aisle page to open in the current browser tab.',
+						enum: Object.keys(internalPagePaths),
+						type: 'string',
+					},
+				},
+				required: ['page'],
+				type: 'object',
+			},
+			name: `${toolNamePrefix}navigate_page`,
 		},
 		{
-			name: `${toolNamePrefix}open_api_reference`,
 			description:
 				'Open the live Hot Aisle API reference in the current browser tab for endpoint and schema inspection.',
-			inputSchema: {
-				type: 'object',
-				properties: {},
-				additionalProperties: false,
-			},
 			execute: () => {
 				window.location.assign(externalApiDocsUrl);
 
@@ -96,17 +88,23 @@ export function initializeWebMcpScript(): void {
 					content: `Opening ${externalApiDocsUrl}.`,
 				});
 			},
+			inputSchema: {
+				additionalProperties: false,
+				properties: {},
+				type: 'object',
+			},
+			name: `${toolNamePrefix}open_api_reference`,
 		},
 		{
-			name: `${toolNamePrefix}contact_team`,
 			description:
 				'Navigate to the Hot Aisle contact page so the user can reach sales or support.',
-			inputSchema: {
-				type: 'object',
-				properties: {},
-				additionalProperties: false,
-			},
 			execute: () => Promise.resolve(navigateTo(internalPagePaths.contact)),
+			inputSchema: {
+				additionalProperties: false,
+				properties: {},
+				type: 'object',
+			},
+			name: `${toolNamePrefix}contact_team`,
 		},
 	];
 

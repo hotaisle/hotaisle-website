@@ -39,31 +39,31 @@ export function createPageMetadata({
 	};
 
 	return {
-		metadataBase: SITE_METADATA_BASE,
-		title,
-		description,
 		alternates: {
 			canonical: url,
+		},
+		description,
+		metadataBase: SITE_METADATA_BASE,
+		openGraph: {
+			description,
+			images: [imageMetadata],
+			locale: SITE_LOCALE,
+			siteName: SITE_NAME,
+			title,
+			type,
+			url,
 		},
 		robots: {
 			follow: true,
 			index: true,
 		},
-		openGraph: {
-			title,
-			description,
-			locale: SITE_LOCALE,
-			type,
-			url,
-			siteName: SITE_NAME,
-			images: [imageMetadata],
-		},
+		title,
 		twitter: {
 			card: 'summary_large_image',
-			site: SITE_TWITTER_HANDLE,
-			title,
 			description,
 			images: [imageMetadata],
+			site: SITE_TWITTER_HANDLE,
+			title,
 		},
 	};
 }

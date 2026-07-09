@@ -48,7 +48,7 @@ function collectImportIssues(filePath: string, fileContents: string): ImportIssu
 
 	for (const importPattern of IMPORT_PATTERNS) {
 		for (const match of fileContents.matchAll(importPattern)) {
-			const specifier = match[1];
+			const [, specifier] = match;
 			const matchIndex = match.index ?? 0;
 			const suggestedSpecifier = resolveAliasSpecifier(filePath, specifier);
 
@@ -86,22 +86,23 @@ function shouldIncludeFile(filePath: string): boolean {
 
 async function walkDirectory(directoryPath: string): Promise<string[]> {
 	const directoryEntries = await readdir(directoryPath, { withFileTypes: true });
-	const filePaths: string[] = [];
+	const nestedFilePathGroups = await Promise.all(
+		directoryEntries.map(async (directoryEntry): Promise<string[]> => {
+			const entryPath = path.join(directoryPath, directoryEntry.name);
 
-	for (const directoryEntry of directoryEntries) {
-		const entryPath = path.join(directoryPath, directoryEntry.name);
+			if (directoryEntry.isDirectory()) {
+				return await walkDirectory(entryPath);
+			}
 
-		if (directoryEntry.isDirectory()) {
-			filePaths.push(...(await walkDirectory(entryPath)));
-			continue;
-		}
+			if (directoryEntry.isFile() && shouldIncludeFile(entryPath)) {
+				return [entryPath];
+			}
 
-		if (directoryEntry.isFile() && shouldIncludeFile(entryPath)) {
-			filePaths.push(entryPath);
-		}
-	}
+			return [];
+		})
+	);
 
-	return filePaths;
+	return nestedFilePathGroups.flat();
 }
 
 async function getCandidateFiles(): Promise<string[]> {
@@ -120,12 +121,13 @@ async function getCandidateFiles(): Promise<string[]> {
 
 async function main(): Promise<void> {
 	const filePaths = await getCandidateFiles();
-	const issues: ImportIssue[] = [];
-
-	for (const filePath of filePaths) {
-		const fileContents = await readFile(filePath, 'utf8');
-		issues.push(...collectImportIssues(filePath, fileContents));
-	}
+	const issueGroups = await Promise.all(
+		filePaths.map(async (filePath): Promise<ImportIssue[]> => {
+			const fileContents = await readFile(filePath, 'utf8');
+			return collectImportIssues(filePath, fileContents);
+		})
+	);
+	const issues = issueGroups.flat();
 
 	if (issues.length === 0) {
 		console.log('Checked import paths. No alias-shortenable imports found.');
