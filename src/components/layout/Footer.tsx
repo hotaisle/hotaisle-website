@@ -5,12 +5,8 @@ export function Footer() {
 	const footerCopyright = getFooterCopyright();
 
 	return (
-		<footer className="border-border/60 border-t bg-card">
-			{/* Top accent line */}
-			<div className="h-px w-full bg-linear-to-r from-transparent via-hot-orange/40 to-transparent" />
-
-			{/* Main footer content */}
-			<div className="mx-auto max-w-7xl px-6">
+		<footer className="border-border border-t bg-card">
+			<div className="mx-auto max-w-7xl px-5 lg:px-8">
 				{/* Link columns grid */}
 				<div className="grid grid-cols-2 gap-8 py-14 md:grid-cols-4">
 					{FOOTER_COLUMNS.map((column) => (
@@ -35,7 +31,7 @@ export function Footer() {
 				</div>
 
 				{/* Divider */}
-				<div className="border-border/60 border-t" />
+				<div className="border-border border-t" />
 
 				{/* Bottom row */}
 				<div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">

@@ -85,7 +85,7 @@ export default function ComputePage() {
 								className="rounded-lg bg-foreground px-8 py-4 font-bold text-background transition-transform hover:scale-105 hover:opacity-90"
 								href="/quick-start"
 							>
-								Reserve Now
+								Start Now
 							</AppLink>
 							<AppLink
 								className="rounded-lg border border-border px-8 py-4 font-bold text-foreground transition-colors hover:bg-muted"
