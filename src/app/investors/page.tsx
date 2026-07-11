@@ -78,7 +78,7 @@ export default function InvestorsPage() {
 				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8 lg:py-20">
 					<div className="max-w-3xl">
 						<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
-							Investor relations
+							Investors
 						</p>
 						<h1 className="mt-6 font-semibold text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
 							Built patiently. Ready to compound.

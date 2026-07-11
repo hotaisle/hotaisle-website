@@ -38,20 +38,17 @@ export default function QuickStartPage() {
 					<div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent" />
 				</div>
 
-				<div className="absolute bottom-0 left-0 flex w-full flex-col items-center p-8 pb-12 text-center">
+				<div className="absolute bottom-4 left-0 flex w-full flex-col items-center p-8 pb-12 text-center">
 					<div className="container mx-auto max-w-4xl">
-						<h1 className="mb-4 font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+						<h1 className="font-black text-5xl text-foreground tracking-tighter md:text-7xl">
 							Quick Start
 						</h1>
-						<p className="mx-auto max-w-2xl text-muted-foreground text-xl">
-							From gpu poor to gpu rich in under 60 seconds.
-						</p>
 					</div>
 				</div>
 			</div>
 
 			{/* Main Connection Steps */}
-			<div className="container relative z-10 mx-auto -mt-8 max-w-4xl px-6">
+			<div className="container relative z-10 mx-auto -mt-12 max-w-4xl px-6">
 				<div className="mx-auto flex max-w-3xl flex-col items-center rounded-2xl border border-border bg-card p-8 shadow-xl md:p-12">
 					<div className="mb-8 flex items-center gap-4">
 						<div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 text-green-500">
@@ -129,15 +126,8 @@ export default function QuickStartPage() {
 
 			{/* Next Steps Guide */}
 			<div className="container mx-auto mt-24 max-w-5xl px-6">
-				<div className="mb-16 text-center">
-					<h2 className="mb-6 font-black text-4xl">Next Steps</h2>
-					<p className="mx-auto max-w-3xl text-muted-foreground text-xl">
-						Oh hey 👋 wondering what to do after you spin up your VM? We’ve got a few
-						tips.
-					</p>
-				</div>
-
 				<div className="space-y-12 rounded-2xl border border-border bg-card p-8 shadow-xl md:p-12">
+					<h2 className="font-black text-4xl">Next Steps</h2>
 					{/* Intro */}
 					<div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground">
 						<p>
@@ -272,18 +262,16 @@ export default function QuickStartPage() {
 							Aisle solutions
 						</h3>
 						<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-							<a
+							<AppLink
 								className="group flex items-center justify-between rounded-lg bg-muted/50 p-4 transition-colors hover:bg-muted"
-								href="https://admin.hotaisle.app/api/docs/"
-								rel="noopener"
-								target="_blank"
+								href="/docs/api"
 							>
 								<span className="font-medium font-mono">API Docs</span>
 								<BookOpen
 									className="text-muted-foreground group-hover:text-foreground"
 									size={16}
 								/>
-							</a>
+							</AppLink>
 							<a
 								className="group flex items-center justify-between rounded-lg bg-muted/50 p-4 transition-colors hover:bg-muted"
 								href="https://github.com/hotaisle/hotaisle-cli"

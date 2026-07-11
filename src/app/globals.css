@@ -8,44 +8,30 @@
 	--font-display: "Space Grotesk", sans-serif;
 	--font-mono: "JetBrains Mono", monospace;
 	--font-serif: "IBM Plex Serif", serif;
-	/* Arctic Light Theme */
-	--background: #ffffff;
-	--foreground: #0f172a;
-	/* Slate 900 */
-	--card: #f8fafc;
-	/* Slate 50 */
-	--card-foreground: #0f172a;
-	--primary: #0f172a;
+	--background: #f8f8f5;
+	--foreground: #171717;
+	--card: #ffffff;
+	--card-foreground: #171717;
+	--primary: #171717;
 	--primary-foreground: #ffffff;
-	--secondary: #f1f5f9;
-	/* Slate 100 */
-	--secondary-foreground: #0f172a;
-	--muted: #f1f5f9;
-	--muted-foreground: #64748b;
-	/* Slate 500 */
-	--accent: #e0f2fe;
-	/* Sky 100 */
-	--accent-foreground: #0284c7;
-	/* Sky 600 */
-	--success: #16a34a;
+	--secondary: #efeee9;
+	--secondary-foreground: #171717;
+	--muted: #efeee9;
+	--muted-foreground: #65655e;
+	--accent: #e7eeeb;
+	--accent-foreground: #315f56;
+	--success: #16804c;
 	--success-foreground: #ffffff;
-	--destructive: #ef4444;
+	--destructive: #c2372b;
 	--destructive-foreground: #ffffff;
-	--border: #e2e8f0;
-	/* Slate 200 */
-	--input: #e2e8f0;
-	--ring: #0f172a;
-	--radius: 0.5rem;
-
-	/* Hot Aisle Brand Color */
-	--hot-orange-light: #9a3308;
-	/* Higher-contrast brand orange for white text and UI on light surfaces */
-	--hot-orange-contrast-light: #7f2805;
-	/* Higher-contrast orange for small text on light surfaces */
-	--hot-orange-dark: #9a3308;
-	/* Darkened to preserve white-on-orange button contrast in dark mode */
-	--hot-orange-contrast-dark: #f08a36;
-	/* Slightly brighter variant for small text on dark surfaces */
+	--border: #d9d8d1;
+	--input: #d9d8d1;
+	--ring: #171717;
+	--radius: 0.25rem;
+	--hot-orange-light: #c04712;
+	--hot-orange-contrast-light: #9d390e;
+	--hot-orange-dark: #c04712;
+	--hot-orange-contrast-dark: #f28b49;
 	--hot-orange: var(--theme-hot-orange, var(--hot-orange-light));
 	--hot-orange-contrast: var(
 		--theme-hot-orange-contrast,
@@ -54,34 +40,25 @@
 }
 
 .dark {
-	/* Arctic Dark Theme - True Black */
-	--background: #000000;
-	/* Pure Black */
-	--foreground: #fafafa;
-	/* Neutral 50 */
-	--card: #0a0a0a;
-	/* Neutral 950 */
-	--card-foreground: #fafafa;
-	--primary: #fafafa;
+	--background: #090909;
+	--foreground: #f2f1ed;
+	--card: #111110;
+	--card-foreground: #f2f1ed;
+	--primary: #f2f1ed;
 	--primary-foreground: #171717;
-	/* Neutral 900 */
-	--secondary: #262626;
-	/* Neutral 800 */
-	--secondary-foreground: #fafafa;
-	--muted: #262626;
-	--muted-foreground: #a3a3a3;
-	/* Neutral 400 */
-	--accent: #0c4a6e;
-	/* Sky 900 */
-	--accent-foreground: #38bdf8;
-	/* Sky 400 */
-	--success: #22c55e;
+	--secondary: #20201d;
+	--secondary-foreground: #f2f1ed;
+	--muted: #20201d;
+	--muted-foreground: #aaa9a1;
+	--accent: #173b37;
+	--accent-foreground: #8bc5b4;
+	--success: #2aae68;
 	--success-foreground: #052e16;
 	--destructive: #7f1d1d;
-	--destructive-foreground: #fafafa;
-	--border: #262626;
-	--input: #262626;
-	--ring: #d4d4d4;
+	--destructive-foreground: #f2f1ed;
+	--border: #30302c;
+	--input: #30302c;
+	--ring: #d8d7d1;
 	--theme-hot-orange: var(--hot-orange-dark);
 	--theme-hot-orange-contrast: var(--hot-orange-contrast-dark);
 }
@@ -148,7 +125,57 @@ h3,
 h4,
 h5,
 h6 {
-	line-height: 1.08;
+	line-height: 1.04;
+	letter-spacing: 0;
+}
+
+/* Shared infrastructure briefing system for every route. */
+main {
+	background-color: var(--background);
+}
+
+main .container {
+	max-width: 82rem;
+}
+
+main .rounded-2xl,
+main .rounded-3xl,
+main .rounded-4xl {
+	border-radius: 0.25rem;
+}
+
+header :where(a, button)[class*="rounded"],
+main :where(a, button)[class*="rounded"],
+footer :where(a, button)[class*="rounded"] {
+	border-radius: 0 !important;
+}
+
+main .shadow-sm,
+main .shadow-lg,
+main .shadow-xl,
+main .shadow-2xl {
+	box-shadow: none;
+}
+
+main .font-black {
+	font-weight: 650;
+}
+
+main .tracking-tight,
+main .tracking-tighter {
+	letter-spacing: 0;
+}
+
+main .prose:not(.max-w-none) {
+	max-width: 76ch;
+}
+
+.ha-briefing-label {
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: var(--hot-orange-contrast);
+	text-transform: uppercase;
 	letter-spacing: 0;
 }
 
@@ -522,7 +549,7 @@ h6 {
 }
 
 .ha-header-cta {
-	border-radius: calc(var(--radius) + 2px);
+	border-radius: 0;
 }
 
 .ha-theme-toggle {

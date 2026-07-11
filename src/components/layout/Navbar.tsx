@@ -31,7 +31,7 @@ const LOGO_HEIGHT = 32;
 const LOGO_SRC = '/hotaisle-logo.svg';
 const LOGO_WIDTH = 104;
 const NAV_LINK_CLASS_NAME =
-	'ha-nav-link border border-transparent px-3 py-2 font-medium text-[0.95rem] text-muted-foreground transition-colors hover:border-border hover:text-foreground';
+	'ha-nav-link px-3 py-2 font-mono text-muted-foreground text-xs transition-colors hover:text-foreground';
 const MOBILE_NAV_LINK_CLASS_NAME =
 	'ha-nav-link flex items-center gap-3 rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const CONTACT_LINK_CLASS_NAME =
@@ -93,11 +93,15 @@ export function Navbar() {
 	return (
 		<>
 			{/* Top Navbar */}
-			<header className="sticky top-0 z-40 w-full border-border/60 border-b bg-background/95 backdrop-blur-md">
-				<div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
+			<header className="sticky top-0 z-40 w-full border-border border-b bg-background/95 backdrop-blur-md">
+				<div className="mx-auto flex h-18 max-w-360 items-center justify-between px-5 lg:px-8">
 					{/* Left: Logo + Primary Nav */}
-					<div className="flex items-center gap-8">
-						<AppLink aria-label="Home" href="/">
+					<div className="flex items-center gap-6">
+						<AppLink
+							aria-label="Home"
+							className="border-border pr-6 lg:border-r"
+							href="/"
+						>
 							<img
 								alt={LOGO_ALT}
 								className="h-8 w-auto object-contain"
@@ -108,7 +112,7 @@ export function Navbar() {
 							/>
 						</AppLink>
 
-						<nav className="hidden items-center gap-1 lg:flex">
+						<nav className="hidden items-center lg:flex">
 							{PRIMARY_NAV_LINKS.map((item) => (
 								<AppLink
 									className={NAV_LINK_CLASS_NAME}
@@ -138,7 +142,7 @@ export function Navbar() {
 						<ThemeToggle />
 
 						<AppLink
-							className="ha-header-cta hidden border border-hot-orange bg-hot-orange px-4 py-2 font-medium text-sm text-white transition hover:opacity-85 lg:inline-flex"
+							className="ha-header-cta hidden border border-hot-orange bg-hot-orange px-4 py-2 font-mono text-white text-xs transition hover:opacity-85 lg:inline-flex"
 							href={HEADER_CTA_LINK.href}
 						>
 							{HEADER_CTA_LINK.label}
