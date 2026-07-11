@@ -19,10 +19,10 @@ import { createSitemapXml } from './generate_sitemap.ts';
 const EXPORT_ORIGIN = 'https://static.hotaisle.local';
 const PROJECT_ROOT = path.join(import.meta.dirname, '..');
 const BLOG_ASSET_SOURCE_DIRECTORY = path.join(PROJECT_ROOT, 'content', 'blog', 'assets');
-const PUBLIC_DIRECTORY = path.join(PROJECT_ROOT, 'public');
 const DIST_DIRECTORY = path.join(PROJECT_ROOT, 'dist');
 const STATIC_DIST_DIRECTORY = path.join(PROJECT_ROOT, 'dist-static');
 const CLIENT_DIRECTORY = path.join(DIST_DIRECTORY, 'client');
+const PRERENDERED_ROUTES_DIRECTORY = path.join(DIST_DIRECTORY, 'server', 'prerendered-routes');
 const CLIENT_BLOG_ASSET_DIRECTORY = path.join(CLIENT_DIRECTORY, 'assets', 'blog');
 const SITEMAP_FILE_NAME = 'sitemap.xml';
 const VINEXT_PACKAGE_DIRECTORY = path.join(PROJECT_ROOT, 'node_modules', 'vinext');
@@ -123,7 +123,6 @@ if (exitCode !== 0) {
 	throw new Error(`vinext build failed with exit code ${exitCode}`);
 }
 
-await syncPublicAssetsToClientOutput();
 await syncBlogAssetsToClientOutput();
 
 await cp(CLIENT_DIRECTORY, STATIC_DIST_DIRECTORY, {
@@ -132,6 +131,7 @@ await cp(CLIENT_DIRECTORY, STATIC_DIST_DIRECTORY, {
 	recursive: true,
 });
 
+await syncPrerenderedRoutesToStaticOutput();
 await writeStaticDeployWranglerConfig();
 await writeSitemapFiles();
 
@@ -226,24 +226,23 @@ async function writeStaticDeployWranglerConfig(): Promise<void> {
 	);
 }
 
-async function syncPublicAssetsToClientOutput(): Promise<void> {
-	if (!(await directoryExists(PUBLIC_DIRECTORY))) {
-		return;
-	}
-
-	await cp(PUBLIC_DIRECTORY, CLIENT_DIRECTORY, {
-		filter: (sourcePath: string) => !shouldExcludeFromStaticExport(sourcePath),
-		force: true,
-		recursive: true,
-	});
-}
-
 async function syncBlogAssetsToClientOutput(): Promise<void> {
 	if (!(await directoryExists(BLOG_ASSET_SOURCE_DIRECTORY))) {
 		return;
 	}
 
 	await copyBlogAssetsToOutput(BLOG_ASSET_SOURCE_DIRECTORY, CLIENT_BLOG_ASSET_DIRECTORY);
+}
+
+async function syncPrerenderedRoutesToStaticOutput(): Promise<void> {
+	if (!(await directoryExists(PRERENDERED_ROUTES_DIRECTORY))) {
+		throw new Error('Vinext did not produce prerendered route output.');
+	}
+
+	await cp(PRERENDERED_ROUTES_DIRECTORY, STATIC_DIST_DIRECTORY, {
+		force: true,
+		recursive: true,
+	});
 }
 
 async function directoryExists(directoryPath: string): Promise<boolean> {

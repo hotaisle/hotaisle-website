@@ -49,7 +49,7 @@ export default defineConfig({
 	plugins: [
 		fullReloadForInlineScripts(),
 		tailwindcss(),
-		vinext(),
+		vinext({ prerender: true }),
 		cloudflare({
 			viteEnvironment: {
 				childEnvironments: ['ssr'],
