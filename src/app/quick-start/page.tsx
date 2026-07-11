@@ -68,22 +68,13 @@ export default function QuickStartPage() {
 						If you need a terminal app, use
 						<a
 							className="mx-1 font-medium text-hot-orange-contrast hover:underline"
-							href="https://www.cmux.dev/"
-							rel="noopener"
-							target="_blank"
-						>
-							cmux
-						</a>
-						on macOS,
-						<a
-							className="mx-1 font-medium text-hot-orange-contrast hover:underline"
 							href="https://ghostty.org/"
 							rel="noopener"
 							target="_blank"
 						>
 							Ghostty
 						</a>
-						on Linux,
+						on macOS and Linux,
 						<br />
 						and
 						<a
