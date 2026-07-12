@@ -4,8 +4,9 @@ const SITE_NAME = 'Hot Aisle';
 const SITE_URL = 'https://hotaisle.xyz';
 const SITE_LOCALE = 'en_US';
 const SITE_TWITTER_HANDLE = '@HotAisle';
-const DEFAULT_IMAGE = '/assets/og/hot-aisle-share.png';
-const DEFAULT_IMAGE_ALT = 'Hot Aisle branded share image';
+const DEFAULT_IMAGE = '/assets/og/hot-aisle-inference-cloud.png';
+const DEFAULT_IMAGE_ALT =
+	'Hot Aisle automated inference cloud with pixel-art AMD GPU infrastructure';
 const DEFAULT_IMAGE_WIDTH = 1200;
 const DEFAULT_IMAGE_HEIGHT = 630;
 const DEFAULT_IMAGE_TYPE = 'image/png';
@@ -42,6 +43,7 @@ export function createPageMetadata({
 		alternates: {
 			canonical: url,
 		},
+		applicationName: SITE_NAME,
 		description,
 		metadataBase: SITE_METADATA_BASE,
 		openGraph: {
@@ -60,6 +62,7 @@ export function createPageMetadata({
 		title,
 		twitter: {
 			card: 'summary_large_image',
+			creator: SITE_TWITTER_HANDLE,
 			description,
 			images: [imageMetadata],
 			site: SITE_TWITTER_HANDLE,

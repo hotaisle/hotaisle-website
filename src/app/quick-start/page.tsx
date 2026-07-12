@@ -96,7 +96,7 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Get started with Hot Aisle in under 60 seconds, from SSH login through account setup and first workload.',
-		image: '/assets/og/hot-aisle-share.png',
+		image: '/assets/og/hot-aisle-inference-cloud.png',
 		imageAlt: 'Hot Aisle branded share image',
 		path: '/quick-start',
 		title: 'Quick Start',

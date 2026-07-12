@@ -6,7 +6,7 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Latest news, technical writing, interviews, and product updates from Hot Aisle.',
-		image: '/assets/og/hot-aisle-share.png',
+		image: '/assets/og/hot-aisle-inference-cloud.png',
 		imageAlt: 'Hot Aisle branded share image',
 		path: '/blog',
 		title: 'Hot Aisle Blog',
