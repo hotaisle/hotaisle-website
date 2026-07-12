@@ -271,18 +271,25 @@ export default function PricingPage() {
 			</div>
 
 			{/* Resources Section */}
-			<div className="container mx-auto mt-16 max-w-4xl px-6 text-center">
-				<div className="mt-12 rounded-xl border border-border bg-linear-to-r from-purple-900/20 to-blue-900/20 p-8 text-center">
-					<h3 className="mb-2 font-bold text-xl">Accepting MI355x Reservations</h3>
-					<p className="mb-6 text-muted-foreground">
-						Be the first to access the next generation of AMD compute.
-					</p>
-					<AppLink
-						className="rounded-lg bg-foreground px-6 py-2 font-bold text-background transition-colors hover:opacity-90"
-						href="/mi355x"
-					>
-						Reserve Now
-					</AppLink>
+			<div className="container mx-auto mt-16 max-w-7xl px-6">
+				<div className="border border-border bg-muted/35">
+					<div className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:items-end sm:p-8">
+						<div>
+							<p className="ha-briefing-label">MI355X availability</p>
+							<h3 className="mt-4 font-medium text-2xl text-foreground">
+								Accepting MI355x reservations.
+							</h3>
+							<p className="mt-3 max-w-2xl text-muted-foreground leading-relaxed">
+								Be the first to access the next generation of AMD compute.
+							</p>
+						</div>
+						<AppLink
+							className="inline-flex min-h-12 items-center justify-center bg-foreground px-6 py-3 font-medium text-background transition-opacity hover:opacity-85"
+							href="/mi355x"
+						>
+							Start now
+						</AppLink>
+					</div>
 				</div>
 			</div>
 		</div>

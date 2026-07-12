@@ -29,13 +29,13 @@ export function generateMetadata() {
 
 export default function ContactPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
 				<header className="border-border border-b py-14 md:py-18">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
 							<p className="ha-briefing-label">Contact</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-black p-3">
+							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted p-3 dark:bg-black">
 								<video
 									autoPlay
 									className="aspect-4/3 w-full object-cover"
@@ -45,7 +45,7 @@ export default function ContactPage() {
 								>
 									<source src="/assets/contact/contact.mp4" type="video/mp4" />
 								</video>
-								<figcaption className="mt-3 border-white/20 border-t pt-3 font-mono text-neutral-400 text-xs">
+								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs dark:border-white/20 dark:text-neutral-400">
 									Direct access to the operating team
 								</figcaption>
 							</figure>
@@ -65,13 +65,14 @@ export default function ContactPage() {
 								hello@hotaisle.ai
 							</a>
 							<p className="mt-4 text-muted-foreground text-sm">
-								A member of the Hot Aisle team will respond.
+								A person on the Hot Aisle team will reply directly. No AI bot, and
+								no spam.
 							</p>
 						</div>
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b pt-16 pb-10">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<p className="ha-briefing-label">Bring context</p>
 						<div>
