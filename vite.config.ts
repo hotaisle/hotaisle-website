@@ -10,6 +10,7 @@ const APP_DIRECTORY = path.resolve(import.meta.dirname, './src/app');
 const LOCAL_TLS_CERT_PATH = path.resolve(import.meta.dirname, './.dev-localhost-cert.pem');
 const LOCAL_TLS_KEY_PATH = path.resolve(import.meta.dirname, './.dev-localhost-key.pem');
 const DEV_SERVER_PORT = 4174;
+const RSC_STATIC_EDGE_DEPENDENCY = 'react-server-dom-webpack/static.edge';
 
 const getInlineScriptHotReloadPaths = (): Set<string> => {
 	const inlineScriptPaths = new Set<string>([path.resolve(APP_DIRECTORY, 'layout.tsx')]);
@@ -42,6 +43,21 @@ const fullReloadForInlineScripts = (): PluginOption => {
 	};
 };
 
+const removeVinextStaticEdgePrebundle = (): PluginOption => ({
+	config(config) {
+		const rscOptimizeDeps = config.environments?.rsc?.optimizeDeps;
+		if (!rscOptimizeDeps?.include) {
+			return;
+		}
+
+		rscOptimizeDeps.include = rscOptimizeDeps.include.filter(
+			(dependency) => dependency !== RSC_STATIC_EDGE_DEPENDENCY
+		);
+	},
+	enforce: 'post',
+	name: 'remove-vinext-static-edge-prebundle',
+});
+
 export default defineConfig({
 	optimizeDeps: {
 		exclude: ['lucide-react'],
@@ -56,6 +72,7 @@ export default defineConfig({
 				name: 'rsc',
 			},
 		}),
+		removeVinextStaticEdgePrebundle(),
 	],
 	resolve: {
 		alias: {

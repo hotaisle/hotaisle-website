@@ -1182,6 +1182,16 @@ img[data-image-modal="true"] {
 	animation: fadeIn 0.8s ease-out forwards;
 }
 
+@keyframes terminalTyping {
+	from {
+		width: 0;
+	}
+
+	to {
+		width: 23ch;
+	}
+}
+
 @keyframes terminalCursorBlink {
 	0%,
 	45% {
@@ -1194,6 +1204,18 @@ img[data-image-modal="true"] {
 	}
 }
 
-.ha-terminal-cursor {
-	animation: terminalCursorBlink 0.9s step-end infinite;
+.ha-terminal-typing {
+	--terminal-typing-duration: 4.4s;
+	display: inline-block;
+	width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	animation: terminalTyping var(--terminal-typing-duration) steps(23, end)
+		0.1s forwards;
+}
+
+.ha-terminal-typing__cursor {
+	opacity: 0;
+	animation: terminalCursorBlink 0.9s step-end
+		calc(var(--terminal-typing-duration) + 0.1s) infinite;
 }
