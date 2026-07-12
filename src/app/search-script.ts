@@ -47,11 +47,13 @@ export function initializeSearchScript({ searchData }: SearchScriptConfig): void
 		}
 
 		const { hash, pathname, search } = url;
-		if (pathname === '/' || pathname.endsWith('/') || pathname.includes('.')) {
+		if (pathname === '/' || pathname.includes('.')) {
 			return `${pathname}${search}${hash}`;
 		}
 
-		return `${pathname}/${search}${hash}`;
+		const canonicalPathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+
+		return `${canonicalPathname}${search}${hash}`;
 	};
 
 	const scoreSearchResult = (
