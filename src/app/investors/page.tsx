@@ -1,4 +1,4 @@
-import { ArrowRight, Globe2, Landmark, ServerCog, ShieldCheck, Waypoints } from 'lucide-react';
+import { ArrowRight, Landmark, Waypoints } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
@@ -25,19 +25,16 @@ const EXPANSION_MODEL = [
 	{
 		description:
 			'Compact, repeatable inference deployments in more data centers, placed near the teams and jurisdictions that need them.',
-		icon: Globe2,
 		title: 'Distributed by design',
 	},
 	{
 		description:
 			'Existing automation brings networking, PXE boot, operating systems, ROCm, and KVM isolation online without rebuilding the process at every site.',
-		icon: ServerCog,
 		title: 'A repeatable unit',
 	},
 	{
 		description:
 			'Partner relationships across hardware, networking, and deployment reduce execution risk before a new location is brought online.',
-		icon: ShieldCheck,
 		title: 'De-risked with partners',
 	},
 ] as const;
@@ -189,21 +186,17 @@ export default function InvestorsPage() {
 						</p>
 					</div>
 					<div className="border-background/20 border-t">
-						{EXPANSION_MODEL.map((point) => {
-							const Icon = point.icon;
-							return (
-								<article
-									className="grid gap-4 border-background/20 border-b py-7 sm:grid-cols-[2.5rem_11rem_1fr]"
-									key={point.title}
-								>
-									<Icon aria-hidden="true" className="h-5 w-5 text-hot-orange" />
-									<h3 className="font-medium text-xl">{point.title}</h3>
-									<p className="text-background/65 text-lg leading-8">
-										{point.description}
-									</p>
-								</article>
-							);
-						})}
+						{EXPANSION_MODEL.map((point) => (
+							<article
+								className="grid gap-4 border-background/20 border-b py-7 sm:grid-cols-[11rem_1fr]"
+								key={point.title}
+							>
+								<h3 className="font-medium text-xl">{point.title}</h3>
+								<p className="text-background/65 text-lg leading-8">
+									{point.description}
+								</p>
+							</article>
+						))}
 					</div>
 				</div>
 			</section>

@@ -10,8 +10,12 @@ const PUBLISH_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
 });
 
 const GUEST_TAG = 'Guest';
+const GRID_FILLER_KEYS = ['first', 'second'] as const;
 
 export function BlogList({ posts }: { posts: BlogPost[] }) {
+	const twoColumnFillers = (2 - (posts.length % 2)) % 2;
+	const threeColumnFillers = (3 - (posts.length % 3)) % 3;
+
 	return (
 		<div className="grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
 			{posts.map((post, index) => {
@@ -25,7 +29,7 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 						href={`/blog/${post.slug}`}
 						key={post.slug}
 					>
-						<div className="relative aspect-16/10 w-full overflow-hidden border-border border-b bg-muted">
+						<div className="relative aspect-16/10 w-full overflow-hidden border-border border-b bg-white dark:bg-black">
 							{post.coverImage ? (
 								<OptimizedImage
 									alt={post.title}
@@ -34,12 +38,7 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 									src={post.coverImage}
 									width={720}
 								/>
-							) : (
-								<div
-									aria-hidden="true"
-									className="h-full w-full bg-white dark:bg-black"
-								/>
-							)}
+							) : null}
 						</div>
 
 						<div className="flex flex-1 flex-col p-5 sm:p-6">
@@ -75,6 +74,20 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 					</AppLink>
 				);
 			})}
+			{GRID_FILLER_KEYS.slice(0, twoColumnFillers).map((key) => (
+				<div
+					aria-hidden="true"
+					className="hidden bg-background md:block xl:hidden"
+					key={`two-column-filler-${key}`}
+				/>
+			))}
+			{GRID_FILLER_KEYS.slice(0, threeColumnFillers).map((key) => (
+				<div
+					aria-hidden="true"
+					className="hidden bg-background xl:block"
+					key={`three-column-filler-${key}`}
+				/>
+			))}
 		</div>
 	);
 }
