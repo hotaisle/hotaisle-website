@@ -15,16 +15,22 @@ export function Footer() {
 								{column.heading}
 							</h3>
 							<ul className="flex flex-col items-center gap-3">
-								{column.links.map((link) => (
-									<li key={link.href}>
-										<AppLink
-											className="text-muted-foreground text-sm transition-colors hover:text-foreground"
-											href={link.href}
-										>
-											{link.label}
-										</AppLink>
-									</li>
-								))}
+								{column.links.map((link) => {
+									const isExternal = link.href.startsWith('http');
+
+									return (
+										<li key={link.href}>
+											<AppLink
+												className="text-muted-foreground text-sm transition-colors hover:text-foreground"
+												href={link.href}
+												rel={isExternal ? 'noopener' : undefined}
+												target={isExternal ? '_blank' : undefined}
+											>
+												{link.label}
+											</AppLink>
+										</li>
+									);
+								})}
 							</ul>
 						</div>
 					))}

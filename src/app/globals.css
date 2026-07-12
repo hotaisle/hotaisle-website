@@ -863,6 +863,40 @@ img[data-image-modal="true"] {
 	color: var(--hot-orange);
 }
 
+.policy-document {
+	font-size: 1.0625rem;
+	line-height: 1.8;
+}
+
+.policy-document > :first-child {
+	margin-top: 0;
+}
+
+.policy-document hr {
+	margin-top: 0;
+	margin-bottom: 2.5rem;
+	border-color: var(--border);
+}
+
+.policy-document h2 {
+	padding-top: 1.5rem;
+	margin-top: 4rem;
+	font-size: 1.5rem;
+	font-weight: 650;
+	letter-spacing: 0;
+	border-top: 1px solid var(--border);
+}
+
+.policy-document h3 {
+	font-size: 1.125rem;
+	font-weight: 650;
+	letter-spacing: 0;
+}
+
+.policy-document :is(table, th, td) {
+	border-color: var(--border);
+}
+
 @keyframes fadeIn {
 	from {
 		opacity: 0;

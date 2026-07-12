@@ -1,171 +1,216 @@
-import { Cpu, Database, ExternalLink, Globe, Handshake, Server } from 'lucide-react';
+import { AppLink } from '@/components/AppLink.tsx';
+import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
+
+const RELATIONSHIP_OUTCOMES = [
+	{
+		description:
+			'Hardware, networking, facility, and support decisions are coordinated before a deployment is exposed to a customer workload.',
+		title: 'Fewer handoffs',
+	},
+	{
+		description:
+			'Direct relationships help us validate the systems underneath the platform, from accelerator configuration through networking and serviceability.',
+		title: 'Better operating context',
+	},
+	{
+		description:
+			'We can bring hardware, networking, deployment, and optimization conversations together early, reducing avoidable cost and time.',
+		title: 'A shorter path to capacity',
+	},
+] as const;
+
+const PARTNER_GROUPS = [
+	{
+		description:
+			'The hardware, networking, orchestration, distribution, and facility relationships behind a deployable GPU environment.',
+		partners: [
+			{
+				name: 'Dell Technologies',
+				role: 'Hardware systems and support',
+				url: 'https://www.dell.com',
+			},
+			{ name: 'AMD', role: 'Accelerator platform', url: 'https://www.amd.com' },
+			{
+				name: 'Broadcom',
+				role: 'Networking and connectivity',
+				url: 'https://www.broadcom.com',
+			},
+			{
+				name: 'Advizex',
+				role: 'Deployment and lifecycle services',
+				url: 'https://www.advizex.com',
+			},
+			{ name: 'Switch', role: 'Data center operations', url: 'https://www.switch.com' },
+			{ name: 'dstack', role: 'GPU-native orchestration', url: 'https://dstack.ai' },
+		],
+		title: 'Infrastructure delivery',
+	},
+] as const;
 
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
-			'The Hot Aisle ecosystem across hardware, orchestration, networking, and performance engineering partners.',
+			'Hot Aisle works with infrastructure, networking, orchestration, and deployment partners to bring AMD inference capacity online reliably.',
+		image: '/assets/partners/deployment-coordination-pixel-art.png',
+		imageAlt: '3D pixel-art coordinated data center deployment',
 		path: '/partners',
 		title: 'Partners',
 	});
 }
 
-const introText = [
-	'Our partners are one of our most valuable assets, and our ecosystem reflects how we operate today: tight collaboration across hardware, orchestration, networking, and performance engineering.',
-	'We work directly with these teams to validate integrations, improve deployment workflows, and keep production environments reliable at scale.',
-	'The result is a stronger platform and faster execution for customers deploying serious GPU workloads.',
-];
-
-const partners = [
-	{
-		category: 'Hardware, Deployment & Data Centers',
-		icon: Server,
-		list: [
-			{ desc: 'Global Hardware Partner', name: 'Dell Technologies', url: 'https://dell.com' },
-			{ desc: 'Together We Advance', name: 'AMD', url: 'https://www.amd.com' },
-			{ desc: 'Networking & Connectivity', name: 'Broadcom', url: 'https://broadcom.com/' },
-			{ desc: 'Customers for Life.', name: 'Advizex', url: 'https://advizex.com' },
-			{ desc: 'World-Class Data Centers', name: 'Switch', url: 'https://switch.com' },
-		],
-	},
-	{
-		category: 'Orchestration',
-		icon: Database,
-		list: [
-			{
-				desc: 'Open-source GPU-native orchestration',
-				name: 'dstack',
-				url: 'https://dstack.ai',
-			},
-		],
-	},
-	{
-		category: 'Software Engineering & Optimization',
-		icon: Cpu,
-		list: [
-			{
-				desc: 'Write CUDA code. Run everywhere.',
-				name: 'Spectral Compute',
-				url: 'https://spectralcompute.co.uk/',
-			},
-			{
-				desc: 'HPC & Scientific Computing',
-				name: 'Fluid Numerics',
-				url: 'https://fluidnumerics.com',
-			},
-		],
-	},
-	{
-		category: 'GPU Cloud Marketplace',
-		icon: Globe,
-		list: [
-			{ desc: 'Unified Cloud Controls', name: 'shadeform.ai', url: 'https://shadeform.ai' },
-		],
-	},
-];
-
 export default function PartnersPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
-			{/* Hero Section */}
-			<div className="relative border-border border-b bg-muted/20">
-				<div className="container mx-auto max-w-5xl px-6 py-24">
-					<div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 font-bold text-foreground text-xs uppercase tracking-wider shadow-sm">
-						<Handshake className="text-hot-orange" size={14} />
-						Ecosystem
+		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+			<div className="container mx-auto max-w-6xl px-6">
+				<header className="border-border border-b py-14 md:py-18">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<div>
+							<p className="ha-briefing-label">Ecosystem</p>
+							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+								<OptimizedImage
+									alt="3D pixel-art coordinated data center deployment with a server rack, network switch, cable spool, and installation arm"
+									className="aspect-4/3 w-full object-cover"
+									height={1086}
+									pictureClassName="hidden dark:block"
+									src="/assets/partners/deployment-coordination-pixel-art.png"
+									width={1448}
+								/>
+								<OptimizedImage
+									alt=""
+									aria-hidden="true"
+									className="aspect-4/3 w-full object-cover"
+									height={1086}
+									pictureClassName="dark:hidden"
+									src="/assets/partners/deployment-coordination-pixel-art-light.png"
+									width={1448}
+								/>
+								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+									Hardware, network, and delivery coordination
+								</figcaption>
+							</figure>
+						</div>
+						<div>
+							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+								Partnerships that move capacity.
+							</h1>
+							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+								Reliable infrastructure is built through close working
+								relationships. We bring the hardware, networking, facility,
+								deployment, and orchestration conversations together before capacity
+								is put in front of customers.
+							</p>
+						</div>
+					</div>
+				</header>
+
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Why it matters</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								The work starts well before a server comes online.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								Our partners are part of how we turn AMD GPU hardware into usable,
+								serviceable inference capacity. The outcome should be simple for the
+								customer, even when the work underneath is not.
+							</p>
+						</div>
 					</div>
 
-					<h1 className="mb-8 text-center font-black text-5xl text-foreground tracking-tighter md:text-left md:text-7xl">
-						Our <span className="text-hot-orange">Partners</span>
-					</h1>
-
-					<div className="space-y-6 font-light text-lg text-muted-foreground leading-relaxed md:text-xl">
-						{introText.map((text) => (
-							<p key={text}>{text}</p>
+					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+						{RELATIONSHIP_OUTCOMES.map((outcome, index) => (
+							<article className="min-h-64 bg-background p-8" key={outcome.title}>
+								<p className="font-mono text-hot-orange-contrast text-xs">
+									{String(index + 1).padStart(2, '0')}
+								</p>
+								<h3 className="mt-10 font-bold text-2xl text-foreground">
+									{outcome.title}
+								</h3>
+								<p className="mt-4 text-muted-foreground leading-relaxed">
+									{outcome.description}
+								</p>
+							</article>
 						))}
 					</div>
-				</div>
-			</div>
+				</section>
 
-			{/* Partners Grid */}
-			<div className="container mx-auto max-w-6xl px-6 py-24">
-				<div className="grid grid-cols-1 gap-16">
-					{partners.map((section) => (
-						<div className="" key={section.category}>
-							<div className="mb-8 flex items-center gap-3 border-border border-b pb-4">
-								<div className="rounded-lg border border-border bg-muted p-2">
-									<section.icon className="h-6 w-6 text-foreground" />
-								</div>
-								<h2 className="font-bold text-2xl text-foreground">
-									{section.category}
-								</h2>
-							</div>
-
-							<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-								{section.list.map((p) => (
-									<a
-										className="group flex h-full flex-col justify-between rounded-xl border border-border bg-card p-6 transition-all hover:border-hot-orange/50 hover:shadow-lg"
-										href={p.url}
-										key={p.url}
-										rel="noopener noreferrer"
-										target="_blank"
-									>
-										<div>
-											<div className="mb-2 flex items-center justify-between">
-												<h3 className="font-bold text-foreground text-xl transition-colors group-hover:text-hot-orange">
-													{p.name}
-												</h3>
-												<ExternalLink
-													className="text-muted-foreground opacity-0 transition-all group-hover:text-hot-orange group-hover:opacity-100"
-													size={16}
-												/>
-											</div>
-											<p className="text-muted-foreground text-sm">
-												{p.desc}
-											</p>
-										</div>
-									</a>
-								))}
-							</div>
-						</div>
-					))}
-				</div>
-
-				{/* Highlight Section */}
-				<div className="mt-32 text-center">
-					<div className="relative inline-flex max-w-full flex-col items-center overflow-hidden rounded-3xl border border-border bg-linear-to-br from-blue-900/10 to-indigo-900/10 p-10 shadow-2xl backdrop-blur-sm md:p-16">
-						<div className="pointer-events-none absolute top-0 right-0 h-64 w-64 rounded-full bg-hot-orange/10 blur-[100px]" />
-
-						<div className="relative z-10 text-center">
-							<img
-								alt="Michael Dell Comment"
-								className="mx-auto mb-8 max-w-full rounded-xl border-4 border-background shadow-2xl md:max-w-xl"
-								height={768}
-								src="https://imagedelivery.net/IEMzXmjRvW0g933AN5ejrA/wwwnotionso-image-prod-files-secures3us-west-2amazonawscom-286393f4-e9f7-4ee1-936a-dd08d5e664fb-4fae8885-06af-4b9a-b017-33b61c675ccb-2024-08-13_at_084357pngpng/public"
-								width={432}
-							/>
-							<div className="mb-4 font-serif text-2xl text-foreground italic md:text-3xl">
-								"Great partnership"
-							</div>
-							<div className="font-black text-hot-orange uppercase tracking-wider">
-								— Michael Dell
-							</div>
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">The network</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Relationships at every layer of delivery.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								We work with specialists in the layers we operate, rather than
+								treating the infrastructure supply chain as a black box.
+							</p>
 						</div>
 					</div>
-				</div>
 
-				{/* Footer CTA */}
-				<div className="mt-24 border-border border-t pt-12 text-center">
-					<p className="mb-4 text-muted-foreground">
-						Would you like to be added to the list?
-					</p>
-					<a
-						className="inline-block rounded-lg bg-muted px-8 py-3 font-bold text-foreground transition-colors hover:bg-foreground hover:text-background"
-						href="mailto:hello@hotaisle.ai"
-					>
-						Contact Partner Team
-					</a>
-				</div>
+					<div className="mt-12 border-border border-t">
+						{PARTNER_GROUPS.map((group, index) => (
+							<section
+								className="grid gap-8 py-10 lg:grid-cols-[0.75fr_1.25fr]"
+								key={group.title}
+							>
+								<div>
+									<p className="font-mono text-hot-orange-contrast text-xs">
+										{String(index + 1).padStart(2, '0')}
+									</p>
+									<h3 className="mt-6 font-bold text-2xl text-foreground">
+										{group.title}
+									</h3>
+									<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+										{group.description}
+									</p>
+								</div>
+								<div className="grid gap-px border border-border bg-border sm:grid-cols-2">
+									{group.partners.map((partner) => (
+										<a
+											className="group min-h-36 bg-background p-6 transition-colors hover:bg-muted/35"
+											href={partner.url}
+											key={partner.url}
+											rel="noopener"
+											target="_blank"
+										>
+											<p className="font-bold text-foreground text-xl transition-colors group-hover:text-hot-orange-contrast">
+												{partner.name}
+											</p>
+											<p className="mt-3 text-muted-foreground text-sm leading-relaxed">
+												{partner.role}
+											</p>
+										</a>
+									))}
+								</div>
+							</section>
+						))}
+					</div>
+				</section>
+
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Work with us</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Bring us a deployment with real constraints.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								We are interested in relationships that make sovereign inference
+								infrastructure faster to deploy, easier to operate, and more useful
+								to developers and the businesses they support.
+							</p>
+							<AppLink
+								className="mt-8 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								href="/contact"
+							>
+								Start a conversation
+							</AppLink>
+						</div>
+					</div>
+				</section>
 			</div>
 		</div>
 	);

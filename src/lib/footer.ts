@@ -45,6 +45,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 			{ href: '/about', label: 'About Us' },
 			{ href: '/investors', label: 'Investors' },
 			{ href: '/partners', label: 'Partners' },
+			{ href: 'https://www.linkedin.com/company/hotaisle/', label: 'LinkedIn' },
 			{ href: '/blog', label: 'Blog' },
 			{ href: '/policies', label: 'Policies' },
 		],

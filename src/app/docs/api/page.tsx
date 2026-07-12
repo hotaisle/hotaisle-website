@@ -1,253 +1,98 @@
-import { ArrowUpRight, BookOpenText } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
+import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
 const ADMIN_API_DOCS_URL = 'https://admin.hotaisle.app/api/docs/' as const;
 
-const primaryResources = [
+const PRIMARY_RESOURCES = [
 	{
-		description: 'Browse endpoints, schemas, and example payloads in the docs.',
+		action: 'Visit docs',
+		description: 'Browse endpoints, schemas, and example payloads in the live reference.',
 		href: ADMIN_API_DOCS_URL,
 		isExternal: true,
 		label: 'API reference',
 	},
 	{
-		description: 'Get your account, SSH access, and first workload online quickly.',
+		action: 'Open quick start',
+		description: 'Create your team, connect to the terminal UI, and launch compute.',
 		href: '/quick-start',
 		isExternal: false,
 		label: 'Quick start',
 	},
 	{
-		description: 'Ask for access, support, or help wiring the API into your stack.',
+		action: 'Contact Hot Aisle',
+		description:
+			'Ask about account access, API integration, or an environment you are planning.',
 		href: '/contact',
 		isExternal: false,
-		label: 'Contact support',
+		label: 'Direct support',
 	},
 ] as const;
 
-const gettingStartedSteps = [
+const GETTING_STARTED_STEPS = [
 	'Create or access your Hot Aisle account.',
 	'Review the quick start flow for login, SSH, and environment setup.',
-	'Use the API docs to inspect operations and request shapes.',
-	'Reach out if you need account provisioning or integration support.',
+	'Use the API reference to inspect operations and request shapes.',
+	'Automate the requests your workflow needs, then contact us for support when needed.',
 ] as const;
 
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Documentation and discovery links for the Hot Aisle API, including access guidance and the live API reference.',
-		image: '/assets/og/hot-aisle-share.png',
-		imageAlt: 'Hot Aisle branded share image',
+		image: '/assets/docs/api-documentation-pixel-art.png',
+		imageAlt: '3D pixel-art API documentation workstation',
 		path: '/docs/api',
 		title: 'API Documentation',
 	});
 }
 
-function ApiHeroArt() {
-	return (
-		<svg
-			aria-hidden="true"
-			className="h-auto w-full"
-			fill="none"
-			viewBox="0 0 640 480"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<defs>
-				<linearGradient id="api-docs-orbit" x1="108" x2="534" y1="78" y2="392">
-					<stop offset="0" stopColor="currentColor" stopOpacity="0.22" />
-					<stop offset="0.5" stopColor="currentColor" stopOpacity="0.08" />
-					<stop offset="1" stopColor="currentColor" stopOpacity="0.18" />
-				</linearGradient>
-				<linearGradient id="api-docs-panel" x1="220" x2="404" y1="122" y2="338">
-					<stop offset="0" stopColor="white" stopOpacity="0.92" />
-					<stop offset="1" stopColor="white" stopOpacity="0.62" />
-				</linearGradient>
-			</defs>
-
-			<rect fill="url(#api-docs-orbit)" height="480" rx="32" width="640" />
-			<circle cx="124" cy="110" fill="currentColor" fillOpacity="0.08" r="84" />
-			<circle cx="544" cy="378" fill="currentColor" fillOpacity="0.1" r="74" />
-			<circle cx="502" cy="94" fill="currentColor" fillOpacity="0.12" r="16" />
-			<circle cx="152" cy="362" fill="currentColor" fillOpacity="0.12" r="12" />
-
-			<path
-				d="M131 333C155 268 202 233 273 228C345 223 395 187 430 111"
-				stroke="currentColor"
-				strokeLinecap="round"
-				strokeOpacity="0.16"
-				strokeWidth="18"
-			/>
-			<path
-				d="M140 177C189 198 229 197 260 173C291 149 330 144 377 157C424 170 460 160 485 126"
-				stroke="currentColor"
-				strokeLinecap="round"
-				strokeOpacity="0.24"
-				strokeWidth="10"
-			/>
-
-			<rect
-				fill="url(#api-docs-panel)"
-				height="218"
-				rx="28"
-				stroke="currentColor"
-				strokeOpacity="0.16"
-				strokeWidth="2"
-				width="212"
-				x="212"
-				y="126"
-			/>
-			<rect
-				fill="currentColor"
-				fillOpacity="0.12"
-				height="18"
-				rx="9"
-				width="82"
-				x="244"
-				y="162"
-			/>
-			<rect
-				fill="currentColor"
-				fillOpacity="0.2"
-				height="10"
-				rx="5"
-				width="144"
-				x="244"
-				y="200"
-			/>
-			<rect
-				fill="currentColor"
-				fillOpacity="0.14"
-				height="10"
-				rx="5"
-				width="118"
-				x="244"
-				y="224"
-			/>
-			<rect
-				fill="currentColor"
-				fillOpacity="0.14"
-				height="10"
-				rx="5"
-				width="132"
-				x="244"
-				y="248"
-			/>
-
-			<rect
-				fill="currentColor"
-				fillOpacity="0.85"
-				height="42"
-				rx="14"
-				width="132"
-				x="244"
-				y="286"
-			/>
-			<path d="M278 307H344" stroke="white" strokeLinecap="round" strokeWidth="8" />
-
-			<rect
-				fill="currentColor"
-				fillOpacity="0.18"
-				height="126"
-				rx="24"
-				stroke="currentColor"
-				strokeOpacity="0.16"
-				strokeWidth="2"
-				width="144"
-				x="416"
-				y="214"
-			/>
-			<path
-				d="M452 255L481 239L514 255V294C514 316 500 336 481 345C462 336 448 316 448 294V255H452Z"
-				fill="currentColor"
-				fillOpacity="0.78"
-			/>
-			<path
-				d="M470 291L479 300L495 279"
-				stroke="white"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				strokeWidth="8"
-			/>
-
-			<rect
-				fill="currentColor"
-				fillOpacity="0.18"
-				height="92"
-				rx="20"
-				stroke="currentColor"
-				strokeOpacity="0.16"
-				strokeWidth="2"
-				width="132"
-				x="92"
-				y="116"
-			/>
-			<path
-				d="M126 162H190"
-				stroke="currentColor"
-				strokeLinecap="round"
-				strokeOpacity="0.72"
-				strokeWidth="10"
-			/>
-			<path
-				d="M126 186H170"
-				stroke="currentColor"
-				strokeLinecap="round"
-				strokeOpacity="0.4"
-				strokeWidth="10"
-			/>
-
-			<path
-				d="M198 343C214 343 227 330 227 314C227 298 214 285 198 285C182 285 169 298 169 314C169 330 182 343 198 343Z"
-				fill="currentColor"
-				fillOpacity="0.68"
-			/>
-			<path d="M198 301V327" stroke="white" strokeLinecap="round" strokeWidth="8" />
-			<path d="M185 314H211" stroke="white" strokeLinecap="round" strokeWidth="8" />
-		</svg>
-	);
-}
-
-function ResourceCard({
+function ResourceLink({
+	action,
 	description,
 	href,
 	isExternal,
 	label,
+	position,
 }: {
+	action: string;
 	description: string;
 	href: string;
 	isExternal: boolean;
 	label: string;
+	position: number;
 }) {
 	const className =
-		'group flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-background/80 p-5 transition-transform duration-200 hover:-translate-y-0.5 hover:border-hot-orange/40';
+		'group grid gap-5 py-7 transition-colors hover:bg-muted/35 sm:grid-cols-[3rem_1fr_auto] sm:items-start sm:px-5';
+
+	const content = (
+		<>
+			<p className="font-mono text-hot-orange-contrast text-xs">
+				{String(position).padStart(2, '0')}
+			</p>
+			<div>
+				<h3 className="font-bold text-foreground text-xl">{label}</h3>
+				<p className="mt-3 max-w-xl text-muted-foreground leading-relaxed">{description}</p>
+			</div>
+			<span className="inline-flex items-center gap-2 font-medium text-hot-orange-contrast text-sm transition-colors group-hover:text-foreground">
+				{action}
+				<ArrowUpRight className="h-4 w-4" />
+			</span>
+		</>
+	);
 
 	if (isExternal) {
 		return (
 			<a className={className} href={href} rel="noopener" target="_blank">
-				<div className="space-y-3">
-					<p className="whitespace-nowrap font-semibold text-foreground text-lg">
-						{label}
-					</p>
-					<p className="text-base text-muted-foreground leading-7">{description}</p>
-				</div>
-				<span className="mt-6 inline-flex items-center gap-2 font-semibold text-base text-hot-orange-contrast">
-					Visit docs
-					<ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-				</span>
+				{content}
 			</a>
 		);
 	}
 
 	return (
 		<AppLink className={className} href={href}>
-			<div className="space-y-3">
-				<p className="whitespace-nowrap font-semibold text-foreground text-lg">{label}</p>
-				<p className="text-base text-muted-foreground leading-7">{description}</p>
-			</div>
-			<span className="mt-6 inline-flex items-center gap-2 font-semibold text-base text-hot-orange-contrast">
-				Open page
-				<ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-			</span>
+			{content}
 		</AppLink>
 	);
 }
@@ -264,7 +109,7 @@ export default function ApiDocsPage() {
 					<div className="order-2 max-w-2xl space-y-8 lg:order-1">
 						<div className="space-y-5">
 							<p className="font-semibold text-hot-orange text-sm uppercase tracking-[0.24em]">
-								Service Documentation
+								Service documentation
 							</p>
 							<h1 className="font-black text-4xl tracking-tight sm:text-5xl lg:text-6xl">
 								Hot Aisle API access and reference docs
@@ -296,59 +141,84 @@ export default function ApiDocsPage() {
 
 					<div className="order-1 mx-auto w-full max-w-xl lg:order-2">
 						<div className="rounded-4xl border border-border/80 bg-card/70 p-4 shadow-2xl shadow-black/5 backdrop-blur-sm dark:shadow-black/30">
-							<div className="rounded-3xl bg-[linear-gradient(135deg,rgb(255_255_255/0.85),rgb(248_250_252/0.38))] p-4 text-hot-orange dark:bg-[linear-gradient(135deg,rgb(255_255_255/0.08),rgb(255_255_255/0.03))]">
-								<ApiHeroArt />
-							</div>
+							<OptimizedImage
+								alt="3D pixel-art API documentation workstation with an endpoint board, terminal, and GPU server"
+								className="aspect-4/3 w-full rounded-3xl object-cover dark:hidden"
+								height={1086}
+								src="/assets/docs/api-documentation-pixel-art-light.png"
+								width={1448}
+							/>
+							<OptimizedImage
+								alt=""
+								aria-hidden="true"
+								className="hidden aspect-4/3 w-full rounded-3xl object-cover dark:block"
+								height={1086}
+								src="/assets/docs/api-documentation-pixel-art.png"
+								width={1448}
+							/>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<section className="mx-auto w-full max-w-6xl px-6 pt-8 pb-4 md:pt-10 md:pb-6 lg:pb-2">
-				<div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
-					<section
-						aria-labelledby="api-resources-heading"
-						className="rounded-3xl border border-border bg-muted/35 p-6 md:p-8"
-					>
-						<div className="mb-6 flex items-center gap-3">
-							<div className="rounded-xl bg-hot-orange/10 p-3 text-hot-orange">
-								<BookOpenText className="h-5 w-5" />
-							</div>
-							<div>
-								<h2
-									className="font-bold text-2xl tracking-tight"
-									id="api-resources-heading"
-								>
-									Primary resources
-								</h2>
-								<p className="text-base text-muted-foreground">
-									Use the docs, the setup guide, and the support path together.
-								</p>
-							</div>
-						</div>
+			<section className="mx-auto w-full max-w-6xl px-6 py-16 md:py-20">
+				<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+					<p className="ha-briefing-label">API access</p>
+					<div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							From reference to live request.
+						</h2>
+						<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							The API reference covers the request surface. The quick start gets your
+							team authenticated and running. Both lead to the same isolated compute
+							platform.
+						</p>
+					</div>
+				</div>
 
-						<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-							{primaryResources.map((resource) => (
-								<ResourceCard key={resource.label} {...resource} />
+				<div className="mt-12 grid gap-px bg-border lg:grid-cols-[1.2fr_0.8fr]">
+					<section aria-labelledby="api-resources-heading" className="bg-background p-8">
+						<div>
+							<p className="font-mono text-hot-orange-contrast text-xs">
+								PRIMARY RESOURCES
+							</p>
+							<h2
+								className="mt-5 font-bold text-3xl text-foreground"
+								id="api-resources-heading"
+							>
+								Everything needed to make the first request.
+							</h2>
+						</div>
+						<div className="mt-8 divide-y divide-border border-border border-y">
+							{PRIMARY_RESOURCES.map((resource, index) => (
+								<ResourceLink
+									key={resource.label}
+									position={index + 1}
+									{...resource}
+								/>
 							))}
 						</div>
 					</section>
 
-					<aside className="rounded-3xl border border-border bg-background p-6 md:p-8">
-						<h2 className="font-bold text-2xl tracking-tight">How to get started</h2>
-						<ol className="mt-6 space-y-4">
-							{gettingStartedSteps.map((step, index) => (
-								<li className="grid grid-cols-[auto_1fr] gap-x-4" key={step}>
-									<span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-hot-orange font-semibold text-sm text-white">
-										{index + 1}
+					<section aria-labelledby="api-start-heading" className="bg-muted/35 p-8">
+						<p className="font-mono text-hot-orange-contrast text-xs">GET STARTED</p>
+						<h2
+							className="mt-5 font-bold text-3xl text-foreground"
+							id="api-start-heading"
+						>
+							A clear path through the basics.
+						</h2>
+						<ol className="mt-8 divide-y divide-border border-border border-y">
+							{GETTING_STARTED_STEPS.map((step, index) => (
+								<li className="grid grid-cols-[2.5rem_1fr] gap-x-4 py-6" key={step}>
+									<span className="font-mono text-hot-orange-contrast text-xs">
+										{String(index + 1).padStart(2, '0')}
 									</span>
-									<p className="text-base text-muted-foreground leading-7">
-										{step}
-									</p>
+									<p className="text-muted-foreground leading-relaxed">{step}</p>
 								</li>
 							))}
 						</ol>
-					</aside>
+					</section>
 				</div>
 			</section>
 		</main>
