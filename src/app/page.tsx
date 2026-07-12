@@ -1,17 +1,3 @@
-import {
-	ArrowRight,
-	Boxes,
-	Check,
-	CircleDollarSign,
-	CloudCog,
-	Command,
-	Fingerprint,
-	Gauge,
-	ServerCog,
-	ShieldCheck,
-	Terminal,
-	TimerReset,
-} from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
@@ -20,28 +6,24 @@ const PLATFORM_LAYERS = [
 	{
 		description:
 			'NetBox-backed source of truth with our own custom integrations that turn inventory into usable capacity.',
-		icon: Boxes,
 		label: '01 / Foundation',
 		title: 'Infrastructure intelligence',
 	},
 	{
 		description:
 			'Automated SONiC networking, PXE boot, host setup, operating systems, and current ROCm drivers.',
-		icon: ServerCog,
 		label: '02 / Physical layer',
 		title: 'Hardware brought online',
 	},
 	{
 		description:
 			'NUMA-balanced KVM virtual machines with direct GPU access, designed for performance without noisy neighbors.',
-		icon: Gauge,
 		label: '03 / Compute layer',
 		title: 'Isolation by default',
 	},
 	{
 		description:
 			'One platform, exposed through our terminal UI (TUI), API, and CLI that your AI already knows how to use.',
-		icon: Command,
 		label: '04 / Developer layer',
 		title: 'Capacity on command',
 	},
@@ -58,19 +40,16 @@ const LEADERSHIP_POINTS = [
 	{
 		description:
 			'No large reservation, procurement cycle, or cloud minimum before you can prove the workload.',
-		icon: CircleDollarSign,
 		title: 'Control the spend',
 	},
 	{
 		description:
 			'Run inference on isolated virtual machines or take control of dedicated bare metal when the stakes rise.',
-		icon: Fingerprint,
 		title: 'Control the boundary',
 	},
 	{
 		description:
 			'Automation replaces handoffs and ticket queues, so capacity changes can follow the business.',
-		icon: TimerReset,
 		title: 'Control the timeline',
 	},
 ] as const;
@@ -109,7 +88,7 @@ export default function Home() {
 								className="inline-flex min-h-12 items-center gap-2 bg-foreground px-6 py-3 font-medium text-background text-base transition-opacity hover:opacity-80"
 								href="/quick-start"
 							>
-								Launch compute <ArrowRight className="h-4 w-4" />
+								Launch compute
 							</AppLink>
 							<AppLink
 								className="inline-flex min-h-12 items-center gap-2 border border-border px-6 py-3 font-medium text-base transition-colors hover:bg-muted"
@@ -195,29 +174,22 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="border-border border-t">
-						{PLATFORM_LAYERS.map((layer) => {
-							const Icon = layer.icon;
-							return (
-								<article
-									className="grid gap-4 border-border border-b py-6 sm:grid-cols-[2.5rem_10rem_1fr] sm:items-start"
-									key={layer.title}
-								>
-									<Icon
-										aria-hidden="true"
-										className="h-5 w-5 text-hot-orange-contrast"
-									/>
-									<div>
-										<p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.12em]">
-											{layer.label}
-										</p>
-										<h3 className="mt-2 font-medium text-xl">{layer.title}</h3>
-									</div>
-									<p className="text-lg text-muted-foreground leading-8">
-										{layer.description}
+						{PLATFORM_LAYERS.map((layer) => (
+							<article
+								className="grid gap-4 border-border border-b py-6 sm:grid-cols-[10rem_1fr] sm:items-start"
+								key={layer.title}
+							>
+								<div>
+									<p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.12em]">
+										{layer.label}
 									</p>
-								</article>
-							);
-						})}
+									<h3 className="mt-2 font-medium text-xl">{layer.title}</h3>
+								</div>
+								<p className="text-lg text-muted-foreground leading-8">
+									{layer.description}
+								</p>
+							</article>
+						))}
 					</div>
 				</div>
 			</section>
@@ -238,16 +210,10 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="border-background/20 border-t">
-						{OPERATING_POINTS.map((point) => (
-							<div
-								className="flex gap-4 border-background/20 border-b py-6 text-lg"
-								key={point}
-							>
-								<Check
-									aria-hidden="true"
-									className="mt-0.5 h-4 w-4 shrink-0 text-hot-orange"
-								/>
-								<p>{point}</p>
+						{OPERATING_POINTS.map((point, index) => (
+							<div className="border-background/20 border-b py-6 text-lg" key={point}>
+								<p className="font-mono text-hot-orange text-xs">{`0${index + 1}`}</p>
+								<p className="mt-3">{point}</p>
 							</div>
 						))}
 					</div>
@@ -272,52 +238,42 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="mt-12 grid border-border border-t md:grid-cols-3">
-						{LEADERSHIP_POINTS.map((point, index) => {
-							const Icon = point.icon;
-							return (
-								<article
-									className={`border-border border-b py-7 ${index ? 'md:border-l md:pl-7' : 'md:pr-7'}`}
-									key={point.title}
-								>
-									<Icon
-										aria-hidden="true"
-										className="h-5 w-5 text-hot-orange-contrast"
-									/>
-									<h3 className="mt-5 font-medium text-xl">{point.title}</h3>
-									<p className="mt-3 max-w-sm text-lg text-muted-foreground leading-8">
-										{point.description}
-									</p>
-								</article>
-							);
-						})}
+						{LEADERSHIP_POINTS.map((point, index) => (
+							<article
+								className={`border-border border-b py-7 ${index ? 'md:border-l md:pl-7' : 'md:pr-7'}`}
+								key={point.title}
+							>
+								<p className="font-mono text-hot-orange-contrast text-xs">
+									{String(index + 1).padStart(2, '0')}
+								</p>
+								<h3 className="mt-5 font-medium text-xl">{point.title}</h3>
+								<p className="mt-3 max-w-sm text-lg text-muted-foreground leading-8">
+									{point.description}
+								</p>
+							</article>
+						))}
 					</div>
 				</div>
 			</section>
 
 			<section className="border-border border-b bg-muted/35">
 				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
-					<div className="flex gap-4">
-						<ShieldCheck
-							aria-hidden="true"
-							className="mt-1 h-5 w-5 shrink-0 text-hot-orange-contrast"
-						/>
-						<div>
-							<h2 className="font-medium text-3xl">
-								Private workload, visible operations.
-							</h2>
-							<p className="mt-4 max-w-3xl text-lg text-muted-foreground leading-8 sm:text-xl">
-								We monitor platform health and account usage, not the contents of
-								your work. Bare-metal customers control the whole machine. We keep
-								the environment secure, well-run, and backed by a support team that
-								answers like owners, because we are the owners.
-							</p>
-						</div>
+					<div>
+						<h2 className="font-medium text-3xl">
+							Private workload, visible operations.
+						</h2>
+						<p className="mt-4 max-w-3xl text-lg text-muted-foreground leading-8 sm:text-xl">
+							We monitor platform health and account usage, not the contents of your
+							work. Bare-metal customers control the whole machine. We keep the
+							environment secure, well-run, and backed by a support team that answers
+							like owners, because we are the owners.
+						</p>
 					</div>
 					<AppLink
 						className="inline-flex min-h-12 items-center gap-2 border border-border px-6 py-3 font-medium text-base transition-colors hover:bg-background"
 						href="/policies/security-and-compliance"
 					>
-						Security and compliance <ArrowRight className="h-4 w-4" />
+						Security and compliance
 					</AppLink>
 				</div>
 			</section>
@@ -337,13 +293,13 @@ export default function Home() {
 							className="inline-flex min-h-12 items-center gap-2 bg-hot-orange px-6 py-3 font-medium text-base text-white transition-opacity hover:opacity-85"
 							href="/quick-start"
 						>
-							<CloudCog className="h-4 w-4" /> Launch compute
+							Launch compute
 						</AppLink>
 						<AppLink
 							className="inline-flex min-h-12 items-center gap-2 border border-border px-6 py-3 font-medium text-base transition-colors hover:bg-muted"
 							href="/docs/api"
 						>
-							<Terminal className="h-4 w-4" /> Explore the API
+							Explore the API
 						</AppLink>
 					</div>
 				</div>

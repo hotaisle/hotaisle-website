@@ -1,7 +1,96 @@
-import { BookOpen, Box, Code, Mail, Server, Terminal } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import CopyCommand from '@/components/CopyCommand.tsx';
+import { OptimizedImage } from '@/components/OptimizedImage.tsx';
+import { TerminalTyping } from '@/components/TerminalTyping.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
+
+const FIRST_LAUNCH_STEPS = [
+	{
+		description: 'Log in to the terminal UI and create a team.',
+		title: 'Create an account',
+	},
+	{
+		description: 'Add credits with Stripe or crypto stablecoins (USDT and USDC).',
+		title: 'Add credits',
+	},
+	{
+		description: 'Choose a GPU configuration and start your isolated compute.',
+		title: 'Launch an instance',
+	},
+] as const;
+
+const NEXT_STEP_RESOURCES = [
+	{
+		description:
+			'Start your container with an external volume so your work remains available after the container exits.',
+		href: 'https://rocm.docs.amd.com/projects/install-on-linux/en/latest/how-to/docker.html',
+		label: 'View Docker guide',
+		title: 'Quickstart with AMD',
+	},
+	{
+		description:
+			'Automate deployments and make better use of your VM capacity with our dstack API integration.',
+		href: 'https://dstack.ai/blog/hotaisle/',
+		label: 'View dstack integration',
+		title: 'Automate with dstack',
+	},
+	{
+		description:
+			'Build a private ChatGPT-style interface with Open WebUI, vLLM, and an SSH tunnel to your GPU VM.',
+		href: '/blog/chatxyz-openwebui-hotaisle',
+		label: 'Read blog post',
+		title: 'ChatXYZ + Open WebUI',
+	},
+	{
+		description:
+			'Connect OpenCode to a self-hosted vLLM server on Hot Aisle with SSH tunneling and AMD MI300X GPUs.',
+		href: '/blog/opencode-vllm-hotaisle',
+		label: 'Read blog post',
+		title: 'OpenCode + vLLM',
+	},
+	{
+		description: 'Use AMD’s official installation guide to get PyTorch running with ROCm.',
+		href: 'https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/3rd-party/pytorch-install.html',
+		label: 'View PyTorch guide',
+		title: 'PyTorch official guide',
+	},
+	{
+		description:
+			'Follow the TinyGrad project setup instructions for an alternative lightweight stack.',
+		href: 'https://github.com/tinygrad/tinygrad/#installation',
+		label: 'View TinyGrad repository',
+		title: 'TinyGrad setup',
+	},
+] as const;
+
+const PROGRAMMATIC_RESOURCES = [
+	{
+		description: 'Reference the Hot Aisle API directly from your application or automation.',
+		href: '/docs/api',
+		label: 'Read API docs',
+		title: 'API docs',
+	},
+	{
+		description: 'Use the command line to inspect and manage compute from your terminal.',
+		href: 'https://github.com/hotaisle/hotaisle-cli',
+		label: 'View CLI',
+		title: 'CLI',
+	},
+	{
+		description: 'Configure an instance at first boot with repeatable cloud-init templates.',
+		href: 'https://github.com/hotaisle/cloud-init-templates',
+		label: 'View templates',
+		title: 'Cloud-init templates',
+	},
+] as const;
+
+interface Resource {
+	description: string;
+	href: string;
+	label: string;
+	title: string;
+}
 
 export function generateMetadata() {
 	return createPageMetadata({
@@ -14,305 +103,202 @@ export function generateMetadata() {
 	});
 }
 
+function ResourceGrid({ columns, resources }: { columns: string; resources: readonly Resource[] }) {
+	return (
+		<div className={`mt-12 grid gap-px bg-border ${columns}`}>
+			{resources.map((resource, index) => {
+				const isExternal = resource.href.startsWith('http');
+				const linkClassName =
+					'mt-auto inline-flex items-center gap-2 pt-8 font-medium text-hot-orange-contrast text-sm hover:text-foreground';
+
+				return (
+					<article
+						className="flex min-h-60 flex-col bg-background p-8"
+						key={resource.title}
+					>
+						<p className="font-mono text-hot-orange-contrast text-xs">
+							{String(index + 1).padStart(2, '0')}
+						</p>
+						<h3 className="mt-10 font-bold text-2xl text-foreground">
+							{resource.title}
+						</h3>
+						<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
+							{resource.description}
+						</p>
+						{isExternal ? (
+							<a
+								className={linkClassName}
+								href={resource.href}
+								rel="noopener"
+								target="_blank"
+							>
+								{resource.label}
+								<ArrowRight aria-hidden="true" size={16} />
+							</a>
+						) : (
+							<AppLink className={linkClassName} href={resource.href}>
+								{resource.label}
+								<ArrowRight aria-hidden="true" size={16} />
+							</AppLink>
+						)}
+					</article>
+				);
+			})}
+		</div>
+	);
+}
+
 export default function QuickStartPage() {
 	return (
-		<div className="min-h-screen bg-background pb-20 text-foreground">
-			{/* Hero Header with Banner */}
-			<div className="relative h-100 w-full overflow-hidden border-border border-b">
-				<div className="absolute inset-0 bg-background">
-					<video
-						autoPlay
-						className="absolute inset-0 h-full w-full object-cover"
-						loop
-						muted
-						playsInline
-					>
-						<source
-							src="/assets/quickstart/Data_Bits_and_Information_Video.mp4"
-							type="video/mp4"
-						/>
-					</video>
-					<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(154_51_8/0.2),transparent_45%)]" />
-					<div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-hot-orange/60 to-transparent" />
-					<div className="absolute inset-0 bg-[linear-gradient(rgb(255_255_255/0.04)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.04)_1px,transparent_1px)] bg-size-[48px_48px] opacity-25" />
-					<div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent" />
-				</div>
-
-				<div className="absolute bottom-4 left-0 flex w-full flex-col items-center p-8 pb-12 text-center">
-					<div className="container mx-auto max-w-4xl">
-						<h1 className="font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-							Quick Start
-						</h1>
-					</div>
-				</div>
-			</div>
-
-			{/* Main Connection Steps */}
-			<div className="container relative z-10 mx-auto -mt-12 max-w-4xl px-6">
-				<div className="mx-auto flex max-w-3xl flex-col items-center rounded-2xl border border-border bg-card p-8 shadow-xl md:p-12">
-					<div className="mb-8 flex items-center gap-4">
-						<div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 text-green-500">
-							<Terminal size={24} />
+		<div className="min-h-screen bg-background text-foreground">
+			<div className="container mx-auto max-w-6xl px-6">
+				<header className="border-border border-b py-14 md:py-18">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<div>
+							<p className="ha-briefing-label">Quick start</p>
+							<figure className="relative mt-10 max-w-sm overflow-hidden border border-border bg-black">
+								<OptimizedImage
+									alt="3D pixel-art terminal workstation for provisioning cloud compute"
+									className="aspect-4/3 w-full object-cover"
+									height={1086}
+									pictureClassName="hidden dark:block"
+									src="/assets/quickstart/terminal-provisioning-pixel-art.png"
+									width={1448}
+								/>
+								<OptimizedImage
+									alt=""
+									aria-hidden="true"
+									className="aspect-4/3 w-full object-cover"
+									height={1086}
+									pictureClassName="dark:hidden"
+									src="/assets/quickstart/terminal-provisioning-pixel-art-light.png"
+									width={1448}
+								/>
+								<div className="pointer-events-none absolute right-[8%] bottom-[11%] left-[8%] overflow-hidden font-mono text-[0.55rem] text-emerald-600 sm:text-xs dark:text-green-400">
+									<TerminalTyping />
+								</div>
+							</figure>
 						</div>
-						<h2 className="font-bold text-2xl">Connect via SSH</h2>
+						<div>
+							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+								From terminal to isolated compute.
+							</h1>
+							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+								Self-service AMD GPU compute with no sales handoff in the way.
+							</p>
+						</div>
 					</div>
 
-					<div className="w-full max-w-xl">
-						<CopyCommand command="ssh admin.hotaisle.app" />
-					</div>
-
-					<p className="mt-4 max-w-xl text-center text-muted-foreground text-sm">
-						If you need a terminal app, use
-						<a
-							className="mx-1 font-medium text-hot-orange-contrast hover:underline"
-							href="https://ghostty.org/"
-							rel="noopener"
-							target="_blank"
-						>
-							Ghostty
-						</a>
-						on macOS and Linux,
-						<br />
-						and
-						<a
-							className="mx-1 font-medium text-hot-orange-contrast hover:underline"
-							href="https://wezterm.org/"
-							rel="noopener"
-							target="_blank"
-						>
-							WezTerm
-						</a>
-						on Windows.
-					</p>
-
-					<div className="mt-8 w-full max-w-xl space-y-6">
-						<div className="flex gap-4">
-							<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-900 font-bold text-sm text-white">
-								1
-							</div>
-							<div>
-								<h3 className="mb-1 font-bold text-lg">Create Account</h3>
-								<p className="text-muted-foreground text-sm">
-									Log in to the TUI (Terminal User Interface) and create a team.
+					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+						{FIRST_LAUNCH_STEPS.map((step, index) => (
+							<div className="min-h-48 bg-background p-7" key={step.title}>
+								<p className="font-mono text-hot-orange-contrast text-xs">
+									{String(index + 1).padStart(2, '0')}
+								</p>
+								<h3 className="mt-8 font-bold text-2xl text-foreground">
+									{step.title}
+								</h3>
+								<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+									{step.description}
 								</p>
 							</div>
-						</div>
-						<div className="flex gap-4">
-							<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-900 font-bold text-sm text-white">
-								2
+						))}
+					</div>
+				</header>
+
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Terminal access</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Connect via SSH.
+							</h2>
+							<p className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed">
+								Log in to the Hot Aisle terminal UI and create your team from the
+								same place you provision compute.
+							</p>
+							<div className="mt-8 max-w-2xl">
+								<CopyCommand command="ssh admin.hotaisle.app" />
 							</div>
-							<div>
-								<h3 className="mb-1 font-bold text-lg">Add Credits</h3>
-								<p className="text-muted-foreground text-sm">
-									Top up via Stripe (Credit Card) or crypto stablecoins
-									(USDT/USDC).
-								</p>
-							</div>
-						</div>
-						<div className="flex gap-4">
-							<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-900 font-bold text-sm text-white">
-								3
-							</div>
-							<div>
-								<h3 className="mb-1 font-bold text-lg">Launch Instance</h3>
-								<p className="text-muted-foreground text-sm">
-									Select your GPU configuration and start computing instantly.
-								</p>
-							</div>
+							<p className="mt-4 max-w-2xl text-muted-foreground text-sm leading-relaxed">
+								For a terminal app, use{' '}
+								<a
+									className="font-medium text-hot-orange-contrast hover:text-foreground"
+									href="https://ghostty.org/"
+									rel="noopener"
+									target="_blank"
+								>
+									Ghostty
+								</a>{' '}
+								on macOS and Linux, or{' '}
+								<a
+									className="font-medium text-hot-orange-contrast hover:text-foreground"
+									href="https://wezterm.org/"
+									rel="noopener"
+									target="_blank"
+								>
+									WezTerm
+								</a>{' '}
+								on Windows.
+							</p>
 						</div>
 					</div>
-				</div>
-			</div>
+				</section>
 
-			{/* Next Steps Guide */}
-			<div className="container mx-auto mt-24 max-w-5xl px-6">
-				<div className="space-y-12 rounded-2xl border border-border bg-card p-8 shadow-xl md:p-12">
-					<h2 className="font-black text-4xl">Next Steps</h2>
-					{/* Intro */}
-					<div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground">
-						<p>
-							Your VM already comes with a recent ROCm setup, and Docker or Podman is
-							ready to go. AMD recommends using their dev containers, which is a lot
-							easier than installing everything by hand, and their docs are solid. If
-							you have any feedback, we’d be happy to pass it along to them.
-						</p>
-					</div>
-
-					<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-						{/* AMD */}
-						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
-							<div className="mb-4 flex items-center gap-3">
-								<Box className="h-5 w-5 shrink-0 text-hot-orange" />
-								<h3 className="font-bold text-lg">Quickstart with AMD</h3>
-							</div>
-							<p className="text-muted-foreground text-sm">
-								Pro tip: start your container with an external volume so your work
-								sticks around after the container exits.
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">After launch</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Next steps
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								Your VM already comes with a recent ROCm setup, and Docker or Podman
+								is ready to go. AMD recommends using their dev containers, which is
+								a lot easier than installing everything by hand, and their docs are
+								solid. If you have any feedback, we’d be happy to pass it along to
+								them.
 							</p>
-							<a
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
-								href="https://rocm.docs.amd.com/projects/install-on-linux/en/latest/how-to/docker.html"
-								rel="noopener"
-								target="_blank"
-							>
-								View Docker Guide <Terminal className="ml-1" size={14} />
-							</a>
-						</div>
-
-						{/* dstack */}
-						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
-							<div className="mb-4 flex items-center gap-3">
-								<Server className="h-5 w-5 shrink-0 text-hot-orange" />
-								<h3 className="font-bold text-lg">Automate with dstack</h3>
-							</div>
-							<p className="text-muted-foreground text-sm">
-								Want to get the most out of our VMs (and save some cash) by
-								automating your deployment? Check out our tight API integration.
-							</p>
-							<a
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
-								href="https://dstack.ai/blog/hotaisle/"
-								rel="noopener"
-								target="_blank"
-							>
-								View dstack Integration <Terminal className="ml-1" size={14} />
-							</a>
-						</div>
-
-						{/* ChatXYZ */}
-						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
-							<div className="mb-4 flex items-center gap-3">
-								<Server className="h-5 w-5 shrink-0 text-hot-orange" />
-								<h3 className="font-bold text-lg">ChatXYZ + Open WebUI</h3>
-							</div>
-							<p className="text-muted-foreground text-sm">
-								Build a private ChatGPT-style interface on Hot Aisle with Open
-								WebUI, vLLM, and an SSH tunnel to your GPU VM.
-							</p>
-							<AppLink
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
-								href="/blog/chatxyz-openwebui-hotaisle"
-							>
-								Read Blog Post <Terminal className="ml-1" size={14} />
-							</AppLink>
-						</div>
-
-						{/* OpenCode */}
-						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
-							<div className="mb-4 flex items-center gap-3">
-								<Server className="h-5 w-5 shrink-0 text-hot-orange" />
-								<h3 className="font-bold text-lg">OpenCode + vLLM</h3>
-							</div>
-							<p className="text-muted-foreground text-sm">
-								Connect OpenCode to a self-hosted vLLM server on Hot Aisle with SSH
-								tunneling and AMD MI300X GPUs.
-							</p>
-							<AppLink
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
-								href="/blog/opencode-vllm-hotaisle"
-							>
-								Read Blog Post <Terminal className="ml-1" size={14} />
-							</AppLink>
-						</div>
-
-						{/* PyTorch */}
-						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
-							<div className="mb-4 flex items-center gap-3">
-								<Code className="h-5 w-5 shrink-0 text-hot-orange" />
-								<h3 className="font-bold text-lg">PyTorch Official Guide</h3>
-							</div>
-							<p className="text-muted-foreground text-sm">
-								If PyTorch is your mojo, check out AMD’s official installation
-								guide.
-							</p>
-							<a
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
-								href="https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/3rd-party/pytorch-install.html"
-								rel="noopener"
-								target="_blank"
-							>
-								View PyTorch Guide <Terminal className="ml-1" size={14} />
-							</a>
-						</div>
-
-						{/* TinyGrad */}
-						<div className="group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-hot-orange/50">
-							<div className="mb-4 flex items-center gap-3">
-								<Terminal className="h-5 w-5 shrink-0 text-hot-orange" />
-								<h3 className="font-bold text-lg">TinyGrad Setup</h3>
-							</div>
-							<p className="text-muted-foreground text-sm">
-								If you’re more into TinyGrad, follow their setup here.
-							</p>
-							<a
-								className="mt-auto flex items-center pt-2 font-bold text-hot-orange-contrast text-sm hover:underline"
-								href="https://github.com/tinygrad/tinygrad/#installation"
-								rel="noopener"
-								target="_blank"
-							>
-								View TinyGrad Repo <Terminal className="ml-1" size={14} />
-							</a>
 						</div>
 					</div>
+					<ResourceGrid columns="md:grid-cols-2" resources={NEXT_STEP_RESOURCES} />
+				</section>
 
-					{/* Developer Tools */}
-					<div className="border-border border-t pt-12">
-						<h3 className="mb-6 flex items-center gap-2 font-bold text-xl">
-							<Terminal className="text-hot-orange" /> Work Programmatically with Hot
-							Aisle solutions
-						</h3>
-						<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-							<AppLink
-								className="group flex items-center justify-between rounded-lg bg-muted/50 p-4 transition-colors hover:bg-muted"
-								href="/docs/api"
-							>
-								<span className="font-medium font-mono">API Docs</span>
-								<BookOpen
-									className="text-muted-foreground group-hover:text-foreground"
-									size={16}
-								/>
-							</AppLink>
-							<a
-								className="group flex items-center justify-between rounded-lg bg-muted/50 p-4 transition-colors hover:bg-muted"
-								href="https://github.com/hotaisle/hotaisle-cli"
-								rel="noopener"
-								target="_blank"
-							>
-								<span className="font-medium font-mono">CLI</span>
-								<Code
-									className="text-muted-foreground group-hover:text-foreground"
-									size={16}
-								/>
-							</a>
-							<a
-								className="group flex items-center justify-between rounded-lg bg-muted/50 p-4 transition-colors hover:bg-muted"
-								href="https://github.com/hotaisle/cloud-init-templates"
-								rel="noopener"
-								target="_blank"
-							>
-								<span className="font-medium font-mono">Cloud-init template</span>
-								<Terminal
-									className="text-muted-foreground group-hover:text-foreground"
-									size={16}
-								/>
-							</a>
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Programmatic access</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Build from your own tooling.
+							</h2>
+							<p className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed">
+								The same platform is available through the API, CLI, and cloud-init
+								templates.
+							</p>
 						</div>
 					</div>
+					<ResourceGrid columns="md:grid-cols-3" resources={PROGRAMMATIC_RESOURCES} />
+				</section>
 
-					{/* Contact */}
-					<div className="rounded-xl border border-hot-orange/10 bg-hot-orange/5 p-8 text-center">
-						<h3 className="mb-2 font-bold text-4xl">Questions?</h3>
-						<a
-							className="flex items-center justify-center gap-2 font-bold text-hot-orange-contrast text-xl hover:underline"
-							href="mailto:hello@hotaisle.ai"
-						>
-							<Mail size={20} /> hello@hotaisle.ai
-						</a>
-						<p className="mt-3 text-muted-foreground text-sm">
-							A real human will reply, not an AI bot or support agent.
-						</p>
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Questions</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Talk to a real person.
+							</h2>
+							<a
+								className="mt-5 inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
+								href="mailto:hello@hotaisle.ai"
+							>
+								hello@hotaisle.ai
+							</a>
+							<p className="mt-3 text-muted-foreground text-sm">
+								A real human will reply, not an AI bot or support agent.
+							</p>
+						</div>
 					</div>
-				</div>
+				</section>
 			</div>
 		</div>
 	);

@@ -31,7 +31,7 @@ const LOGO_HEIGHT = 32;
 const LOGO_SRC = '/hotaisle-logo.svg';
 const LOGO_WIDTH = 104;
 const NAV_LINK_CLASS_NAME =
-	'ha-nav-link px-3 py-2 font-mono text-muted-foreground text-xs transition-colors hover:text-foreground';
+	'ha-nav-link px-3 py-2 font-mono text-muted-foreground text-sm transition-colors hover:text-foreground';
 const MOBILE_NAV_LINK_CLASS_NAME =
 	'ha-nav-link flex items-center gap-3 rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const CONTACT_LINK_CLASS_NAME =

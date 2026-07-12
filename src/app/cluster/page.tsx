@@ -1,16 +1,64 @@
-import {
-	ArrowRight,
-	BarChart,
-	Briefcase,
-	Cpu,
-	MessageSquare,
-	Settings,
-	ShieldCheck,
-	Users,
-	Zap,
-} from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
+import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
+
+const CLUSTER_CAPABILITIES = [
+	{
+		description:
+			'From a compact high-density deployment to a full-scale multi-node environment, we size compute, storage, and networking around the workload.',
+		title: 'Scale with the workload',
+	},
+	{
+		description:
+			'Our deep industry relationships and partnerships help coordinate hardware, facilities, and support earlier, so deployments move faster and with a lower total cost.',
+		title: 'Deploy faster, spend less',
+	},
+] as const;
+
+const DELIVERY_FOUNDATIONS = [
+	{
+		description:
+			'Years of operating production GPU infrastructure inform the hardware, network, and support decisions behind every design.',
+		title: 'Experienced operators',
+	},
+	{
+		description:
+			'Our Dell and AMD relationships support current hardware selection, delivery planning, and lifecycle support.',
+		title: 'Supply chain relationships',
+	},
+	{
+		description:
+			'We scope capacity and ongoing operations clearly, so the commercial model matches the work you need to run.',
+		title: 'Clear commercial model',
+	},
+	{
+		description:
+			'Deploy into one of our facilities or bring your own data center, connectivity, and operating constraints.',
+		title: 'Flexible deployment location',
+	},
+] as const;
+
+const SERVICES = [
+	{
+		description: 'Match cluster topology, GPU density, and storage to the workload and budget.',
+		title: 'Architecture and sizing',
+	},
+	{
+		description:
+			'Plan hardware delivery, network fabric, power, cooling, and installation as one system.',
+		title: 'Deployment coordination',
+	},
+	{
+		description:
+			'Tune infrastructure choices for utilization, model serving, and production reliability.',
+		title: 'Workload optimization',
+	},
+	{
+		description:
+			'Keep the environment maintainable with documented operations and direct access to the people who designed it.',
+		title: 'Operational support',
+	},
+] as const;
 
 export function generateMetadata() {
 	return createPageMetadata({
@@ -21,276 +69,172 @@ export function generateMetadata() {
 	});
 }
 
-const clusters = [
-	{
-		desc: "Hot Aisle's clusters aren't just powerful, they're built for the future. Our flagship 128 GPU MI300x bare metal cluster delivers peak performance with AMD's enterprise architecture, giving you compute power that can match or exceed an H200 setup. For businesses looking to push AI boundaries or handle complex simulations, these clusters are your ticket to rapid insights and growth.",
-		icon: Zap,
-		title: 'Performance Beyond Compare',
-	},
-	{
-		desc: "We design our clusters to scale seamlessly as your needs evolve. Whether you're looking for a compact, high-power cluster or a massive multi-data-center deployment, we are ready to tailor a solution just for you.",
-		icon: Settings,
-		title: 'Scalable & Customizable',
-	},
-];
-
-const reasons = [
-	{
-		desc: 'Founded by industry veterans, Hot Aisle combines years of experience in open-source, large-scale compute, and data center management. Our team has deployed and optimized tens of thousands of servers across multiple environments.',
-		icon: Users,
-		title: 'Trusted Expertise',
-	},
-	{
-		desc: "With top-of-the-line AMD hardware, we're among the few providers enabling true high-density, high-performance compute. Our recent partnership with Dell for hardware and support, paired with AMD's MI300x (skip MI325x, go for MI355x), ensures you're accessing the latest tech.",
-		icon: Cpu,
-		title: 'Cutting-Edge Hardware',
-	},
-	{
-		desc: 'We provide transparent pricing and flexibility with our model, meaning you can harness supercomputer-grade resources without the hefty CapEx. Our deep relationships with vendors will ensure you get the best pricing.',
-		icon: BarChart,
-		title: 'No Hidden Costs',
-	},
-	{
-		desc: "We've developed relationships with a number of Tier 3-5 data centers in the US. We can help negotiate your DC, Insurance and Internet contracts for you.",
-		icon: ShieldCheck,
-		title: 'Bring Your Own DC',
-	},
-];
-
-const services = [
-	{
-		desc: "We don't just deliver the hardware; we optimize it. Our team fine-tunes every aspect of your compute to squeeze out the best performance, ensuring ROI with every cycle.",
-		title: 'Workload Optimization',
-	},
-	{
-		desc: "Every project is unique. Whether you're building a dedicated cluster for research or integrating a hybrid cloud environment, our architects design solutions that work in tandem with your specific goals.",
-		title: 'Custom Solutions',
-	},
-	{
-		desc: 'Supply chain management, ensuring that nothing is left out of your deployment and everything is delivered on-time.',
-		title: 'Filling in the Gaps',
-	},
-	{
-		desc: 'Our consulting extends beyond setup, with ongoing support to keep your workloads running smoothly and efficiently as you scale.',
-		title: 'Expertise When You Need It',
-	},
-];
-
-const testimonials = [
-	{
-		author: 'AI Infrastructure Lead',
-		text: "Hot Aisle's team helped us deploy our AI infrastructure within weeks, not months. The performance gains were immediate, and the ongoing support keeps our projects on track.",
-	},
-	{
-		author: 'CTO, FinTech Research Firm',
-		text: 'The Hot Aisle cluster outperformed our expectations, allowing us to hit milestones faster than we thought possible. The team was hands-on from start to finish, optimizing everything for our exact needs.',
-	},
-];
-
 export default function ClusterPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
-			{/* Hero Section */}
-			<div className="relative border-border border-b bg-muted/20">
-				<div className="container mx-auto max-w-6xl px-6 py-32 text-center">
-					<div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 font-bold text-foreground text-xs uppercase tracking-wider shadow-sm">
-						<Briefcase className="text-hot-orange" size={14} />
-						Design & Deploy
-					</div>
-
-					<h1 className="mb-8 font-black text-5xl text-foreground leading-tight tracking-tighter md:text-7xl">
-						Unlock the Full Potential <br className="hidden md:block" />
-						<span className="whitespace-nowrap">
-							of <span className="text-hot-orange">AI & HPC</span>
-						</span>
-					</h1>
-
-					{/* Cluster Photo */}
-					<div className="mx-auto mb-12 max-w-md rounded-3xl border border-border bg-card p-4 shadow-sm">
-						<img
-							alt="Hot Aisle cluster setup with Powered by AMD signage"
-							className="h-auto w-full rounded-2xl object-cover"
-							height={679}
-							src="/assets/cluster/cluster-powered-by-amd.webp"
-							width={456}
-						/>
-					</div>
-
-					<p className="mx-auto mb-12 max-w-4xl font-light text-muted-foreground text-xl leading-relaxed md:text-2xl">
-						Welcome to Hot Aisle, where unparalleled compute power and expert consulting
-						come together. We’re here to help you maximize performance, efficiency, and
-						innovation with cutting-edge clusters designed to meet today’s most
-						demanding AI and HPC workloads.
-					</p>
-
-					<div className="flex flex-col justify-center gap-6 md:flex-row">
-						<AppLink
-							className="rounded-full bg-foreground px-10 py-4 font-bold text-background text-lg transition-transform hover:scale-105 hover:opacity-90"
-							href="/contact"
-						>
-							Start Your Deployment
-						</AppLink>
-						<a
-							className="rounded-full border border-border bg-background px-10 py-4 font-bold text-foreground text-lg transition-colors hover:bg-muted"
-							href="#clusters"
-						>
-							Explore Clusters
-						</a>
-					</div>
-				</div>
-			</div>
-
-			{/* Meet Our Clusters */}
-			<div className="container mx-auto max-w-6xl px-6 py-24" id="clusters">
-				<h2 className="mb-16 text-center font-black text-4xl text-foreground">
-					Meet Our Clusters
-				</h2>
-				<div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-					{clusters.map((item) => (
-						<div
-							className="group rounded-3xl border border-border bg-card p-10 shadow-sm transition-all hover:border-hot-orange/40"
-							key={item.title}
-						>
-							<div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted transition-colors group-hover:bg-hot-orange/10">
-								<item.icon
-									className="text-muted-foreground group-hover:text-hot-orange"
-									size={32}
+		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+			<div className="container mx-auto max-w-6xl px-6">
+				<header className="border-border border-b py-14 md:py-18">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<div>
+							<p className="ha-briefing-label">Cluster design services</p>
+							<figure className="mt-10 max-w-sm border border-border bg-muted/20 p-3">
+								<OptimizedImage
+									alt="3D pixel-art data center construction site with server racks, crane, and construction equipment"
+									className="aspect-4/3 w-full object-cover"
+									height={1086}
+									pictureClassName="hidden dark:block"
+									src="/assets/cluster/data-center-construction-pixel-art.png"
+									width={1448}
 								/>
+								<OptimizedImage
+									alt=""
+									aria-hidden="true"
+									className="aspect-4/3 w-full object-cover"
+									height={1086}
+									pictureClassName="dark:hidden"
+									src="/assets/cluster/data-center-construction-pixel-art-light.png"
+									width={1448}
+								/>
+								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+									Data center construction plan
+								</figcaption>
+							</figure>
+						</div>
+						<div>
+							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+								Clusters designed for the work ahead.
+							</h1>
+							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+								Design, deploy, and operate AMD GPU infrastructure with an
+								experienced team accountable for the compute, storage, networking,
+								and software layers beneath the workload.
+							</p>
+							<div className="mt-8 flex flex-wrap gap-3">
+								<AppLink
+									className="border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+									href="/contact"
+								>
+									Start a design conversation
+								</AppLink>
 							</div>
-							<h3 className="mb-4 font-bold text-3xl text-foreground">
-								{item.title}
-							</h3>
-							<p className="text-lg text-muted-foreground leading-relaxed">
-								{item.desc}
+						</div>
+					</div>
+				</header>
+
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Engagement scope</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								A cluster is more than a GPU count.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								We start with the workload, then make the hardware, facility,
+								network, and operating model work together.
 							</p>
 						</div>
-					))}
-				</div>
-			</div>
+					</div>
 
-			{/* Why Hot Aisle */}
-			<div className="border-border border-y bg-muted/30 px-6 py-24">
-				<div className="container mx-auto max-w-6xl">
-					<h2 className="mb-16 text-center font-black text-4xl text-foreground">
-						Why Hot Aisle?
-					</h2>
-					<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-						{reasons.map((reason) => (
-							<div
-								className="flex items-start gap-6 rounded-2xl border border-border bg-background p-8"
-								key={reason.title}
-							>
-								<div className="shrink-0 rounded-xl bg-muted p-3">
-									<reason.icon className="text-foreground" size={24} />
-								</div>
-								<div>
-									<h3 className="mb-2 font-bold text-foreground text-xl">
-										{reason.title}
-									</h3>
-									<p className="text-muted-foreground leading-relaxed">
-										{reason.desc}
-									</p>
-								</div>
-							</div>
+					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+						{CLUSTER_CAPABILITIES.map((capability, index) => (
+							<article className="min-h-60 bg-background p-8" key={capability.title}>
+								<p className="font-mono text-hot-orange-contrast text-xs">
+									{String(index + 1).padStart(2, '0')}
+								</p>
+								<h3 className="mt-10 font-bold text-2xl text-foreground">
+									{capability.title}
+								</h3>
+								<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
+									{capability.description}
+								</p>
+							</article>
 						))}
 					</div>
-				</div>
-			</div>
+				</section>
 
-			{/* Consulting Services */}
-			<div className="container mx-auto max-w-6xl px-6 py-24">
-				<div className="flex flex-col gap-16 lg:flex-row">
-					<div className="lg:w-1/3">
-						<h2 className="mb-6 font-black text-4xl text-foreground leading-tight">
-							Consulting & <br />
-							<span className="text-hot-orange">Custom Deployments</span>
-						</h2>
-						<p className="mb-8 text-muted-foreground text-xl">
-							Our consulting services go beyond simple deployment. With us, you get
-							end-to-end support.
-						</p>
-						<div className="rounded-2xl border border-border bg-card p-6">
-							<h4 className="mb-2 font-bold text-foreground">
-								Want to build a supercomputer?
-							</h4>
-							<p className="mb-4 text-muted-foreground text-sm">
-								But don't know where to start? We can help you design, build, and
-								deploy.
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Why Hot Aisle</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								A delivery partner that operates infrastructure.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								The decisions that matter most happen before hardware arrives. We
+								bring operating experience to those decisions from the first design
+								review.
+							</p>
+						</div>
+					</div>
+
+					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+						{DELIVERY_FOUNDATIONS.map((foundation, index) => (
+							<article className="min-h-56 bg-background p-8" key={foundation.title}>
+								<p className="font-mono text-hot-orange-contrast text-xs">
+									{String(index + 1).padStart(2, '0')}
+								</p>
+								<h3 className="mt-10 font-bold text-2xl text-foreground">
+									{foundation.title}
+								</h3>
+								<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
+									{foundation.description}
+								</p>
+							</article>
+						))}
+					</div>
+				</section>
+
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Services</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								From architecture through operations.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								Bring us in for a focused design engagement or carry the work
+								through deployment and ongoing operation.
+							</p>
+						</div>
+					</div>
+
+					<div className="mt-12 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4">
+						{SERVICES.map((service, index) => (
+							<article className="min-h-56 bg-background p-8" key={service.title}>
+								<p className="font-mono text-hot-orange-contrast text-xs">
+									{String(index + 1).padStart(2, '0')}
+								</p>
+								<h3 className="mt-10 font-bold text-foreground text-xl">
+									{service.title}
+								</h3>
+								<p className="mt-4 text-muted-foreground text-sm leading-relaxed">
+									{service.description}
+								</p>
+							</article>
+						))}
+					</div>
+				</section>
+
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Start here</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Bring us the workload and constraints.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								We will help map the compute, facility, network, and operating
+								decisions into a deployable plan.
 							</p>
 							<AppLink
-								className="flex items-center gap-1 font-bold text-hot-orange transition-colors hover:text-foreground"
+								className="mt-8 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
 								href="/contact"
 							>
-								Talk to an Architect <ArrowRight size={16} />
+								Start a design conversation
 							</AppLink>
 						</div>
 					</div>
-
-					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:w-2/3">
-						{services.map((service) => (
-							<div
-								className="rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-lg"
-								key={service.title}
-							>
-								<h3 className="mb-3 font-bold text-foreground text-lg">
-									{service.title}
-								</h3>
-								<p className="text-muted-foreground text-sm leading-relaxed">
-									{service.desc}
-								</p>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-
-			{/* Testimonials */}
-			<div className="container mx-auto mb-12 max-w-5xl px-6 py-12">
-				<h2 className="mb-12 text-center font-bold text-muted-foreground text-sm uppercase tracking-widest">
-					What People Say
-				</h2>
-				<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-					{testimonials.map((t) => (
-						<div className="relative rounded-4xl bg-muted/50 p-8" key={t.text}>
-							<MessageSquare className="absolute top-8 right-8 h-12 w-12 text-hot-orange/20" />
-							<p className="mb-6 font-medium text-foreground text-lg italic leading-relaxed">
-								"{t.text}"
-							</p>
-							<div className="flex items-center gap-3">
-								<div className="h-10 w-10 rounded-full bg-linear-to-br from-blue-500 to-indigo-600" />
-								<div className="font-bold text-muted-foreground text-sm">
-									{t.author}
-								</div>
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-
-			{/* CTA */}
-			<div className="bg-foreground px-6 py-24 text-background">
-				<div className="container mx-auto max-w-4xl text-center">
-					<h2 className="mb-8 font-black text-4xl leading-tight md:text-5xl">
-						Join the Leaders in Compute Innovation
-					</h2>
-					<p className="mx-auto mb-12 max-w-2xl font-light text-background/80 text-xl md:text-2xl">
-						Are you ready to take your projects to the next level? Contact us today to
-						learn how Hot Aisle's cluster and consulting services can supercharge your
-						AI initiatives.
-					</p>
-					<AppLink
-						className="inline-block rounded-full bg-background px-12 py-5 font-bold text-foreground text-xl transition-transform hover:scale-105"
-						href="/contact"
-					>
-						Contact Us Today
-					</AppLink>
-
-					<div className="mt-16 border-white/20 border-t pt-16 text-center">
-						<p className="font-serif text-background/60 text-lg italic">
-							We absolutely love what we do...
-						</p>
-					</div>
-				</div>
+				</section>
 			</div>
 		</div>
 	);

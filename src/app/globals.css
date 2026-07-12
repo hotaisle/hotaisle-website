@@ -878,3 +878,19 @@ img[data-image-modal="true"] {
 .animation-fade-in {
 	animation: fadeIn 0.8s ease-out forwards;
 }
+
+@keyframes terminalCursorBlink {
+	0%,
+	45% {
+		opacity: 1;
+	}
+
+	46%,
+	100% {
+		opacity: 0;
+	}
+}
+
+.ha-terminal-cursor {
+	animation: terminalCursorBlink 0.9s step-end infinite;
+}

@@ -19,7 +19,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 			{ href: '/quick-start', label: 'Quick Start' },
 			{ href: '/docs/api', label: 'API Docs' },
 			{ href: '/pricing', label: 'Pricing' },
-			{ href: '/contact', label: 'Contact Sales' },
+			{ href: '/contact', label: 'Contact Us' },
 		],
 	},
 	{

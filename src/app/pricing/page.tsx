@@ -1,9 +1,36 @@
-import { Check, Server, Shield, Zap } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
 const vmPrice = '$1.99/GPU/hr';
 const bareMetalPrice = '$3.39/GPU/hr';
+
+const INCLUDED_CAPABILITIES = [
+	{
+		description: 'Enterprise-grade hardware stability.',
+		title: 'Dell XE9680 chassis',
+	},
+	{
+		description: 'Located in our secure Michigan facility.',
+		title: '100% green datacenter',
+	},
+	{
+		description: 'RoCEv2 for ultra-low latency clusters.',
+		title: '8x400G networking',
+	},
+	{
+		description: 'SSH, BMC, iDRAC: you control it all.',
+		title: 'Full root access',
+	},
+	{
+		description: 'Secure multi-node environments with public IP and firewall control.',
+		title: 'Private isolated networking',
+	},
+	{
+		description: 'Direct Slack channel with our engineers.',
+		title: 'White glove support',
+	},
+] as const;
 
 export function generateMetadata() {
 	return createPageMetadata({
@@ -216,55 +243,31 @@ export default function PricingPage() {
 			</div>
 
 			{/* Features List */}
-			<div className="container mx-auto mt-24 px-6">
-				<h2 className="mb-16 text-center font-black text-4xl tracking-tight md:text-5xl">
-					All Plans <span className="text-hot-orange-contrast">Include</span>
-				</h2>
-				<div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-					{[
-						{
-							desc: 'Enterprise-grade hardware stability.',
-							icon: Server,
-							title: 'Dell XE9680 Chassis',
-						},
-						{
-							desc: 'Located in our secure Michigan facility.',
-							icon: Shield,
-							title: '100% Green Datacenter',
-						},
-						{
-							desc: 'RoCEv2 for ultra-low latency clusters.',
-							icon: Zap,
-							title: '8x400G Networking',
-						},
-						{
-							desc: 'SSH, BMC, iDRAC - you control it all.',
-							icon: Server,
-							title: 'Full Root Access',
-						},
-						{
-							desc: 'Secure multi-node environments with public IP and firewall control.',
-							icon: Shield,
-							title: 'Private Isolated Networking',
-						},
-						{
-							desc: 'Direct Slack channel with our engineers.',
-							icon: Zap,
-							title: 'White Glove Support',
-						},
-					].map((feature) => (
-						<div
-							className="flex items-start rounded-lg border border-transparent p-4 transition-colors hover:border-border hover:bg-muted/50"
-							key={feature.title}
-						>
-							<feature.icon className="mr-4 h-6 w-6 shrink-0 text-hot-orange" />
-							<div>
-								<p className="mb-1 font-bold text-foreground">{feature.title}</p>
-								<p className="text-muted-foreground text-sm">{feature.desc}</p>
+			<div className="container mx-auto mt-24 max-w-7xl px-6">
+				<section className="border-border border-y py-12">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+						<p className="ha-briefing-label">Included by default</p>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							All plans <span className="text-hot-orange-contrast">include</span>
+						</h2>
+					</div>
+
+					<div className="mt-12 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
+						{INCLUDED_CAPABILITIES.map((capability, index) => (
+							<div className="min-h-56 bg-background p-8" key={capability.title}>
+								<p className="font-mono text-hot-orange-contrast text-xs">
+									{String(index + 1).padStart(2, '0')}
+								</p>
+								<h3 className="mt-10 font-bold text-2xl text-foreground">
+									{capability.title}
+								</h3>
+								<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+									{capability.description}
+								</p>
 							</div>
-						</div>
-					))}
-				</div>
+						))}
+					</div>
+				</section>
 			</div>
 
 			{/* Resources Section */}

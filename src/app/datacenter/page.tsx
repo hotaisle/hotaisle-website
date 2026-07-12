@@ -1,14 +1,4 @@
-import {
-	Camera,
-	DollarSign,
-	ExternalLink,
-	Lock,
-	MapPin,
-	Power,
-	Shield,
-	Video,
-	Zap,
-} from 'lucide-react';
+import { Camera, ExternalLink, Shield, Video } from 'lucide-react';
 import { ClickableImage } from '@/components/ClickableImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
@@ -26,32 +16,26 @@ export function generateMetadata() {
 const advantages = [
 	{
 		desc: 'State-of-the-art Tier 5 Platinum exascale facilities ensuring optimal performance, cooling, reliability, and security.',
-		icon: Zap,
 		title: 'Advanced Infrastructure',
 	},
 	{
 		desc: 'One of the most secure data centers on the planet. Armed guards, multiple layers of physical and biometric access controls.',
-		icon: Shield,
 		title: 'Security',
 	},
 	{
 		desc: '100% renewable energy, low PUE (patented T-SCIF design). Aligning with our core values for environmentally responsible operations.',
-		icon: Power,
 		title: 'Sustainability',
 	},
 	{
 		desc: 'Extensive space and resources available to seamlessly scale operations to meet increasing demands.',
-		icon: Lock,
 		title: 'Scalability',
 	},
 	{
 		desc: 'Located in Grand Rapids, Michigan. Strategic proximity to major industrial and technological hubs ensuring connectivity.',
-		icon: MapPin,
 		title: 'Geographical Advantage',
 	},
 	{
 		desc: 'Tax optimization allows us to pass significant capital cost savings onto our partners.',
-		icon: DollarSign,
 		title: 'Fiscal',
 	},
 ];
@@ -126,31 +110,31 @@ export default function DatacenterPage() {
 				</div>
 			</div>
 
-			{/* Strategic Advantages Grid */}
+			{/* Strategic Advantages */}
 			<div className="container mx-auto max-w-7xl px-6 py-24">
-				<div className="mx-auto mb-16 max-w-3xl text-center">
-					<h2 className="mb-6 font-black text-3xl text-foreground md:text-5xl">
-						Strategic Advantages
-					</h2>
-					<p className="text-muted-foreground text-xl">
-						Located at the Switch Pyramid data center in Grand Rapids, Michigan. A
-						facility our partners can brag about.
-					</p>
+				<div className="grid gap-8 border-border border-b pb-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+					<p className="ha-briefing-label">Site conditions</p>
+					<div>
+						<h2 className="max-w-2xl font-black text-4xl text-foreground md:text-6xl">
+							Strategic advantages
+						</h2>
+						<p className="mt-5 max-w-2xl text-muted-foreground text-xl leading-relaxed">
+							Located at the Switch Pyramid data center in Grand Rapids, Michigan. A
+							facility our partners can brag about.
+						</p>
+					</div>
 				</div>
 
-				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-					{advantages.map((item) => (
-						<div
-							className="group flex flex-col rounded-2xl border border-border bg-card p-8 transition-all hover:border-hot-orange/50 hover:shadow-lg"
-							key={item.title}
-						>
-							<div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-muted transition-colors group-hover:bg-hot-orange/10">
-								<item.icon className="h-7 w-7 text-muted-foreground group-hover:text-hot-orange" />
-							</div>
-							<h3 className="mb-3 font-bold text-2xl text-foreground">
+				<div className="mt-10 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
+					{advantages.map((item, index) => (
+						<div className="min-h-64 bg-background p-8" key={item.title}>
+							<p className="font-mono text-hot-orange-contrast text-xs">
+								{String(index + 1).padStart(2, '0')}
+							</p>
+							<h3 className="mt-12 font-bold text-2xl text-foreground">
 								{item.title}
 							</h3>
-							<p className="grow text-muted-foreground leading-relaxed">
+							<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
 								{item.desc}
 							</p>
 						</div>
