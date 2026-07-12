@@ -49,23 +49,13 @@ export default function MI355XContent() {
 							<p className="ha-briefing-label">
 								AMD Instinct accelerator / capacity planning
 							</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-white p-3 dark:bg-black">
 								<OptimizedImage
-									alt="3D pixel-art liquid-cooled AMD Instinct MI355X platform"
-									className="aspect-4/3 w-full object-cover"
-									height={1086}
-									pictureClassName="hidden dark:block"
-									src="/assets/mi355x/mi355x-inference-pixel-art.png"
-									width={1448}
-								/>
-								<OptimizedImage
-									alt=""
-									aria-hidden="true"
-									className="aspect-4/3 w-full object-cover"
-									height={1086}
-									pictureClassName="dark:hidden"
-									src="/assets/mi355x/mi355x-inference-pixel-art-light.png"
-									width={1448}
+									alt="AMD Instinct MI355X liquid-cooled accelerator platform"
+									className="aspect-25/18 w-full object-contain"
+									height={1166}
+									src="/assets/mi355x/mi355ximage.png"
+									width={1632}
 								/>
 								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
 									MI355X / 288 GB HBM3E

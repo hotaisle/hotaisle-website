@@ -44,14 +44,6 @@ export function generateMetadata() {
 export default function PricingPage() {
 	return (
 		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
-			{/* MI355x Announcement Banner */}
-			<div className="animate-pulse bg-linear-to-r from-hot-orange to-red-600 px-4 py-3 text-center font-bold text-sm text-white md:text-base">
-				🔥 We are accepting MI355x reservations!
-				<AppLink className="ml-2 underline hover:text-white/90" href="/mi355x">
-					Reserve now
-				</AppLink>
-			</div>
-
 			{/* Hero Header */}
 			<div className="relative overflow-hidden border-border border-b px-6 py-20 text-center md:py-24">
 				<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-200 via-background to-background opacity-80 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-950" />

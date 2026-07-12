@@ -702,6 +702,241 @@ main .prose:not(.max-w-none) {
 	}
 }
 
+/* Realtime capacity signals follow the same thin-border briefing system as page content. */
+.ha-machine-home-signal-stack {
+	top: 5rem;
+	right: 1.5rem;
+	gap: 0.75rem;
+	width: min(23rem, calc(100vw - 2rem));
+	max-width: calc(100vw - 2rem);
+}
+
+.ha-machine-home-signal {
+	min-height: 0;
+	transform: translateY(12px);
+}
+
+.ha-machine-home-signal__dismiss {
+	top: 0;
+	right: 0;
+	width: 2.5rem;
+	height: 2.5rem;
+	color: var(--muted-foreground);
+	border-left: 1px solid var(--border);
+	border-radius: 0;
+	transition:
+		background-color 160ms ease,
+		color 160ms ease;
+}
+
+.ha-machine-home-signal__dismiss::before,
+.ha-machine-home-signal__dismiss::after {
+	width: 0.75rem;
+	height: 1px;
+	border-radius: 0;
+}
+
+.ha-machine-home-signal__dismiss:hover {
+	color: var(--foreground);
+	background: var(--muted);
+}
+
+.ha-machine-home-signal__frame,
+.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__frame {
+	display: grid;
+	gap: 1.25rem;
+	padding: 0;
+	overflow: hidden;
+	background: var(--background);
+	border: 1px solid var(--border);
+	border-radius: 0;
+	box-shadow: 0 16px 32px rgb(0 0 0 / 0.12);
+}
+
+.dark .ha-machine-home-signal__frame,
+.dark
+	.ha-machine-home-signal[data-status="deleted"]
+	.ha-machine-home-signal__frame {
+	box-shadow: 0 16px 32px rgb(0 0 0 / 0.28);
+}
+
+.ha-machine-home-signal:focus-visible .ha-machine-home-signal__frame,
+.ha-machine-home-signal[data-status="deleted"]:focus-visible
+	.ha-machine-home-signal__frame {
+	box-shadow:
+		0 0 0 2px
+		color-mix(in srgb, var(--hot-orange-contrast) 48%, transparent),
+		0 16px 32px rgb(0 0 0 / 0.12);
+}
+
+.ha-machine-home-signal__frame::before {
+	display: none;
+}
+
+.ha-machine-home-signal__topline {
+	gap: 0.6rem;
+	min-height: 2.5rem;
+	padding: 0.75rem 3.25rem 0.65rem 0.9rem;
+	border-bottom: 1px solid var(--border);
+}
+
+.ha-machine-home-signal__live-pill {
+	padding: 0;
+	font-family: var(--font-mono);
+	font-size: 0.7rem;
+	font-weight: 500;
+	color: var(--hot-orange-contrast);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+}
+
+.ha-machine-home-signal__live-pill::before {
+	width: 0.4rem;
+	height: 0.4rem;
+	background: var(--hot-orange-contrast);
+	border-radius: 0;
+	box-shadow: none;
+}
+
+.ha-machine-home-signal__eyebrow {
+	font-family: var(--font-mono);
+	font-size: 0.7rem;
+	font-weight: 500;
+	color: var(--muted-foreground);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.ha-machine-home-signal__body {
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 1rem;
+	align-items: stretch;
+	padding: 0 1.25rem 1.35rem;
+}
+
+.ha-machine-home-signal__metric,
+.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__metric {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-width: 4.85rem;
+	min-height: 0;
+	padding: 0 1rem 0 0;
+	background: transparent;
+	border: 0;
+	border-right: 1px solid var(--border);
+	border-radius: 0;
+}
+
+.ha-machine-home-signal__metric-count {
+	font-family: var(--font-mono);
+	font-size: 2rem;
+	font-weight: 500;
+	line-height: 1;
+	color: var(--foreground);
+	text-align: left;
+	letter-spacing: 0;
+}
+
+.ha-machine-home-signal__metric-label {
+	margin-top: 0.4rem;
+	font-family: var(--font-mono);
+	font-size: 0.68rem;
+	font-weight: 500;
+	line-height: 1;
+	color: var(--muted-foreground);
+	text-align: left;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.ha-machine-home-signal__copy {
+	gap: 0.45rem;
+	align-content: center;
+}
+
+.ha-machine-home-signal__title {
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1.1;
+	color: var(--foreground);
+	text-transform: none;
+	letter-spacing: 0;
+	white-space: normal;
+}
+
+.ha-machine-home-signal__meta {
+	gap: 0;
+	font-family: var(--font-mono);
+	font-size: 0.72rem;
+	font-weight: 500;
+	color: var(--muted-foreground);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	white-space: normal;
+}
+
+.ha-machine-home-signal__status {
+	color: var(--hot-orange-contrast);
+}
+
+.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__status {
+	color: var(--destructive);
+}
+
+.ha-machine-home-signal__progress-track {
+	height: 2px;
+	background: var(--border);
+}
+
+.ha-machine-home-signal__progress-bar,
+.ha-machine-home-signal[data-status="deleted"]
+	.ha-machine-home-signal__progress-bar {
+	background: var(--hot-orange-contrast);
+	box-shadow: none;
+}
+
+.ha-machine-home-signal[data-status="deleted"]
+	.ha-machine-home-signal__progress-bar {
+	background: var(--destructive);
+}
+
+@media (max-width: 640px) {
+	.ha-machine-home-signal-stack {
+		right: 0.75rem;
+		bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+		left: 0.75rem;
+		width: auto;
+		max-width: none;
+	}
+
+	.ha-machine-home-signal__topline {
+		padding-right: 3rem;
+	}
+
+	.ha-machine-home-signal__body {
+		padding: 0 1rem 1.1rem;
+	}
+
+	.ha-machine-home-signal__metric,
+	.ha-machine-home-signal[data-status="deleted"]
+		.ha-machine-home-signal__metric {
+		min-width: 4.25rem;
+		padding-right: 0.85rem;
+	}
+
+	.ha-machine-home-signal__metric-count {
+		font-size: 1.7rem;
+	}
+
+	.ha-machine-home-signal__title {
+		font-size: 1.1rem;
+	}
+}
+
 .inline-label-group {
 	display: inline;
 }
@@ -740,6 +975,35 @@ img[data-image-modal="true"] {
 	cursor: pointer;
 }
 
+.ha-blog-article .blog-video {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	background: var(--muted);
+	border: 1px solid var(--border);
+}
+
+.ha-blog-article .blog-video__frame {
+	aspect-ratio: 16 / 9;
+	background: #000;
+}
+
+.ha-blog-article .blog-video iframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.ha-blog-article .blog-video figcaption {
+	padding: 0.75rem 1rem;
+	margin-top: 0;
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	border-top: 1px solid var(--border);
+}
+
 .prose h1,
 .prose h2,
 .prose h3 {
@@ -758,6 +1022,11 @@ img[data-image-modal="true"] {
 
 .prose a:hover {
 	text-decoration-thickness: 2px;
+}
+
+.ha-blog-article .blog-video figcaption a {
+	font-weight: 500;
+	text-decoration: none;
 }
 
 .prose .heading-link {

@@ -8,6 +8,7 @@ export const PRIMARY_NAV_LINKS: NavigationLink[] = [
 	{ href: '/pricing', label: 'Pricing' },
 	{ href: '/compute', label: 'Platform' },
 	{ href: '/investors', label: 'Investors' },
+	{ href: '/about', label: 'About' },
 	{ href: '/blog', label: 'Blog' },
 ];
 

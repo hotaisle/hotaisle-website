@@ -59,23 +59,23 @@ export default function MI300XPage() {
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
 							<p className="ha-briefing-label">AMD Instinct accelerator</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-white p-3 dark:bg-black">
 								<OptimizedImage
-									alt="3D pixel-art AMD Instinct MI300X accelerator"
-									className="aspect-4/3 w-full object-cover"
-									height={1086}
+									alt="AMD Instinct MI300X accelerator package and board"
+									className="aspect-video w-full object-cover"
+									height={675}
 									pictureClassName="hidden dark:block"
-									src="/assets/mi300x/mi300x-inference-pixel-art.png"
-									width={1448}
+									src="/assets/mi300x/mi300x-amd-press.jpg"
+									width={1200}
 								/>
 								<OptimizedImage
 									alt=""
 									aria-hidden="true"
-									className="aspect-4/3 w-full object-cover"
-									height={1086}
+									className="aspect-video w-full object-contain"
+									height={1200}
 									pictureClassName="dark:hidden"
-									src="/assets/mi300x/mi300x-inference-pixel-art-light.png"
-									width={1448}
+									src="/assets/mi300x/mi300x-amd-product.jpg"
+									width={1200}
 								/>
 								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
 									MI300X / 192 GB HBM3

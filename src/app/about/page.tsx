@@ -1,3 +1,4 @@
+import { AppLink } from '@/components/AppLink.tsx';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
@@ -228,7 +229,16 @@ export default function AboutPage() {
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We are grateful for the support that let us build patiently, learn
 								from real workloads, and keep improving the platform before pursuing
-								scale.
+								scale. After nearly three years in production, the foundation is
+								ready for its next stage. We are now looking for additional
+								investors to help expand developer-first sovereign inference
+								capacity.{' '}
+								<AppLink
+									className="font-medium text-foreground underline decoration-hot-orange underline-offset-4 transition-colors hover:text-hot-orange-contrast"
+									href="/investors"
+								>
+									Learn more about investing in Hot Aisle.
+								</AppLink>
 							</p>
 						</div>
 					</div>

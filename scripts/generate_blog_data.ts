@@ -13,6 +13,7 @@ import remarkRehype from 'remark-rehype';
 import sharp from 'sharp';
 import { toCanonicalDocumentHref } from '@/lib/canonical-href.ts';
 import { getModernImageVariants } from '@/lib/image-optimization.ts';
+import { embedStandaloneYouTubeLinks } from '@/lib/youtube.ts';
 import {
 	isGeneratedMermaidDiagramFile,
 	renderMermaidMarkdownToImageMarkdown,
@@ -786,7 +787,7 @@ function toDarkMermaidDiagramSource(sourcePath: string): string {
 async function enhanceRenderedHtml(html: string): Promise<string> {
 	const matches = Array.from(html.matchAll(BLOG_IMAGE_TAG_REGEX));
 	if (matches.length === 0) {
-		return html;
+		return embedStandaloneYouTubeLinks(html);
 	}
 
 	let enhancedHtml = html;
@@ -847,7 +848,7 @@ async function enhanceRenderedHtml(html: string): Promise<string> {
 		);
 	}
 
-	return enhancedHtml.replace(MERMAID_PARAGRAPH_WRAPPER_REGEX, '$1');
+	return embedStandaloneYouTubeLinks(enhancedHtml.replace(MERMAID_PARAGRAPH_WRAPPER_REGEX, '$1'));
 }
 
 async function syncGeneratedMermaidAssets(slug: string, generatedFiles: string[]): Promise<void> {

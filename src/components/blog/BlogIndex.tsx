@@ -15,9 +15,5 @@ export function BlogIndex({ posts }: BlogIndexProps) {
 		return rightTime - leftTime;
 	});
 
-	return (
-		<div className="space-y-12">
-			<BlogList posts={sortedPosts} />
-		</div>
-	);
+	return <BlogList posts={sortedPosts} />;
 }
