@@ -20,15 +20,15 @@ export function initializeLinkPrefetchScript(): void {
 			}
 
 			const { hash, pathname, search } = hrefUrl;
-			if (
-				pathname === ROOT_PATH ||
-				pathname.endsWith(ROOT_PATH) ||
-				hasLastPathSegmentExtension(pathname)
-			) {
+			if (pathname === ROOT_PATH || hasLastPathSegmentExtension(pathname)) {
 				return `${pathname}${search}${hash}`;
 			}
 
-			return `${pathname}/${search}${hash}`;
+			const canonicalPathname = pathname.endsWith(ROOT_PATH)
+				? pathname.slice(0, -1)
+				: pathname;
+
+			return `${canonicalPathname}${search}${hash}`;
 		} catch {
 			return null;
 		}

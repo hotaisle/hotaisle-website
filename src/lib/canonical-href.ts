@@ -16,13 +16,16 @@ export function toCanonicalDocumentHref(href: string): string {
 		const { hash, pathname, search } = hrefUrl;
 		if (
 			pathname === INTERNAL_ROOT_RELATIVE_HREF_PREFIX ||
-			pathname.endsWith(INTERNAL_ROOT_RELATIVE_HREF_PREFIX) ||
 			LAST_PATH_SEGMENT_EXTENSION_REGEX.test(pathname)
 		) {
 			return `${pathname}${search}${hash}`;
 		}
 
-		return `${pathname}/${search}${hash}`;
+		const canonicalPathname = pathname.endsWith(INTERNAL_ROOT_RELATIVE_HREF_PREFIX)
+			? pathname.slice(0, -1)
+			: pathname;
+
+		return `${canonicalPathname}${search}${hash}`;
 	} catch {
 		return href;
 	}

@@ -19,10 +19,10 @@ import { createSitemapXml } from './generate_sitemap.ts';
 const EXPORT_ORIGIN = 'https://static.hotaisle.local';
 const PROJECT_ROOT = path.join(import.meta.dirname, '..');
 const BLOG_ASSET_SOURCE_DIRECTORY = path.join(PROJECT_ROOT, 'content', 'blog', 'assets');
-const PUBLIC_DIRECTORY = path.join(PROJECT_ROOT, 'public');
 const DIST_DIRECTORY = path.join(PROJECT_ROOT, 'dist');
 const STATIC_DIST_DIRECTORY = path.join(PROJECT_ROOT, 'dist-static');
 const CLIENT_DIRECTORY = path.join(DIST_DIRECTORY, 'client');
+const PRERENDERED_ROUTES_DIRECTORY = path.join(DIST_DIRECTORY, 'server', 'prerendered-routes');
 const CLIENT_BLOG_ASSET_DIRECTORY = path.join(CLIENT_DIRECTORY, 'assets', 'blog');
 const SITEMAP_FILE_NAME = 'sitemap.xml';
 const VINEXT_PACKAGE_DIRECTORY = path.join(PROJECT_ROOT, 'node_modules', 'vinext');
@@ -102,6 +102,25 @@ const IMAGE_MIME_TYPES_BY_EXTENSION = {
 	'.png': 'image/png',
 	'.webp': 'image/webp',
 } as const;
+const REQUIRED_OPEN_GRAPH_PROPERTIES = [
+	'og:description',
+	'og:image',
+	'og:image:alt',
+	'og:locale',
+	'og:site_name',
+	'og:title',
+	'og:type',
+	'og:url',
+] as const;
+const REQUIRED_TWITTER_NAMES = [
+	'twitter:card',
+	'twitter:creator',
+	'twitter:description',
+	'twitter:image',
+	'twitter:image:alt',
+	'twitter:site',
+	'twitter:title',
+] as const;
 
 process.env.NODE_ENV = 'production';
 
@@ -123,7 +142,6 @@ if (exitCode !== 0) {
 	throw new Error(`vinext build failed with exit code ${exitCode}`);
 }
 
-await syncPublicAssetsToClientOutput();
 await syncBlogAssetsToClientOutput();
 
 await cp(CLIENT_DIRECTORY, STATIC_DIST_DIRECTORY, {
@@ -132,6 +150,7 @@ await cp(CLIENT_DIRECTORY, STATIC_DIST_DIRECTORY, {
 	recursive: true,
 });
 
+await syncPrerenderedRoutesToStaticOutput();
 await writeStaticDeployWranglerConfig();
 await writeSitemapFiles();
 
@@ -141,6 +160,7 @@ if (normalizedHtmlFileCount === 0) {
 	throw new Error('vinext static export did not produce any HTML files');
 }
 await assertNoClientBootstrapMarkers(STATIC_DIST_DIRECTORY);
+await assertCompleteSocialMetadata(STATIC_DIST_DIRECTORY);
 
 async function normalizeExportedHtml(html: string): Promise<string> {
 	const stripped = stripClientBootstrap(html);
@@ -226,24 +246,23 @@ async function writeStaticDeployWranglerConfig(): Promise<void> {
 	);
 }
 
-async function syncPublicAssetsToClientOutput(): Promise<void> {
-	if (!(await directoryExists(PUBLIC_DIRECTORY))) {
-		return;
-	}
-
-	await cp(PUBLIC_DIRECTORY, CLIENT_DIRECTORY, {
-		filter: (sourcePath: string) => !shouldExcludeFromStaticExport(sourcePath),
-		force: true,
-		recursive: true,
-	});
-}
-
 async function syncBlogAssetsToClientOutput(): Promise<void> {
 	if (!(await directoryExists(BLOG_ASSET_SOURCE_DIRECTORY))) {
 		return;
 	}
 
 	await copyBlogAssetsToOutput(BLOG_ASSET_SOURCE_DIRECTORY, CLIENT_BLOG_ASSET_DIRECTORY);
+}
+
+async function syncPrerenderedRoutesToStaticOutput(): Promise<void> {
+	if (!(await directoryExists(PRERENDERED_ROUTES_DIRECTORY))) {
+		throw new Error('Vinext did not produce prerendered route output.');
+	}
+
+	await cp(PRERENDERED_ROUTES_DIRECTORY, STATIC_DIST_DIRECTORY, {
+		force: true,
+		recursive: true,
+	});
 }
 
 async function directoryExists(directoryPath: string): Promise<boolean> {
@@ -569,6 +588,64 @@ async function assertNoClientBootstrapMarkers(directory: string): Promise<void> 
 	if (leakedMarkerError) {
 		throw leakedMarkerError;
 	}
+}
+
+async function assertCompleteSocialMetadata(directory: string): Promise<void> {
+	const allEntries = await readdir(directory, { recursive: true });
+	const htmlEntries = allEntries.filter((relativePath) => relativePath.endsWith(HTML_EXTENSION));
+	const missingMetadataByFile = await Promise.all(
+		htmlEntries.map(async (relativePath) => {
+			const fullPath = path.join(directory, relativePath);
+			const html = await readFile(fullPath, 'utf8');
+			const metaTags = [...html.matchAll(META_TAG_REGEX)].map(([tag]) =>
+				getTagAttributes(tag)
+			);
+			const linkTags = [...html.matchAll(LINK_TAG_REGEX)].map(([tag]) =>
+				getTagAttributes(tag)
+			);
+			const openGraphProperties = new Set(
+				metaTags
+					.map((attributes) => attributes.property)
+					.filter((value) => value !== undefined)
+			);
+			const twitterNames = new Set(
+				metaTags.map((attributes) => attributes.name).filter((value) => value !== undefined)
+			);
+			const hasCanonicalLink = linkTags.some((attributes) => attributes.rel === 'canonical');
+			const missingProperties = REQUIRED_OPEN_GRAPH_PROPERTIES.filter(
+				(property) => !openGraphProperties.has(property)
+			);
+			const missingTwitterNames = REQUIRED_TWITTER_NAMES.filter(
+				(name) => !twitterNames.has(name)
+			);
+
+			if (
+				hasCanonicalLink &&
+				missingProperties.length === 0 &&
+				missingTwitterNames.length === 0
+			) {
+				return null;
+			}
+
+			const missingFields = [
+				...(hasCanonicalLink ? [] : ['canonical link']),
+				...missingProperties,
+				...missingTwitterNames,
+			];
+			return `${path.relative(PROJECT_ROOT, fullPath)}: ${missingFields.join(', ')}`;
+		})
+	);
+	const incompletePages = missingMetadataByFile.filter((entry) => entry !== null);
+
+	if (incompletePages.length === 0) {
+		return;
+	}
+
+	throw new Error(
+		`Static export is missing required social metadata:\n${incompletePages
+			.map((entry) => `- ${entry}`)
+			.join('\n')}`
+	);
 }
 
 function shouldExcludeFromStaticExport(sourcePath: string): boolean {

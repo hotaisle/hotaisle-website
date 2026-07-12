@@ -4,10 +4,11 @@ export interface NavigationLink {
 }
 
 export const PRIMARY_NAV_LINKS: NavigationLink[] = [
-	{ href: '/compute', label: 'Platform' },
+	{ href: '/quick-start', label: 'Quick Start' },
 	{ href: '/pricing', label: 'Pricing' },
-	{ href: '/quick-start', label: 'Get Started' },
+	{ href: '/compute', label: 'Platform' },
 	{ href: '/investors', label: 'Investors' },
+	{ href: '/about', label: 'About' },
 	{ href: '/blog', label: 'Blog' },
 ];
 

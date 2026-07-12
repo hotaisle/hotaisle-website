@@ -47,11 +47,13 @@ export function initializeSearchScript({ searchData }: SearchScriptConfig): void
 		}
 
 		const { hash, pathname, search } = url;
-		if (pathname === '/' || pathname.endsWith('/') || pathname.includes('.')) {
+		if (pathname === '/' || pathname.includes('.')) {
 			return `${pathname}${search}${hash}`;
 		}
 
-		return `${pathname}/${search}${hash}`;
+		const canonicalPathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+
+		return `${canonicalPathname}${search}${hash}`;
 	};
 
 	const scoreSearchResult = (
@@ -140,20 +142,20 @@ export function initializeSearchScript({ searchData }: SearchScriptConfig): void
 			const description = document.createElement('p');
 
 			node.className =
-				'group flex items-start gap-3 rounded-lg px-3 py-3 transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none';
+				'group grid gap-3 border-border border-b px-5 py-5 transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none sm:grid-cols-[9rem_minmax(0,1fr)] sm:px-6';
 			node.dataset.prefetchLink = 'true';
 			node.href = toCanonicalDocumentHref(result.url);
 			category.className =
-				'mt-0.5 rounded-md border border-border bg-background px-2 py-1 font-semibold text-[0.68rem] text-muted-foreground uppercase tracking-wider';
+				'font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.12em]';
 			category.textContent = result.category;
 			content.className = 'min-w-0 flex-1';
 			titleRow.className = 'flex items-center gap-2';
-			title.className = 'truncate font-semibold text-foreground text-sm';
+			title.className = 'truncate font-medium text-foreground text-lg';
 			title.textContent = result.title;
 			arrow.setAttribute('aria-hidden', 'true');
 			arrow.setAttribute(
 				'class',
-				'h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100'
+				'h-4 w-4 shrink-0 text-hot-orange-contrast opacity-0 transition-opacity group-hover:opacity-100'
 			);
 			arrow.setAttribute('viewBox', '0 0 24 24');
 			arrow.setAttribute('fill', 'none');
@@ -163,7 +165,7 @@ export function initializeSearchScript({ searchData }: SearchScriptConfig): void
 			arrow.setAttribute('stroke-width', '2');
 			arrowLine.setAttribute('d', 'M5 12h14');
 			arrowHead.setAttribute('d', 'm12 5 7 7-7 7');
-			description.className = 'mt-1 line-clamp-2 text-muted-foreground text-sm leading-snug';
+			description.className = 'mt-2 line-clamp-2 text-muted-foreground text-sm leading-snug';
 			description.textContent = result.description;
 
 			arrow.append(arrowLine, arrowHead);

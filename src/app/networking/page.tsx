@@ -1,20 +1,11 @@
-import { Activity, ArrowRight, Cpu, Globe, Network, ShieldCheck, Zap } from 'lucide-react';
+import { AppLink } from '@/components/AppLink.tsx';
+import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
-export function generateMetadata() {
-	return createPageMetadata({
-		description:
-			'Hot Aisle’s custom networking fabric for GPU infrastructure, including compute, storage, and management network layers.',
-		path: '/networking',
-		title: 'Networking Fabric',
-	});
-}
-
-const fabric = [
+const FABRIC_LAYERS = [
 	{
-		color: 'text-amber-500',
-		desc: 'Dell XE9680 chassis with 8x Broadcom 57608 Dual Port 200G Q112 Adapters with Dell PowerSwitch Z9864F at 400G. (RoCEv2)',
-		icon: Zap,
+		description:
+			'Dell XE9680 chassis with eight Broadcom 57608 dual-port 200G Q112 adapters and Dell PowerSwitch Z9864F switching.',
 		links: [
 			{
 				label: 'Broadcom 57608',
@@ -25,17 +16,17 @@ const fabric = [
 				url: 'https://www.dell.com/en-us/shop/ipovw/networking-z-series',
 			},
 			{
-				label: 'RoCEv2 (Wikipedia)',
+				label: 'RoCEv2',
 				url: 'https://en.wikipedia.org/wiki/RDMA_over_Converged_Ethernet',
 			},
 		],
-		speed: '3200 Gbps',
-		tier: 'Compute Fabric',
+		speed: '3.2 Tbps',
+		summary: 'RoCEv2 / compute traffic',
+		title: 'Compute fabric',
 	},
 	{
-		color: 'text-hot-orange',
-		desc: 'Broadcom 57504 Quad Port 10/25GbE Adapters with Dell PowerSwitch Z9664F at 100G.',
-		icon: Activity,
+		description:
+			'Broadcom 57504 quad-port 10/25GbE adapters with Dell PowerSwitch Z9664F switching for cluster-internal traffic and storage.',
 		links: [
 			{ label: 'Broadcom 57504', url: 'https://docs.broadcom.com/doc/957504-N425G-DS' },
 			{
@@ -44,12 +35,12 @@ const fabric = [
 			},
 		],
 		speed: '100 Gbps',
-		tier: 'East-West & Storage',
+		summary: 'East-west / storage',
+		title: 'Cluster services',
 	},
 	{
-		color: 'text-green-500',
-		desc: 'Broadcom 5720 Dual Port 1GbE with Dell PowerSwitch Z9432F at 1GbE.',
-		icon: Cpu,
+		description:
+			'Broadcom 5720 dual-port 1GbE adapters with Dell PowerSwitch Z9432F switching for out-of-band hardware management.',
 		links: [
 			{
 				label: 'Broadcom 5720',
@@ -60,200 +51,199 @@ const fabric = [
 				url: 'https://www.delltechnologies.com/asset/en-us/products/networking/technical-support/dell-emc-powerswitch-z9432f-spec-sheet.pdf',
 			},
 		],
-		speed: '1 GbE',
-		tier: 'OOB / Management',
+		speed: '1 Gbps',
+		summary: 'Out-of-band management',
+		title: 'Management plane',
 	},
-];
+] as const;
+
+const OPERATING_FOUNDATIONS = [
+	{
+		description:
+			'100G connectivity through Switch Connect and Megaport. Public IPv4 and IPv6 addresses are included with every bare-metal server and VM.',
+		title: 'Internet and address space',
+	},
+	{
+		description:
+			'Dell ProSupport Next Business Day covers every switch. The Z9864F has additional four-hour mission-critical coverage, backed by on-site replacement parts.',
+		title: 'Serviceability built in',
+	},
+] as const;
+
+export function generateMetadata() {
+	return createPageMetadata({
+		description:
+			'Hot Aisle’s custom networking fabric for GPU infrastructure, including compute, storage, and management network layers.',
+		path: '/networking',
+		title: 'Networking Fabric',
+	});
+}
 
 export default function NetworkingPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
-			{/* Header */}
-			<div className="relative w-full overflow-hidden border-border border-b bg-background px-6 py-24">
-				<div className="pointer-events-none absolute top-0 right-0 h-200 w-200 rounded-full bg-hot-orange/5 blur-[120px]" />
-				<div className="container relative z-10 mx-auto max-w-6xl">
-					<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 font-bold text-foreground text-xs tracking-wider">
-						<Network className="text-hot-orange" size={14} />
-						HOT AISLE BGP AS: 21566
-					</div>
-
-					<h1 className="mb-8 font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-						Custom <span className="text-hot-orange">Networking Fabric</span>
-					</h1>
-
-					<p className="mb-6 max-w-4xl font-light text-muted-foreground text-xl leading-relaxed md:text-2xl">
-						Hot Aisle offers flexible networking configuration that we customize for
-						each customer to provide the fastest ethernet standards based cross node
-						communication fabric available today.
-					</p>
-
-					<div className="flex flex-wrap gap-x-8 gap-y-2 font-bold text-foreground/80 text-sm">
-						<span className="flex items-center gap-2">
-							<CheckCircle /> IPv6 First
-						</span>
-						<a
-							className="flex items-center gap-2 underline decoration-dotted underline-offset-4 transition-colors hover:text-hot-orange"
-							href="https://www.techtarget.com/searchnetworking/definition/virtual-routing-and-forwarding-VRF"
-							rel="noopener"
-							target="_blank"
-						>
-							<CheckCircle /> VRF Networking
-						</a>
-						<a
-							className="flex items-center gap-2 underline decoration-dotted underline-offset-4 transition-colors hover:text-hot-orange"
-							href="https://en.wikipedia.org/wiki/RDMA_over_Converged_Ethernet"
-							rel="noopener"
-							target="_blank"
-						>
-							<CheckCircle /> RoCEv2
-						</a>
-					</div>
-				</div>
-			</div>
-
-			{/* Fabric Tiers */}
-			<div className="container mx-auto mt-20 max-w-6xl px-6">
-				<div className="grid grid-cols-1 gap-8">
-					{fabric.map((item) => (
-						<div
-							className="group rounded-3xl border border-border bg-card p-8 shadow-sm transition-all hover:border-hot-orange/40"
-							key={item.desc}
-						>
-							<div className="flex flex-col items-start gap-8 md:flex-row md:items-center">
-								<div
-									className={`rounded-2xl bg-muted p-4 transition-colors group-hover:bg-hot-orange/10 ${item.color}`}
+		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+			<div className="container mx-auto max-w-6xl px-6">
+				<header className="border-border border-b py-14 md:py-18">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<div>
+							<p className="ha-briefing-label">Networking / AS 21566</p>
+							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+								<OptimizedImage
+									alt="3D pixel-art GPU networking fabric with server racks and connected switches"
+									className="aspect-4/3 w-full object-cover"
+									height={1086}
+									pictureClassName="hidden dark:block"
+									src="/assets/networking/fabric-pixel-art.png"
+									width={1448}
+								/>
+								<OptimizedImage
+									alt=""
+									aria-hidden="true"
+									className="aspect-4/3 w-full object-cover"
+									height={1086}
+									pictureClassName="dark:hidden"
+									src="/assets/networking/fabric-pixel-art-light.png"
+									width={1448}
+								/>
+								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+									Compute, storage, and management planes
+								</figcaption>
+							</figure>
+						</div>
+						<div>
+							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+								A fabric built for GPU clusters.
+							</h1>
+							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+								We automate SONiC networking beneath the compute layer, providing
+								fast, isolated paths for inference, storage, and operational
+								control.
+							</p>
+							<div className="mt-8 flex flex-wrap gap-3">
+								<AppLink
+									className="border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+									href="/quick-start"
 								>
-									<item.icon size={48} strokeWidth={1.5} />
-								</div>
-								<div className="flex-1">
-									<div className="mb-2 flex items-center gap-3">
-										<h3 className="font-bold text-2xl text-foreground">
-											{item.tier}
-										</h3>
-										<span
-											className={
-												'rounded border border-border bg-muted px-2 py-1 font-mono text-foreground text-xs'
-											}
-										>
-											{item.speed}
-										</span>
-									</div>
-									<p className="mb-4 text-lg text-muted-foreground leading-relaxed">
-										{item.desc}
+									Start now
+								</AppLink>
+							</div>
+						</div>
+					</div>
+				</header>
+
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Fabric layers</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Separate paths for every job.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								The network is designed as distinct planes, so high-throughput
+								inference traffic, storage activity, and hardware management remain
+								predictable.
+							</p>
+						</div>
+					</div>
+
+					<div className="mt-12 grid gap-px bg-border">
+						{FABRIC_LAYERS.map((layer, index) => (
+							<article
+								className="grid gap-8 bg-background p-8 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
+								key={layer.title}
+							>
+								<div>
+									<p className="font-mono text-hot-orange-contrast text-xs">
+										{String(index + 1).padStart(2, '0')}
 									</p>
-									<div className="flex flex-wrap gap-4">
-										{item.links.map((link) => (
+									<h3 className="mt-8 font-bold text-2xl text-foreground">
+										{layer.title}
+									</h3>
+									<p className="mt-3 text-muted-foreground text-sm leading-relaxed">
+										{layer.summary}
+									</p>
+								</div>
+								<div className="md:border-border md:border-l md:pl-8">
+									<p className="text-foreground text-lg leading-relaxed">
+										{layer.description}
+									</p>
+									<div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+										{layer.links.map((link) => (
 											<a
-												className="flex items-center gap-1 font-bold text-hot-orange-contrast text-sm transition-colors hover:text-foreground"
+												className="font-medium text-hot-orange-contrast text-sm hover:text-foreground"
 												href={link.url}
 												key={link.url}
-												rel="noopener noreferrer"
+												rel="noopener"
 												target="_blank"
 											>
-												{link.label} <ArrowRight size={12} />
+												{link.label}
 											</a>
 										))}
 									</div>
 								</div>
-							</div>
+								<div className="md:border-border md:border-l md:pl-8">
+									<p className="font-mono text-muted-foreground text-xs uppercase">
+										Capacity
+									</p>
+									<p className="mt-3 font-bold text-2xl text-hot-orange-contrast">
+										{layer.speed}
+									</p>
+								</div>
+							</article>
+						))}
+					</div>
+				</section>
+
+				<section className="border-border border-b py-16">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Operational network</p>
+						<div>
+							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+								Connectivity that can be operated.
+							</h2>
+							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+								IPv6-first addressing, VRF isolation, and serviceable switching are
+								built into the environment from the start.
+							</p>
 						</div>
-					))}
-				</div>
-			</div>
-
-			{/* Internet & Security Grid */}
-			<div className="container mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-2">
-				{/* Connector */}
-				<div className="rounded-3xl border border-border bg-muted/30 p-8">
-					<div className="mb-4 flex items-center gap-3">
-						<Globe className="text-indigo-400" size={32} />
-						<h3 className="font-bold text-2xl">100G Internet</h3>
 					</div>
-					<p className="mb-6 text-muted-foreground">
-						{'Provided by '}
-						<a
-							className="font-bold text-foreground hover:underline"
-							href="https://www.switch.com/switch-connect/"
-						>
-							Switch Connect
-						</a>
-						{' and '}
-						<a
-							className="font-bold text-foreground hover:underline"
-							href="https://www.megaport.com/"
-						>
-							Megaport
-						</a>
-						.
-					</p>
-					<div className="rounded-xl border border-border bg-background p-4 text-muted-foreground text-sm">
-						<span className="inline-label-group">
-							<strong className="text-foreground">Note:</strong>
-							<span>
-								Public IPv4/v6 address is included on all baremetal and VM servers.
-								<span> You may need to edit </span>
-								<code className="rounded bg-muted px-1 py-0.5 text-hot-orange">
-									ufw config
-								</code>
-								<span> to open ports, which we can help with.</span>
-							</span>
-						</span>
+
+					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+						{OPERATING_FOUNDATIONS.map((foundation, index) => (
+							<article className="min-h-60 bg-background p-8" key={foundation.title}>
+								<p className="font-mono text-hot-orange-contrast text-xs">
+									{String(index + 1).padStart(2, '0')}
+								</p>
+								<h3 className="mt-10 font-bold text-2xl text-foreground">
+									{foundation.title}
+								</h3>
+								<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
+									{foundation.description}
+								</p>
+							</article>
+						))}
 					</div>
-				</div>
 
-				{/* Warranty */}
-				<div className="rounded-3xl border border-border bg-muted/30 p-8">
-					<div className="mb-4 flex items-center gap-3">
-						<ShieldCheck className="text-green-500" size={32} />
-						<h3 className="font-bold text-2xl">Mission Critical Uptime</h3>
+					<div className="mt-12 grid gap-8 border-border border-t pt-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<p className="ha-briefing-label">Network design</p>
+						<div>
+							<h3 className="font-black text-3xl text-foreground">
+								Need a topology for a specific workload?
+							</h3>
+							<p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
+								We can design the compute, storage, management, and public network
+								paths around the constraints of your deployment.
+							</p>
+							<AppLink
+								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								href="/cluster"
+							>
+								Cluster design services
+							</AppLink>
+						</div>
 					</div>
-					<p className="mb-6 text-muted-foreground">
-						<span>
-							Uptime is critical for you, and for us. All of our switches are backed
-							by a
-						</span>
-						<strong className="ml-1">Dell ProSupport Next Business Day warranty</strong>
-						.
-					</p>
-					<ul className="space-y-3">
-						<li className="flex items-center gap-3 rounded-xl border border-border bg-background p-3 text-foreground text-sm">
-							<span className="h-2 w-2 rounded-full bg-green-500" />
-							Z9864F features additional 4-hour mission critical warranty
-						</li>
-						<li className="flex items-center gap-3 rounded-xl border border-border bg-background p-3 text-foreground text-sm">
-							<span className="h-2 w-2 rounded-full bg-hot-orange" />
-							On-site parts locker for instant replacements
-						</li>
-					</ul>
-				</div>
+				</section>
 			</div>
-
-			{/* CTA */}
-			<div className="container mx-auto mt-24 max-w-4xl px-6 text-center">
-				<div className="rounded-3xl border border-border bg-card p-12 shadow-xl">
-					<h2 className="mb-6 font-black text-3xl text-foreground">
-						Need a specific network design?
-					</h2>
-					<p className="mb-8 text-muted-foreground text-xl">
-						We specialize in custom topology for high-performance computing clusters.
-						Contact us and we will create it for you.
-					</p>
-					<a
-						className="inline-block rounded-full bg-foreground px-10 py-4 font-bold text-background text-lg transition-transform hover:scale-105 hover:opacity-90"
-						href="mailto:hello@hotaisle.ai"
-					>
-						Contact Network Team
-					</a>
-				</div>
-			</div>
-		</div>
-	);
-}
-
-function CheckCircle() {
-	return (
-		<div className="flex h-4 w-4 items-center justify-center rounded-full border border-hot-orange/50 bg-hot-orange/20">
-			<div className="h-1.5 w-1.5 rounded-full bg-hot-orange" />
 		</div>
 	);
 }

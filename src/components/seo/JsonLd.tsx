@@ -4,7 +4,7 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
 const SERVICE_ID = `${SITE_URL}/#service`;
 const LOGO_URL = `${SITE_URL}/hotaislelogofull.png`;
 const DESCRIPTION =
-	'AMD Exclusive AI Cloud. Deploy MI300X and MI355X GPUs in 60 seconds. $1.99/GPU/hr. No contracts, no commitments, no drama.';
+	'Developer-first cloud infrastructure for production sovereign inference. Provision isolated AMD GPU compute through the Hot Aisle terminal UI, API, or CLI without a sales handoff.';
 
 const schema = {
 	'@context': 'https://schema.org',
@@ -48,9 +48,12 @@ const schema = {
 			knowsAbout: [
 				'AMD MI300X GPUs',
 				'AMD MI355X GPUs',
-				'AI Cloud Infrastructure',
+				'Automated cloud infrastructure',
+				'Developer-first cloud infrastructure',
 				'GPU Compute',
-				'High Performance Computing',
+				'Inference serving',
+				'Isolated GPU virtual machines',
+				'Sovereign inference',
 				'Bare Metal Clusters',
 				'SOC 2 Type 2 Compliance',
 			],
@@ -62,7 +65,7 @@ const schema = {
 			},
 			name: 'Hot Aisle',
 			sameAs: ['https://www.linkedin.com/company/hotaisle', 'https://github.com/hotaisle'],
-			slogan: 'AMD Exclusive AI Cloud',
+			slogan: 'Developer-first cloud infrastructure for production inference',
 			url: SITE_URL,
 		},
 		{
@@ -80,7 +83,7 @@ const schema = {
 			'@id': SERVICE_ID,
 			'@type': 'Service',
 			description:
-				'On-demand AMD MI300X and MI355X GPU infrastructure for AI, inference, training, and HPC workloads.',
+				'On-demand AMD MI300X and MI355X GPU infrastructure for isolated production inference workloads.',
 			hasOfferCatalog: {
 				'@type': 'OfferCatalog',
 				itemListElement: [
@@ -108,7 +111,7 @@ const schema = {
 				],
 				name: 'Hot Aisle Compute Services',
 			},
-			name: 'AMD Exclusive AI Cloud Compute',
+			name: 'AMD GPU Cloud Infrastructure for Production Inference',
 			provider: {
 				'@id': ORGANIZATION_ID,
 			},

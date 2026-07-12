@@ -1,7 +1,7 @@
 import { Search, X } from 'lucide-react';
 
 const SEARCH_BUTTON_CLASS_NAME =
-	'ha-nav-link inline-flex min-h-10 min-w-10 items-center justify-center rounded-md p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
+	'ha-nav-link inline-flex min-h-10 min-w-10 items-center justify-center p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground';
 const SEARCH_ICON_CLASS_NAME = 'h-4.5 w-4.5';
 const SEARCH_DIALOG_TITLE_ID = 'site-search-title';
 const SEARCH_INPUT_ID = 'site-search-input';
@@ -30,7 +30,7 @@ export function SearchControl() {
 			>
 				<button
 					aria-label="Close search"
-					className="absolute inset-0 h-full w-full cursor-default bg-background/75 backdrop-blur-sm"
+					className="absolute inset-0 h-full w-full cursor-default bg-foreground/15 backdrop-blur-sm"
 					data-site-search-close
 					type="button"
 				/>
@@ -38,44 +38,46 @@ export function SearchControl() {
 				<section
 					aria-labelledby={SEARCH_DIALOG_TITLE_ID}
 					aria-modal="true"
-					className="relative mx-auto mt-20 w-[min(calc(100vw-1.5rem),44rem)] overflow-hidden rounded-xl border border-border bg-card shadow-2xl"
+					className="relative mx-auto mt-[max(4rem,12vh)] w-[min(calc(100vw-1.5rem),52rem)] overflow-hidden border border-border bg-background shadow-2xl"
 					role="dialog"
 				>
-					<div className="flex items-center gap-3 border-border border-b px-4 py-3">
-						<Search aria-hidden="true" className="h-5 w-5 shrink-0 text-hot-orange" />
+					<div className="border-border border-b px-5 py-5 sm:px-6">
+						<div className="flex items-start justify-between gap-4">
+							<p className="ha-briefing-label pt-1">Search</p>
+							<button
+								aria-label="Close search"
+								className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+								data-site-search-close
+								type="button"
+							>
+								<X aria-hidden="true" className="h-4 w-4" />
+							</button>
+						</div>
 						<h2 className="sr-only" id={SEARCH_DIALOG_TITLE_ID}>
 							Site search
 						</h2>
-						<search className="min-w-0 flex-1">
+						<search className="mt-5 block min-w-0">
 							<form data-site-search-form>
 								<label className="sr-only" htmlFor={SEARCH_INPUT_ID}>
 									Search Hot Aisle
 								</label>
 								<input
 									autoComplete="off"
-									className="h-11 w-full bg-transparent font-medium text-base text-foreground outline-none placeholder:text-muted-foreground"
+									className="h-12 w-full border-0 bg-transparent font-display text-2xl text-foreground outline-none placeholder:text-muted-foreground sm:text-3xl"
 									data-site-search-input
 									id={SEARCH_INPUT_ID}
 									inputMode="search"
-									placeholder="Search Hot Aisle"
+									placeholder="Search the platform"
 									type="text"
 								/>
 							</form>
 						</search>
-						<button
-							aria-label="Close search"
-							className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-							data-site-search-close
-							type="button"
-						>
-							<X aria-hidden="true" className="h-5 w-5" />
-						</button>
 					</div>
 
-					<div className="max-h-[min(28rem,calc(100vh-10rem))] overflow-y-auto p-2">
-						<div className="space-y-1" data-site-search-results />
+					<div className="max-h-[min(30rem,calc(100vh-14rem))] overflow-y-auto">
+						<div data-site-search-results />
 						<p
-							className="px-3 py-8 text-center text-muted-foreground text-sm"
+							className="px-5 py-12 text-muted-foreground text-sm sm:px-6"
 							data-site-search-empty
 							hidden
 						>

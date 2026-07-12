@@ -6,25 +6,31 @@ export function Footer() {
 
 	return (
 		<footer className="border-border border-t bg-card">
-			<div className="mx-auto max-w-7xl px-5 lg:px-8">
+			<div className="mx-auto max-w-6xl px-5 lg:px-8">
 				{/* Link columns grid */}
-				<div className="grid grid-cols-2 gap-8 py-14 md:grid-cols-4">
+				<div className="grid grid-cols-2 gap-8 py-16 md:grid-cols-4">
 					{FOOTER_COLUMNS.map((column) => (
-						<div key={column.heading}>
-							<h3 className="mb-4 font-semibold text-foreground text-xs uppercase tracking-widest">
+						<div className="text-center" key={column.heading}>
+							<h3 className="mb-4 font-mono text-foreground text-xs uppercase">
 								{column.heading}
 							</h3>
-							<ul className="space-y-3">
-								{column.links.map((link) => (
-									<li key={link.href}>
-										<AppLink
-											className="text-muted-foreground text-sm transition-colors hover:text-foreground"
-											href={link.href}
-										>
-											{link.label}
-										</AppLink>
-									</li>
-								))}
+							<ul className="flex flex-col items-center gap-3">
+								{column.links.map((link) => {
+									const isExternal = link.href.startsWith('http');
+
+									return (
+										<li key={link.href}>
+											<AppLink
+												className="text-muted-foreground text-sm transition-colors hover:text-foreground"
+												href={link.href}
+												rel={isExternal ? 'noopener' : undefined}
+												target={isExternal ? '_blank' : undefined}
+											>
+												{link.label}
+											</AppLink>
+										</li>
+									);
+								})}
 							</ul>
 						</div>
 					))}
@@ -34,7 +40,7 @@ export function Footer() {
 				<div className="border-border border-t" />
 
 				{/* Bottom row */}
-				<div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
+				<div className="flex flex-col items-center gap-5 py-8 text-center">
 					<AppLink aria-label="Home" className="shrink-0" href="/">
 						<img
 							alt="Hot Aisle"

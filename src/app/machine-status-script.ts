@@ -8,7 +8,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 	const EVENT_TYPES = new Set(['vm', 'bm']);
 	const EVENT_STATUSES = new Set(['reserved', 'deleted']);
 	const HOME_SIGNAL_ID = 'ha-machine-status-signal';
-	const HOME_SIGNAL_LINK_PATH = '/quick-start/';
+	const HOME_SIGNAL_LINK_PATH = '/quick-start';
 	const LIVE_REGION_ID = 'ha-machine-status-live-region';
 	const HOME_SIGNAL_EXIT_DURATION_MS = 260;
 	const MOBILE_HOME_SIGNAL_MEDIA_QUERY = '(max-width: 640px)';
@@ -214,10 +214,9 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 
 	function activateHomeSignal(homeSignalStack: HTMLDivElement, machineEvent: MachineStatusEvent) {
 		const { machineCount, machineLabel } = formatSignalDisplay(machineEvent);
-		const statusLabel = machineEvent.status === 'reserved' ? 'Node engaged' : 'Node released';
+		const statusLabel = machineEvent.status === 'reserved' ? 'Provisioned' : 'Released';
 		const homeSignal = document.createElement('div');
 		const dismissButton = document.createElement('button');
-		const glow = document.createElement('div');
 		const frame = document.createElement('div');
 		const topline = document.createElement('div');
 		const eyebrow = document.createElement('div');
@@ -269,13 +268,10 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 			event.stopPropagation();
 		});
 
-		glow.className = 'ha-machine-home-signal__glow';
-		glow.setAttribute('aria-hidden', 'true');
-
 		frame.className = 'ha-machine-home-signal__frame';
 		topline.className = 'ha-machine-home-signal__topline';
 		eyebrow.className = 'ha-machine-home-signal__eyebrow';
-		eyebrow.textContent = 'Realtime Capacity Alert';
+		eyebrow.textContent = 'Capacity signal';
 		livePill.className = 'ha-machine-home-signal__live-pill';
 		livePill.textContent = 'Live';
 
@@ -304,7 +300,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 		body.append(metric, copy);
 		progressTrack.append(progressBar);
 		frame.append(topline, body, progressTrack);
-		homeSignal.append(dismissButton, glow, frame);
+		homeSignal.append(dismissButton, frame);
 
 		homeSignalStack.prepend(homeSignal);
 
