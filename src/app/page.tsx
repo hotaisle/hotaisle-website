@@ -78,7 +78,7 @@ export default function Home() {
 							Compute that keeps pace with the work.
 						</h1>
 						<p className="mt-8 max-w-2xl text-muted-foreground text-xl leading-9 sm:text-2xl">
-							Hot Aisle is developer-first cloud infrastructure for production
+							Hot Aisle is novel developer-first cloud infrastructure for production
 							sovereign inference workloads. We automate the layers beneath Kubernetes
 							so your team can provision isolated AMD GPU compute in under a minute,
 							without contacting sales first.
