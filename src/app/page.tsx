@@ -194,25 +194,25 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section className="border-border border-b bg-foreground text-background">
+			<section className="border-border border-b bg-muted/70">
 				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
 					<div>
-						<p className="font-mono text-hot-orange text-xs uppercase tracking-[0.16em]">
+						<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
 							Run it your way
 						</p>
 						<h2 className="mt-5 max-w-2xl font-semibold text-5xl sm:text-6xl">
 							One platform. No artificial ceiling.
 						</h2>
-						<p className="mt-6 max-w-2xl text-background/65 text-xl leading-9">
+						<p className="mt-6 max-w-2xl text-muted-foreground text-xl leading-9">
 							Start with one GPU for one minute. Scale to a group of isolated compute.
 							When the work needs it, move to a complete bare-metal cluster without
 							moving to another vendor.
 						</p>
 					</div>
-					<div className="border-background/20 border-t">
+					<div className="border-border border-t">
 						{OPERATING_POINTS.map((point, index) => (
-							<div className="border-background/20 border-b py-6 text-lg" key={point}>
-								<p className="font-mono text-hot-orange text-xs">{`0${index + 1}`}</p>
+							<div className="border-border border-b py-6 text-lg" key={point}>
+								<p className="font-mono text-hot-orange-contrast text-xs">{`0${index + 1}`}</p>
 								<p className="mt-3">{point}</p>
 							</div>
 						))}

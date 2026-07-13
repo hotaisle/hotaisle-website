@@ -170,29 +170,29 @@ export default function InvestorsPage() {
 				</div>
 			</section>
 
-			<section className="border-border border-b bg-foreground text-background">
+			<section className="border-border border-b bg-muted/70">
 				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.78fr_1.22fr] lg:px-8 lg:py-28">
 					<div>
-						<p className="font-mono text-hot-orange text-xs uppercase tracking-[0.16em]">
+						<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
 							The expansion model
 						</p>
 						<h2 className="mt-6 max-w-xl font-semibold text-5xl leading-[1.04] sm:text-6xl">
 							Small deployments. Global reach.
 						</h2>
-						<p className="mt-6 max-w-xl text-background/65 text-xl leading-9">
+						<p className="mt-6 max-w-xl text-muted-foreground text-xl leading-9">
 							We are not pursuing one giant deployment and hoping demand follows. We
 							will grow through smaller inference-focused sites, each able to serve a
 							regional market with the same platform and operating discipline.
 						</p>
 					</div>
-					<div className="border-background/20 border-t">
+					<div className="border-border border-t">
 						{EXPANSION_MODEL.map((point) => (
 							<article
-								className="grid gap-4 border-background/20 border-b py-7 sm:grid-cols-[11rem_1fr]"
+								className="grid gap-4 border-border border-b py-7 sm:grid-cols-[11rem_1fr]"
 								key={point.title}
 							>
 								<h3 className="font-medium text-xl">{point.title}</h3>
-								<p className="text-background/65 text-lg leading-8">
+								<p className="text-lg text-muted-foreground leading-8">
 									{point.description}
 								</p>
 							</article>
