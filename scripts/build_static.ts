@@ -14,6 +14,11 @@ import path from 'node:path';
 import { minify as minifyHtml } from '@minify-html/node';
 import { transform as transformCss } from 'lightningcss';
 import { minifySync } from 'oxc-minify';
+import {
+	getTagAttributes,
+	hasVinextClientChunkReference,
+	stripVinextClientChunkReferences,
+} from '@/lib/static-export.ts';
 import { createSitemapXml } from './generate_sitemap.ts';
 
 const EXPORT_ORIGIN = 'https://static.hotaisle.local';
@@ -22,6 +27,7 @@ const BLOG_ASSET_SOURCE_DIRECTORY = path.join(PROJECT_ROOT, 'content', 'blog', '
 const DIST_DIRECTORY = path.join(PROJECT_ROOT, 'dist');
 const STATIC_DIST_DIRECTORY = path.join(PROJECT_ROOT, 'dist-static');
 const CLIENT_DIRECTORY = path.join(DIST_DIRECTORY, 'client');
+const CLIENT_CHUNKS_DIRECTORY = path.join(CLIENT_DIRECTORY, '_next', 'static', 'chunks');
 const PRERENDERED_ROUTES_DIRECTORY = path.join(DIST_DIRECTORY, 'server', 'prerendered-routes');
 const CLIENT_BLOG_ASSET_DIRECTORY = path.join(CLIENT_DIRECTORY, 'assets', 'blog');
 const SITEMAP_FILE_NAME = 'sitemap.xml';
@@ -61,11 +67,8 @@ const LINK_TAG_REGEX = /<link\b[^>]*>/g;
 const META_TAG_REGEX = /<meta\b[^>]*>/g;
 const STYLESHEET_PRELOAD_REGEX =
 	/<link\b[^>]*\brel=(?:"preload"|'preload'|preload)\b[^>]*\bas=(?:"style"|'style'|style)\b[^>]*\/?>/g;
-const MODULE_PRELOAD_REGEX =
-	/<link\b[^>]*\brel=(?:"modulepreload"|'modulepreload'|modulepreload)\b[^>]*\/?>/g;
 const TRAILING_RSC_SCRIPTS_REGEX =
 	/(<\/html>)(?:<script\b[^>]*>self\.__VINEXT_RSC_[\s\S]*?<\/script>)+\s*$/g;
-const ATTRIBUTE_VALUE_REGEX = /([^\s=]+)=(?:"([^"]*)"|'([^']*)'|([^\s>]+))/g;
 const CSS_COMMENT_REGEX = /\/\*[\s\S]*?\*\//g;
 const UNICODE_DIACRITICS_REGEX = /[\u0300-\u036f]/g;
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]+/g;
@@ -160,6 +163,7 @@ if (normalizedHtmlFileCount === 0) {
 	throw new Error('vinext static export did not produce any HTML files');
 }
 await assertNoClientBootstrapMarkers(STATIC_DIST_DIRECTORY);
+await assertNoClientRuntimeAssets(STATIC_DIST_DIRECTORY);
 await assertCompleteSocialMetadata(STATIC_DIST_DIRECTORY);
 
 async function normalizeExportedHtml(html: string): Promise<string> {
@@ -395,12 +399,15 @@ function minifyInlineStyles(html: string): string {
 function stripClientBootstrap(html: string): string {
 	const withoutPreloads = html
 		.replace(STYLESHEET_PRELOAD_REGEX, '')
-		.replace(MODULE_PRELOAD_REGEX, '')
 		.replace(TRAILING_RSC_SCRIPTS_REGEX, '$1');
 
-	return withoutPreloads.replace(INLINE_SCRIPT_REGEX, (fullMatch, attributes, content) =>
-		isVinextBootstrapScript(attributes, content) ? '' : fullMatch
+	const withoutInlineBootstrap = withoutPreloads.replace(
+		INLINE_SCRIPT_REGEX,
+		(fullMatch, attributes, content) =>
+			isVinextBootstrapScript(attributes, content) ? '' : fullMatch
 	);
+
+	return stripVinextClientChunkReferences(withoutInlineBootstrap);
 }
 
 function isVinextBootstrapScript(attributes: string, content: string): boolean {
@@ -502,19 +509,6 @@ async function inlineStylesheetLinks(html: string): Promise<string> {
 	return transformedHtml;
 }
 
-function getTagAttributes(tag: string): Record<string, string | undefined> {
-	const attributes: Record<string, string | undefined> = {};
-
-	for (const match of tag.matchAll(ATTRIBUTE_VALUE_REGEX)) {
-		const [, rawName, doubleQuotedValue, singleQuotedValue, unquotedValue] = match;
-		const normalizedName = rawName.toLowerCase();
-		const value = doubleQuotedValue ?? singleQuotedValue ?? unquotedValue ?? '';
-		attributes[normalizedName] = value;
-	}
-
-	return attributes;
-}
-
 function toLocalAssetPath(href: string): string | null {
 	const { pathname } = new URL(href, EXPORT_ORIGIN);
 
@@ -573,20 +567,28 @@ async function assertNoClientBootstrapMarkers(directory: string): Promise<void> 
 			const leakedMarker = FORBIDDEN_EXPORTED_HTML_MARKERS.find((marker) =>
 				html.includes(marker)
 			);
-			if (!leakedMarker) {
+			if (!(leakedMarker || hasVinextClientChunkReference(html))) {
 				return null;
 			}
 
 			return new Error(
-				`Static export still contains client bootstrap marker ${JSON.stringify(
+				`Static export still contains ${
 					leakedMarker
-				)} in ${path.relative(PROJECT_ROOT, fullPath)}`
+						? `client bootstrap marker ${JSON.stringify(leakedMarker)}`
+						: 'a Vinext client chunk reference'
+				} in ${path.relative(PROJECT_ROOT, fullPath)}`
 			);
 		})
 	);
 	const leakedMarkerError = leakedMarkers.find((error) => error !== null);
 	if (leakedMarkerError) {
 		throw leakedMarkerError;
+	}
+}
+
+async function assertNoClientRuntimeAssets(directory: string): Promise<void> {
+	if (await directoryExists(path.join(directory, '_next', 'static', 'chunks'))) {
+		throw new Error('Static export still contains Vinext client runtime assets.');
 	}
 }
 
@@ -651,9 +653,20 @@ async function assertCompleteSocialMetadata(directory: string): Promise<void> {
 function shouldExcludeFromStaticExport(sourcePath: string): boolean {
 	const entryName = path.basename(sourcePath);
 	return (
+		isPathWithinDirectory(sourcePath, CLIENT_CHUNKS_DIRECTORY) ||
 		entryName.startsWith(DEV_FILE_PREFIX) ||
 		entryName === '.DS_Store' ||
 		entryName === VITE_METADATA_DIRECTORY_NAME ||
 		entryName === WRANGLER_CONFIG_FILE_NAME
+	);
+}
+
+function isPathWithinDirectory(sourcePath: string, directoryPath: string): boolean {
+	const relativePath = path.relative(directoryPath, sourcePath);
+	return (
+		relativePath.length === 0 ||
+		(!relativePath.startsWith(`..${path.sep}`) &&
+			relativePath !== '..' &&
+			!path.isAbsolute(relativePath))
 	);
 }
