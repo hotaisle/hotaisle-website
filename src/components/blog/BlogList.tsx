@@ -31,13 +31,25 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 					>
 						<div className="relative aspect-16/10 w-full overflow-hidden border-border border-b bg-white dark:bg-black">
 							{post.coverImage ? (
-								<OptimizedImage
-									alt={post.title}
-									className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-									height={450}
-									src={post.coverImage}
-									width={720}
-								/>
+								<>
+									<OptimizedImage
+										alt={post.title}
+										className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${post.coverImageDark ? 'dark:hidden' : ''}`}
+										height={450}
+										src={post.coverImage}
+										width={720}
+									/>
+									{post.coverImageDark ? (
+										<OptimizedImage
+											alt=""
+											aria-hidden="true"
+											className="hidden h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 dark:block"
+											height={450}
+											src={post.coverImageDark}
+											width={720}
+										/>
+									) : null}
+								</>
 							) : null}
 						</div>
 

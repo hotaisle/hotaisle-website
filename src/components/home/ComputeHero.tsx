@@ -1,5 +1,6 @@
 import { ArrowRight, Zap } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
+import { MI300X_VM_PRICE } from '@/lib/pricing.ts';
 
 export function ComputeHero() {
 	const rackDepths = [16, -36, -88, -140, -192, -244, -296, -348];
@@ -120,7 +121,7 @@ export function ComputeHero() {
 				</div>
 
 				<p className="mt-6 text-base text-muted-foreground opacity-80">
-					No Contracts. No Commitments. No Drama. Just $1.99/hr.
+					No Contracts. No Commitments. No Drama. Just {MI300X_VM_PRICE}.
 				</p>
 			</div>
 

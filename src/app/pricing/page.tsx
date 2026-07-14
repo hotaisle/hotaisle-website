@@ -1,9 +1,11 @@
 import { Check } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
-
-const vmPrice = '$1.99/GPU/hr';
-const bareMetalPrice = '$3.39/GPU/hr';
+import {
+	GRANDFATHERED_MI300X_VM_PRICE,
+	MI300X_BARE_METAL_PRICE,
+	MI300X_VM_PRICE,
+} from '@/lib/pricing.ts';
 
 const INCLUDED_CAPABILITIES = [
 	{
@@ -35,7 +37,7 @@ const INCLUDED_CAPABILITIES = [
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
-			'Transparent AMD GPU pricing from Hot Aisle with hourly VM billing and 8x MI300x bare-metal monthly terms.',
+			'Transparent AMD GPU pricing from Hot Aisle with $2.99 hourly MI300X VM billing and 8x MI300X bare-metal monthly terms.',
 		path: '/pricing',
 		title: 'Pricing',
 	});
@@ -62,10 +64,10 @@ export default function PricingPage() {
 								Virtual machines
 							</p>
 							<p className="mt-3 font-black text-3xl text-foreground md:text-4xl">
-								{vmPrice}
+								{MI300X_VM_PRICE}
 							</p>
 							<p className="mt-2 text-muted-foreground text-sm">
-								1, 2, 4x MI300x VMs. Billed by the minute.
+								New customer rate. 1, 2, and 4x MI300X VMs, billed by the minute.
 							</p>
 						</div>
 						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">
@@ -73,13 +75,20 @@ export default function PricingPage() {
 								8x bare metal
 							</p>
 							<p className="mt-3 font-black text-3xl text-foreground md:text-4xl">
-								{bareMetalPrice}
+								{MI300X_BARE_METAL_PRICE}
 							</p>
 							<p className="mt-2 text-muted-foreground text-sm">
 								Dedicated full-node access. One-month minimum.
 							</p>
 						</div>
 					</div>
+					<p className="mt-5 text-muted-foreground text-sm">
+						Existing customers remain grandfathered at{' '}
+						<strong className="font-medium text-foreground">
+							{GRANDFATHERED_MI300X_VM_PRICE}
+						</strong>
+						.
+					</p>
 				</div>
 			</div>
 
@@ -99,7 +108,7 @@ export default function PricingPage() {
 									MI300x
 								</span>
 							</div>
-							<p className="mb-3 font-bold text-foreground">{vmPrice}</p>
+							<p className="mb-3 font-bold text-foreground">{MI300X_VM_PRICE}</p>
 							<p className="text-muted-foreground text-sm">
 								Ideal for experimentation and development.
 							</p>
@@ -145,7 +154,7 @@ export default function PricingPage() {
 									MI300x
 								</span>
 							</div>
-							<p className="mb-3 font-bold text-foreground">{vmPrice}</p>
+							<p className="mb-3 font-bold text-foreground">{MI300X_VM_PRICE}</p>
 							<p className="text-muted-foreground text-sm">
 								For model fine-tuning and medium workloads.
 							</p>
@@ -193,7 +202,7 @@ export default function PricingPage() {
 							</div>
 							<div className="mb-3 space-y-1">
 								<p className="font-bold text-foreground">
-									{bareMetalPrice}
+									{MI300X_BARE_METAL_PRICE}
 									<span className="font-normal text-muted-foreground">
 										{' '}
 										bare metal, one-month minimum

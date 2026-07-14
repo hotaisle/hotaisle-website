@@ -7,6 +7,7 @@ export interface PageData {
 	authorProfile?: BlogAuthorProfile;
 	contentHtml: string;
 	coverImage?: string;
+	coverImageDark?: string;
 	date?: string;
 	description?: string;
 	haFooter?: boolean;
@@ -20,6 +21,7 @@ export interface PageData {
 
 export type BlogPost = PageData & {
 	coverImage?: string;
+	coverImageDark?: string;
 	date: string;
 	tags?: string[];
 };

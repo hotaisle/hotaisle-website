@@ -1,4 +1,5 @@
 import { Play } from 'lucide-react';
+import { MI300X_VM_PRICE } from '@/lib/pricing.ts';
 
 export function VideoSection() {
 	return (
@@ -8,7 +9,7 @@ export function VideoSection() {
 					{/* Text Side */}
 					<div className="flex-1 text-center md:text-left">
 						<h2 className="mb-6 font-black text-4xl tracking-tight md:text-5xl">
-							Just $1.99/hr. <br />
+							Just {MI300X_VM_PRICE}. <br />
 							<span className="text-hot-orange-contrast">Zero Commitment.</span>
 						</h2>
 						<p className="mb-8 text-muted-foreground text-xl leading-relaxed">

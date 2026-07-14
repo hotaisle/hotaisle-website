@@ -11,6 +11,7 @@ import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import sharp from 'sharp';
+import { enhanceBlogTldrBlocks } from '@/lib/blog-tldr.ts';
 import { toCanonicalDocumentHref } from '@/lib/canonical-href.ts';
 import { getModernImageVariants } from '@/lib/image-optimization.ts';
 import { embedStandaloneYouTubeLinks } from '@/lib/youtube.ts';
@@ -42,6 +43,7 @@ const WINDOWS_PATH_SEPARATOR_REGEX = /\\/g;
 const NEW_LINE_SPLIT_REGEX = /\r?\n/;
 const IMAGE_EXTENSION_REGEX = /\.(?:avif|gif|jpe?g|png|svg|webp)(?:$|[?#])/i;
 const BLOG_HEADER_FILE_NAMES = ['header.jpg', 'header.png'] as const;
+const BLOG_DARK_HEADER_FILE_NAMES = ['header-dark.jpg', 'header-dark.png'] as const;
 const BLOG_IMAGE_TAG_REGEX = /<img\b([^>]*?)src="([^"]+)"([^>]*)>/g;
 const CLASS_ATTRIBUTE_REGEX = /\sclass="([^"]*)"/;
 const TITLE_ATTRIBUTE_REGEX = /\stitle="([^"]*)"/;
@@ -80,6 +82,7 @@ interface RawBlogPost {
 	authorProfile?: BlogAuthorProfile;
 	contentMarkdown: string;
 	coverImage?: string;
+	coverImageDark?: string;
 	date: string;
 	description: string;
 	haFooter: boolean;
@@ -98,6 +101,7 @@ interface ParsedBlogPost {
 	authorProfile?: BlogAuthorProfile;
 	contentMarkdown: string;
 	coverImage?: string;
+	coverImageDark?: string;
 	date: string;
 	description: string;
 	haFooter: boolean;
@@ -122,6 +126,7 @@ interface GeneratedBlogPost {
 	authorProfile?: BlogAuthorProfile;
 	contentHtml: string;
 	coverImage?: string;
+	coverImageDark?: string;
 	date: string;
 	description: string;
 	haFooter: boolean;
@@ -364,14 +369,17 @@ function toAssetUrl(assetPath: string): string {
 	return `${BLOG_ASSET_PREFIX}${encoded}`;
 }
 
-function resolveBlogHeaderImage(slug: string): string | undefined {
+function resolveBlogHeaderImage(
+	slug: string,
+	fileNames: readonly string[] = BLOG_HEADER_FILE_NAMES
+): string | undefined {
 	const headerDirectory = path.join(BLOG_ASSET_SOURCE_DIR, slug);
 
 	if (!fs.existsSync(headerDirectory)) {
 		return;
 	}
 
-	for (const fileName of BLOG_HEADER_FILE_NAMES) {
+	for (const fileName of fileNames) {
 		const headerPath = path.join(headerDirectory, fileName);
 		if (fs.existsSync(headerPath)) {
 			return `${BLOG_ASSET_PREFIX}${slug}/${fileName}`;
@@ -457,7 +465,6 @@ function parseLegacyMarkdown(fileContents: string): ParsedLegacyMarkdown {
 			continue;
 		}
 
-		lineIndex += 1;
 		break;
 	}
 
@@ -497,6 +504,7 @@ function parseBlogFile(
 		: withoutDuplicateHeading || parsed.contentMarkdown;
 	const configuredCoverImagePath = parsed.metadata['cover image']?.trim();
 	const headerImage = resolveBlogHeaderImage(slug);
+	const darkHeaderImage = resolveBlogHeaderImage(slug, BLOG_DARK_HEADER_FILE_NAMES);
 	const hasExplicitCoverImageSetting = configuredCoverImagePath !== undefined;
 	const coverImage = resolveBlogCoverImage(configuredCoverImagePath, normalizedContent);
 
@@ -505,6 +513,7 @@ function parseBlogFile(
 		authorProfile,
 		contentMarkdown: normalizedContent,
 		coverImage: hasExplicitCoverImageSetting ? coverImage : (headerImage ?? coverImage),
+		coverImageDark: hasExplicitCoverImageSetting ? undefined : darkHeaderImage,
 		date,
 		description,
 		haFooter,
@@ -785,12 +794,13 @@ function toDarkMermaidDiagramSource(sourcePath: string): string {
 }
 
 async function enhanceRenderedHtml(html: string): Promise<string> {
-	const matches = Array.from(html.matchAll(BLOG_IMAGE_TAG_REGEX));
+	const htmlWithTldrBlocks = enhanceBlogTldrBlocks(html);
+	const matches = Array.from(htmlWithTldrBlocks.matchAll(BLOG_IMAGE_TAG_REGEX));
 	if (matches.length === 0) {
-		return embedStandaloneYouTubeLinks(html);
+		return embedStandaloneYouTubeLinks(htmlWithTldrBlocks);
 	}
 
-	let enhancedHtml = html;
+	let enhancedHtml = htmlWithTldrBlocks;
 	const replacementResults = await Promise.all(
 		matches.map(async (match) => {
 			const [fullTag, beforeSrcAttributes = '', src, afterSrcAttributes = ''] = match;
@@ -919,6 +929,7 @@ async function generateBlogData(): Promise<void> {
 				authorProfile: post.authorProfile,
 				contentHtml,
 				coverImage: post.coverImage,
+				coverImageDark: post.coverImageDark,
 				date: post.date,
 				description: post.description,
 				haFooter: post.haFooter,
@@ -945,6 +956,7 @@ export interface GeneratedBlogPost {
 	authorProfile?: BlogAuthorProfile;
 	contentHtml: string;
 	coverImage?: string;
+	coverImageDark?: string;
 	date: string;
 	description: string;
 	haFooter: boolean;
