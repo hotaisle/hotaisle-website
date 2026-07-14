@@ -1,3 +1,5 @@
+import { MI300X_VM_PRICE } from '@/lib/pricing.ts';
+
 export interface SearchResult {
 	category: 'Page' | 'Blog' | 'Policy';
 	description: string;
@@ -53,7 +55,7 @@ export const STATIC_SEARCH_PAGES: SearchResult[] = [
 	},
 	{
 		category: 'Page',
-		description: 'Transparent GPU pricing starting at $1.99/hr.',
+		description: `Transparent GPU pricing starting at ${MI300X_VM_PRICE}.`,
 		title: 'Pricing',
 		type: 'Page',
 		url: '/pricing',

@@ -4,7 +4,7 @@ import { findSearchResults, type SearchResult } from '@/lib/search.ts';
 const SEARCH_RESULTS: SearchResult[] = [
 	{
 		category: 'Page',
-		description: 'Transparent GPU pricing starting at $1.99/hr.',
+		description: 'Transparent GPU pricing starting at $2.99/GPU/hr.',
 		title: 'Pricing',
 		type: 'Page',
 		url: '/pricing',

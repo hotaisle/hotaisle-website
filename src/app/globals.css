@@ -1122,6 +1122,44 @@ img[data-image-modal="true"] {
 	border-left-color: var(--hot-orange);
 }
 
+.ha-blog-article .blog-tldr {
+	display: grid;
+	gap: 0.75rem;
+	padding: 1.5rem;
+	margin: 0 0 3rem;
+	background: color-mix(in srgb, var(--muted) 70%, var(--background));
+	border-top: 1px solid var(--border);
+	border-bottom: 1px solid var(--border);
+	box-shadow: inset 2px 0 0 var(--hot-orange-contrast);
+}
+
+.ha-blog-article .blog-tldr__label {
+	margin: 0;
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-weight: 500;
+	line-height: 1.5;
+	color: var(--hot-orange-contrast);
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+}
+
+.ha-blog-article .blog-tldr__summary {
+	margin: 0;
+	font-size: 1.125rem;
+	font-style: normal;
+	line-height: 1.8;
+	color: var(--foreground);
+}
+
+@media (min-width: 640px) {
+	.ha-blog-article .blog-tldr {
+		grid-template-columns: 6rem 1fr;
+		gap: 2rem;
+		padding: 1.75rem 2rem;
+	}
+}
+
 .prose ul > li::marker {
 	font-weight: 700;
 	color: var(--hot-orange);

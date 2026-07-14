@@ -1,5 +1,6 @@
 import { ArrowRight, Clock, Cpu, CreditCard, Lock, MemoryStick, Zap } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
+import { MI300X_VM_PRICE } from '@/lib/pricing.ts';
 
 const FEATURES = [
 	{
@@ -24,11 +25,10 @@ const FEATURES = [
 		title: '60-Second Deploy',
 	},
 	{
-		description:
-			'$1.99 per GPU per hour, billed by the minute. See exactly what you pay — no hidden fees, no surprises.',
+		description: `${MI300X_VM_PRICE}, billed by the minute. See exactly what you pay — no hidden fees, no surprises.`,
 		icon: CreditCard,
 		label: 'Transparent',
-		title: '$1.99/GPU/hr',
+		title: MI300X_VM_PRICE,
 	},
 	{
 		description:

@@ -181,12 +181,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 						<figure className="border border-border bg-muted p-2 sm:p-3 lg:self-center">
 							<OptimizedImage
 								alt={post.title}
-								className="aspect-video w-full object-cover object-left"
+								className={`aspect-video w-full object-cover object-left ${post.coverImageDark ? 'dark:hidden' : ''}`}
 								disableAvif
 								height={900}
 								src={post.coverImage}
 								width={1200}
 							/>
+							{post.coverImageDark ? (
+								<OptimizedImage
+									alt=""
+									aria-hidden="true"
+									className="hidden aspect-video w-full object-cover object-left dark:block"
+									disableAvif
+									height={900}
+									src={post.coverImageDark}
+									width={1200}
+								/>
+							) : null}
 						</figure>
 					) : null}
 				</div>
