@@ -54,8 +54,8 @@
 		"use-local-storage-state": "^19.5.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.5.3",
-		"@cloudflare/vite-plugin": "^1.44.0",
+		"@biomejs/biome": "^2.5.4",
+		"@cloudflare/vite-plugin": "^1.45.0",
 		"@minify-html/node": "^0.18.1",
 		"@tailwindcss/language-server": "^0.14.29",
 		"@tailwindcss/postcss": "^4.3.2",
@@ -68,15 +68,14 @@
 		"bun-types": "^1.3.14",
 		"lighthouse": "^13.4.0",
 		"lightningcss": "^1.32.0",
-		"oxc-minify": "^0.139.0",
-		"rolldown": "^1.1.5",
+		"oxc-minify": "^0.140.0",
+		"rolldown": "^1.2.0",
 		"sharp": "^0.35.3",
 		"tailwindcss": "^4.3.2",
 		"typescript": "^7.0.2",
-		"typescript-language-server-tsserver": "npm:typescript@^6.0.3",
-		"ultracite": "^7.9.3",
+		"ultracite": "^7.9.4",
 		"vinext": "^1.0.0-beta.1",
 		"vite": "^8.1.4",
-		"wrangler": "^4.110.0"
+		"wrangler": "^4.111.0"
 	}
 }
