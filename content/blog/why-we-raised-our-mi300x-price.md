@@ -3,7 +3,7 @@
 Slug: why-we-raised-our-mi300x-price
 Publish: Yes
 Meta Title: Why Hot Aisle Raised Its MI300X Price
-Meta Description: Why Hot Aisle raised new-customer MI300X VM pricing to $2.99 per GPU hour while grandfathering existing customers at $1.99.
+Meta Description: Why Hot Aisle raised newly allocated MI300X VM pricing to $2.99 per GPU hour while keeping existing allocations at $1.99.
 Meta Keywords: hot aisle pricing, amd mi300x, amd mi355x, gpu cloud pricing, inference cloud, sovereign inference
 Author: Jon Stevens
 Date: 07/14/2026
@@ -11,7 +11,7 @@ Description: Why our MI300X VM price is changing, what remains the same, and why
 Featured: No
 Tags: Announcements, Thoughts
 
-> **TL;DR:** We raised the new-customer MI300X VM price because we are at full capacity and $1.99 no longer reflects the value of a battle-tested service, direct support, and AMD's position in the market. New customers now pay $2.99 per GPU hour, existing customers remain grandfathered at $1.99, and bare metal stays at $3.39.
+> **TL;DR:** We raised the price of newly allocated MI300X VM compute because we are at full capacity and $1.99 no longer reflects the value of a battle-tested service, direct support, and AMD's position in the market. All customers now pay $2.99 per GPU hour for newly allocated compute, existing allocations remain at $1.99, and bare metal stays at $3.39.
 
 This deliberate change deserves a direct, transparent explanation.
 
@@ -83,7 +83,7 @@ To the early customers who supported us: thank you. We would not be here without
 
 ## What Changes And What Does Not
 
-The new-customer MI300X VM price is $2.99 per GPU hour. Existing Hot Aisle customers stay at $1.99 per GPU hour. MI300X bare metal stays at $3.39 per GPU hour with a one-month minimum.
+All customers pay $2.99 per GPU hour for newly allocated MI300X VM compute. Allocations made before the change remain at $1.99 per GPU hour. MI300X bare metal stays at $3.39 per GPU hour with a one-month minimum.
 
 Everything important about the service remains the same: no multi-year contract (unless you really want one), no required sales call, minute-level VM billing, isolated compute, full developer access, and support from the team operating the platform.
 
