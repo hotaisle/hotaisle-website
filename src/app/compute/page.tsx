@@ -137,16 +137,13 @@ export default function ComputePage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border">
-						{SPECS.map((spec, index) => (
+						{SPECS.map((spec) => (
 							<article
 								className="grid gap-8 bg-background p-8 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
 								key={spec.name}
 							>
 								<div>
-									<p className="font-mono text-hot-orange-contrast text-xs">
-										{String(index + 1).padStart(2, '0')}
-									</p>
-									<h3 className="mt-8 font-bold text-2xl text-foreground">
+									<h3 className="font-bold text-2xl text-foreground">
 										{spec.name}
 									</h3>
 									<p className="mt-3 max-w-xs text-muted-foreground text-sm leading-relaxed">
@@ -206,12 +203,9 @@ export default function ComputePage() {
 							/>
 						</figure>
 						<div className="grid gap-px bg-border md:grid-cols-2">
-							{OPERATIONS.map((operation, index) => (
+							{OPERATIONS.map((operation) => (
 								<div className="min-h-56 bg-background p-8" key={operation.title}>
-									<p className="font-mono text-hot-orange-contrast text-xs">
-										{String(index + 1).padStart(2, '0')}
-									</p>
-									<h3 className="mt-8 font-bold text-2xl text-foreground">
+									<h3 className="font-bold text-2xl text-foreground">
 										{operation.title}
 									</h3>
 									<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">

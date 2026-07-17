@@ -66,15 +66,12 @@ export default function PoliciesIndexPage() {
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<p className="ha-briefing-label">Documents</p>
 						<div className="border-border border-y">
-							{POLICIES.map((policy, index) => (
+							{POLICIES.map((policy) => (
 								<AppLink
-									className="group grid gap-5 border-border border-b py-7 transition-colors last:border-b-0 hover:bg-muted/35 sm:grid-cols-[3rem_1fr_auto] sm:items-start sm:px-5"
+									className="group grid gap-5 border-border border-b py-7 transition-colors last:border-b-0 hover:bg-muted/35 sm:grid-cols-[1fr_auto] sm:items-start sm:px-5"
 									href={`/policies/${policy.slug}`}
 									key={policy.slug}
 								>
-									<p className="font-mono text-hot-orange-contrast text-xs">
-										{String(index + 1).padStart(2, '0')}
-									</p>
 									<div>
 										<h2 className="font-bold text-foreground text-xl">
 											{policy.title}

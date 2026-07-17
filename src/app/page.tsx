@@ -6,34 +6,59 @@ const PLATFORM_LAYERS = [
 	{
 		description:
 			'NetBox-backed source of truth with our own custom integrations that turn inventory into usable capacity.',
-		label: '01 / Foundation',
+		label: 'Foundation',
 		title: 'Infrastructure intelligence',
 	},
 	{
 		description:
 			'Automated SONiC networking, PXE boot, host setup, operating systems, and current ROCm drivers.',
-		label: '02 / Physical layer',
+		label: 'Physical layer',
 		title: 'Hardware brought online',
 	},
 	{
 		description:
 			'NUMA-balanced KVM virtual machines with direct GPU access, designed for performance without noisy neighbors.',
-		label: '03 / Compute layer',
+		label: 'Compute layer',
 		title: 'Isolation by default',
 	},
 	{
 		description:
 			'One platform, exposed through our terminal UI (TUI), API, and CLI that your AI already knows how to use.',
-		label: '04 / Developer layer',
+		label: 'Developer layer',
 		title: 'Capacity on command',
+	},
+	{
+		description:
+			'Your team builds and deploys products and solutions here, using Hot Aisle as the underlying infrastructure. Our own additional tooling and support for this layer are coming soon.',
+		label: 'Application layer',
+		title: 'Build and deploy',
 	},
 ] as const;
 
+const PARTNERS = [
+	{ href: 'https://www.dell.com/', name: 'Dell' },
+	{ href: 'https://www.amd.com/', name: 'AMD' },
+	{ href: 'https://www.advizex.com/', name: 'Advizex' },
+	{ href: 'https://www.broadcom.com/', name: 'Broadcom' },
+] as const;
+
 const OPERATING_POINTS = [
-	'Credit card to running compute in under a minute',
-	'Usage-based billing through Stripe, down to the minute',
-	'One GPU VM, a dedicated node, or a complete bare-metal cluster',
-	'Direct support from the people who operate the platform',
+	{
+		description: 'Credit card to running compute in under a minute',
+		label: 'Provision',
+	},
+	{
+		description: 'Usage-based billing through Stripe, down to the minute',
+		label: 'Meter',
+	},
+	{
+		description: 'One GPU VM, a dedicated node, or a complete bare-metal cluster',
+		label: 'Grow',
+	},
+	{
+		description: 'Direct support from the people who operate the platform',
+		label: 'Support',
+	},
 ] as const;
 
 const LEADERSHIP_POINTS = [
@@ -146,14 +171,21 @@ export default function Home() {
 				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:grid-cols-[1fr_auto] sm:items-center lg:px-8">
 					<p className="max-w-3xl text-lg text-muted-foreground leading-8 sm:text-xl">
 						Built and operated by a team that believes infrastructure should feel
-						responsive. Trusted by customers worldwide and partners including Dell, AMD,
-						Advizex, and Broadcom.
+						responsive. Trusted by customers worldwide and partners.
 					</p>
 					<div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-foreground text-sm uppercase tracking-widest">
-						<span>Dell</span>
-						<span>AMD</span>
-						<span>Advizex</span>
-						<span>Broadcom</span>
+						{PARTNERS.map((partner) => (
+							<a
+								aria-label={`${partner.name} website (opens in a new tab)`}
+								className="text-foreground no-underline focus-visible:outline-2 focus-visible:outline-hot-orange-contrast focus-visible:outline-offset-4"
+								href={partner.href}
+								key={partner.name}
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								{partner.name}
+							</a>
+						))}
 					</div>
 				</div>
 			</section>
@@ -176,11 +208,11 @@ export default function Home() {
 					<div className="border-border border-t">
 						{PLATFORM_LAYERS.map((layer) => (
 							<article
-								className="grid gap-4 border-border border-b py-6 sm:grid-cols-[10rem_1fr] sm:items-start"
+								className="grid gap-4 border-border border-b py-6 sm:grid-cols-[12rem_1fr] sm:items-start"
 								key={layer.title}
 							>
 								<div>
-									<p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.12em]">
+									<p className="whitespace-nowrap font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.12em]">
 										{layer.label}
 									</p>
 									<h3 className="mt-2 font-medium text-xl">{layer.title}</h3>
@@ -210,10 +242,15 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="border-border border-t">
-						{OPERATING_POINTS.map((point, index) => (
-							<div className="border-border border-b py-6 text-lg" key={point}>
-								<p className="font-mono text-hot-orange-contrast text-xs">{`0${index + 1}`}</p>
-								<p className="mt-3">{point}</p>
+						{OPERATING_POINTS.map((point) => (
+							<div
+								className="grid gap-3 border-border border-b py-6 text-lg sm:grid-cols-[8rem_1fr] sm:items-baseline"
+								key={point.label}
+							>
+								<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.12em]">
+									{point.label}
+								</p>
+								<p>{point.description}</p>
 							</div>
 						))}
 					</div>
@@ -243,10 +280,7 @@ export default function Home() {
 								className={`border-border border-b py-7 ${index ? 'md:border-l md:pl-7' : 'md:pr-7'}`}
 								key={point.title}
 							>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-5 font-medium text-xl">{point.title}</h3>
+								<h3 className="font-medium text-xl">{point.title}</h3>
 								<p className="mt-3 max-w-sm text-lg text-muted-foreground leading-8">
 									{point.description}
 								</p>

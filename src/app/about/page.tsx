@@ -125,12 +125,9 @@ export default function AboutPage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
-						{FOUNDERS.map((founder, index) => (
+						{FOUNDERS.map((founder) => (
 							<article className="bg-background p-8" key={founder.name}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<div className="mt-8 grid gap-6 sm:grid-cols-[12rem_1fr] sm:items-start">
+								<div className="grid gap-6 sm:grid-cols-[12rem_1fr] sm:items-start">
 									<OptimizedImage
 										alt={founder.name}
 										className="aspect-2/3 w-full border border-border object-cover"
@@ -179,12 +176,9 @@ export default function AboutPage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
-						{OPERATING_PRINCIPLES.map((principle, index) => (
+						{OPERATING_PRINCIPLES.map((principle) => (
 							<article className="min-h-64 bg-background p-8" key={principle.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-10 font-bold text-2xl text-foreground">
+								<h3 className="font-bold text-2xl text-foreground">
 									{principle.title}
 								</h3>
 								<p className="mt-4 text-muted-foreground leading-relaxed">

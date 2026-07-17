@@ -136,12 +136,9 @@ export default function ClusterPage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
-						{CLUSTER_CAPABILITIES.map((capability, index) => (
+						{CLUSTER_CAPABILITIES.map((capability) => (
 							<article className="min-h-60 bg-background p-8" key={capability.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-10 font-bold text-2xl text-foreground">
+								<h3 className="font-bold text-2xl text-foreground">
 									{capability.title}
 								</h3>
 								<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
@@ -168,12 +165,9 @@ export default function ClusterPage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
-						{DELIVERY_FOUNDATIONS.map((foundation, index) => (
+						{DELIVERY_FOUNDATIONS.map((foundation) => (
 							<article className="min-h-56 bg-background p-8" key={foundation.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-10 font-bold text-2xl text-foreground">
+								<h3 className="font-bold text-2xl text-foreground">
 									{foundation.title}
 								</h3>
 								<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
@@ -199,12 +193,9 @@ export default function ClusterPage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4">
-						{SERVICES.map((service, index) => (
+						{SERVICES.map((service) => (
 							<article className="min-h-56 bg-background p-8" key={service.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-10 font-bold text-foreground text-xl">
+								<h3 className="font-bold text-foreground text-xl">
 									{service.title}
 								</h3>
 								<p className="mt-4 text-muted-foreground text-sm leading-relaxed">
