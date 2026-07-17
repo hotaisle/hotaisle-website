@@ -120,12 +120,9 @@ export default function PartnersPage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
-						{RELATIONSHIP_OUTCOMES.map((outcome, index) => (
+						{RELATIONSHIP_OUTCOMES.map((outcome) => (
 							<article className="min-h-64 bg-background p-8" key={outcome.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-10 font-bold text-2xl text-foreground">
+								<h3 className="font-bold text-2xl text-foreground">
 									{outcome.title}
 								</h3>
 								<p className="mt-4 text-muted-foreground leading-relaxed">
@@ -151,16 +148,13 @@ export default function PartnersPage() {
 					</div>
 
 					<div className="mt-12 border-border border-t">
-						{PARTNER_GROUPS.map((group, index) => (
+						{PARTNER_GROUPS.map((group) => (
 							<section
 								className="grid gap-8 py-10 lg:grid-cols-[0.75fr_1.25fr]"
 								key={group.title}
 							>
 								<div>
-									<p className="font-mono text-hot-orange-contrast text-xs">
-										{String(index + 1).padStart(2, '0')}
-									</p>
-									<h3 className="mt-6 font-bold text-2xl text-foreground">
+									<h3 className="font-bold text-2xl text-foreground">
 										{group.title}
 									</h3>
 									<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">

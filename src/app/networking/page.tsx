@@ -147,16 +147,13 @@ export default function NetworkingPage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border">
-						{FABRIC_LAYERS.map((layer, index) => (
+						{FABRIC_LAYERS.map((layer) => (
 							<article
 								className="grid gap-8 bg-background p-8 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
 								key={layer.title}
 							>
 								<div>
-									<p className="font-mono text-hot-orange-contrast text-xs">
-										{String(index + 1).padStart(2, '0')}
-									</p>
-									<h3 className="mt-8 font-bold text-2xl text-foreground">
+									<h3 className="font-bold text-2xl text-foreground">
 										{layer.title}
 									</h3>
 									<p className="mt-3 text-muted-foreground text-sm leading-relaxed">

@@ -126,14 +126,9 @@ export default function DatacenterPage() {
 				</div>
 
 				<div className="mt-10 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
-					{advantages.map((item, index) => (
+					{advantages.map((item) => (
 						<div className="min-h-64 bg-background p-8" key={item.title}>
-							<p className="font-mono text-hot-orange-contrast text-xs">
-								{String(index + 1).padStart(2, '0')}
-							</p>
-							<h3 className="mt-12 font-bold text-2xl text-foreground">
-								{item.title}
-							</h3>
+							<h3 className="font-bold text-2xl text-foreground">{item.title}</h3>
 							<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
 								{item.desc}
 							</p>

@@ -106,7 +106,7 @@ export function generateMetadata() {
 function ResourceGrid({ columns, resources }: { columns: string; resources: readonly Resource[] }) {
 	return (
 		<div className={`mt-12 grid gap-px bg-border ${columns}`}>
-			{resources.map((resource, index) => {
+			{resources.map((resource) => {
 				const isExternal = resource.href.startsWith('http');
 				const linkClassName =
 					'mt-auto inline-flex items-center gap-2 pt-8 font-medium text-hot-orange-contrast text-sm hover:text-foreground';
@@ -116,12 +116,7 @@ function ResourceGrid({ columns, resources }: { columns: string; resources: read
 						className="flex min-h-60 flex-col bg-background p-8"
 						key={resource.title}
 					>
-						<p className="font-mono text-hot-orange-contrast text-xs">
-							{String(index + 1).padStart(2, '0')}
-						</p>
-						<h3 className="mt-10 font-bold text-2xl text-foreground">
-							{resource.title}
-						</h3>
+						<h3 className="font-bold text-2xl text-foreground">{resource.title}</h3>
 						<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
 							{resource.description}
 						</p>

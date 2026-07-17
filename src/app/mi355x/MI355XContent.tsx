@@ -126,15 +126,12 @@ export default function MI355XContent() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
-						{PLATFORM_CHARACTERISTICS.map((characteristic, index) => (
+						{PLATFORM_CHARACTERISTICS.map((characteristic) => (
 							<article
 								className="min-h-64 bg-background p-8"
 								key={characteristic.title}
 							>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-10 font-bold text-2xl text-foreground">
+								<h3 className="font-bold text-2xl text-foreground">
 									{characteristic.title}
 								</h3>
 								<p className="mt-4 text-muted-foreground leading-relaxed">
@@ -161,12 +158,9 @@ export default function MI355XContent() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
-						{DEPLOYMENT_FOUNDATIONS.map((foundation, index) => (
+						{DEPLOYMENT_FOUNDATIONS.map((foundation) => (
 							<article className="min-h-60 bg-background p-8" key={foundation.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-10 font-bold text-2xl text-foreground">
+								<h3 className="font-bold text-2xl text-foreground">
 									{foundation.title}
 								</h3>
 								<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
