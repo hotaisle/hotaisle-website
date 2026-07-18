@@ -83,10 +83,17 @@ export default function PricingPage() {
 						</div>
 					</div>
 					<p className="mt-5 text-muted-foreground text-sm">
-						Existing customers remain grandfathered at{' '}
+						Existing customers with running compute remain grandfathered at{' '}
 						<strong className="font-medium text-foreground">
 							{GRANDFATHERED_MI300X_VM_PRICE}
 						</strong>
+						.{' '}
+						<AppLink
+							className="font-medium text-hot-orange-contrast hover:text-foreground"
+							href="/blog/why-we-raised-our-mi300x-price"
+						>
+							Why we raised our MI300X price
+						</AppLink>
 						.
 					</p>
 				</div>
@@ -254,12 +261,9 @@ export default function PricingPage() {
 					</div>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
-						{INCLUDED_CAPABILITIES.map((capability, index) => (
+						{INCLUDED_CAPABILITIES.map((capability) => (
 							<div className="min-h-56 bg-background p-8" key={capability.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-10 font-bold text-2xl text-foreground">
+								<h3 className="font-bold text-2xl text-foreground">
 									{capability.title}
 								</h3>
 								<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
