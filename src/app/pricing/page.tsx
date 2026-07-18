@@ -278,7 +278,7 @@ export default function PricingPage() {
 			{/* Resources Section */}
 			<div className="container mx-auto mt-16 max-w-7xl px-6">
 				<div className="border border-border bg-muted/35">
-					<div className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:items-end sm:p-8">
+					<div className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
 						<div>
 							<p className="ha-briefing-label">MI355X availability</p>
 							<h3 className="mt-4 font-medium text-2xl text-foreground">
@@ -292,7 +292,7 @@ export default function PricingPage() {
 							className="inline-flex min-h-12 items-center justify-center bg-foreground px-6 py-3 font-medium text-background transition-opacity hover:opacity-85"
 							href="/mi355x"
 						>
-							Start now
+							Reserve now
 						</AppLink>
 					</div>
 				</div>
