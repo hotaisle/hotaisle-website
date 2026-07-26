@@ -1,0 +1,15 @@
+---
+import Page, { generateMetadata } from '@/components/pages/BlogIndexPage.tsx';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+
+const metadata = generateMetadata();
+const posts = (await getCollection('blog')).map((entry: CollectionEntry<'blog'>) => ({
+	slug: entry.id,
+	...entry.data,
+}));
+---
+
+<BaseLayout metadata={metadata}>
+	<Page posts={posts} />
+</BaseLayout>

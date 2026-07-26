@@ -23,7 +23,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 
 -   **🔥 3D Hero**: A custom, CSS-driven 3D animation.
 -   **🎨 Premium UI System**: Built with Tailwind CSS, supporting seamless Light/Dark modes.
--   **⚡ High-Performance Architecture**: Leveraging App Router for optimal SEO and loading speeds.
+-   **⚡ High-Performance Architecture**: Astro generates complete static HTML for every public route with no hydrated React runtime.
 -   **🔍 Site-Wide Search**: Integrated Cmd+K command palette for instant navigation across documentation and blogs.
 -   **🛡️ Trust & Compliance**: Dedicated security sections highlighting SOC 2 Type 2 compliance and official Dell/AMD partnerships.
 -   **📝 Markdown Content Pipeline**: Robust blog and documentation engine powered by raw Markdown files with automated tag and date management.
@@ -46,34 +46,37 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 
 ### Local development notes
 
-- `bun run dev` starts Vinext on HTTPS at `https://localhost:4174`.
+- `bun run dev` starts Astro on HTTPS at `https://localhost:4174`.
 - Local TLS certs are generated automatically if `.dev-localhost-cert.pem` or `.dev-localhost-key.pem` are missing.
-- Local-only `.dev*` files are ignored by git and excluded from the static export.
-- Blog images under `content/blog/assets` are mirrored into generated `public/assets/blog` during content generation so Vite dev can serve `/assets/blog/...` correctly.
-- The content watcher regenerates on blog markdown, policy markdown, and blog asset changes.
+- Local-only `.dev*` files are ignored by git and excluded from the static output.
+- Blog images under `src/content/blog/assets` are mirrored into `public/assets/blog` before Astro builds so `/assets/blog/...` remains stable.
+- Astro content collections load and validate blog and policy Markdown during development and static builds.
 
 ### Useful scripts
 
-- `bun run check` runs formatting, import checks, and TypeScript.
+- `bun run check` runs formatting, import and Tailwind checks, TypeScript, and Astro diagnostics.
 - `bun run test` runs the test suite.
-- `bun run build` generates the static output used for deploys.
-- `bun run preview` builds the static output and serves it locally over HTTPS at `https://localhost:4174`. This is a static-only server — the Worker is not running, so `/api/ws` and `/api/machine-status` are unavailable.
-- `bun run test:toast` posts a sample machine-status event to the local Worker.
-- `bun run test:toast:prod` opens the production websocket, posts a production machine-status event, and waits for the matching broadcast.
+- `bun run build` generates and validates all Astro static pages used for deploys.
+- `bun run lighthouse` builds and audits the static site, then writes the reports to `dist-static/lighthouse`.
+- `bun run ci` runs the complete local equivalent of the CI validation job, including Lighthouse.
+- `bun run deploy` generates the combined site and Lighthouse output before deploying through Cloudflare.
+- `bun run generate:mermaid` refreshes committed Mermaid diagram assets after diagram source changes.
+- `bun run preview` builds the site, refreshes Lighthouse only when relevant inputs changed, includes the reports at `/lighthouse`, and serves the complete static output with the local Cloudflare Worker over HTTPS at `https://localhost:4174`.
+- `bun run machine-status:local` posts a sample machine-status event to the local Worker.
+- `bun run machine-status:production` opens the production websocket, posts production machine-status events, and waits for matching broadcasts.
 
 ### Previewing with the Worker (WSS / machine-status)
 
-`bun run preview` does not start the Cloudflare Worker, so the WebSocket endpoint (`/api/ws`) and machine-status push (`/api/machine-status`) will not work. To test the full stack locally, build first then start Wrangler dev in a second terminal:
+`bun run preview` generates the production-equivalent site, reuses the last complete Lighthouse report set when its inputs are unchanged, then starts Wrangler with the generated localhost TLS certificate. Wrangler serves the static assets, reports, and these Worker endpoints from the same origin:
 
 ```bash
-# Terminal 1
-bun run build
-
-# Terminal 2 — serves static assets + Worker at https://localhost:4174
-bun run wrangler dev --config wrangler.jsonc
+bun run preview
 ```
 
-Wrangler dev handles both static asset serving and the Worker, so `bun run preview` and `wrangler dev` should not run at the same time (they both bind port 4174).
+- `POST /api/machine-status`
+- `GET /api/ws`
+
+Preview cannot run alongside `bun run dev` because both use port 4174.
 
 ### Realtime machine-status events
 
@@ -106,9 +109,9 @@ Payloads:
 Test from the repo with:
 
 ```bash
-bun run test:toast
-bun run test:toast bm reserved
-bun run test:toast vm reserved 4
+bun run machine-status:local
+bun run machine-status:local bm reserved
+bun run machine-status:local vm reserved 4
 ```
 
 Optional overrides:
@@ -116,7 +119,7 @@ Optional overrides:
 ```bash
 HOTAISLE_WEBSITE_SECRET=your-secret \
 HOTAISLE_MACHINE_STATUS_URL=https://localhost:4174/api/machine-status \
-bun run test:toast vm deleted 8
+bun run machine-status:local vm deleted 8
 ```
 
 ### Production machine-status probe
@@ -130,26 +133,26 @@ To verify that production `reserved` and `deleted` events are both broadcast to 
 
 ```bash
 HOTAISLE_WEBSITE_SECRET=your-production-secret \
-bun run test:toast:prod
+bun run machine-status:production
 ```
 
 Single-event examples:
 
 ```bash
 HOTAISLE_WEBSITE_SECRET=your-production-secret \
-bun run test:toast:prod bm reserved
+bun run machine-status:production bm reserved
 ```
 
 ```bash
 HOTAISLE_WEBSITE_SECRET=your-production-secret \
-bun run test:toast:prod vm deleted 8
+bun run machine-status:production vm deleted 8
 ```
 
 VM two-event example:
 
 ```bash
 HOTAISLE_WEBSITE_SECRET=your-production-secret \
-bun run test:toast:prod vm deleted 8
+bun run machine-status:production vm all 8
 ```
 
 Optional timeout override:
@@ -157,25 +160,27 @@ Optional timeout override:
 ```bash
 HOTAISLE_WEBSITE_SECRET=your-production-secret \
 HOTAISLE_MACHINE_STATUS_TIMEOUT_MS=15000 \
-bun run test:toast:prod
+bun run machine-status:production
 ```
 
 
 ## 📂 Project Structure
 
 ```
-hotaisle-next/
-├── content/             # Markdown content and source blog assets
+hotaisle-website/
 ├── public/              # Static assets served directly by Vite/Worker
-│   └── assets/blog/     # Generated mirror of content/blog/assets for local dev
+│   └── assets/blog/     # Generated mirror of src/content/blog/assets for local dev
 ├── scripts/             # Build, content, and maintenance scripts
 ├── src/
-│   ├── app/             # App Router pages
 │   ├── components/      # Reusable UI components
 │   │   ├── home/        # Homepage specific (PyramidHero, SecuritySection)
 │   │   └── layout/      # Sidebar, Header, Footer
+│   ├── content/         # Markdown content and source blog assets
 │   ├── lib/             # Utility functions
-│   └── worker/          # Cloudflare Worker entrypoint and Durable Objects
+│   ├── pages/           # Astro static routes
+│   ├── scripts/         # Browser-side initialization scripts
+│   ├── styles/          # Global and route-specific styles
+│   └── worker/          # Cloudflare Worker entrypoint and Durable Object
 ├── wrangler.jsonc       # Cloudflare Worker config
 └── dist-static/         # Generated deploy output
 ```

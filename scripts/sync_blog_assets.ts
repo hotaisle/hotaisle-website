@@ -2,7 +2,7 @@ import { cp, mkdir, readdir, rm, stat, utimes } from 'node:fs/promises';
 import path from 'node:path';
 
 const PROJECT_ROOT = path.join(import.meta.dirname, '..');
-const BLOG_ASSET_SOURCE_DIRECTORY = path.join(PROJECT_ROOT, 'content', 'blog', 'assets');
+const BLOG_ASSET_SOURCE_DIRECTORY = path.join(PROJECT_ROOT, 'src', 'content', 'blog', 'assets');
 const PUBLIC_BLOG_ASSET_DIRECTORY = path.join(PROJECT_ROOT, 'public', 'assets', 'blog');
 const DS_STORE_FILE_NAME = '.DS_Store';
 const UNICODE_DIACRITICS_REGEX = /[\u0300-\u036f]/g;

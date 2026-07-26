@@ -5,7 +5,6 @@ import path from 'node:path';
 
 const GENERATED_DIAGRAM_FILE_PREFIX = 'mermaid-diagram-';
 const GENERATED_DIAGRAM_FILE_EXTENSION = '.svg';
-const CI_ENVIRONMENT_VALUE = 'true';
 const FORCE_MERMAID_DIAGRAM_GENERATION_VALUE = 'true';
 const BLOG_ASSET_PREFIX = '/assets/blog/';
 const CLI_BUNX_HOME_DIRECTORY = path.join(os.tmpdir(), 'hotaisle-bunx-home');
@@ -54,11 +53,7 @@ export function isGeneratedMermaidDiagramFile(fileName: string): boolean {
 }
 
 export function shouldSkipMermaidDiagramGeneration(): boolean {
-	if (process.env.FORCE_MERMAID_DIAGRAM_GENERATION === FORCE_MERMAID_DIAGRAM_GENERATION_VALUE) {
-		return false;
-	}
-
-	return process.env.CI === CI_ENVIRONMENT_VALUE;
+	return process.env.FORCE_MERMAID_DIAGRAM_GENERATION !== FORCE_MERMAID_DIAGRAM_GENERATION_VALUE;
 }
 
 async function runMermaidCliToFile(

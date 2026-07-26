@@ -1,0 +1,28 @@
+---
+import Page, { generateMetadata } from '@/components/pages/PolicyPage.tsx';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('policies');
+
+	return entries.map((entry: CollectionEntry<'policies'>) => ({
+		params: { slug: entry.id },
+		props: {
+			page: {
+				contentHtml: entry.rendered?.html ?? '',
+				description: entry.data.description,
+				slug: entry.id,
+				title: entry.data.title,
+			},
+		},
+	}));
+}
+
+const { page } = Astro.props;
+const metadata = generateMetadata(page);
+---
+
+<BaseLayout metadata={metadata}>
+	<Page page={page} />
+</BaseLayout>

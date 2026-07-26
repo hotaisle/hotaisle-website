@@ -1,0 +1,136 @@
+---
+import { initializeThemeScript } from '@/scripts/theme.ts';
+import { Footer } from '@/components/layout/Footer.tsx';
+import { Navbar } from '@/components/layout/Navbar.tsx';
+import JsonLd from '@/components/seo/JsonLd.tsx';
+import { minifyInlineScript } from '@/lib/minify-inline-script.ts';
+import type { PageMetadata } from '@/lib/metadata.ts';
+import '@/styles/global.css';
+
+const GTM_CONTAINER_ID = 'GTM-NK8WLZV8';
+const GTM_ORIGIN = 'https://www.googletagmanager.com';
+const API_BASE_PATH = '/api';
+const SEARCH_INDEX_PATH = '/search-index.json';
+const ENABLE_GTM = import.meta.env.PROD && import.meta.env.PUBLIC_ENABLE_GTM !== 'false';
+const ENABLE_WEBSOCKET =
+	import.meta.env.PROD && import.meta.env.PUBLIC_ENABLE_WEBSOCKET !== 'false';
+const GTM_SCRIPT_SOURCE = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`;
+
+type ArticleOpenGraphMetadata = PageMetadata['openGraph'] & {
+	authors?: string[];
+	publishedTime?: string;
+	tags?: string[];
+};
+
+interface Props {
+	metadata: PageMetadata & {
+		openGraph: ArticleOpenGraphMetadata;
+	};
+}
+
+const { metadata } = Astro.props as Props;
+const { openGraph, twitter } = metadata;
+const [openGraphImage] = openGraph.images;
+const [twitterImage] = twitter.images;
+const pathname = Astro.url.pathname;
+const toInlineJson = (value: unknown): string => JSON.stringify(value).replaceAll('<', '\\u003c');
+const CLIENT_CONFIG_JSON = toInlineJson({
+	apiBasePath: API_BASE_PATH,
+	enableWebSocket: ENABLE_WEBSOCKET,
+	searchIndexUrl: SEARCH_INDEX_PATH,
+});
+const [GTM_SCRIPT, THEME_SCRIPT] = await Promise.all([
+	minifyInlineScript(GTM_SCRIPT_SOURCE),
+	minifyInlineScript(`(${initializeThemeScript.toString()})();`),
+]);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<title>{metadata.title}</title>
+		<meta content={metadata.description} name="description" />
+		<meta content={metadata.applicationName} name="application-name" />
+		<meta content={metadata.keywords.join(', ')} name="keywords" />
+		<meta content="index, follow" name="robots" />
+		<link href={metadata.alternates.canonical} rel="canonical" />
+		<link href="/assets/branding/hotaisle-favicon.svg" rel="icon" />
+		<link href="/assets/branding/hotaisle-favicon.svg" rel="shortcut icon" />
+		<link href="/sitemap-index.xml" rel="sitemap" />
+
+		<meta content={openGraph.description} property="og:description" />
+		<meta content={openGraphImage.alt} property="og:image:alt" />
+		{openGraphImage.height ? (
+			<meta content={openGraphImage.height.toString()} property="og:image:height" />
+		) : null}
+		{openGraphImage.type ? (
+			<meta content={openGraphImage.type} property="og:image:type" />
+		) : null}
+		<meta content={openGraphImage.url} property="og:image" />
+		{openGraphImage.width ? (
+			<meta content={openGraphImage.width.toString()} property="og:image:width" />
+		) : null}
+		<meta content={openGraph.locale} property="og:locale" />
+		<meta content={openGraph.siteName} property="og:site_name" />
+		<meta content={openGraph.title} property="og:title" />
+		<meta content={openGraph.type} property="og:type" />
+		<meta content={openGraph.url} property="og:url" />
+		{openGraph.publishedTime ? (
+			<meta content={openGraph.publishedTime} property="article:published_time" />
+		) : null}
+		{openGraph.authors?.map((author: string) => (
+			<meta content={author} property="article:author" />
+		))}
+		{openGraph.tags?.map((tag: string) => <meta content={tag} property="article:tag" />)}
+
+		<meta content={twitter.card} name="twitter:card" />
+		<meta content={twitter.creator} name="twitter:creator" />
+		<meta content={twitter.description} name="twitter:description" />
+		<meta content={twitterImage.alt} name="twitter:image:alt" />
+		<meta content={twitterImage.url} name="twitter:image" />
+		<meta content={twitter.site} name="twitter:site" />
+		<meta content={twitter.title} name="twitter:title" />
+
+		<JsonLd />
+		<link
+			as="font"
+			crossorigin=""
+			href="/assets/fonts/inter-latin.woff2"
+			rel="preload"
+			type="font/woff2"
+		/>
+		{ENABLE_GTM ? <link href={GTM_ORIGIN} rel="preconnect" /> : null}
+		{ENABLE_GTM ? <link crossorigin="" href={GTM_ORIGIN} rel="dns-prefetch" /> : null}
+		<script id="hotaisle-client-config" is:inline set:html={CLIENT_CONFIG_JSON} type="application/json">
+		</script>
+		<script src="../scripts/client.ts"></script>
+		<script is:inline set:html={THEME_SCRIPT}></script>
+		{ENABLE_GTM ? <script is:inline set:html={GTM_SCRIPT}></script> : null}
+	</head>
+	<body>
+		{ENABLE_GTM ? (
+			<noscript>
+				<iframe
+					height="0"
+					src={`${GTM_ORIGIN}/ns.html?id=${GTM_CONTAINER_ID}`}
+					style="display:none;visibility:hidden"
+					title="Google Tag Manager"
+					width="0"
+				></iframe>
+			</noscript>
+		) : null}
+		<div class="flex min-h-screen flex-col bg-background text-foreground antialiased">
+			<Navbar pathname={pathname} />
+			<main class="relative min-w-0 flex-1">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+	</body>
+</html>

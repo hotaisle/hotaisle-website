@@ -162,7 +162,9 @@ class LspClient {
 				codeActions: true,
 				colorDecorators: true,
 				emmetCompletions: false,
-				experimental: {},
+				experimental: {
+					configFile: path.join(PROJECT_ROOT, 'src', 'styles', 'global.css'),
+				},
 				hovers: true,
 				includeLanguages: {},
 				lint: {
@@ -450,25 +452,28 @@ async function main() {
 	);
 
 	await client.shutdown();
+
+	if (DRY_RUN && totalDiags > 0) {
+		process.exitCode = 1;
+	}
 }
 
 async function processFiles(
 	client: LspClient,
-	[filePath, ...remainingFilePaths]: string[],
-	totalDiags = 0,
-	totalFiles = 0
+	filePaths: readonly string[]
 ): Promise<{ totalDiags: number; totalFiles: number }> {
-	if (!filePath) {
-		return { totalDiags, totalFiles };
+	const results = await Promise.all(
+		filePaths.map(async (filePath) => await processFile(client, filePath))
+	);
+	let totalDiags = 0;
+	let totalFiles = 0;
+
+	for (const { diagCount, fixed } of results) {
+		totalDiags += diagCount;
+		totalFiles += fixed ? 1 : 0;
 	}
 
-	const { diagCount, fixed } = await processFile(client, filePath);
-	return await processFiles(
-		client,
-		remainingFilePaths,
-		totalDiags + diagCount,
-		fixed ? totalFiles + 1 : totalFiles
-	);
+	return { totalDiags, totalFiles };
 }
 
 main().catch((err) => {

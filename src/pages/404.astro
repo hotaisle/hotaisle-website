@@ -1,0 +1,15 @@
+---
+import Page from '@/components/pages/NotFoundPage.tsx';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { createPageMetadata } from '@/lib/metadata.ts';
+
+const metadata = createPageMetadata({
+	description: 'The requested Hot Aisle page could not be found.',
+	path: '/404',
+	title: 'Page Not Found',
+});
+---
+
+<BaseLayout metadata={metadata}>
+	<Page />
+</BaseLayout>

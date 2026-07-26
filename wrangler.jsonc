@@ -8,7 +8,7 @@
 		"binding": "ASSETS",
 		"directory": "./dist-static",
 		"html_handling": "drop-trailing-slash",
-		"not_found_handling": "single-page-application",
+		"not_found_handling": "404-page",
 		"run_worker_first": ["/api/machine-status", "/api/ws"]
 	},
 	"durable_objects": {

@@ -28,7 +28,7 @@ const IMAGE_TYPE_BY_EXTENSION = {
 	webp: 'image/webp',
 } as const;
 
-interface PageMetadataOptions {
+export interface PageMetadataOptions {
 	description: string;
 	image?: string;
 	imageAlt?: string;
@@ -123,3 +123,5 @@ export function createPageMetadata({
 		},
 	};
 }
+
+export type PageMetadata = ReturnType<typeof createPageMetadata>;

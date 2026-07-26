@@ -71,14 +71,18 @@ function collectImportIssues(filePath: string, fileContents: string): ImportIssu
 function shouldIncludeFile(filePath: string): boolean {
 	const normalizedPath = normalizePath(path.relative(PROJECT_ROOT, filePath));
 
-	if (normalizedPath === 'vite.config.ts') {
+	if (normalizedPath === 'astro.config.ts') {
 		return true;
 	}
 	if (normalizedPath.startsWith('scripts/') && normalizedPath.endsWith('.ts')) {
 		return true;
 	}
 	if (normalizedPath.startsWith('src/')) {
-		return normalizedPath.endsWith('.ts') || normalizedPath.endsWith('.tsx');
+		return (
+			normalizedPath.endsWith('.astro') ||
+			normalizedPath.endsWith('.ts') ||
+			normalizedPath.endsWith('.tsx')
+		);
 	}
 
 	return false;
@@ -113,7 +117,7 @@ async function getCandidateFiles(): Promise<string[]> {
 	const filePaths = new Set([
 		...sourceFiles,
 		...scriptFiles,
-		path.join(PROJECT_ROOT, 'vite.config.ts'),
+		path.join(PROJECT_ROOT, 'astro.config.ts'),
 	]);
 
 	return [...filePaths].sort();

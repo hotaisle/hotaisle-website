@@ -1,5 +1,3 @@
-'use client';
-
 import {
 	BarChart3,
 	BookOpen,
@@ -17,7 +15,6 @@ import {
 	X,
 	Zap,
 } from 'lucide-react';
-import { usePathname } from 'vinext/shims/navigation';
 import { AppLink } from '@/components/AppLink.tsx';
 import { SearchControl } from '@/components/layout/SearchControl.tsx';
 import { ThemeToggle } from '@/components/ThemeToggle.tsx';
@@ -38,6 +35,10 @@ const CONTACT_LINK_CLASS_NAME =
 	'ha-nav-link hidden min-h-10 min-w-10 items-center justify-center rounded-md p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:flex';
 const INDEX_FILE_SUFFIX = '/index.html';
 const SECTION_MATCH_MODE: NavMatchMode = 'section';
+
+interface NavbarProps {
+	pathname: string;
+}
 
 const ALL_NAV_ITEMS = [
 	{ href: '/quick-start', icon: Zap, label: 'Quick Start' },
@@ -78,9 +79,8 @@ function isNavItemActive(currentPath: string, href: string, matchMode: NavMatchM
 	return currentPath === targetPath || currentPath.startsWith(`${targetPath}/`);
 }
 
-export function Navbar() {
-	const pathname = usePathname();
-	const currentPath = normalizePathname(pathname ?? '/');
+export function Navbar({ pathname }: NavbarProps) {
+	const currentPath = normalizePathname(pathname);
 	const getNavLinkProps = (href: string, matchMode: NavMatchMode = SECTION_MATCH_MODE) => {
 		const isActive = isNavItemActive(currentPath, href, matchMode);
 
