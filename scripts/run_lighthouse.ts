@@ -1,7 +1,19 @@
 import { spawn } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import fs from 'node:fs';
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import {
+	copyFile,
+	mkdir,
+	mkdtemp,
+	readdir,
+	readFile,
+	rename,
+	rm,
+	stat,
+	writeFile,
+} from 'node:fs/promises';
 import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import type { LaunchedChrome } from 'chrome-launcher';
 import { launch } from 'chrome-launcher';
@@ -13,9 +25,10 @@ const CONFIG_FILE_NAME = '.lighthouserc.cjs';
 const DEFAULT_HOST = 'localhost';
 const DEFAULT_PORT = 4174;
 const DEFAULT_NUMBER_OF_RUNS = 1;
-const DEFAULT_OUTPUT_DIRECTORY = '.lighthouseci/reports';
-const DEFAULT_PUBLIC_BASE_URL = 'https://hotaisle.github.io/hotaisle-website/';
+const DEFAULT_OUTPUT_DIRECTORY = './dist-static/lighthouse';
+const DEFAULT_PUBLIC_BASE_URL = 'https://hotaisle.xyz/';
 const DEFAULT_STATIC_DIRECTORY = './dist-static';
+const LIGHTHOUSE_REPORT_INDEX_PATH = '/lighthouse';
 const MANIFEST_FILE_NAME = 'manifest.json';
 const PATH_SEPARATOR_REGEX = /\\/g;
 const LEADING_SLASHES_REGEX = /^\/+/;
@@ -30,6 +43,23 @@ const DUPLICATE_SLASHES_REGEX = /\/{2,}/g;
 const PROJECT_ROOT = path.join(import.meta.dirname, '..');
 const LOCAL_TLS_CERT_PATH = path.join(PROJECT_ROOT, '.dev-localhost-cert.pem');
 const LOCAL_TLS_KEY_PATH = path.join(PROJECT_ROOT, '.dev-localhost-key.pem');
+const PREVIEW_CACHE_DIRECTORY = path.join(PROJECT_ROOT, '.lighthouseci', 'preview-cache');
+const PREVIEW_CACHE_REPORT_DIRECTORY = path.join(PREVIEW_CACHE_DIRECTORY, 'reports');
+const PREVIEW_CACHE_FINGERPRINT_PATH = path.join(PREVIEW_CACHE_DIRECTORY, 'fingerprint');
+const PREVIEW_CACHE_REQUIRED_FILES = ['index.html', MANIFEST_FILE_NAME] as const;
+const FINGERPRINT_DIRECTORIES = ['public', 'scripts', 'src'] as const;
+const FINGERPRINT_FILES = [
+	'.lighthouserc.cjs',
+	'astro.config.ts',
+	'biome.jsonc',
+	'bun.lock',
+	'package.json',
+	'tsconfig.json',
+	'tsconfig.node.json',
+	'wrangler.jsonc',
+] as const;
+const FINGERPRINT_EXCLUDED_PATH_PREFIXES = ['public/assets/blog/'] as const;
+const REUSE_LIGHTHOUSE_ENVIRONMENT_VALUE = 'true';
 
 interface LighthouseSummary {
 	accessibility?: number;
@@ -81,6 +111,103 @@ interface LighthouseRcConfig {
 
 function normalizePath(filePath: string): string {
 	return filePath.replace(PATH_SEPARATOR_REGEX, '/');
+}
+
+function isFingerprintPathExcluded(relativePath: string): boolean {
+	const normalizedPath = relativePath.endsWith('/') ? relativePath : `${relativePath}/`;
+	return FINGERPRINT_EXCLUDED_PATH_PREFIXES.some((excludedPath) =>
+		normalizedPath.startsWith(excludedPath)
+	);
+}
+
+async function collectDirectoryFiles(directory: string): Promise<string[]> {
+	const directoryEntries = await readdir(directory, { withFileTypes: true });
+	const fileGroups = await Promise.all(
+		directoryEntries.map(async (directoryEntry): Promise<string[]> => {
+			const entryPath = path.join(directory, directoryEntry.name);
+			const relativePath = normalizePath(path.relative(PROJECT_ROOT, entryPath));
+			if (isFingerprintPathExcluded(relativePath)) {
+				return [];
+			}
+
+			if (directoryEntry.isDirectory()) {
+				return await collectDirectoryFiles(entryPath);
+			}
+
+			return directoryEntry.isFile() ? [entryPath] : [];
+		})
+	);
+
+	return fileGroups.flat();
+}
+
+async function createLighthouseInputFingerprint(): Promise<string> {
+	const directoryFileGroups = await Promise.all(
+		FINGERPRINT_DIRECTORIES.map(
+			async (directory) => await collectDirectoryFiles(path.join(PROJECT_ROOT, directory))
+		)
+	);
+	const configuredFiles = FINGERPRINT_FILES.map((filePath) => path.join(PROJECT_ROOT, filePath));
+	const inputFiles = [...configuredFiles, ...directoryFileGroups.flat()].sort();
+	const fileStats = await Promise.all(inputFiles.map(async (filePath) => await stat(filePath)));
+	const hash = createHash('sha256');
+
+	for (const [fileIndex, filePath] of inputFiles.entries()) {
+		const fileStat = fileStats[fileIndex];
+		if (!fileStat) {
+			throw new Error(`Missing file metadata for ${filePath}`);
+		}
+
+		hash.update(normalizePath(path.relative(PROJECT_ROOT, filePath)));
+		hash.update(`:${fileStat.size}:${fileStat.mtimeMs}:${fileStat.ctimeMs}\n`);
+	}
+
+	return hash.digest('hex');
+}
+
+async function copyDirectory(sourceDirectory: string, destinationDirectory: string): Promise<void> {
+	await mkdir(destinationDirectory, { recursive: true });
+	const directoryEntries = await readdir(sourceDirectory, { withFileTypes: true });
+
+	await Promise.all(
+		directoryEntries.map(async (directoryEntry): Promise<void> => {
+			const sourcePath = path.join(sourceDirectory, directoryEntry.name);
+			const destinationPath = path.join(destinationDirectory, directoryEntry.name);
+
+			if (directoryEntry.isDirectory()) {
+				await copyDirectory(sourcePath, destinationPath);
+				return;
+			}
+
+			if (directoryEntry.isFile()) {
+				await copyFile(sourcePath, destinationPath);
+			}
+		})
+	);
+}
+
+async function hasReusablePreviewReports(fingerprint: string): Promise<boolean> {
+	const cachedFingerprint = await readFile(PREVIEW_CACHE_FINGERPRINT_PATH, 'utf8').catch(
+		() => null
+	);
+	if (cachedFingerprint?.trim() !== fingerprint) {
+		return false;
+	}
+
+	return PREVIEW_CACHE_REQUIRED_FILES.every((fileName) =>
+		fs.existsSync(path.join(PREVIEW_CACHE_REPORT_DIRECTORY, fileName))
+	);
+}
+
+async function restoreCachedPreviewReports(reportDirectory: string): Promise<void> {
+	await rm(reportDirectory, { force: true, recursive: true });
+	await copyDirectory(PREVIEW_CACHE_REPORT_DIRECTORY, reportDirectory);
+}
+
+async function cachePreviewReports(reportDirectory: string, fingerprint: string): Promise<void> {
+	await rm(PREVIEW_CACHE_DIRECTORY, { force: true, recursive: true });
+	await copyDirectory(reportDirectory, PREVIEW_CACHE_REPORT_DIRECTORY);
+	await writeFile(PREVIEW_CACHE_FINGERPRINT_PATH, `${fingerprint}\n`, 'utf8');
 }
 
 function resolveConfig(): LighthouseRcConfig {
@@ -249,9 +376,14 @@ function rewriteReportUrls(
 	};
 }
 
-async function runBuild(): Promise<void> {
-	const buildProcess = spawn('bun', ['run', 'build:internal'], {
+async function runBuild(enableProductionIntegrations: boolean): Promise<void> {
+	const buildProcess = spawn('bun', ['run', 'build'], {
 		cwd: PROJECT_ROOT,
+		env: {
+			...process.env,
+			PUBLIC_ENABLE_GTM: String(enableProductionIntegrations),
+			PUBLIC_ENABLE_WEBSOCKET: String(enableProductionIntegrations),
+		},
 		stdio: 'inherit',
 	});
 
@@ -259,20 +391,59 @@ async function runBuild(): Promise<void> {
 		buildProcess.once('error', reject);
 		buildProcess.once('exit', (exitCode, signal) => {
 			if (signal) {
-				reject(new Error(`bun run build:internal exited from signal ${signal}`));
+				reject(new Error(`bun run build exited from signal ${signal}`));
 				return;
 			}
 
 			if (exitCode !== 0) {
-				reject(
-					new Error(`bun run build:internal exited with code ${exitCode ?? 'unknown'}`)
-				);
+				reject(new Error(`bun run build exited with code ${exitCode ?? 'unknown'}`));
 				return;
 			}
 
 			resolve();
 		});
 	});
+}
+
+function isNestedDirectory(directory: string, parentDirectory: string): boolean {
+	const relativePath = path.relative(parentDirectory, directory);
+	return (
+		relativePath.length > 0 && !relativePath.startsWith('..') && !path.isAbsolute(relativePath)
+	);
+}
+
+async function preparePublishableStaticSite(
+	reportDirectory: string,
+	staticDirectory: string
+): Promise<void> {
+	if (!isNestedDirectory(reportDirectory, staticDirectory)) {
+		return;
+	}
+
+	const temporaryDirectory = await mkdtemp(path.join(tmpdir(), 'hotaisle-lighthouse-'));
+	const savedReportDirectory = path.join(temporaryDirectory, 'lighthouse');
+	let reportsAreStoredTemporarily = false;
+
+	const restoreReports = async (): Promise<void> => {
+		await rm(reportDirectory, { force: true, recursive: true });
+		await mkdir(path.dirname(reportDirectory), { recursive: true });
+		await rename(savedReportDirectory, reportDirectory);
+		reportsAreStoredTemporarily = false;
+	};
+
+	try {
+		await rename(reportDirectory, savedReportDirectory);
+		reportsAreStoredTemporarily = true;
+		console.log('Rebuilding the publishable static site with production integrations...');
+		await runBuild(true);
+		await restoreReports();
+	} finally {
+		if (reportsAreStoredTemporarily && fs.existsSync(savedReportDirectory)) {
+			await restoreReports();
+		}
+
+		await rm(temporaryDirectory, { force: true, recursive: true });
+	}
 }
 
 async function writeReports(
@@ -292,7 +463,9 @@ async function writeReports(
 
 function rewriteReportTopbarLink(reportHtml: string, publicBaseUrl: string): string {
 	const targetCode = 'this._dom.safelySetHref(n,e.finalDisplayedUrl),t}';
-	const replacementCode = `this._dom.safelySetHref(n,${JSON.stringify(publicBaseUrl)}),n.setAttribute("target","_self"),n.removeAttribute("rel"),t}`;
+	const reportIndexUrl = new URL(LIGHTHOUSE_REPORT_INDEX_PATH, publicBaseUrl).toString();
+	const serializedReportIndexUrl = JSON.stringify(reportIndexUrl);
+	const replacementCode = `n.textContent=${serializedReportIndexUrl},n.title=${serializedReportIndexUrl},this._dom.safelySetHref(n,${serializedReportIndexUrl}),n.setAttribute("target","_self"),n.removeAttribute("rel"),t}`;
 
 	if (!reportHtml.includes(targetCode)) {
 		throw new Error('Could not find Lighthouse topbar link code to rewrite');
@@ -442,12 +615,24 @@ async function main(): Promise<void> {
 	const staticDirectory = resolveStaticDirectory(lighthouseConfig);
 	const chromeFlags = parseChromeFlags(collectConfig.settings?.chromeFlags);
 	const numberOfRuns = collectConfig.numberOfRuns ?? DEFAULT_NUMBER_OF_RUNS;
+	const shouldReuseUnchangedReports =
+		process.env.LIGHTHOUSE_IF_CHANGED === REUSE_LIGHTHOUSE_ENVIRONMENT_VALUE;
+
+	if (shouldReuseUnchangedReports) {
+		const inputFingerprint = await createLighthouseInputFingerprint();
+		if (await hasReusablePreviewReports(inputFingerprint)) {
+			console.log('Lighthouse inputs are unchanged; reusing the cached reports.');
+			await runBuild(true);
+			await restoreCachedPreviewReports(reportDirectory);
+			return;
+		}
+	}
+
+	console.log('Building static site for Lighthouse...');
+	await runBuild(false);
 
 	await rm(reportDirectory, { force: true, recursive: true });
 	await mkdir(reportDirectory, { recursive: true });
-
-	console.log('Building static site for Lighthouse...');
-	await runBuild();
 
 	const server = await startStaticServer({
 		development: false,
@@ -497,6 +682,13 @@ async function main(): Promise<void> {
 	} finally {
 		chrome?.kill();
 		await server.stop(true);
+	}
+
+	await preparePublishableStaticSite(reportDirectory, staticDirectory);
+
+	if (shouldReuseUnchangedReports) {
+		const inputFingerprint = await createLighthouseInputFingerprint();
+		await cachePreviewReports(reportDirectory, inputFingerprint);
 	}
 }
 

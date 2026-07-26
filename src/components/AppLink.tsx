@@ -10,7 +10,7 @@ export function AppLink({ children, href, ...props }: AppLinkProps) {
 	const canonicalHref = toCanonicalDocumentHref(href);
 
 	return (
-		<a data-prefetch-link="true" href={canonicalHref} {...props}>
+		<a data-astro-prefetch="" href={canonicalHref} {...props}>
 			{children}
 		</a>
 	);

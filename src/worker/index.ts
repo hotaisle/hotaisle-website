@@ -1,4 +1,3 @@
-import appHandler from 'vinext/server/app-router-entry';
 import { parseMachineStatusEvent } from '@/lib/machine-status.ts';
 
 const BAD_REQUEST_STATUS = 400;
@@ -9,7 +8,6 @@ const NO_CONTENT_STATUS = 204;
 const SWITCHING_PROTOCOLS_STATUS = 101;
 const UPGRADE_REQUIRED_STATUS = 426;
 const API_BASE_PATH = '/api';
-const HOTAISLE_WEBSITE_SECRET = 'dev-secret';
 const HOTAISLE_SECRET_HEADER = 'x-hotaisle-auth';
 const HUB_OBJECT_NAME = 'global-machine-status-hub';
 const HUB_SOCKET_TAG = 'machine-status-client';
@@ -17,7 +15,6 @@ const HUB_BROADCAST_PATH = '/broadcast';
 const HUB_CONNECT_PATH = '/connect';
 const MACHINE_STATUS_PATH = `${API_BASE_PATH}/machine-status`;
 const WEBSOCKET_PATH = `${API_BASE_PATH}/ws`;
-const IS_PRODUCTION = import.meta.env.PROD;
 
 interface Env {
 	ASSETS: FetcherLike;
@@ -31,7 +28,7 @@ interface ExecutionContextLike {
 }
 
 const worker = {
-	async fetch(request: Request, env?: Env, ctx?: ExecutionContextLike): Promise<Response> {
+	async fetch(request: Request, env?: Env, _ctx?: ExecutionContextLike): Promise<Response> {
 		const requestUrl = new URL(request.url);
 
 		if (requestUrl.pathname === MACHINE_STATUS_PATH) {
@@ -42,8 +39,10 @@ const worker = {
 			return await handleWebSocketRequest(request, env);
 		}
 
-		if (!(IS_PRODUCTION && env?.ASSETS)) {
-			return await appHandler.fetch(request, env, ctx);
+		if (!env?.ASSETS) {
+			return new Response('Static asset binding is unavailable', {
+				status: INTERNAL_SERVER_ERROR_STATUS,
+			});
 		}
 
 		return await env.ASSETS.fetch(request);
@@ -152,8 +151,7 @@ async function handleEventRequest(request: Request, env?: Env): Promise<Response
 		return new Response('Missing worker environment', { status: INTERNAL_SERVER_ERROR_STATUS });
 	}
 
-	const machineStatusSecret =
-		env.HOTAISLE_WEBSITE_SECRET ?? (IS_PRODUCTION ? null : HOTAISLE_WEBSITE_SECRET);
+	const machineStatusSecret = env.HOTAISLE_WEBSITE_SECRET;
 	if (!machineStatusSecret) {
 		return new Response('Missing HOTAISLE_WEBSITE_SECRET binding', {
 			status: INTERNAL_SERVER_ERROR_STATUS,

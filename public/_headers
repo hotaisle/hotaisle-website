@@ -3,3 +3,12 @@
 
 /.well-known/api-catalog
   Content-Type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/hotaisle-logo.svg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400

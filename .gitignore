@@ -8,13 +8,8 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # production
 /build
-.open-next/*
 /dist
 /dist-static
 /public/assets/blog
@@ -45,11 +40,10 @@ logs
 worker
 !src/worker/
 !src/worker/**
-.vinext/*
 
-# typescript
+# generated framework and typescript state
+/.astro/
 *.tsbuildinfo
 .tsbuild/*
-next-env.d.ts
 .claude/settings.local.json
 .lighthouseci

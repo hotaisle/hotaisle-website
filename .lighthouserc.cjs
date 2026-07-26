@@ -1,7 +1,7 @@
 const LIGHTHOUSE_NUMBER_OF_RUNS = 2;
 const LIGHTHOUSE_PAGE_PATHS = ['/', '/pricing/', '/quick-start/', '/mi300x/'];
 const LIGHTHOUSE_BASE_URL = 'http://localhost';
-const LIGHTHOUSE_OUTPUT_DIRECTORY = '.lighthouseci/reports';
+const LIGHTHOUSE_OUTPUT_DIRECTORY = './dist-static/lighthouse';
 
 const createMedianAssertion = (level, options) => [
 	level,

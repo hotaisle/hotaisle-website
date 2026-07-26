@@ -1,4 +1,4 @@
-import type { BlogAuthorProfile } from '@/generated/blog-data.ts';
+import type { BlogAuthorProfile } from '@/lib/load-blog-posts.ts';
 
 interface BlogAuthorCardProps {
 	profile: BlogAuthorProfile;

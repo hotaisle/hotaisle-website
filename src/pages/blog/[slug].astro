@@ -1,0 +1,27 @@
+---
+import Page, { generateMetadata } from '@/components/pages/BlogPostPage.tsx';
+import '@/styles/syntax-highlighting.css';
+import type { BlogPost } from '@/lib/content.ts';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('blog');
+	const allPosts: BlogPost[] = entries.map((entry: CollectionEntry<'blog'>) => ({
+		slug: entry.id,
+		...entry.data,
+	}));
+
+	return allPosts.map((post: BlogPost) => ({
+		params: { slug: post.slug },
+		props: { allPosts, post },
+	}));
+}
+
+const { allPosts, post } = Astro.props;
+const metadata = generateMetadata(post);
+---
+
+<BaseLayout metadata={metadata}>
+	<Page allPosts={allPosts} post={post} />
+</BaseLayout>

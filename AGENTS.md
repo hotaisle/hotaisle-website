@@ -102,6 +102,11 @@ Agents must follow:
 - Prefer simple conditionals over nested ternary operators
 - Group related code together and separate concerns
 
+### Design Synchronization
+
+- Treat the generated Lighthouse report index at `/lighthouse` as part of the website, not as a separate microsite.
+- Whenever the website's visual system changes, review and update `scripts/lighthouse-report.css` and `scripts/generate_lighthouse_pages.ts` in the same change so their colors, typography, spacing, borders, navigation, footer, and theme behavior remain synchronized with the current site.
+
 ### Error Handling & Debugging
 - Throw `Error` objects with descriptive messages, not strings or other values
 - Use `try-catch` blocks meaningfully - don't catch errors just to rethrow them

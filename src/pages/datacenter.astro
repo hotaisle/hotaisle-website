@@ -1,0 +1,10 @@
+---
+import Page, { generateMetadata } from '@/components/pages/DatacenterPage.tsx';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const metadata = generateMetadata();
+---
+
+<BaseLayout metadata={metadata}>
+	<Page />
+</BaseLayout>

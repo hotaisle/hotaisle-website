@@ -19,10 +19,11 @@
 		}
 	},
 	"include": [
-		"vite.config.ts",
+		"astro.config.ts",
 		"scripts/*.ts",
+		"src/content.config.ts",
 		"src/lib/**/*.ts",
-		"src/generated/*.ts",
-		"src/vite-env.d.ts"
+		"src/scripts/theme.ts",
+		"src/env.d.ts"
 	]
 }
