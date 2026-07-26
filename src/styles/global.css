@@ -27,29 +27,10 @@
 	src: url("/assets/fonts/space-grotesk-latin.woff2") format("woff2");
 }
 
-@font-face {
-	font-family: "IBM Plex Serif";
-	font-style: italic;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/assets/fonts/ibm-plex-serif-italic-400-latin.woff2")
-		format("woff2");
-}
-
-@font-face {
-	font-family: "IBM Plex Serif";
-	font-style: italic;
-	font-weight: 500;
-	font-display: swap;
-	src: url("/assets/fonts/ibm-plex-serif-italic-500-latin.woff2")
-		format("woff2");
-}
-
 :root {
 	--font-sans: "Inter", sans-serif;
 	--font-display: "Space Grotesk", sans-serif;
 	--font-mono: "JetBrains Mono", monospace;
-	--font-serif: "IBM Plex Serif", serif;
 	--background: #f8f8f5;
 	--foreground: #171717;
 	--card: #ffffff;
@@ -132,7 +113,6 @@
 	--font-sans: "Inter", sans-serif;
 	--font-display: "Space Grotesk", sans-serif;
 	--font-mono: "JetBrains Mono", monospace;
-	--font-serif: "IBM Plex Serif", serif;
 
 	--color-hot-orange: var(--hot-orange);
 	--color-hot-orange-contrast: var(--hot-orange-contrast);
