@@ -59,7 +59,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - `bun run build` generates and validates all Astro static pages used for deploys.
 - `bun run lighthouse` builds and audits the static site, then writes the reports to `dist-static/lighthouse`.
 - `bun run ci` runs the complete local equivalent of the CI validation job, including Lighthouse.
-- `bun run deploy` builds and validates the static site before deploying through Cloudflare. Lighthouse runs separately in CI because Cloudflare's build image does not provide Chrome.
+- `bun run deploy` deploys the existing `dist-static` output through Wrangler. GitHub Actions builds, validates, audits, and then deploys that exact output on pushes to `main`.
 - `bun run generate:mermaid` refreshes committed Mermaid diagram assets after diagram source changes.
 - `bun run preview` builds the site, refreshes Lighthouse only when relevant inputs changed, includes the reports at `/lighthouse`, and serves the complete static output with the local Cloudflare Worker over HTTPS at `https://localhost:4174`.
 - `bun run machine-status:local` posts a sample machine-status event to the local Worker.
