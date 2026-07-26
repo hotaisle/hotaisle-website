@@ -11,7 +11,7 @@
 		"build": "bun run generate:images && astro build && bun run validate:static",
 		"validate:static": "bun run scripts/validate_static.ts",
 		"preview": "LIGHTHOUSE_IF_CHANGED=true bun run lighthouse && wrangler dev --config wrangler.jsonc --https-key-path .dev-localhost-key.pem --https-cert-path .dev-localhost-cert.pem --log-level warn",
-		"deploy": "bun run lighthouse && wrangler deploy --config wrangler.jsonc",
+		"deploy": "bun run build && wrangler deploy --config wrangler.jsonc",
 		"test": "bun test",
 		"machine-status:local": "bun run scripts/probe_machine_status_local.ts",
 		"machine-status:production": "bun run scripts/probe_machine_status_production.ts",
