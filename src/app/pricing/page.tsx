@@ -13,7 +13,18 @@ const INCLUDED_CAPABILITIES = [
 		title: 'Dell XE9680 chassis',
 	},
 	{
-		description: 'Located in our secure Michigan facility.',
+		description: (
+			<>
+				Located in our{' '}
+				<AppLink
+					className="underline decoration-current/40 underline-offset-4 transition-colors hover:text-foreground"
+					href="/datacenter"
+				>
+					secure Michigan facility
+				</AppLink>
+				.
+			</>
+		),
 		title: '100% green datacenter',
 	},
 	{
