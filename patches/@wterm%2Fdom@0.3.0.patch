@@ -1,0 +1,414 @@
+diff --git a/dist/renderer.js b/dist/renderer.js
+index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7eb13cced 100644
+--- a/dist/renderer.js
++++ b/dist/renderer.js
+@@ -6,13 +6,43 @@ const FLAG_UNDERLINE = 0x08;
+ const FLAG_REVERSE = 0x20;
+ const FLAG_INVISIBLE = 0x40;
+ const FLAG_STRIKETHROUGH = 0x80;
+-function rgbToCSS(packed) {
++const LINK_PATTERN = /(?:(?:https?|ssh):\/\/[^\s<>"']*[^\s<>"'(),.;!?]|\bssh\s+(?:-p\s+\d+\s+)?[a-z0-9._-]+@[a-z0-9.-]+(?::\d+)?)/giu;
++const SSH_COMMAND_PATTERN = /^ssh\s+(?:-p\s+(\d+)\s+)?(\S+)$/u;
++const BOX_DRAWING_CLASSES = new Map([
++    [0x2500, "term-box-h"],
++    [0x2501, "term-box-h"],
++    [0x2502, "term-box-v"],
++    [0x2503, "term-box-v"],
++    [0x250c, "term-box-tl"],
++    [0x250f, "term-box-tl"],
++    [0x2510, "term-box-tr"],
++    [0x2513, "term-box-tr"],
++    [0x2514, "term-box-bl"],
++    [0x2517, "term-box-bl"],
++    [0x2518, "term-box-br"],
++    [0x251b, "term-box-br"],
++    [0x2550, "term-box-h"],
++    [0x2551, "term-box-v"],
++    [0x2554, "term-box-tl"],
++    [0x2557, "term-box-tr"],
++    [0x255a, "term-box-bl"],
++    [0x255d, "term-box-br"],
++    [0x256d, "term-box-tl"],
++    [0x256e, "term-box-tr"],
++    [0x256f, "term-box-br"],
++    [0x2570, "term-box-bl"],
++]);
++function adjustDirectForeground(color) {
++    return `color-mix(in srgb,${color} var(--term-direct-fg-weight,100%),var(--term-direct-fg-mix,transparent))`;
++}
++function rgbToCSS(packed, adjustForeground = false) {
+     const r = (packed >> 16) & 0xff;
+     const g = (packed >> 8) & 0xff;
+     const b = packed & 0xff;
+-    return `rgb(${r},${g},${b})`;
++    const color = `rgb(${r},${g},${b})`;
++    return adjustForeground ? adjustDirectForeground(color) : color;
+ }
+-function colorToCSS(index) {
++function colorToCSS(index, adjustForeground = false) {
+     if (index === DEFAULT_COLOR)
+         return null;
+     if (index < 16)
+@@ -22,15 +52,17 @@ function colorToCSS(index) {
+         const r = Math.floor(n / 36) * 51;
+         const g = (Math.floor(n / 6) % 6) * 51;
+         const b = (n % 6) * 51;
+-        return `rgb(${r},${g},${b})`;
++        const color = `rgb(${r},${g},${b})`;
++        return adjustForeground ? adjustDirectForeground(color) : color;
+     }
+     const level = (index - 232) * 10 + 8;
+-    return `rgb(${level},${level},${level})`;
++    const color = `rgb(${level},${level},${level})`;
++    return adjustForeground ? adjustDirectForeground(color) : color;
+ }
+-function cellFgCSS(fg, fgRgb) {
++function cellFgCSS(fg, fgRgb, adjustForeground = false) {
+     if (fgRgb !== undefined)
+-        return rgbToCSS(fgRgb);
+-    return colorToCSS(fg);
++        return rgbToCSS(fgRgb, adjustForeground);
++    return colorToCSS(fg, adjustForeground);
+ }
+ function cellBgCSS(bg, bgRgb) {
+     if (bgRgb !== undefined)
+@@ -51,7 +83,8 @@ function buildCellStyle(fg, bg, flags, fgRgb, bgRgb) {
+         if (bgR === undefined && bgIdx === DEFAULT_COLOR)
+             bgIdx = 7;
+     }
+-    const fgCSS = cellFgCSS(fgIdx, fgR);
++    const backgroundIsDefault = bgR === undefined && bgIdx === DEFAULT_COLOR;
++    const fgCSS = cellFgCSS(fgIdx, fgR, backgroundIsDefault);
+     const bgCSS = cellBgCSS(bgIdx, bgR);
+     let style = "";
+     if (fgCSS)
+@@ -61,7 +94,7 @@ function buildCellStyle(fg, bg, flags, fgRgb, bgRgb) {
+     if (flags & FLAG_BOLD)
+         style += "font-weight:bold;";
+     if (flags & FLAG_DIM)
+-        style += "opacity:0.5;";
++        style += "opacity:var(--term-dim-opacity,0.5);";
+     if (flags & FLAG_ITALIC)
+         style += "font-style:italic;";
+     const decorations = [];
+@@ -88,6 +121,23 @@ function escapeHTML(text) {
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;");
+ }
++function linkifyText(text) {
++    let html = "";
++    let lastIndex = 0;
++    for (const match of text.matchAll(LINK_PATTERN)) {
++        const matchIndex = match.index ?? 0;
++        const label = match[0];
++        const sshCommand = label.match(SSH_COMMAND_PATTERN);
++        const href = sshCommand
++            ? `ssh://${sshCommand[2]}${sshCommand[1] ? `:${sshCommand[1]}` : ""}`
++            : label;
++        html += escapeHTML(text.slice(lastIndex, matchIndex));
++        html += `<a class="term-link" href="${escapeHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a>`;
++        lastIndex = matchIndex + label.length;
++    }
++    html += escapeHTML(text.slice(lastIndex));
++    return html;
++}
+ function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
+     let fgIdx = fg, bgIdx = bg, fgR = fgRgb, bgR = bgRgb;
+     if (flags & FLAG_REVERSE) {
+@@ -99,7 +149,7 @@ function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
+             bgIdx = 7;
+     }
+     return {
+-        fg: cellFgCSS(fgIdx, fgR) || "var(--term-fg)",
++        fg: cellFgCSS(fgIdx, fgR, bgR === undefined && bgIdx === DEFAULT_COLOR) || "var(--term-fg)",
+         bg: cellBgCSS(bgIdx, bgR) || "var(--term-bg)",
+     };
+ }
+@@ -186,8 +236,6 @@ export class Renderer {
+         this.rowEls = [];
+         this.prevCursorRow = -1;
+         this.prevCursorCol = -1;
+-        this.prevContainerBg = "";
+-        this.prevRowBg = [];
+         this._scrollbackRowEls = [];
+         this._renderedScrollbackCount = 0;
+         this.container = container;
+@@ -197,7 +245,6 @@ export class Renderer {
+         this.rows = rows;
+         this.container.innerHTML = "";
+         this.rowEls = [];
+-        this.prevRowBg = [];
+         this._scrollbackRowEls = [];
+         this._renderedScrollbackCount = 0;
+         const fragment = document.createDocumentFragment();
+@@ -211,15 +258,20 @@ export class Renderer {
+         this.prevCursorRow = -1;
+         this.prevCursorCol = -1;
+     }
+-    _buildRowContent(rowEl, getCell, lineLen, cursorCol, rowIndex) {
++    _buildRowContent(rowEl, readCell, lineLen, cursorCol) {
+         let html = "";
+         let runStyle = "";
+         let runText = "";
+         let runStart = 0;
++        const getCell = (col) => readCell(col);
++        const toWidthStyle = (cellCount) => `width:calc(${cellCount} * var(--term-cell-width, 1ch));`;
++        const appendSpan = (className, style, text, cellCount) => {
++            const classAttribute = className ? ` class="${className}"` : "";
++            html += `<span${classAttribute} style="${style}${toWidthStyle(cellCount)}">${linkifyText(text)}</span>`;
++        };
+         const flushRun = (endCol) => {
+             if (!runText)
+                 return;
+-            const escaped = escapeHTML(runText);
+             if (cursorCol >= runStart && cursorCol < endCol) {
+                 const offset = cursorCol - runStart;
+                 const chars = [...runText];
+@@ -227,36 +279,59 @@ export class Renderer {
+                 const cursorChar = chars[offset] || " ";
+                 const after = chars.slice(offset + 1).join("");
+                 if (before) {
+-                    html += runStyle
+-                        ? `<span style="${runStyle}">${escapeHTML(before)}</span>`
+-                        : `<span>${escapeHTML(before)}</span>`;
++                    appendSpan("", runStyle, before, offset);
+                 }
+-                html += runStyle
+-                    ? `<span class="term-cursor" style="${runStyle}">${escapeHTML(cursorChar)}</span>`
+-                    : `<span class="term-cursor">${escapeHTML(cursorChar)}</span>`;
++                appendSpan("term-cursor", runStyle, cursorChar, 1);
+                 if (after) {
+-                    html += runStyle
+-                        ? `<span style="${runStyle}">${escapeHTML(after)}</span>`
+-                        : `<span>${escapeHTML(after)}</span>`;
++                    appendSpan("", runStyle, after, endCol - cursorCol - 1);
+                 }
+             }
+             else {
+-                html += runStyle
+-                    ? `<span style="${runStyle}">${escaped}</span>`
+-                    : `<span>${escaped}</span>`;
++                appendSpan("", runStyle, runText, endCol - runStart);
+             }
+         };
+         for (let col = 0; col < this.cols; col++) {
+             const cell = getCell(col);
+             const inBounds = col < lineLen;
+             const cp = inBounds ? cell.char : 0;
+-            if (inBounds && cp >= 0x2580 && cp <= 0x259f) {
++            const width = inBounds ? (cell.width ?? 1) : 1;
++            if (inBounds && width === 0) {
++                flushRun(col);
++                runStyle = "";
++                runText = "";
++                runStart = col + 1;
++                continue;
++            }
++            if (inBounds && width === 2) {
++                flushRun(col);
++                const ch = cp >= 32 ? String.fromCodePoint(cp) : " ";
++                const style = buildCellStyle(cell.fg, cell.bg, cell.flags, cell.fgRgb, cell.bgRgb);
++                const className = cursorCol >= col && cursorCol < col + 2
++                    ? "term-wide term-cursor"
++                    : "term-wide";
++                appendSpan(className, style, ch, 2);
++                runStyle = "";
++                runText = "";
++                runStart = col + 2;
++                continue;
++            }
++            const boxDrawingClass = inBounds ? BOX_DRAWING_CLASSES.get(cp) : undefined;
++            if (boxDrawingClass) {
++                flushRun(col);
++                const style = buildCellStyle(cell.fg, cell.bg, cell.flags, cell.fgRgb, cell.bgRgb);
++                const cursorClass = col === cursorCol ? " term-cursor" : "";
++                html += `<span class="term-box-drawing ${boxDrawingClass}${cursorClass}" style="${style}${toWidthStyle(1)}"></span>`;
++                runStyle = "";
++                runText = "";
++                runStart = col + 1;
++            }
++            else if (inBounds && cp >= 0x2580 && cp <= 0x259f) {
+                 flushRun(col);
+                 const colors = resolveColors(cell.fg, cell.bg, cell.flags, cell.fgRgb, cell.bgRgb);
+                 const cls = col === cursorCol ? "term-block term-cursor" : "term-block";
+                 const bg = getBlockBackground(cp, colors.fg, colors.bg);
+-                const dim = cell.flags & FLAG_DIM ? "opacity:0.5;" : "";
+-                html += `<span class="${cls}" style="background:${bg};${dim}"></span>`;
++                const dim = cell.flags & FLAG_DIM ? "opacity:var(--term-dim-opacity,0.5);" : "";
++                html += `<span class="${cls}" style="background:${bg};${dim}${toWidthStyle(1)}"></span>`;
+                 runStyle = "";
+                 runText = "";
+                 runStart = col + 1;
+@@ -279,37 +354,12 @@ export class Renderer {
+         }
+         flushRun(this.cols);
+         rowEl.innerHTML = html;
+-        let bgCss = "";
+-        if (lineLen >= this.cols && this.cols > 0) {
+-            const lastCell = getCell(this.cols - 1);
+-            let bgIdx = lastCell.bg;
+-            let bgR = lastCell.bgRgb;
+-            if (lastCell.flags & FLAG_REVERSE) {
+-                bgIdx = lastCell.fg;
+-                bgR = lastCell.fgRgb;
+-                if (bgR === undefined && bgIdx === DEFAULT_COLOR)
+-                    bgIdx = 7;
+-            }
+-            bgCss = cellBgCSS(bgIdx, bgR) || "";
+-        }
+-        const boxShadow = bgCss ? `0 1px 0 ${bgCss}` : "";
+-        if (rowIndex >= 0) {
+-            if (bgCss !== (this.prevRowBg[rowIndex] ?? "")) {
+-                rowEl.style.background = bgCss;
+-                rowEl.style.boxShadow = boxShadow;
+-                this.prevRowBg[rowIndex] = bgCss;
+-            }
+-        }
+-        else {
+-            rowEl.style.background = bgCss;
+-            rowEl.style.boxShadow = boxShadow;
+-        }
+     }
+     _buildScrollbackRowEl(core, sbOffset) {
+         const rowEl = document.createElement("div");
+         rowEl.className = "term-row term-scrollback-row";
+         const lineLen = core.getScrollbackLineLen(sbOffset);
+-        this._buildRowContent(rowEl, (col) => core.getScrollbackCell(sbOffset, col), lineLen, -1, -1);
++        this._buildRowContent(rowEl, (col) => core.getScrollbackCell(sbOffset, col), lineLen, -1);
+         return rowEl;
+     }
+     syncScrollback(core) {
+@@ -340,43 +390,19 @@ export class Renderer {
+     render(core) {
+         const rows = core.getRows();
+         const cols = core.getCols();
+-        let resized = false;
+         if (rows !== this.rows || cols !== this.cols) {
+             this.setup(cols, rows);
+-            resized = true;
+         }
+         this.syncScrollback(core);
+         const cursor = core.getCursor();
+         const cursorVisible = cursor.visible;
+-        const needsCursorUpdate = cursor.row !== this.prevCursorRow || cursor.col !== this.prevCursorCol;
+         for (let r = 0; r < this.rows; r++) {
+-            const isDirty = resized || core.isDirtyRow(r);
+-            const hadCursor = r === this.prevCursorRow && needsCursorUpdate;
+             const hasCursor = r === cursor.row;
+-            if (isDirty || hadCursor || (hasCursor && needsCursorUpdate)) {
+-                const cCol = hasCursor && cursorVisible ? cursor.col : -1;
+-                this._buildRowContent(this.rowEls[r], (col) => core.getCell(r, col), this.cols, cCol, r);
+-            }
++            const cCol = hasCursor && cursorVisible ? cursor.col : -1;
++            this._buildRowContent(this.rowEls[r], (col) => core.getCell(r, col), this.cols, cCol);
+         }
+         this.prevCursorRow = cursor.row;
+         this.prevCursorCol = cursor.col;
+-        const lastRowDirty = resized || core.isDirtyRow(this.rows - 1);
+-        if (lastRowDirty) {
+-            const bottomRight = core.getCell(this.rows - 1, this.cols - 1);
+-            let gridBgIdx = bottomRight.bg;
+-            let gridBgRgb = bottomRight.bgRgb;
+-            if (bottomRight.flags & FLAG_REVERSE) {
+-                gridBgIdx = bottomRight.fg;
+-                gridBgRgb = bottomRight.fgRgb;
+-                if (gridBgRgb === undefined && gridBgIdx === DEFAULT_COLOR)
+-                    gridBgIdx = 7;
+-            }
+-            const containerBg = cellBgCSS(gridBgIdx, gridBgRgb) || "";
+-            if (containerBg !== this.prevContainerBg) {
+-                this.container.style.background = containerBg;
+-                this.prevContainerBg = containerBg;
+-            }
+-        }
+         core.clearDirty();
+     }
+ }
+diff --git a/dist/wterm.js b/dist/wterm.js
+index b1eae1140fadfd6cdb68d7d11e94d506f6117741..0e9152b98624f35e12a1295edbd2b8f730a0d652 100644
+--- a/dist/wterm.js
++++ b/dist/wterm.js
+@@ -2,6 +2,7 @@ import { WasmBridge } from "@wterm/core";
+ import { Renderer } from "./renderer.js";
+ import { InputHandler } from "./input.js";
+ import { DebugAdapter } from "./debug.js";
++const INTERACTIVE_ELEMENT_SELECTOR = "a[href], button, input, select, textarea, [role=\"button\"]";
+ export class WTerm {
+     constructor(element, options = {}) {
+         this.bridge = null;
+@@ -30,7 +31,10 @@ export class WTerm {
+         this.element.classList.add("wterm");
+         if (options.cursorBlink)
+             this.element.classList.add("cursor-blink");
+-        this._onClickFocus = () => {
++        this._onClickFocus = (event) => {
++            const target = event.target;
++            if (target instanceof Element && target.closest(INTERACTIVE_ELEMENT_SELECTOR))
++                return;
+             const sel = window.getSelection();
+             if (!sel || sel.isCollapsed)
+                 this.input?.focus();
+@@ -193,15 +197,21 @@ export class WTerm {
+         probe.className = "term-row";
+         probe.style.visibility = "hidden";
+         probe.style.position = "absolute";
+-        probe.textContent = "W";
++        const cellProbe = document.createElement("span");
++        cellProbe.textContent = "W";
++        probe.appendChild(cellProbe);
+         this._container.appendChild(probe);
+         const h = probe.getBoundingClientRect().height;
++        const w = cellProbe.getBoundingClientRect().width;
+         probe.remove();
+         if (h > 0) {
+             const rh = Math.ceil(h);
+             this._rowHeight = rh;
+             this.element.style.setProperty("--term-row-height", `${rh}px`);
+         }
++        if (w > 0) {
++            this.element.style.setProperty("--term-cell-width", `${w}px`);
++        }
+     }
+     _measureCharSize() {
+         const row = document.createElement("div");
+@@ -218,6 +228,7 @@ export class WTerm {
+         if (charWidth === 0 || rowHeight === 0)
+             return null;
+         this._rowHeight = rowHeight;
++        this.element.style.setProperty("--term-cell-width", `${charWidth}px`);
+         return { charWidth, rowHeight };
+     }
+     _setupResizeObserver() {
+diff --git a/src/terminal.css b/src/terminal.css
+index a88e475c4edad6d7094dae61fd1a90191fb800dc..b1bf2b4775f55e09d447d6ee578a734158a1734c 100644
+--- a/src/terminal.css
++++ b/src/terminal.css
+@@ -46,6 +46,8 @@
+ .term-grid {
+   display: block;
+   white-space: pre;
++  min-height: 100%;
++  background: var(--term-bg);
+   contain: layout paint style;
+   will-change: contents;
+ }
+@@ -61,13 +63,18 @@
+   display: inline-block;
+   height: var(--term-row-height);
+   vertical-align: top;
++  overflow: hidden;
+ }
+
+ .term-block {
+-  width: 1ch;
++  width: var(--term-cell-width, 1ch);
+   overflow: hidden;
+ }
+
++.term-wide {
++  width: calc(2 * var(--term-cell-width, 1ch));
++  overflow: hidden;
++}
+ .term-cursor {
+   outline: 1px solid var(--term-cursor);
+   outline-offset: -1px;

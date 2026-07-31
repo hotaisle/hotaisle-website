@@ -1316,3 +1316,373 @@ img[data-image-modal="true"] {
 	animation: terminalCursorBlink 0.9s step-end
 		calc(var(--terminal-typing-duration) + 0.1s) infinite;
 }
+
+.ha-embedded-terminal__screen.wterm {
+	--term-bg: var(--card);
+	--term-fg: var(--foreground);
+	--term-cursor: var(--hot-orange-contrast);
+	--term-color-0: #171717;
+	--term-color-1: #b42318;
+	--term-color-2: #067647;
+	--term-color-3: #8a5a00;
+	--term-color-4: #175cd3;
+	--term-color-5: #7a3e8e;
+	--term-color-6: #087f8c;
+	--term-color-7: #d6d3d1;
+	--term-color-8: #57534e;
+	--term-color-9: #b42318;
+	--term-color-10: #067647;
+	--term-color-11: #8a5a00;
+	--term-color-12: #175cd3;
+	--term-color-13: #7a3e8e;
+	--term-color-14: #087f8c;
+	--term-color-15: #f8f8f5;
+	--term-dim-opacity: 0.95;
+	--term-direct-fg-mix: #000;
+	--term-direct-fg-weight: 60%;
+	--term-font-family: var(--font-mono);
+	--term-font-size: 0.9375rem;
+	--term-line-height: 1.2;
+	--term-row-height: 1.2rem;
+	--term-cell-width: 1ch;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: calc(44 * var(--term-row-height) + 2rem);
+	padding: 1rem;
+	overflow: auto;
+	font-family: var(--term-font-family);
+	font-size: var(--term-font-size);
+	font-feature-settings:
+		"kern" 0,
+		"liga" 0,
+		"calt" 0;
+	font-kerning: none;
+	font-variant-ligatures: none;
+	font-variant-numeric: tabular-nums;
+	line-height: var(--term-line-height);
+	color: var(--term-fg);
+	outline: none;
+	background: var(--term-bg);
+	border-radius: 0;
+	box-shadow: none;
+}
+
+.ha-embedded-terminal {
+	max-width: 69.625rem;
+	margin-inline: auto;
+}
+
+@media (min-width: 64rem) {
+	:root[data-terminal-support="supported"] .ha-embedded-terminal,
+	:root[data-terminal-support="supported"] [data-terminal-supported-copy],
+	:root:not([data-terminal-support="supported"])
+		[data-terminal-fallback-copy] {
+		display: block;
+	}
+
+	:root[data-terminal-support="supported"] [data-terminal-fallback-copy] {
+		display: none;
+	}
+}
+
+.ha-embedded-terminal__screen {
+	visibility: hidden;
+	min-height: calc(44 * 1.2rem + 2rem);
+	background: var(--card);
+}
+
+.ha-embedded-terminal__viewport {
+	position: relative;
+}
+
+.ha-embedded-terminal[data-terminal-ready="true"]
+	.ha-embedded-terminal__screen {
+	visibility: visible;
+}
+
+.ha-embedded-terminal__focus-prompt {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	z-index: 2;
+	display: none;
+	align-items: center;
+	min-height: 2.25rem;
+	padding: 0.5rem 0.75rem;
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	line-height: 1;
+	color: var(--foreground);
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	background: color-mix(in srgb, var(--background) 92%, transparent);
+	border: 1px solid var(--border);
+	box-shadow: 0 0 0 1px color-mix(in srgb, var(--background) 70%, transparent);
+	backdrop-filter: blur(4px);
+}
+
+.ha-embedded-terminal[data-terminal-ready="true"][data-terminal-focus="false"]
+	.ha-embedded-terminal__focus-prompt {
+	display: flex;
+}
+
+.ha-embedded-terminal__focus-prompt:hover,
+.ha-embedded-terminal__focus-prompt:focus-visible {
+	color: var(--hot-orange-contrast);
+	outline: none;
+	border-color: var(--hot-orange);
+}
+
+.ha-embedded-terminal__viewport:active .ha-embedded-terminal__focus-prompt {
+	display: none;
+}
+
+.ha-embedded-terminal[data-terminal-ready="true"][data-terminal-selecting="true"]
+	.ha-embedded-terminal__focus-prompt {
+	display: none;
+}
+
+.ha-embedded-terminal[data-terminal-focus="true"] {
+	border-color: #16803c;
+}
+
+.ha-terminal-platform-tabs {
+	display: flex;
+	gap: 0;
+	overflow-x: auto;
+	border-bottom: 1px solid var(--border);
+}
+
+.ha-terminal-platform-tab {
+	flex: 0 0 auto;
+	padding: 0.75rem 1rem;
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	line-height: 1;
+	color: var(--muted-foreground);
+	border: 1px solid transparent;
+	border-bottom: 0;
+}
+
+.ha-terminal-platform-tab[aria-selected="true"] {
+	color: var(--foreground);
+	background: var(--background);
+	border-color: var(--border);
+}
+
+.ha-terminal-platform-tab:hover,
+.ha-terminal-platform-tab:focus-visible {
+	color: var(--foreground);
+	outline: none;
+}
+
+.ha-terminal-platform-tab:focus-visible {
+	box-shadow: inset 0 0 0 1px var(--hot-orange);
+}
+
+.dark .ha-embedded-terminal__screen {
+	background: #050805;
+}
+
+.dark .ha-embedded-terminal__focus-prompt {
+	color: #8aff9f;
+	background: color-mix(in srgb, #050805 92%, transparent);
+	box-shadow: 0 0 0 1px color-mix(in srgb, #050805 70%, transparent);
+}
+
+.dark .ha-embedded-terminal__focus-prompt:hover,
+.dark .ha-embedded-terminal__focus-prompt:focus-visible {
+	color: #c7ffd2;
+	border-color: #8aff9f;
+}
+
+.ha-embedded-terminal .term-grid {
+	position: relative;
+	display: block;
+	min-width: 120ch;
+	min-height: 100%;
+	contain: layout paint style;
+	white-space: pre;
+	background: var(--term-bg);
+}
+
+.ha-embedded-terminal .term-image-layer {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.ha-embedded-terminal .term-image {
+	position: absolute;
+	display: block;
+	max-width: none;
+	pointer-events: none;
+	user-select: none;
+	object-fit: fill;
+}
+
+.ha-embedded-terminal .term-row {
+	display: block;
+	height: var(--term-row-height);
+	contain: layout style;
+	line-height: var(--term-row-height);
+}
+
+.ha-embedded-terminal .term-row > span {
+	display: inline-block;
+	height: var(--term-row-height);
+	overflow: hidden;
+	vertical-align: top;
+}
+
+.ha-embedded-terminal .term-block {
+	width: var(--term-cell-width, 1ch);
+	overflow: hidden;
+}
+
+.ha-embedded-terminal .term-wide {
+	width: calc(2 * var(--term-cell-width, 1ch));
+	overflow: hidden;
+}
+
+.ha-embedded-terminal .term-box-drawing {
+	position: relative;
+}
+
+.ha-embedded-terminal .term-box-drawing::before,
+.ha-embedded-terminal .term-box-drawing::after {
+	position: absolute;
+	content: "";
+	background: currentColor;
+}
+
+.ha-embedded-terminal .term-box-h::before {
+	top: 50%;
+	right: 0;
+	left: 0;
+	height: 1px;
+	transform: translateY(-50%);
+}
+
+.ha-embedded-terminal .term-box-v::after {
+	top: -1px;
+	bottom: -1px;
+	left: 50%;
+	width: 1px;
+	transform: translateX(-50%);
+}
+
+.ha-embedded-terminal .term-box-tl::before,
+.ha-embedded-terminal .term-box-bl::before {
+	right: 0;
+	left: 50%;
+	height: 1px;
+}
+
+.ha-embedded-terminal .term-box-tr::before,
+.ha-embedded-terminal .term-box-br::before {
+	right: 50%;
+	left: 0;
+	height: 1px;
+}
+
+.ha-embedded-terminal .term-box-tl::before,
+.ha-embedded-terminal .term-box-tr::before {
+	top: 50%;
+}
+
+.ha-embedded-terminal .term-box-bl::before,
+.ha-embedded-terminal .term-box-br::before {
+	bottom: 50%;
+}
+
+.ha-embedded-terminal .term-box-tl::after,
+.ha-embedded-terminal .term-box-tr::after {
+	top: 50%;
+	bottom: -1px;
+	left: 50%;
+	width: 1px;
+}
+
+.ha-embedded-terminal .term-box-bl::after,
+.ha-embedded-terminal .term-box-br::after {
+	top: -1px;
+	bottom: 50%;
+	left: 50%;
+	width: 1px;
+}
+
+.ha-embedded-terminal .term-box-tl::after,
+.ha-embedded-terminal .term-box-tr::after,
+.ha-embedded-terminal .term-box-bl::after,
+.ha-embedded-terminal .term-box-br::after {
+	transform: translateX(-50%);
+}
+
+.ha-embedded-terminal .term-cursor {
+	outline: none;
+	border-bottom: 2px solid transparent;
+}
+
+.ha-embedded-terminal[data-terminal-cursor-visible="true"]
+	.wterm.focused
+	.term-cursor {
+	color: inherit;
+	outline: none;
+	border-bottom-color: var(--term-cursor);
+}
+
+.ha-embedded-terminal .wterm.has-scrollback {
+	overflow-y: auto;
+}
+
+.ha-embedded-terminal .wterm ::selection {
+	background: color-mix(in srgb, var(--hot-orange) 30%, transparent);
+}
+
+.ha-embedded-terminal .term-link {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+	cursor: pointer;
+}
+
+.ha-embedded-terminal .term-link:focus-visible {
+	outline: 1px solid currentColor;
+	outline-offset: 1px;
+}
+
+.dark .ha-embedded-terminal__screen.wterm {
+	--term-bg: #050805;
+	--term-fg: #67e480;
+	--term-cursor: #8aff9f;
+	--term-color-0: #050805;
+	--term-color-2: #67e480;
+	--term-color-7: #67e480;
+	--term-color-8: #397d46;
+	--term-color-10: #237a3f;
+	--term-color-15: #c7ffd2;
+	--term-dim-opacity: 0.5;
+	--term-direct-fg-weight: 100%;
+}
+
+.dark .ha-embedded-terminal[data-terminal-focus="true"] {
+	border-color: color-mix(in srgb, #67e480 40%, var(--border));
+}
+
+.dark .ha-embedded-terminal__host {
+	color: #67e480;
+}
+
+.ha-embedded-terminal[data-state="connected"] .ha-embedded-terminal__status-dot,
+.ha-embedded-terminal[data-state="authenticated"]
+	.ha-embedded-terminal__status-dot {
+	background: var(--success);
+}
+
+.ha-embedded-terminal[data-state="disconnected"]
+	.ha-embedded-terminal__status-dot {
+	background: var(--destructive);
+}

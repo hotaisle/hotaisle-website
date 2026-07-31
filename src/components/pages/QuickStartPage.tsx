@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import CopyCommand from '@/components/CopyCommand.tsx';
+import { EmbeddedTerminal } from '@/components/EmbeddedTerminal.tsx';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { TerminalTyping } from '@/components/TerminalTyping.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
@@ -217,36 +218,50 @@ export default function QuickStartPage() {
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
 								Connect via SSH.
 							</h2>
-							<p className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed">
-								Log in to the Hot Aisle terminal UI and create your team from the
-								same place you provision compute.
+							<p
+								className="mt-5 hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
+								data-terminal-supported-copy
+							>
+								This is a live terminal connected exclusively to{' '}
+								<span className="text-success">admin.hotaisle.app</span>, so you can
+								explore our unique platform right here, right now. For regular use,
+								we recommend one of the terminal apps listed below.
 							</p>
-							<div className="mt-8 max-w-2xl">
-								<CopyCommand command="ssh admin.hotaisle.app" />
-							</div>
-							<p className="mt-4 max-w-2xl text-muted-foreground text-sm leading-relaxed">
-								For a terminal app, use{' '}
-								<a
-									className="font-medium text-hot-orange-contrast hover:text-foreground"
-									href="https://ghostty.org/"
-									rel="noopener"
-									target="_blank"
-								>
-									Ghostty
-								</a>{' '}
-								on macOS and Linux, or{' '}
-								<a
-									className="font-medium text-hot-orange-contrast hover:text-foreground"
-									href="https://wezterm.org/"
-									rel="noopener"
-									target="_blank"
-								>
-									WezTerm
-								</a>{' '}
-								on Windows.
+							<p
+								className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed"
+								data-terminal-fallback-copy
+							>
+								Log in to the Hot Aisle terminal UI with your favorite console
+								application and create your team, add credits, and provision
+								compute.
 							</p>
 						</div>
 					</div>
+					<EmbeddedTerminal />
+					<div className="mt-8">
+						<CopyCommand command="ssh admin.hotaisle.app" />
+					</div>
+					<p className="mt-4 text-muted-foreground text-sm leading-relaxed">
+						For a terminal app, use{' '}
+						<a
+							className="font-medium text-hot-orange-contrast hover:text-foreground"
+							href="https://ghostty.org/"
+							rel="noopener"
+							target="_blank"
+						>
+							Ghostty
+						</a>{' '}
+						on macOS and Linux, or{' '}
+						<a
+							className="font-medium text-hot-orange-contrast hover:text-foreground"
+							href="https://wezterm.org/"
+							rel="noopener"
+							target="_blank"
+						>
+							WezTerm
+						</a>{' '}
+						on Windows.
+					</p>
 				</section>
 
 				<section className="border-border border-b py-16">

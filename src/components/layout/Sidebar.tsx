@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { ThemeToggle } from '@/components/ThemeToggle.tsx';
-import { cn } from '@/lib/utils.ts';
 
 const NAV_ITEMS = [
 	{ href: '/quick-start', icon: Zap, label: 'Quick Start' },
@@ -109,9 +108,7 @@ export function Sidebar() {
 
 								return (
 									<AppLink
-										className={cn(
-											'group relative flex items-center rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange'
-										)}
+										className="group relative flex items-center rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
 										data-mobile-nav-close
 										href={item.href}
 										key={item.href}
@@ -162,9 +159,7 @@ export function Sidebar() {
 
 						return (
 							<AppLink
-								className={cn(
-									'group relative flex items-center rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange'
-								)}
+								className="group relative flex items-center rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
 								href={item.href}
 								key={item.href}
 							>

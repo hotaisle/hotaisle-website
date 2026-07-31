@@ -8,6 +8,7 @@ import { defineConfig } from 'astro/config';
 const LOCAL_TLS_CERT_PATH = path.resolve(import.meta.dirname, './.dev-localhost-cert.pem');
 const LOCAL_TLS_KEY_PATH = path.resolve(import.meta.dirname, './.dev-localhost-key.pem');
 const DEV_SERVER_PORT = 4174;
+const DEV_WORKER_PORT = 4175;
 const hasLocalTlsCertificate = existsSync(LOCAL_TLS_CERT_PATH) && existsSync(LOCAL_TLS_KEY_PATH);
 const localHttpsOptions = hasLocalTlsCertificate
 	? {
@@ -41,6 +42,14 @@ export default defineConfig({
 		},
 		server: {
 			https: localHttpsOptions,
+			proxy: {
+				'/api': {
+					secure: false,
+					target: `https://localhost:${DEV_WORKER_PORT}`,
+					ws: true,
+				},
+			},
+			strictPort: true,
 		},
 	},
 });
