@@ -1,0 +1,19 @@
+diff --git a/lib/protocol/crypto.js b/lib/protocol/crypto.js
+index 851cc73817537c1eace3442c792bc1e5e5289cd2..2e2caea24c4e94d45c48ffc0a4256d79e978dad7 100644
+--- a/lib/protocol/crypto.js
++++ b/lib/protocol/crypto.js
+@@ -26,11 +26,9 @@ let GenericCipher;
+ let AESGCMDecipher;
+ let ChaChaPolyDecipher;
+ let GenericDecipher;
+-try {
+-  binding = require('./crypto/build/Release/sshcrypto.node');
+-  ({ AESGCMCipher, ChaChaPolyCipher, GenericCipher,
+-     AESGCMDecipher, ChaChaPolyDecipher, GenericDecipher } = binding);
+-} catch {}
++
++// Cloudflare Workers cannot bundle or execute native Node.js addons. Leave the
++// optional binding unset so ssh2 uses its built-in JavaScript crypto fallback.
+ 
+ const CIPHER_STREAM = 1 << 0;
+ const CIPHER_INFO = (() => {
