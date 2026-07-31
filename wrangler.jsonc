@@ -1,15 +1,22 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "hotaisle-website",
-	"compatibility_date": "2026-04-01",
+	"compatibility_date": "2026-07-26",
 	"compatibility_flags": ["nodejs_compat"],
 	"main": "./src/worker/index.ts",
+	"alias": {
+		"cpu-features": "./src/worker/cpu-features-stub.cjs"
+	},
+	"define": {
+		"__dirname": "\"/\"",
+		"__filename": "\"/worker.js\""
+	},
 	"assets": {
 		"binding": "ASSETS",
 		"directory": "./dist-static",
 		"html_handling": "drop-trailing-slash",
 		"not_found_handling": "404-page",
-		"run_worker_first": ["/api/machine-status", "/api/ws"]
+		"run_worker_first": ["/api/machine-status", "/api/terminal", "/api/ws"]
 	},
 	"durable_objects": {
 		"bindings": [

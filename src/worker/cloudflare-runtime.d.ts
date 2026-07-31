@@ -18,6 +18,10 @@ interface ResponseInit {
 	webSocket?: WebSocket | null;
 }
 
+interface WebSocket {
+	accept: () => void;
+}
+
 declare const WebSocketPair: {
 	new (): [WebSocket, WebSocket];
 };

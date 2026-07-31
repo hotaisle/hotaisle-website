@@ -1,4 +1,5 @@
 import { parseMachineStatusEvent } from '@/lib/machine-status.ts';
+import { handleTerminalRequest } from '@/worker/terminal.ts';
 
 const BAD_REQUEST_STATUS = 400;
 const FORBIDDEN_STATUS = 403;
@@ -15,6 +16,7 @@ const HUB_BROADCAST_PATH = '/broadcast';
 const HUB_CONNECT_PATH = '/connect';
 const MACHINE_STATUS_PATH = `${API_BASE_PATH}/machine-status`;
 const WEBSOCKET_PATH = `${API_BASE_PATH}/ws`;
+const TERMINAL_PATH = `${API_BASE_PATH}/terminal`;
 
 interface Env {
 	ASSETS: FetcherLike;
@@ -37,6 +39,10 @@ const worker = {
 
 		if (requestUrl.pathname === WEBSOCKET_PATH) {
 			return await handleWebSocketRequest(request, env);
+		}
+
+		if (requestUrl.pathname === TERMINAL_PATH) {
+			return handleTerminalRequest(request);
 		}
 
 		if (!env?.ASSETS) {
