@@ -66,6 +66,7 @@
 	},
 	"patchedDependencies": {
 		"@wterm/ghostty@0.3.0": "patches/@wterm%2Fghostty@0.3.0.patch",
-		"@wterm/dom@0.3.0": "patches/@wterm%2Fdom@0.3.0.patch"
+		"@wterm/dom@0.3.0": "patches/@wterm%2Fdom@0.3.0.patch",
+		"ssh2@1.17.0": "patches/ssh2@1.17.0.patch"
 	}
 }
