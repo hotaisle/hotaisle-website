@@ -286,24 +286,25 @@ export default function PricingPage() {
 				</section>
 			</div>
 
-			{/* Resources Section */}
+			{/* Quick Start Section */}
 			<div className="container mx-auto mt-16 max-w-7xl px-6">
 				<div className="border border-border bg-muted/35">
 					<div className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
 						<div>
-							<p className="ha-briefing-label">MI355X availability</p>
+							<p className="ha-briefing-label">Quick start</p>
 							<h3 className="mt-4 font-medium text-2xl text-foreground">
-								Accepting MI355x reservations.
+								From terminal to isolated compute.
 							</h3>
 							<p className="mt-3 max-w-2xl text-muted-foreground leading-relaxed">
-								Be the first to access the next generation of AMD compute.
+								Create your team, add credits, and provision AMD GPU compute in
+								under 60 seconds.
 							</p>
 						</div>
 						<AppLink
 							className="inline-flex min-h-12 items-center justify-center bg-foreground px-6 py-3 font-medium text-background transition-opacity hover:opacity-85"
-							href="/mi355x"
+							href="/quick-start"
 						>
-							Reserve now
+							Open quick start
 						</AppLink>
 					</div>
 				</div>

@@ -75,7 +75,7 @@ export default function MI355XContent() {
 								className="mt-8 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
 								href="#reserve"
 							>
-								Request capacity
+								Read the MI355X update
 							</a>
 						</div>
 					</div>
@@ -173,30 +173,75 @@ export default function MI355XContent() {
 
 				<section className="scroll-mt-24 border-border border-b py-16" id="reserve">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">MI355X capacity</p>
+						<p className="ha-briefing-label">Experiment complete</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Plan the deployment before capacity arrives.
+								The signup form is gone. The signal is not.
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Share the deployment you are planning. We will use it to align
-								hardware, networking, isolation requirements, and a realistic
-								delivery path.
+								We ran an experiment to see whether anyone would put real money
+								behind future MI355X capacity. The response was much stronger than
+								we expected.
 							</p>
 						</div>
 					</div>
 
-					<div className="mt-12 border border-border bg-muted/20 p-3 md:p-5">
-						<iframe
-							className="min-h-200 w-full border-0 bg-background"
-							src="https://tally.so/embed/wAZ1AB?alignLeft=1&hideTitle=1&transparentBackground=0&dynamicHeight=1"
-							title="Request AMD MI355X capacity from Hot Aisle"
-						/>
+					<div className="mt-12 border border-border bg-muted/20">
+						<div className="grid divide-y divide-border border-border border-b sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+							<div className="p-7">
+								<p className="font-black text-5xl text-hot-orange-contrast">$100</p>
+								<p className="mt-3 font-mono text-muted-foreground text-xs uppercase">
+									pledged by each person
+								</p>
+							</div>
+							<div className="p-7">
+								<p className="font-black text-5xl text-hot-orange-contrast">17×</p>
+								<p className="mt-3 font-mono text-muted-foreground text-xs uppercase">
+									our expected response
+								</p>
+							</div>
+						</div>
+
+						<div className="grid gap-8 p-7 md:grid-cols-[0.65fr_1.35fr] md:p-10">
+							<p className="max-w-xs font-black text-2xl text-foreground leading-tight md:text-3xl">
+								Our little experiment returned a very loud answer.
+							</p>
+							<div className="max-w-2xl space-y-5 text-lg text-muted-foreground leading-relaxed">
+								<p>
+									That signup form was an experiment. It is over now, and we
+									learned a lot from it. We asked people to pledge $100 toward
+									future MI355X capacity.
+								</p>
+								<p>
+									We are still raising the capital required to buy and deploy the
+									hardware. Hot Aisle is a three-year-old business with more than
+									$50 million in requests for MI355X capacity and a product built
+									around what developers and businesses actually need.
+								</p>
+								<p>
+									We are already in active conversations, but the right
+									introduction could make a real difference. If you know someone
+									who should hear our story, put us on a call together. We will
+									make time immediately.
+								</p>
+
+								<div className="flex flex-wrap gap-3 pt-2">
+									<AppLink
+										className="inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-opacity hover:opacity-85"
+										href="/investors"
+									>
+										Read the investor story
+									</AppLink>
+									<a
+										className="inline-flex border border-border bg-background px-5 py-3 font-medium text-foreground transition-colors hover:border-foreground"
+										href="mailto:hello@hotaisle.ai?subject=MI355X%20investment%20introduction"
+									>
+										hello@hotaisle.ai
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
-					<p className="mt-5 text-muted-foreground text-sm">
-						Capacity requests start a planning conversation; they are not a commitment
-						to purchase.
-					</p>
 				</section>
 
 				<section className="py-16">
@@ -208,7 +253,7 @@ export default function MI355XContent() {
 							</h2>
 							<p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
 								MI300X capacity is available through the same platform, with
-								isolated VMs and bare metal provisioned without a sales handoff.
+								isolated VMs and bare metal provisioned without a sales process.
 							</p>
 							<AppLink
 								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
