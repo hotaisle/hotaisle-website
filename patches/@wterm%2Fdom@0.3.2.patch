@@ -1,5 +1,5 @@
 diff --git a/dist/renderer.js b/dist/renderer.js
-index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7eb13cced 100644
+index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4dafff47dce4 100644
 --- a/dist/renderer.js
 +++ b/dist/renderer.js
 @@ -6,13 +6,43 @@ const FLAG_UNDERLINE = 0x08;
@@ -91,9 +91,9 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
      if (flags & FLAG_ITALIC)
          style += "font-style:italic;";
      const decorations = [];
-@@ -88,6 +121,23 @@ function escapeHTML(text) {
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;");
+@@ -89,6 +122,23 @@ function escapeHTML(text) {
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;");
  }
 +function linkifyText(text) {
 +    let html = "";
@@ -115,7 +115,7 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
  function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
      let fgIdx = fg, bgIdx = bg, fgR = fgRgb, bgR = bgRgb;
      if (flags & FLAG_REVERSE) {
-@@ -99,7 +149,7 @@ function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
+@@ -100,7 +150,7 @@ function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
              bgIdx = 7;
      }
      return {
@@ -124,7 +124,7 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
          bg: cellBgCSS(bgIdx, bgR) || "var(--term-bg)",
      };
  }
-@@ -186,8 +236,6 @@ export class Renderer {
+@@ -187,8 +237,6 @@ export class Renderer {
          this.rowEls = [];
          this.prevCursorRow = -1;
          this.prevCursorCol = -1;
@@ -133,7 +133,7 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
          this._scrollbackRowEls = [];
          this._renderedScrollbackCount = 0;
          this.container = container;
-@@ -197,7 +245,6 @@ export class Renderer {
+@@ -198,7 +246,6 @@ export class Renderer {
          this.rows = rows;
          this.container.innerHTML = "";
          this.rowEls = [];
@@ -141,19 +141,18 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
          this._scrollbackRowEls = [];
          this._renderedScrollbackCount = 0;
          const fragment = document.createDocumentFragment();
-@@ -211,15 +258,20 @@ export class Renderer {
+@@ -212,15 +259,19 @@ export class Renderer {
          this.prevCursorRow = -1;
          this.prevCursorCol = -1;
      }
 -    _buildRowContent(rowEl, getCell, lineLen, cursorCol, rowIndex) {
-+    _buildRowContent(rowEl, readCell, lineLen, cursorCol) {
++    _buildRowContent(rowEl, getCell, lineLen, cursorCol) {
          let html = "";
          let runStyle = "";
          let runText = "";
          let runStart = 0;
-+        const getCell = (col) => readCell(col);
 +        const toWidthStyle = (cellCount) => `width:calc(${cellCount} * var(--term-cell-width, 1ch));`;
-+        const appendSpan = (className, style, text, cellCount) => {
++        const appendStyledSpan = (className, style, text, cellCount) => {
 +            const classAttribute = className ? ` class="${className}"` : "";
 +            html += `<span${classAttribute} style="${style}${toWidthStyle(cellCount)}">${linkifyText(text)}</span>`;
 +        };
@@ -164,59 +163,71 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
              if (cursorCol >= runStart && cursorCol < endCol) {
                  const offset = cursorCol - runStart;
                  const chars = [...runText];
-@@ -227,36 +279,59 @@ export class Renderer {
+@@ -228,30 +279,17 @@ export class Renderer {
                  const cursorChar = chars[offset] || " ";
                  const after = chars.slice(offset + 1).join("");
                  if (before) {
 -                    html += runStyle
 -                        ? `<span style="${runStyle}">${escapeHTML(before)}</span>`
 -                        : `<span>${escapeHTML(before)}</span>`;
-+                    appendSpan("", runStyle, before, offset);
++                    appendStyledSpan("", runStyle, before, offset);
                  }
 -                html += runStyle
 -                    ? `<span class="term-cursor" style="${runStyle}">${escapeHTML(cursorChar)}</span>`
 -                    : `<span class="term-cursor">${escapeHTML(cursorChar)}</span>`;
-+                appendSpan("term-cursor", runStyle, cursorChar, 1);
++                appendStyledSpan("term-cursor", runStyle, cursorChar, 1);
                  if (after) {
 -                    html += runStyle
 -                        ? `<span style="${runStyle}">${escapeHTML(after)}</span>`
 -                        : `<span>${escapeHTML(after)}</span>`;
-+                    appendSpan("", runStyle, after, endCol - cursorCol - 1);
++                    appendStyledSpan("", runStyle, after, endCol - cursorCol - 1);
                  }
              }
              else {
 -                html += runStyle
 -                    ? `<span style="${runStyle}">${escaped}</span>`
 -                    : `<span>${escaped}</span>`;
-+                appendSpan("", runStyle, runText, endCol - runStart);
++                appendStyledSpan("", runStyle, runText, endCol - runStart);
              }
          };
+-        const appendStyledSpan = (className, style, text) => {
+-            const classAttr = className ? ` class="${className}"` : "";
+-            const styleAttr = style ? ` style="${style}"` : "";
+-            html += `<span${classAttr}${styleAttr}>${escapeHTML(text)}</span>`;
+-        };
          for (let col = 0; col < this.cols; col++) {
              const cell = getCell(col);
              const inBounds = col < lineLen;
-             const cp = inBounds ? cell.char : 0;
+@@ -265,7 +303,7 @@ export class Renderer {
+                 // would shorten the row.
+                 const continuesWide = col > 0 && (getCell(col - 1).width ?? 1) === 2;
+                 if (!continuesWide) {
+-                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ");
++                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ", 1);
+                 }
+                 runStyle = "";
+                 runText = "";
+@@ -279,7 +317,7 @@ export class Renderer {
+                 // continuation is outside the row. Drawing the pair here would spill
+                 // a second column past the row.
+                 if (col + 1 >= this.cols) {
+-                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ");
++                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ", 1);
+                     runStyle = "";
+                     runText = "";
+                     runStart = col + 1;
+@@ -290,19 +328,29 @@ export class Renderer {
+                 const cls = cursorCol >= col && cursorCol < col + 2
+                     ? "term-wide term-cursor"
+                     : "term-wide";
+-                appendStyledSpan(cls, style, ch);
++                appendStyledSpan(cls, style, ch, 2);
+                 runStyle = "";
+                 runText = "";
+                 runStart = col + 2;
+                 continue;
+             }
 -            if (inBounds && cp >= 0x2580 && cp <= 0x259f) {
-+            const width = inBounds ? (cell.width ?? 1) : 1;
-+            if (inBounds && width === 0) {
-+                flushRun(col);
-+                runStyle = "";
-+                runText = "";
-+                runStart = col + 1;
-+                continue;
-+            }
-+            if (inBounds && width === 2) {
-+                flushRun(col);
-+                const ch = cp >= 32 ? String.fromCodePoint(cp) : " ";
-+                const style = buildCellStyle(cell.fg, cell.bg, cell.flags, cell.fgRgb, cell.bgRgb);
-+                const className = cursorCol >= col && cursorCol < col + 2
-+                    ? "term-wide term-cursor"
-+                    : "term-wide";
-+                appendSpan(className, style, ch, 2);
-+                runStyle = "";
-+                runText = "";
-+                runStart = col + 2;
-+                continue;
-+            }
 +            const boxDrawingClass = inBounds ? BOX_DRAWING_CLASSES.get(cp) : undefined;
 +            if (boxDrawingClass) {
 +                flushRun(col);
@@ -239,7 +250,7 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
                  runStyle = "";
                  runText = "";
                  runStart = col + 1;
-@@ -279,37 +354,12 @@ export class Renderer {
+@@ -325,37 +373,12 @@ export class Renderer {
          }
          flushRun(this.cols);
          rowEl.innerHTML = html;
@@ -278,7 +289,7 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
          return rowEl;
      }
      syncScrollback(core) {
-@@ -340,43 +390,19 @@ export class Renderer {
+@@ -386,43 +409,19 @@ export class Renderer {
      render(core) {
          const rows = core.getRows();
          const cols = core.getCols();
@@ -325,7 +336,7 @@ index 93393723ea727ba3d92357da5266b91f746b353a..90ab8ab4e2eb17411268a278c37673b7
      }
  }
 diff --git a/dist/wterm.js b/dist/wterm.js
-index b1eae1140fadfd6cdb68d7d11e94d506f6117741..0e9152b98624f35e12a1295edbd2b8f730a0d652 100644
+index b1eae1140fadfd6cdb68d7d11e94d506f6117741..fd804a72bc404f53588c6526461d0049561e4ce3 100644
 --- a/dist/wterm.js
 +++ b/dist/wterm.js
 @@ -2,6 +2,7 @@ import { WasmBridge } from "@wterm/core";
@@ -380,7 +391,7 @@ index b1eae1140fadfd6cdb68d7d11e94d506f6117741..0e9152b98624f35e12a1295edbd2b8f7
      }
      _setupResizeObserver() {
 diff --git a/src/terminal.css b/src/terminal.css
-index a88e475c4edad6d7094dae61fd1a90191fb800dc..b1bf2b4775f55e09d447d6ee578a734158a1734c 100644
+index 7c552a18a8b078dac9e27dcacf600467dd0f45e0..7e6d14ce68acde12b5b689d69ca109ca803aa8af 100644
 --- a/src/terminal.css
 +++ b/src/terminal.css
 @@ -46,6 +46,8 @@
@@ -392,7 +403,7 @@ index a88e475c4edad6d7094dae61fd1a90191fb800dc..b1bf2b4775f55e09d447d6ee578a7341
    contain: layout paint style;
    will-change: contents;
  }
-@@ -61,13 +63,18 @@
+@@ -61,14 +63,15 @@
    display: inline-block;
    height: var(--term-row-height);
    vertical-align: top;
@@ -405,10 +416,8 @@ index a88e475c4edad6d7094dae61fd1a90191fb800dc..b1bf2b4775f55e09d447d6ee578a7341
    overflow: hidden;
  }
 
-+.term-wide {
+ .term-wide {
+-  width: 2ch;
 +  width: calc(2 * var(--term-cell-width, 1ch));
-+  overflow: hidden;
-+}
- .term-cursor {
-   outline: 1px solid var(--term-cursor);
-   outline-offset: -1px;
+   overflow: hidden;
+ }

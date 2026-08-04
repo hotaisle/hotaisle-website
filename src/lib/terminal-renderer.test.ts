@@ -25,7 +25,7 @@ const renderCell = (cell: object): string => {
 	return row.innerHTML;
 };
 
-describe('terminal renderer links', () => {
+describe('terminal renderer', () => {
 	test('turns web URLs into safe links without including trailing punctuation', () => {
 		const renderer: object = Reflect.construct(Renderer, [{}]);
 		Reflect.set(renderer, 'cols', TERMINAL_TEXT.length);
@@ -86,5 +86,23 @@ describe('terminal renderer links', () => {
 		},
 	])('$name', ({ cell, expected }) => {
 		expect(renderCell(cell)).toContain(expected);
+	});
+
+	test('preserves two-column characters and skips their continuation cells', () => {
+		const renderer: object = Reflect.construct(Renderer, [{}]);
+		Reflect.set(renderer, 'cols', 3);
+		const row = { innerHTML: '' };
+		const cells = [{ ...toCell('界'), width: 2 }, { ...toCell(' '), width: 0 }, toCell('A')];
+		const readCell = (column: number) => cells[column] ?? toCell(' ');
+		const buildRowContent = Reflect.get(renderer, '_buildRowContent');
+
+		Reflect.apply(buildRowContent, renderer, [row, readCell, cells.length, -1]);
+
+		expect(row.innerHTML).toContain(
+			'<span class="term-wide" style="width:calc(2 * var(--term-cell-width, 1ch));">界</span>'
+		);
+		expect(row.innerHTML).toContain(
+			'<span style="width:calc(1 * var(--term-cell-width, 1ch));">A</span>'
+		);
 	});
 });

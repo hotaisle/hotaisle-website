@@ -1,7 +1,7 @@
 # Ghostty WASM
 
-`public/assets/terminal/ghostty-vt.wasm` is built from `@wterm/ghostty` 0.3.0 with
-the fix for [wterm issue #86](https://github.com/vercel-labs/wterm/issues/86).
+`public/assets/terminal/ghostty-vt.wasm` is copied from `@wterm/ghostty` 0.3.2.
+This release includes the upstream fix for Ghostty style leakage across screens.
 
 The fix initializes cells without a style ID to Ghostty's default style:
 
@@ -15,7 +15,7 @@ into otherwise unstyled cells after alternate-screen and TUI redraws.
 The expected SHA-256 is:
 
 ```text
-43ec508e2134d863b21e1dfba2d67eafbad9ba799252017c40934bf4ecff83bd
+551e3eb20fc66509f648f46b7261da35d6f1abe5138961ff1e33907673e1561c
 ```
 
-`src/lib/ghostty-wasm.test.ts` covers the style-reset behavior.
+`src/lib/ghostty-wasm.test.ts` guards the style-reset behavior.
