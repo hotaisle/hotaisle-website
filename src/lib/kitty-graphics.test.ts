@@ -209,6 +209,33 @@ describe('findKittyPlaceholder', () => {
 });
 
 describe('KittyGraphicsBridge', () => {
+	test('overlays an uploaded PNG when the placeholder is rendered before placement', () => {
+		const document = new FakeDocument();
+		const terminal = new FakeElement(document);
+		const grid = new FakeElement(document);
+		terminal.append(grid);
+		const core = createFakeCore((row, column) => ({
+			bg: 256,
+			char: row === 2 && column === 3 ? PLACEHOLDER_CODEPOINT : 32,
+			fg: 256,
+			flags: 0,
+		}));
+		const bridge = new KittyGraphicsBridge({
+			core,
+			grid: grid as unknown as HTMLElement,
+			sendResponse: () => undefined,
+			writeTerminal: () => undefined,
+		});
+
+		bridge.write('render placeholders');
+		bridge.write(kittyCommand('a=t,f=100,i=42', 'iVBORw0KGgo='));
+		bridge.write(kittyCommand('a=p,U=1,c=18,r=9,i=42'));
+
+		const [imageLayer] = grid.children;
+		expect(imageLayer.children).toHaveLength(1);
+		expect(imageLayer.children[0]?.className).toBe('term-image');
+	});
+
 	test('answers the probe and overlays an uploaded PNG on its virtual placeholder', () => {
 		const document = new FakeDocument();
 		const terminal = new FakeElement(document);
