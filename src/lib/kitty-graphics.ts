@@ -415,6 +415,10 @@ export class KittyGraphicsBridge {
 			rows,
 			zIndex: control.z,
 		};
+		// Bubble Tea may paint the virtual placeholder before its asynchronous
+		// image command arrives. Try both orderings: text writes call this method
+		// after updating the terminal grid, and a late placement retries here.
+		this.placePendingImage();
 	}
 
 	private placePendingImage(): void {
