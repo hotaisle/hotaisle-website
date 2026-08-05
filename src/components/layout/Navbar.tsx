@@ -4,6 +4,7 @@ import {
 	Building,
 	Cpu,
 	DollarSign,
+	ExternalLink,
 	Handshake,
 	Info,
 	Landmark,
@@ -18,7 +19,12 @@ import {
 import { AppLink } from '@/components/AppLink.tsx';
 import { SearchControl } from '@/components/layout/SearchControl.tsx';
 import { ThemeToggle } from '@/components/ThemeToggle.tsx';
-import { HEADER_CONTACT_LINK, HEADER_CTA_LINK, PRIMARY_NAV_LINKS } from '@/lib/navigation.ts';
+import {
+	HEADER_CONTACT_LINK,
+	HEADER_CTA_LINK,
+	HEADER_RESERVE_ID_LINK,
+	PRIMARY_NAV_LINKS,
+} from '@/lib/navigation.ts';
 
 type NavMatchMode = 'exact' | 'section';
 
@@ -142,6 +148,16 @@ export function Navbar({ pathname }: NavbarProps) {
 						<ThemeToggle />
 
 						<AppLink
+							className="hidden min-h-9 items-center gap-1.5 border border-hot-orange/55 bg-hot-orange/8 px-3 py-2 font-mono text-hot-orange-contrast text-xs transition-colors hover:border-hot-orange hover:bg-hot-orange/15 lg:inline-flex"
+							href={HEADER_RESERVE_ID_LINK.href}
+							rel="noopener"
+							target="_blank"
+						>
+							{HEADER_RESERVE_ID_LINK.label}
+							<ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
+						</AppLink>
+
+						<AppLink
 							className="ha-header-cta hidden border border-hot-orange bg-hot-orange px-4 py-2 font-mono text-white text-xs transition hover:opacity-85 lg:inline-flex"
 							href={HEADER_CTA_LINK.href}
 						>
@@ -211,11 +227,21 @@ export function Navbar({ pathname }: NavbarProps) {
 
 					<div className="border-t p-4">
 						<AppLink
+							className="mb-3 flex w-full items-center justify-center gap-2 border border-hot-orange/55 bg-hot-orange/8 px-4 py-3 font-semibold text-hot-orange-contrast transition-colors hover:border-hot-orange hover:bg-hot-orange/15"
+							data-mobile-nav-close
+							href={HEADER_RESERVE_ID_LINK.href}
+							rel="noopener"
+							target="_blank"
+						>
+							{HEADER_RESERVE_ID_LINK.label}
+							<ExternalLink aria-hidden="true" className="h-4 w-4" />
+						</AppLink>
+						<AppLink
 							className="flex w-full items-center justify-center rounded-lg bg-hot-orange px-4 py-3 font-semibold text-white transition hover:opacity-90"
 							data-mobile-nav-close
 							href="/quick-start"
 						>
-							Start Now
+							Quick Start
 						</AppLink>
 						<div className="mt-3 flex items-center justify-between">
 							<AppLink

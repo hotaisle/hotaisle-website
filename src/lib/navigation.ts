@@ -21,3 +21,8 @@ export const HEADER_CTA_LINK: NavigationLink = {
 	href: '/quick-start',
 	label: 'Launch Compute',
 };
+
+export const HEADER_RESERVE_ID_LINK: NavigationLink = {
+	href: 'https://hotaisle.cloud',
+	label: 'Reserve your ID',
+};
