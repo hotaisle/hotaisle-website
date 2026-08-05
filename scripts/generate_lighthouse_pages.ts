@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { SITE_FONT_PATHS } from '@/lib/fonts.ts';
 import {
 	FOOTER_COLUMNS,
 	FOOTER_META_LINKS,
@@ -484,6 +485,10 @@ function renderPage(
 		? toReportHref(reportDirectory, representativeEntries[0].htmlPath)
 		: '#';
 	const generatedAt = GENERATED_DATE_FORMATTER.format(new Date());
+	const fontPreloads = SITE_FONT_PATHS.map(
+		(fontPath) =>
+			`<link rel="preload" href="${fontPath}" as="font" type="font/woff2" crossorigin>`
+	).join('\n\t\t');
 
 	return `<!doctype html>
 <html lang="en">
@@ -494,7 +499,7 @@ function renderPage(
 		<meta name="description" content="Latest Hot Aisle Lighthouse performance, accessibility, best-practices, and SEO reports.">
 		<link rel="canonical" href="https://hotaisle.xyz/lighthouse">
 		<link rel="icon" href="/assets/branding/hotaisle-favicon.svg">
-		<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+		${fontPreloads}
 		<style>${styles}</style>
 		<script>${themeScript}</script>
 	</head>

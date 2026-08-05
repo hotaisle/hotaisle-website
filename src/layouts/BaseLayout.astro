@@ -3,6 +3,7 @@ import { initializeThemeScript } from '@/scripts/theme.ts';
 import { Footer } from '@/components/layout/Footer.tsx';
 import { Navbar } from '@/components/layout/Navbar.tsx';
 import JsonLd from '@/components/seo/JsonLd.tsx';
+import { SITE_FONT_PATHS } from '@/lib/fonts.ts';
 import { minifyInlineScript } from '@/lib/minify-inline-script.ts';
 import type { PageMetadata } from '@/lib/metadata.ts';
 import '@/styles/global.css';
@@ -98,13 +99,9 @@ const [GTM_SCRIPT, THEME_SCRIPT] = await Promise.all([
 		<meta content={twitter.title} name="twitter:title" />
 
 		<JsonLd />
-		<link
-			as="font"
-			crossorigin=""
-			href="/assets/fonts/inter-latin.woff2"
-			rel="preload"
-			type="font/woff2"
-		/>
+		{SITE_FONT_PATHS.map((fontPath) => (
+			<link as="font" crossorigin="" href={fontPath} rel="preload" type="font/woff2" />
+		))}
 		{ENABLE_GTM ? <link href={GTM_ORIGIN} rel="preconnect" /> : null}
 		{ENABLE_GTM ? <link crossorigin="" href={GTM_ORIGIN} rel="dns-prefetch" /> : null}
 		<script id="hotaisle-client-config" is:inline set:html={CLIENT_CONFIG_JSON} type="application/json">
