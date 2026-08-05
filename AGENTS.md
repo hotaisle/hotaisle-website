@@ -14,6 +14,7 @@ Agents must follow:
 - Automated detailed commit messages should be in the format of Conventional Commits
 - Never use the words "codex" or "claude" in commit messages, pull request titles, pull request bodies, or branch names.
 - If there are multiple different groups of changes, separate them into individual commits. Go through the entire list of pending changes until all changes are addressed.
+- Treat the single-word command `release` as an explicit alias for `add, commit, push, PR, merge`: review and stage all intended changes, create focused Conventional Commits, push the working branch, open a ready-for-review pull request, wait for required checks, merge it, switch back to the default branch, and pull the merged result.
 
 ### Environment
 - Package manager: bun (never anything else)
