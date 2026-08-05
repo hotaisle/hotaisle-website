@@ -1,7 +1,8 @@
-export function initializeBlogImageModalScript(): void {
-	const MODAL_IMAGE_SELECTOR = 'img.blog-inline-image, img[data-image-modal="true"]';
-	const MODAL_ACTIVATION_KEYS = new Set(['Enter', ' ']);
+const MODAL_TRIGGER_SELECTOR =
+	'img.blog-inline-image, img[data-image-modal="true"], a[data-image-modal="true"]';
+const MODAL_ACTIVATION_KEYS = new Set(['Enter', ' ']);
 
+export function initializeBlogImageModalScript(): void {
 	let overlay: HTMLElement | null = null;
 	let modalImageFrame: HTMLElement | null = null;
 	let modalImg: HTMLImageElement | null = null;
@@ -56,13 +57,19 @@ export function initializeBlogImageModalScript(): void {
 		});
 	};
 
-	const openModal = (img: HTMLImageElement) => {
+	const openModal = (trigger: HTMLElement) => {
 		ensureModal();
 		if (!(modalImg && overlay)) {
 			return;
 		}
-		modalImg.src = img.dataset.imageModalSrc ?? img.currentSrc ?? img.src;
-		modalImg.alt = img.alt;
+		const triggerImage = trigger instanceof HTMLImageElement ? trigger : null;
+		const modalSrc =
+			trigger.dataset.imageModalSrc ?? triggerImage?.currentSrc ?? triggerImage?.src;
+		if (!modalSrc) {
+			return;
+		}
+		modalImg.src = modalSrc;
+		modalImg.alt = trigger.dataset.imageModalAlt ?? triggerImage?.alt ?? '';
 		const rootStyle = window.getComputedStyle(document.documentElement);
 		if (modalImageFrame) {
 			modalImageFrame.style.backgroundColor = rootStyle
@@ -70,8 +77,8 @@ export function initializeBlogImageModalScript(): void {
 				.trim();
 			modalImageFrame.style.borderColor = rootStyle.getPropertyValue('--border').trim();
 		}
-		const w = img.dataset.imageModalWidth ?? img.getAttribute('width');
-		const h = img.dataset.imageModalHeight ?? img.getAttribute('height');
+		const w = trigger.dataset.imageModalWidth ?? trigger.getAttribute('width');
+		const h = trigger.dataset.imageModalHeight ?? trigger.getAttribute('height');
 		if (w) {
 			modalImg.width = Number(w);
 		}
@@ -83,26 +90,27 @@ export function initializeBlogImageModalScript(): void {
 		overlay.focus();
 	};
 
-	const findModalImage = (target: EventTarget | null): HTMLImageElement | null => {
+	const findModalTrigger = (target: EventTarget | null): HTMLElement | null => {
 		if (!(target instanceof Element)) {
 			return null;
 		}
 
-		const img = target.closest(MODAL_IMAGE_SELECTOR);
-		if (!(img instanceof HTMLImageElement)) {
+		const trigger = target.closest(MODAL_TRIGGER_SELECTOR);
+		if (!(trigger instanceof HTMLElement)) {
 			return null;
 		}
 
-		return img;
+		return trigger;
 	};
 
 	document.addEventListener('click', (event) => {
-		const img = findModalImage(event.target);
-		if (!img) {
+		const trigger = findModalTrigger(event.target);
+		if (!trigger) {
 			return;
 		}
 
-		openModal(img);
+		event.preventDefault();
+		openModal(trigger);
 	});
 
 	document.addEventListener('keydown', (event) => {
@@ -115,12 +123,12 @@ export function initializeBlogImageModalScript(): void {
 			return;
 		}
 
-		const img = findModalImage(event.target);
-		if (!img) {
+		const trigger = findModalTrigger(event.target);
+		if (!trigger || trigger instanceof HTMLAnchorElement) {
 			return;
 		}
 
 		event.preventDefault();
-		openModal(img);
+		openModal(trigger);
 	});
 }

@@ -24,6 +24,11 @@ const OPERATING_PROOF = [
 		label: 'Operating in production',
 		value: '3 years',
 	},
+	{
+		detail: 'Existing MI300X capacity is fully utilized, with additional customer demand waiting on hardware.',
+		label: 'Current capacity utilized',
+		value: '100%',
+	},
 ] as const;
 
 const EXPANSION_MODEL = [
@@ -125,7 +130,7 @@ export default function InvestorsPage() {
 
 			<section className="border-border border-b bg-muted/35">
 				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-4">
+					<div className="grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-5">
 						{OPERATING_PROOF.map((point) => (
 							<article className="bg-background p-7" key={point.label}>
 								<p className="font-mono text-3xl">{point.value}</p>
@@ -216,10 +221,22 @@ export default function InvestorsPage() {
 						</div>
 						<p className="max-w-3xl text-muted-foreground text-xl leading-9">
 							Our decades of experience, prior infrastructure work at W3BCloud, and
-							three years operating a bronze-tier neocloud taught us how compute,
-							storage, and networking behave when the scale is real. That experience
-							shapes how we design every customer environment and every new
-							deployment.
+							three years operating a{' '}
+							<a
+								aria-haspopup="dialog"
+								className="text-hot-orange-contrast underline decoration-current/35 underline-offset-4 transition-colors hover:text-hot-orange"
+								data-image-modal="true"
+								data-image-modal-alt="SemiAnalysis GPU Cloud ClusterMAX rating with Hot Aisle highlighted in the bronze tier"
+								data-image-modal-height="1574"
+								data-image-modal-src="/assets/investors/clustermax-neocloud-ranking-v2.1.jpg"
+								data-image-modal-width="3132"
+								href="/assets/investors/clustermax-neocloud-ranking-v2.1.jpg"
+							>
+								bronze-tier neocloud
+							</a>{' '}
+							taught us how compute, storage, and networking behave when the scale is
+							real. That experience shapes how we design every customer environment
+							and every new deployment.
 						</p>
 					</div>
 					<div className="mt-14 grid border-border border-t md:grid-cols-3">
