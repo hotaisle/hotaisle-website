@@ -5,9 +5,14 @@ import { createPageMetadata } from '@/lib/metadata.ts';
 
 const OPERATING_PROOF = [
 	{
-		detail: 'Hot Aisle has spent nearly three years operating, refining, and learning from real production workloads.',
-		label: 'Operating horizon',
-		value: '3 years',
+		detail: 'Equity, strategic investment, and asset finance can all play a role in funding the deployment.',
+		label: 'Target raise',
+		value: '$50–100M',
+	},
+	{
+		detail: 'Customer requests for MI355X capacity already exceed what we can deploy with the capital available today.',
+		label: 'MI355X demand',
+		value: '$50M+',
 	},
 	{
 		detail: 'Customers around the world have used the platform for compute without procurement drag.',
@@ -15,9 +20,9 @@ const OPERATING_PROOF = [
 		value: '700+',
 	},
 	{
-		detail: 'From a single isolated GPU VM to dedicated bare metal, backed by the same automated platform.',
-		label: 'Deployment range',
-		value: '1 to many',
+		detail: 'Hot Aisle has spent nearly three years operating, refining, and learning from real production workloads.',
+		label: 'Operating in production',
+		value: '3 years',
 	},
 ] as const;
 
@@ -60,7 +65,7 @@ const OPERATING_HISTORY = [
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
-			'Hot Aisle is expanding its developer-first sovereign inference cloud through repeatable, globally distributed AMD deployments.',
+			'Hot Aisle is raising $50–100 million to deploy AMD MI355X capacity through repeatable, globally distributed sovereign inference infrastructure.',
 		image: '/assets/investors/global-inference-network.png',
 		imageAlt: 'Global network of distributed Hot Aisle inference deployments',
 		path: '/investors',
@@ -75,22 +80,22 @@ export default function InvestorsPage() {
 				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8 lg:py-20">
 					<div className="max-w-3xl">
 						<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
-							Investors
+							Seeking $50–100M
 						</p>
 						<h1 className="mt-6 font-semibold text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
-							Built patiently. Ready to compound.
+							Built patiently. Ready to deploy.
 						</h1>
 						<p className="mt-7 max-w-2xl text-muted-foreground text-xl leading-9 sm:text-2xl">
-							For nearly three years, we have built and operated the automation layer
-							for developer-first sovereign inference. The foundation is established.
-							The next phase is deliberate, repeatable expansion.
+							Hot Aisle has spent nearly three years operating developer-first AMD
+							infrastructure for more than 700 customers. We are raising $50–100
+							million to turn proven demand into deployed MI355X capacity.
 						</p>
 						<div className="mt-10 flex flex-wrap gap-3">
 							<AppLink
 								className="inline-flex min-h-12 items-center gap-2 bg-foreground px-6 py-3 font-medium text-background text-base transition-opacity hover:opacity-80"
 								href="/contact"
 							>
-								Start a conversation <ArrowRight className="h-4 w-4" />
+								Discuss the raise <ArrowRight className="h-4 w-4" />
 							</AppLink>
 						</div>
 					</div>
@@ -120,12 +125,9 @@ export default function InvestorsPage() {
 
 			<section className="border-border border-b bg-muted/35">
 				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="grid border-border border-t md:grid-cols-3">
-						{OPERATING_PROOF.map((point, index) => (
-							<article
-								className={`border-border border-b py-7 ${index ? 'md:border-l md:pl-7' : 'md:pr-7'}`}
-								key={point.label}
-							>
+					<div className="grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-4">
+						{OPERATING_PROOF.map((point) => (
+							<article className="bg-background p-7" key={point.label}>
 								<p className="font-mono text-3xl">{point.value}</p>
 								<h2 className="mt-4 font-medium text-xl">{point.label}</h2>
 								<p className="mt-3 max-w-sm text-lg text-muted-foreground leading-8">
@@ -246,26 +248,26 @@ export default function InvestorsPage() {
 						/>
 						<div>
 							<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
-								Capital with a job to do
+								The raise
 							</p>
 							<h2 className="mt-6 font-semibold text-4xl leading-[1.06] sm:text-5xl">
-								Capital buys deployable units, not speculative acreage.
+								$50–100 million for deployable MI355X capacity.
 							</h2>
 						</div>
 					</div>
 					<div className="max-w-3xl space-y-7 text-muted-foreground text-xl leading-9">
 						<p>
-							We have customer demand waiting for capacity. The limiting factor is not
-							whether the platform can serve the work; it is the capital required to
-							put more current-generation hardware online, beginning with AMD MI355X
-							compute.
+							Hot Aisle is raising $50–100 million across equity, strategic
+							investment, and asset finance. The capital will purchase AMD MI355X
+							systems and fund the networking, rack integration, and site deployment
+							required to bring each regional unit online.
 						</p>
 						<p>
-							We are open to thoughtful conversations about how to finance that
-							growth: equity, strategic investment, asset finance, and structures that
-							align long-term partners with disciplined expansion. We bring the
-							operating platform, deployment experience, partner relationships, and
-							demand. The right capital lets us make capacity available.
+							We have more than $50 million in customer requests for MI355X capacity.
+							The constraint is access to hardware, not demand for the platform. We
+							bring the operating software, deployment experience, partner
+							relationships, and customers. The right capital turns that foundation
+							into available capacity.
 						</p>
 					</div>
 				</div>
