@@ -1,12 +1,27 @@
 import { describe, expect, test } from 'bun:test';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 import { GhosttyCore } from '@wterm/ghostty';
 
 const GHOSTTY_WASM_URL = new URL('../../public/assets/terminal/ghostty-vt.wasm', import.meta.url)
 	.href;
+const INSTALLED_GHOSTTY_WASM_URL = import.meta.resolve('@wterm/ghostty/ghostty-vt.wasm');
 const PRIMARY_SCREEN_TEXT = '\u001b[31mRED\u001b[0m';
 const ALTERNATE_SCREEN_TEXT = '\u001b[?1049h\u001b[1;33mBOLD-YELLOW\u001b[?1049l';
 
+const sha256 = (binary: Uint8Array): string => createHash('sha256').update(binary).digest('hex');
+
 describe('Ghostty WASM', () => {
+	test('matches the binary shipped with the installed package', async () => {
+		const [publicBinary, installedBinary] = await Promise.all([
+			readFile(fileURLToPath(GHOSTTY_WASM_URL)),
+			readFile(fileURLToPath(INSTALLED_GHOSTTY_WASM_URL)),
+		]);
+
+		expect(sha256(publicBinary)).toBe(sha256(installedBinary));
+	});
+
 	test('does not leak alternate-screen styling into default primary cells', async () => {
 		const core = await GhosttyCore.load({ wasmPath: GHOSTTY_WASM_URL });
 		core.init(20, 5);
