@@ -1,11 +1,11 @@
 diff --git a/dist/renderer.js b/dist/renderer.js
-index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4dafff47dce4 100644
+index 5d6c9c92fa0ab0684854e2e9113a4062608f088a..6b0e0e3cf077ee1bbf987a033c8f65a0d1f0709e 100644
 --- a/dist/renderer.js
 +++ b/dist/renderer.js
-@@ -6,13 +6,43 @@ const FLAG_UNDERLINE = 0x08;
- const FLAG_REVERSE = 0x20;
+@@ -7,13 +7,43 @@ const FLAG_REVERSE = 0x20;
  const FLAG_INVISIBLE = 0x40;
  const FLAG_STRIKETHROUGH = 0x80;
+ const DEFAULT_SCROLLBACK_OVERSCAN_ROWS = 10;
 -function rgbToCSS(packed) {
 +const LINK_PATTERN = /(?:(?:https?|ssh):\/\/[^\s<>"']*[^\s<>"'(),.;!?]|\bssh\s+(?:-p\s+\d+\s+)?[a-z0-9._-]+@[a-z0-9.-]+(?::\d+)?)/giu;
 +const SSH_COMMAND_PATTERN = /^ssh\s+(?:-p\s+(\d+)\s+)?(\S+)$/u;
@@ -49,7 +49,7 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
      if (index === DEFAULT_COLOR)
          return null;
      if (index < 16)
-@@ -22,15 +52,17 @@ function colorToCSS(index) {
+@@ -23,15 +53,17 @@ function colorToCSS(index) {
          const r = Math.floor(n / 36) * 51;
          const g = (Math.floor(n / 6) % 6) * 51;
          const b = (n % 6) * 51;
@@ -72,7 +72,7 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
  }
  function cellBgCSS(bg, bgRgb) {
      if (bgRgb !== undefined)
-@@ -51,7 +83,8 @@ function buildCellStyle(fg, bg, flags, fgRgb, bgRgb) {
+@@ -52,7 +84,8 @@ function buildCellStyle(fg, bg, flags, fgRgb, bgRgb) {
          if (bgR === undefined && bgIdx === DEFAULT_COLOR)
              bgIdx = 7;
      }
@@ -82,7 +82,7 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
      const bgCSS = cellBgCSS(bgIdx, bgR);
      let style = "";
      if (fgCSS)
-@@ -61,7 +94,7 @@ function buildCellStyle(fg, bg, flags, fgRgb, bgRgb) {
+@@ -62,7 +95,7 @@ function buildCellStyle(fg, bg, flags, fgRgb, bgRgb) {
      if (flags & FLAG_BOLD)
          style += "font-weight:bold;";
      if (flags & FLAG_DIM)
@@ -91,7 +91,7 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
      if (flags & FLAG_ITALIC)
          style += "font-style:italic;";
      const decorations = [];
-@@ -89,6 +122,23 @@ function escapeHTML(text) {
+@@ -90,12 +123,29 @@ function escapeHTML(text) {
          .replace(/>/g, "&gt;")
          .replace(/"/g, "&quot;");
  }
@@ -112,10 +112,17 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
 +    html += escapeHTML(text.slice(lastIndex));
 +    return html;
 +}
- function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
-     let fgIdx = fg, bgIdx = bg, fgR = fgRgb, bgR = bgRgb;
-     if (flags & FLAG_REVERSE) {
-@@ -100,7 +150,7 @@ function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
+ function safeLinkHref(uri) {
+     if (!uri)
+         return undefined;
+     try {
+         const url = new URL(uri);
+-        return url.protocol === "http:" || url.protocol === "https:"
++        return url.protocol === "http:" || url.protocol === "https:" || url.protocol === "ssh:"
+             ? url.href
+             : undefined;
+     }
+@@ -119,7 +169,7 @@ function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
              bgIdx = 7;
      }
      return {
@@ -124,24 +131,24 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
          bg: cellBgCSS(bgIdx, bgR) || "var(--term-bg)",
      };
  }
-@@ -187,8 +237,6 @@ export class Renderer {
+@@ -219,8 +269,6 @@ export class Renderer {
          this.rowEls = [];
          this.prevCursorRow = -1;
          this.prevCursorCol = -1;
 -        this.prevContainerBg = "";
 -        this.prevRowBg = [];
          this._scrollbackRowEls = [];
-         this._renderedScrollbackCount = 0;
-         this.container = container;
-@@ -198,7 +246,6 @@ export class Renderer {
+         this._scrollbackStartKey = 0;
+         this._renderedScrollbackCount = -1;
+@@ -234,7 +282,6 @@ export class Renderer {
          this.rows = rows;
          this.container.innerHTML = "";
          this.rowEls = [];
 -        this.prevRowBg = [];
          this._scrollbackRowEls = [];
-         this._renderedScrollbackCount = 0;
-         const fragment = document.createDocumentFragment();
-@@ -212,15 +259,19 @@ export class Renderer {
+         this._scrollbackStartKey = 0;
+         this._renderedScrollbackCount = -1;
+@@ -256,7 +303,7 @@ export class Renderer {
          this.prevCursorRow = -1;
          this.prevCursorCol = -1;
      }
@@ -150,80 +157,92 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
          let html = "";
          let runStyle = "";
          let runText = "";
-         let runStart = 0;
+@@ -265,6 +312,7 @@ export class Renderer {
+         let runLinkKey = "";
+         let runLinkUri;
+         let outputLinkKey = "";
 +        const toWidthStyle = (cellCount) => `width:calc(${cellCount} * var(--term-cell-width, 1ch));`;
-+        const appendStyledSpan = (className, style, text, cellCount) => {
-+            const classAttribute = className ? ` class="${className}"` : "";
-+            html += `<span${classAttribute} style="${style}${toWidthStyle(cellCount)}">${linkifyText(text)}</span>`;
-+        };
+         const appendContent = (content, linkKey, uri) => {
+             const href = safeLinkHref(uri);
+             const nextLinkKey = href ? linkKey : "";
+@@ -281,7 +329,7 @@ export class Renderer {
          const flushRun = (endCol) => {
              if (!runText)
                  return;
 -            const escaped = escapeHTML(runText);
++            const renderText = runLinkKey ? escapeHTML : linkifyText;
+             let content = "";
              if (cursorCol >= runStart && cursorCol < endCol) {
                  const offset = cursorCol - runStart;
-                 const chars = [...runText];
-@@ -228,30 +279,17 @@ export class Renderer {
-                 const cursorChar = chars[offset] || " ";
-                 const after = chars.slice(offset + 1).join("");
+@@ -289,32 +337,25 @@ export class Renderer {
+                 const cursorChar = runCells[offset] || " ";
+                 const after = runCells.slice(offset + 1).join("");
                  if (before) {
--                    html += runStyle
+-                    content += runStyle
 -                        ? `<span style="${runStyle}">${escapeHTML(before)}</span>`
 -                        : `<span>${escapeHTML(before)}</span>`;
-+                    appendStyledSpan("", runStyle, before, offset);
++                    content += `<span style="${runStyle}${toWidthStyle(offset)}">${renderText(before)}</span>`;
                  }
--                html += runStyle
+-                content += runStyle
 -                    ? `<span class="term-cursor" style="${runStyle}">${escapeHTML(cursorChar)}</span>`
 -                    : `<span class="term-cursor">${escapeHTML(cursorChar)}</span>`;
-+                appendStyledSpan("term-cursor", runStyle, cursorChar, 1);
++                content += `<span class="term-cursor" style="${runStyle}${toWidthStyle(1)}">${renderText(cursorChar)}</span>`;
                  if (after) {
--                    html += runStyle
+-                    content += runStyle
 -                        ? `<span style="${runStyle}">${escapeHTML(after)}</span>`
 -                        : `<span>${escapeHTML(after)}</span>`;
-+                    appendStyledSpan("", runStyle, after, endCol - cursorCol - 1);
++                    content += `<span style="${runStyle}${toWidthStyle(endCol - cursorCol - 1)}">${renderText(after)}</span>`;
                  }
              }
              else {
--                html += runStyle
+-                content += runStyle
 -                    ? `<span style="${runStyle}">${escaped}</span>`
 -                    : `<span>${escaped}</span>`;
-+                appendStyledSpan("", runStyle, runText, endCol - runStart);
++                content += `<span style="${runStyle}${toWidthStyle(endCol - runStart)}">${renderText(runText)}</span>`;
              }
+             appendContent(content, runLinkKey, runLinkUri);
+             runText = "";
+             runCells = [];
          };
--        const appendStyledSpan = (className, style, text) => {
--            const classAttr = className ? ` class="${className}"` : "";
+-        const appendStyledSpan = (className, style, text, linkKey, linkUri) => {
++        const appendStyledSpan = (className, style, text, linkKey, linkUri, cellCount) => {
+             const classAttr = className ? ` class="${className}"` : "";
 -            const styleAttr = style ? ` style="${style}"` : "";
--            html += `<span${classAttr}${styleAttr}>${escapeHTML(text)}</span>`;
--        };
+-            appendContent(`<span${classAttr}${styleAttr}>${escapeHTML(text)}</span>`, linkKey, linkUri);
++            const styleAttr = ` style="${style}${toWidthStyle(cellCount)}"`;
++            const renderedText = linkKey ? escapeHTML(text) : linkifyText(text);
++            appendContent(`<span${classAttr}${styleAttr}>${renderedText}</span>`, linkKey, linkUri);
+         };
          for (let col = 0; col < this.cols; col++) {
              const cell = getCell(col);
-             const inBounds = col < lineLen;
-@@ -265,7 +303,7 @@ export class Renderer {
+@@ -331,7 +372,7 @@ export class Renderer {
                  // would shorten the row.
                  const continuesWide = col > 0 && (getCell(col - 1).width ?? 1) === 2;
                  if (!continuesWide) {
--                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ");
-+                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ", 1);
+-                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ", cellLinkKey, cellLinkUri);
++                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ", cellLinkKey, cellLinkUri, 1);
                  }
                  runStyle = "";
-                 runText = "";
-@@ -279,7 +317,7 @@ export class Renderer {
+                 runLinkKey = "";
+@@ -348,7 +389,7 @@ export class Renderer {
                  // continuation is outside the row. Drawing the pair here would spill
                  // a second column past the row.
                  if (col + 1 >= this.cols) {
--                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ");
-+                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ", 1);
+-                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ", cellLinkKey, cellLinkUri);
++                    appendStyledSpan(col === cursorCol ? "term-cursor" : "", "", " ", cellLinkKey, cellLinkUri, 1);
                      runStyle = "";
-                     runText = "";
-                     runStart = col + 1;
-@@ -290,19 +328,29 @@ export class Renderer {
+                     runLinkKey = "";
+                     runLinkUri = undefined;
+@@ -362,7 +403,7 @@ export class Renderer {
                  const cls = cursorCol >= col && cursorCol < col + 2
                      ? "term-wide term-cursor"
                      : "term-wide";
--                appendStyledSpan(cls, style, ch);
-+                appendStyledSpan(cls, style, ch, 2);
+-                appendStyledSpan(cls, style, ch, cellLinkKey, cellLinkUri);
++                appendStyledSpan(cls, style, ch, cellLinkKey, cellLinkUri, 2);
                  runStyle = "";
-                 runText = "";
+                 runLinkKey = "";
+                 runLinkUri = undefined;
+@@ -371,13 +412,26 @@ export class Renderer {
                  runStart = col + 2;
                  continue;
              }
@@ -233,9 +252,12 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
 +                flushRun(col);
 +                const style = buildCellStyle(cell.fg, cell.bg, cell.flags, cell.fgRgb, cell.bgRgb);
 +                const cursorClass = col === cursorCol ? " term-cursor" : "";
-+                html += `<span class="term-box-drawing ${boxDrawingClass}${cursorClass}" style="${style}${toWidthStyle(1)}"></span>`;
++                appendContent(`<span class="term-box-drawing ${boxDrawingClass}${cursorClass}" style="${style}${toWidthStyle(1)}"></span>`, cellLinkKey, cellLinkUri);
 +                runStyle = "";
++                runLinkKey = "";
++                runLinkUri = undefined;
 +                runText = "";
++                runCells = [];
 +                runStart = col + 1;
 +            }
 +            else if (inBounds && cp >= 0x2580 && cp <= 0x259f) {
@@ -244,15 +266,15 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
                  const cls = col === cursorCol ? "term-block term-cursor" : "term-block";
                  const bg = getBlockBackground(cp, colors.fg, colors.bg);
 -                const dim = cell.flags & FLAG_DIM ? "opacity:0.5;" : "";
--                html += `<span class="${cls}" style="background:${bg};${dim}"></span>`;
+-                appendContent(`<span class="${cls}" style="background:${bg};${dim}"></span>`, cellLinkKey, cellLinkUri);
 +                const dim = cell.flags & FLAG_DIM ? "opacity:var(--term-dim-opacity,0.5);" : "";
-+                html += `<span class="${cls}" style="background:${bg};${dim}${toWidthStyle(1)}"></span>`;
++                appendContent(`<span class="${cls}" style="background:${bg};${dim}${toWidthStyle(1)}"></span>`, cellLinkKey, cellLinkUri);
                  runStyle = "";
-                 runText = "";
-                 runStart = col + 1;
-@@ -325,37 +373,12 @@ export class Renderer {
-         }
-         flushRun(this.cols);
+                 runLinkKey = "";
+                 runLinkUri = undefined;
+@@ -409,37 +463,12 @@ export class Renderer {
+         if (outputLinkKey)
+             html += "</a>";
          rowEl.innerHTML = html;
 -        let bgCss = "";
 -        if (lineLen >= this.cols && this.cols > 0) {
@@ -288,9 +310,9 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
 +        this._buildRowContent(rowEl, (col) => core.getScrollbackCell(sbOffset, col), lineLen, -1);
          return rowEl;
      }
-     syncScrollback(core) {
-@@ -386,43 +409,19 @@ export class Renderer {
-     render(core) {
+     syncScrollback(core, viewport) {
+@@ -530,43 +559,19 @@ export class Renderer {
+     render(core, viewport) {
          const rows = core.getRows();
          const cols = core.getCols();
 -        let resized = false;
@@ -298,7 +320,7 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
              this.setup(cols, rows);
 -            resized = true;
          }
-         this.syncScrollback(core);
+         this.syncScrollback(core, viewport);
          const cursor = core.getCursor();
          const cursorVisible = cursor.visible;
 -        const needsCursorUpdate = cursor.row !== this.prevCursorRow || cursor.col !== this.prevCursorCol;
@@ -336,88 +358,74 @@ index be73c4e68822a93954271e5c46998238d05aa8f1..47ef1b7b468b22f1e7b7275278fd4daf
      }
  }
 diff --git a/dist/wterm.js b/dist/wterm.js
-index b1eae1140fadfd6cdb68d7d11e94d506f6117741..fd804a72bc404f53588c6526461d0049561e4ce3 100644
+index b338e08f775cad6922df77db65803c3a1f0a3c76..12431b053b64cd384e56627909139489ee4ec5e1 100644
 --- a/dist/wterm.js
 +++ b/dist/wterm.js
-@@ -2,6 +2,7 @@ import { WasmBridge } from "@wterm/core";
- import { Renderer } from "./renderer.js";
- import { InputHandler } from "./input.js";
+@@ -4,6 +4,7 @@ import { InputHandler } from "./input.js";
  import { DebugAdapter } from "./debug.js";
-+const INTERACTIVE_ELEMENT_SELECTOR = "a[href], button, input, select, textarea, [role=\"button\"]";
+ import { isLinkActivationModifier } from "./hyperlink.js";
+ const SYNCHRONIZED_OUTPUT_TIMEOUT_MS = 1000;
++const INTERACTIVE_ELEMENT_SELECTOR = 'a[href], button, input, select, textarea, [role="button"]';
  export class WTerm {
      constructor(element, options = {}) {
          this.bridge = null;
-@@ -30,7 +31,10 @@ export class WTerm {
-         this.element.classList.add("wterm");
-         if (options.cursorBlink)
+@@ -41,13 +42,8 @@ export class WTerm {
              this.element.classList.add("cursor-blink");
--        this._onClickFocus = () => {
-+        this._onClickFocus = (event) => {
-+            const target = event.target;
+         this._onClickFocus = (event) => {
+             const target = event.target;
+-            if (target instanceof Element && target.closest(".term-link")) {
+-                if (isLinkActivationModifier(event, this.element.ownerDocument.defaultView?.navigator ?? navigator) ||
+-                    event.detail === 0) {
+-                    return;
+-                }
+-                event.preventDefault();
+-            }
 +            if (target instanceof Element && target.closest(INTERACTIVE_ELEMENT_SELECTOR))
 +                return;
              const sel = window.getSelection();
              if (!sel || sel.isCollapsed)
                  this.input?.focus();
-@@ -193,15 +197,21 @@ export class WTerm {
-         probe.className = "term-row";
-         probe.style.visibility = "hidden";
-         probe.style.position = "absolute";
--        probe.textContent = "W";
-+        const cellProbe = document.createElement("span");
-+        cellProbe.textContent = "W";
-+        probe.appendChild(cellProbe);
-         this._container.appendChild(probe);
-         const h = probe.getBoundingClientRect().height;
-+        const w = cellProbe.getBoundingClientRect().width;
-         probe.remove();
-         if (h > 0) {
-             const rh = Math.ceil(h);
-             this._rowHeight = rh;
-             this.element.style.setProperty("--term-row-height", `${rh}px`);
-         }
-+        if (w > 0) {
-+            this.element.style.setProperty("--term-cell-width", `${w}px`);
-+        }
-     }
-     _measureCharSize() {
-         const row = document.createElement("div");
-@@ -218,6 +228,7 @@ export class WTerm {
-         if (charWidth === 0 || rowHeight === 0)
+@@ -403,6 +399,7 @@ export class WTerm {
              return null;
+         this._charWidth = charWidth;
          this._rowHeight = rowHeight;
 +        this.element.style.setProperty("--term-cell-width", `${charWidth}px`);
          return { charWidth, rowHeight };
      }
      _setupResizeObserver() {
 diff --git a/src/terminal.css b/src/terminal.css
-index 7c552a18a8b078dac9e27dcacf600467dd0f45e0..7e6d14ce68acde12b5b689d69ca109ca803aa8af 100644
+index aed237b508f4d284b2e8d9fda0344f0766e80eca..129ca1b892031a4352849a440b03cee5ee866f43 100644
 --- a/src/terminal.css
 +++ b/src/terminal.css
 @@ -46,6 +46,8 @@
+ 
  .term-grid {
    display: block;
-   white-space: pre;
 +  min-height: 100%;
 +  background: var(--term-bg);
+   white-space: pre;
    contain: layout paint style;
    will-change: contents;
- }
-@@ -61,14 +63,15 @@
+@@ -68,6 +70,7 @@
+ .term-link > span {
    display: inline-block;
    height: var(--term-row-height);
-   vertical-align: top;
 +  overflow: hidden;
+   vertical-align: top;
  }
-
+ 
+@@ -88,12 +91,12 @@
+ }
+ 
  .term-block {
 -  width: 1ch;
 +  width: var(--term-cell-width, 1ch);
    overflow: hidden;
  }
-
+ 
  .term-wide {
 -  width: 2ch;
 +  width: calc(2 * var(--term-cell-width, 1ch));
    overflow: hidden;
  }
+ 
