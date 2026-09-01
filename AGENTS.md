@@ -25,8 +25,8 @@ Agents must follow:
 ### Embedded terminal dependencies
 - Keep `@wterm/dom` and `@wterm/ghostty` on the same exact version.
 - Whenever `@wterm/ghostty` changes, copy `node_modules/@wterm/ghostty/wasm/ghostty-vt.wasm` to `public/assets/terminal/ghostty-vt.wasm` in the same change. Never upgrade the JavaScript package without its matching WASM binary.
-- Update the version and SHA-256 recorded in `scripts/ghostty-wasm/README.md` after copying the binary.
-- Run `src/lib/ghostty-wasm.test.ts`; its package-binary parity check must pass before the dependency upgrade is complete.
+- Update the version and SHA-256 recorded in `scripts/ghostty-wasm/README.md` and the cache-busting SHA-256 in `src/lib/ghostty-wasm.ts` after copying the binary.
+- Run `src/lib/ghostty-wasm.test.ts`; its package-binary and cache-key parity checks must pass before the dependency upgrade is complete.
 
 ### Code style
 - Prefer for...of over forEach.

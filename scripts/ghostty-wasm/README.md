@@ -18,5 +18,9 @@ The expected SHA-256 is:
 d96f1f384d94dd10fb8628eea41874784cbe62361fc6f7e6428211f9b9bd0bda
 ```
 
+`src/lib/ghostty-wasm.ts` uses this hash as the public URL's cache key. Update the
+constant whenever the binary changes so browsers cannot combine cached WASM with
+JavaScript from a different release.
+
 `src/lib/ghostty-wasm.test.ts` verifies that the public binary exactly matches the
-installed package and guards the style-reset behavior.
+installed package and its cache key, and guards the style-reset behavior.

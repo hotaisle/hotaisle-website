@@ -1,3 +1,5 @@
+import { GHOSTTY_WASM_PATH } from '@/lib/ghostty-wasm.ts';
+
 const TERMINAL_SELECTOR = '[data-embedded-terminal]';
 const TERMINAL_VIEWPORT_SELECTOR = '.ha-embedded-terminal__viewport';
 const TERMINAL_SCREEN_SELECTOR = '[data-terminal-screen]';
@@ -11,7 +13,6 @@ const PUBLIC_KEY_BUTTON_SELECTOR = '[data-download-public-key]';
 const PLATFORM_INSTRUCTIONS_SELECTOR = '[data-platform-instructions]';
 const PLATFORM_TAB_SELECTOR = '[role="tab"][data-platform]';
 const PLATFORM_PANEL_SELECTOR = '[data-platform-panel][data-platform]';
-const GHOSTTY_WASM_PATH = '/assets/terminal/ghostty-vt.wasm';
 const PRIVATE_KEY_FILENAME = 'id_hotaisle_ed25519';
 const PUBLIC_KEY_FILENAME = `${PRIVATE_KEY_FILENAME}.pub`;
 const PLATFORMS = ['macos', 'windows', 'linux'] as const;
