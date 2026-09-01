@@ -11,6 +11,7 @@ interface ImageData {
 type ClickableImageProps = ImageData &
 	Omit<ComponentPropsWithoutRef<'img'>, keyof ImageData | 'role' | 'tabIndex'> & {
 		className?: string;
+		disableAvif?: boolean;
 		imgClassName?: string;
 		modalHeight?: number;
 		modalSrc?: string;
