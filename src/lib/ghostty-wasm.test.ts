@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { GhosttyCore } from '@wterm/ghostty';
+import { GHOSTTY_WASM_PATH, GHOSTTY_WASM_SHA256 } from '@/lib/ghostty-wasm.ts';
 
 const GHOSTTY_WASM_URL = new URL('../../public/assets/terminal/ghostty-vt.wasm', import.meta.url)
 	.href;
@@ -19,7 +20,12 @@ describe('Ghostty WASM', () => {
 			readFile(fileURLToPath(INSTALLED_GHOSTTY_WASM_URL)),
 		]);
 
-		expect(sha256(publicBinary)).toBe(sha256(installedBinary));
+		const publicBinaryHash = sha256(publicBinary);
+		expect(publicBinaryHash).toBe(sha256(installedBinary));
+		expect(publicBinaryHash).toBe(GHOSTTY_WASM_SHA256);
+		expect(String(GHOSTTY_WASM_PATH)).toBe(
+			`/assets/terminal/ghostty-vt.wasm?v=${publicBinaryHash}`
+		);
 	});
 
 	test('does not leak alternate-screen styling into default primary cells', async () => {
