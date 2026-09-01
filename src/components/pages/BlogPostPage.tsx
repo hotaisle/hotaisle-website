@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { BlogContent } from '@/components/blog/BlogContent.tsx';
-import { OptimizedImage } from '@/components/OptimizedImage.tsx';
+import { ClickableImage } from '@/components/ClickableImage.tsx';
 import type { BlogPost } from '@/lib/content.ts';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
@@ -157,21 +157,22 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 
 					{post.coverImage ? (
 						<figure className="border border-border bg-muted p-2 sm:p-3 lg:self-center">
-							<OptimizedImage
+							<ClickableImage
 								alt={post.title}
 								className={`aspect-video w-full object-cover object-left ${post.coverImageDark ? 'dark:hidden' : ''}`}
 								disableAvif
 								height={900}
+								modalSrc={post.coverImage}
 								src={post.coverImage}
 								width={1200}
 							/>
 							{post.coverImageDark ? (
-								<OptimizedImage
-									alt=""
-									aria-hidden="true"
+								<ClickableImage
+									alt={`${post.title} dark cover image`}
 									className="hidden aspect-video w-full object-cover object-left dark:block"
 									disableAvif
 									height={900}
+									modalSrc={post.coverImageDark}
 									src={post.coverImageDark}
 									width={1200}
 								/>
