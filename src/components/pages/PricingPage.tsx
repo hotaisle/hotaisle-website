@@ -1,11 +1,7 @@
 import { Check } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
-import {
-	GRANDFATHERED_MI300X_VM_PRICE,
-	MI300X_BARE_METAL_PRICE,
-	MI300X_VM_PRICE,
-} from '@/lib/pricing.ts';
+import { MI300X_BARE_METAL_PRICE, MI300X_VM_PRICE } from '@/lib/pricing.ts';
 
 const INCLUDED_CAPABILITIES = [
 	{
@@ -65,10 +61,6 @@ export default function PricingPage() {
 					<h1 className="mb-6 font-black text-5xl tracking-tighter md:text-7xl">
 						Transparent <span className="text-hot-orange">Pricing</span>
 					</h1>
-					<p className="mx-auto max-w-2xl text-muted-foreground text-xl">
-						VMs stay self-service and pay-as-you-go. Full 8x bare-metal nodes are
-						available on monthly terms.
-					</p>
 					<div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 text-left md:grid-cols-2">
 						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">
 							<p className="font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
@@ -89,24 +81,10 @@ export default function PricingPage() {
 								{MI300X_BARE_METAL_PRICE}
 							</p>
 							<p className="mt-2 text-muted-foreground text-sm">
-								Dedicated full-node access. One-month minimum.
+								Dedicated full-node access.
 							</p>
 						</div>
 					</div>
-					<p className="mt-5 text-muted-foreground text-sm">
-						Existing customers with running compute remain grandfathered at{' '}
-						<strong className="font-medium text-foreground">
-							{GRANDFATHERED_MI300X_VM_PRICE}
-						</strong>
-						.{' '}
-						<AppLink
-							className="font-medium text-hot-orange-contrast hover:text-foreground"
-							href="/blog/why-we-raised-our-mi300x-price"
-						>
-							Why we raised our MI300X price
-						</AppLink>
-						.
-					</p>
 				</div>
 			</div>
 
@@ -221,10 +199,6 @@ export default function PricingPage() {
 							<div className="mb-3 space-y-1">
 								<p className="font-bold text-foreground">
 									{MI300X_BARE_METAL_PRICE}
-									<span className="font-normal text-muted-foreground">
-										{' '}
-										bare metal, one-month minimum
-									</span>
 								</p>
 							</div>
 							<p className="text-muted-foreground text-sm">
@@ -253,9 +227,9 @@ export default function PricingPage() {
 						</ul>
 						<AppLink
 							className="w-full rounded-lg bg-foreground py-3 text-center font-bold text-background transition-colors hover:bg-foreground/90"
-							href="/contact"
+							href="/quick-start"
 						>
-							Reserve Bare Metal
+							Deploy Bare Metal
 						</AppLink>
 					</div>
 				</div>
@@ -264,12 +238,9 @@ export default function PricingPage() {
 			{/* Features List */}
 			<div className="container mx-auto mt-24 max-w-7xl px-6">
 				<section className="border-border border-y py-12">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-						<p className="ha-briefing-label">Included by default</p>
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
-							All plans <span className="text-hot-orange-contrast">include</span>
-						</h2>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						All plans <span className="text-hot-orange-contrast">include</span>
+					</h2>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
 						{INCLUDED_CAPABILITIES.map((capability) => (
