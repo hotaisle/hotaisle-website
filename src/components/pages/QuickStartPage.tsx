@@ -148,7 +148,7 @@ export default function QuickStartPage() {
 	return (
 		<div className="min-h-screen bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b pt-14 pb-8 md:pt-18 md:pb-10">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
 							<figure className="relative max-w-sm overflow-hidden border border-border bg-black">
@@ -196,7 +196,7 @@ export default function QuickStartPage() {
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
 						{FIRST_LAUNCH_STEPS.map((step, index) => (
 							<div className="min-h-48 bg-background p-7" key={step.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
+								<p className="font-mono text-2xl text-hot-orange-contrast">
 									{String(index + 1).padStart(2, '0')}
 								</p>
 								<h3 className="mt-8 font-bold text-2xl text-foreground">
