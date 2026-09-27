@@ -70,7 +70,7 @@ export default function PricingPage() {
 								{MI300X_VM_PRICE}
 							</p>
 							<p className="mt-2 text-muted-foreground text-sm">
-								New customer rate. 1, 2, and 4x MI300X VMs, billed by the minute.
+								1, 2, and 4x MI300X VMs, billed by the minute.
 							</p>
 						</div>
 						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">
@@ -105,7 +105,7 @@ export default function PricingPage() {
 								</span>
 							</div>
 							<p className="mb-3 font-bold text-foreground">{MI300X_VM_PRICE}</p>
-							<p className="text-muted-foreground text-sm">
+							<p className="text-muted-foreground text-sm md:min-h-10">
 								Ideal for experimentation and development.
 							</p>
 						</div>
@@ -151,7 +151,7 @@ export default function PricingPage() {
 								</span>
 							</div>
 							<p className="mb-3 font-bold text-foreground">{MI300X_VM_PRICE}</p>
-							<p className="text-muted-foreground text-sm">
+							<p className="text-muted-foreground text-sm md:min-h-10">
 								For model fine-tuning and medium workloads.
 							</p>
 						</div>
@@ -196,12 +196,10 @@ export default function PricingPage() {
 									MI300x
 								</span>
 							</div>
-							<div className="mb-3 space-y-1">
-								<p className="font-bold text-foreground">
-									{MI300X_BARE_METAL_PRICE}
-								</p>
-							</div>
-							<p className="text-muted-foreground text-sm">
+							<p className="mb-3 font-bold text-foreground">
+								{MI300X_BARE_METAL_PRICE}
+							</p>
+							<p className="text-muted-foreground text-sm md:min-h-10">
 								Dedicated full-node power for training and massive inference.
 							</p>
 						</div>
