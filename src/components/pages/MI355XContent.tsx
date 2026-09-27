@@ -64,7 +64,7 @@ export default function MI355XContent() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								AMD Instinct MI355X.
+								AMD Instinct MI355X
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								The next step in high-memory AMD inference capacity. MI355X brings
@@ -86,7 +86,7 @@ export default function MI355XContent() {
 						<p className="ha-briefing-label">At a glance</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								More memory per accelerator. More room to operate.
+								More memory per accelerator. More room to operate
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								MI355X is designed for teams preparing to serve larger models, more
@@ -115,7 +115,7 @@ export default function MI355XContent() {
 						<p className="ha-briefing-label">Platform profile</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Density without a new operating burden.
+								Density without a new operating burden
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								The hardware advances, while the operating experience stays direct:
@@ -147,7 +147,7 @@ export default function MI355XContent() {
 						<p className="ha-briefing-label">Deployment path</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Built to expand deliberately.
+								Built to expand deliberately
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								Our approach is smaller, well-operated deployments in more data
@@ -176,7 +176,7 @@ export default function MI355XContent() {
 						<p className="ha-briefing-label">Experiment complete</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								The signup form is gone. The signal is not.
+								The signup form is gone. The signal is not
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We ran an experiment to see whether anyone would put real money

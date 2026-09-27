@@ -92,7 +92,7 @@ export default function PartnersPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								Partnerships that move capacity.
+								Partnerships that move capacity
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								Reliable infrastructure is built through close working
@@ -109,7 +109,7 @@ export default function PartnersPage() {
 						<p className="ha-briefing-label">Why it matters</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								The work starts well before a server comes online.
+								The work starts well before a server comes online
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								Our partners are part of how we turn AMD GPU hardware into usable,
@@ -138,7 +138,7 @@ export default function PartnersPage() {
 						<p className="ha-briefing-label">The network</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Relationships at every layer of delivery.
+								Relationships at every layer of delivery
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We work with specialists in the layers we operate, rather than
@@ -189,7 +189,7 @@ export default function PartnersPage() {
 						<p className="ha-briefing-label">Work with us</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Bring us a deployment with real constraints.
+								Bring us a deployment with real constraints
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We are interested in relationships that make sovereign inference

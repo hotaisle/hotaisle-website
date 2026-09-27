@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import CopyCommand from '@/components/CopyCommand.tsx';
 import { EmbeddedTerminal } from '@/components/EmbeddedTerminal.tsx';
@@ -104,23 +104,36 @@ export function generateMetadata() {
 	});
 }
 
-function ResourceGrid({ columns, resources }: { columns: string; resources: readonly Resource[] }) {
+function ResourceLinkList({ resources }: { resources: readonly Resource[] }) {
+	const linkClassName = 'group block py-6 text-foreground';
+
 	return (
-		<div className={`mt-12 grid gap-px bg-border ${columns}`}>
+		<ul className="[&>li:first-child>a]:pt-0 [&>li:last-child>a]:pb-0">
 			{resources.map((resource) => {
 				const isExternal = resource.href.startsWith('http');
-				const linkClassName =
-					'mt-auto inline-flex items-center gap-2 pt-8 font-medium text-hot-orange-contrast text-sm hover:text-foreground';
+				const content = (
+					<>
+						<span className="flex items-start justify-between gap-6">
+							<span className="font-bold text-2xl transition-colors group-hover:text-hot-orange-contrast">
+								{resource.title}
+							</span>
+							<ArrowUpRight
+								aria-hidden="true"
+								className="mt-1 shrink-0 text-hot-orange-contrast transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+								size={24}
+							/>
+						</span>
+						<span className="mt-2 block max-w-lg text-base text-muted-foreground leading-relaxed">
+							{resource.description}
+						</span>
+						<span className="mt-4 block font-medium text-hot-orange-contrast text-sm">
+							{resource.label}
+						</span>
+					</>
+				);
 
 				return (
-					<article
-						className="flex min-h-60 flex-col bg-background p-8"
-						key={resource.title}
-					>
-						<h3 className="font-bold text-2xl text-foreground">{resource.title}</h3>
-						<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
-							{resource.description}
-						</p>
+					<li className="border-border border-b last:border-b-0" key={resource.title}>
 						{isExternal ? (
 							<a
 								className={linkClassName}
@@ -128,19 +141,17 @@ function ResourceGrid({ columns, resources }: { columns: string; resources: read
 								rel="noopener"
 								target="_blank"
 							>
-								{resource.label}
-								<ArrowRight aria-hidden="true" size={16} />
+								{content}
 							</a>
 						) : (
 							<AppLink className={linkClassName} href={resource.href}>
-								{resource.label}
-								<ArrowRight aria-hidden="true" size={16} />
+								{content}
 							</AppLink>
 						)}
-					</article>
+					</li>
 				);
 			})}
-		</div>
+		</ul>
 	);
 }
 
@@ -148,11 +159,10 @@ export default function QuickStartPage() {
 	return (
 		<div className="min-h-screen bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b pt-14 pb-8 md:pt-18 md:pb-10">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Quick start</p>
-							<figure className="relative mt-10 max-w-sm overflow-hidden border border-border bg-black">
+							<figure className="relative max-w-sm overflow-hidden border border-border bg-black">
 								<OptimizedImage
 									alt="3D pixel-art terminal workstation for provisioning cloud compute"
 									className="aspect-4/3 w-full object-cover"
@@ -185,7 +195,7 @@ export default function QuickStartPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								From terminal to isolated compute.
+								From terminal to isolated compute
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								Self-service AMD GPU compute with no sales handoff in the way.
@@ -197,7 +207,7 @@ export default function QuickStartPage() {
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
 						{FIRST_LAUNCH_STEPS.map((step, index) => (
 							<div className="min-h-48 bg-background p-7" key={step.title}>
-								<p className="font-mono text-hot-orange-contrast text-xs">
+								<p className="font-mono text-2xl text-hot-orange-contrast">
 									{String(index + 1).padStart(2, '0')}
 								</p>
 								<h3 className="mt-8 font-bold text-2xl text-foreground">
@@ -212,31 +222,25 @@ export default function QuickStartPage() {
 				</header>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Terminal access</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Connect via SSH.
-							</h2>
-							<p
-								className="mt-5 hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
-								data-terminal-supported-copy
-							>
-								This is a live terminal connected exclusively to{' '}
-								<span className="text-success">admin.hotaisle.app</span>, so you can
-								explore our unique platform right here, right now. For regular use,
-								we recommend one of the terminal apps listed below.
-							</p>
-							<p
-								className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed"
-								data-terminal-fallback-copy
-							>
-								Log in to the Hot Aisle terminal UI with your favorite console
-								application and create your team, add credits, and provision
-								compute.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						Connect via SSH
+					</h2>
+					<p
+						className="mt-5 hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
+						data-terminal-supported-copy
+					>
+						This is a live terminal connected exclusively to{' '}
+						<span className="text-success">admin.hotaisle.app</span>, so you can explore
+						our unique platform right here, right now. For regular use, we recommend one
+						of the terminal apps listed below.
+					</p>
+					<p
+						className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed"
+						data-terminal-fallback-copy
+					>
+						Log in to the Hot Aisle terminal UI with your favorite console application
+						and create your team, add credits, and provision compute.
+					</p>
 					<EmbeddedTerminal />
 					<div className="mt-8">
 						<CopyCommand command="ssh admin.hotaisle.app" />
@@ -264,14 +268,13 @@ export default function QuickStartPage() {
 					</p>
 				</section>
 
-				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">After launch</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
+				<section className="border-border border-b">
+					<div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+						<div className="py-14 lg:border-border lg:border-r lg:pr-16 xl:pr-20">
+							<h2 className="max-w-sm font-black text-5xl text-foreground tracking-tighter md:text-6xl">
 								Next steps
 							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							<p className="mt-6 max-w-md text-lg text-muted-foreground leading-relaxed">
 								Your VM already comes with a recent ROCm setup, and Docker or Podman
 								is ready to go. AMD recommends using their dev containers, which is
 								a lot easier than installing everything by hand, and their docs are
@@ -279,44 +282,40 @@ export default function QuickStartPage() {
 								them.
 							</p>
 						</div>
+						<div className="pb-14 lg:py-14 lg:pl-16">
+							<ResourceLinkList resources={NEXT_STEP_RESOURCES} />
+						</div>
 					</div>
-					<ResourceGrid columns="md:grid-cols-2" resources={NEXT_STEP_RESOURCES} />
-				</section>
 
-				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Programmatic access</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Build from your own tooling.
+					<div className="grid border-border border-t lg:grid-cols-[0.95fr_1.05fr]">
+						<div className="py-14 lg:border-border lg:border-r lg:pr-16 xl:pr-20">
+							<h2 className="max-w-md font-black text-4xl text-foreground tracking-tighter md:text-5xl">
+								Build from your own tooling
 							</h2>
-							<p className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed">
+							<p className="mt-6 max-w-md text-lg text-muted-foreground leading-relaxed">
 								The same platform is available through the API, CLI, and cloud-init
 								templates.
 							</p>
 						</div>
+						<div className="pb-14 lg:py-14 lg:pl-16">
+							<ResourceLinkList resources={PROGRAMMATIC_RESOURCES} />
+						</div>
 					</div>
-					<ResourceGrid columns="md:grid-cols-3" resources={PROGRAMMATIC_RESOURCES} />
 				</section>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Questions</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Talk to a real person.
-							</h2>
-							<a
-								className="mt-5 inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
-								href="mailto:hello@hotaisle.ai"
-							>
-								hello@hotaisle.ai
-							</a>
-							<p className="mt-3 text-muted-foreground text-sm">
-								A real human will reply, not an AI bot or support agent.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						Talk to a real person
+					</h2>
+					<a
+						className="mt-5 inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
+						href="mailto:hello@hotaisle.ai"
+					>
+						hello@hotaisle.ai
+					</a>
+					<p className="mt-3 text-muted-foreground text-sm">
+						A real human will reply, not an AI bot or support agent.
+					</p>
 				</section>
 			</div>
 		</div>

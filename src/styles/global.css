@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@wterm/dom/css";
 /* @vscode/css-language-service-ignore */
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
@@ -348,7 +349,7 @@ main .prose:not(.max-w-none) {
 	outline: none;
 }
 
-.ha-machine-home-signal:focus-visible .ha-machine-home-signal__frame {
+:where(.ha-machine-home-signal:focus-visible) .ha-machine-home-signal__frame {
 	box-shadow:
 		0 24px 60px rgb(0 0 0 / 0.32),
 		0 0 0 1px color-mix(in srgb, var(--hot-orange) 20%, transparent) inset,
@@ -373,7 +374,8 @@ main .prose:not(.max-w-none) {
 	mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.85), transparent 88%);
 }
 
-.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__frame {
+:where(.ha-machine-home-signal[data-status="deleted"])
+	.ha-machine-home-signal__frame {
 	border-color: color-mix(in srgb, var(--destructive) 18%, var(--border));
 	box-shadow:
 		0 24px 60px rgb(0 0 0 / 0.32),
@@ -381,7 +383,7 @@ main .prose:not(.max-w-none) {
 		0 0 28px color-mix(in srgb, var(--destructive) 12%, transparent);
 }
 
-.ha-machine-home-signal[data-status="deleted"]:focus-visible
+:where(.ha-machine-home-signal[data-status="deleted"]:focus-visible)
 	.ha-machine-home-signal__frame {
 	box-shadow:
 		0 24px 60px rgb(0 0 0 / 0.32),
@@ -430,7 +432,8 @@ main .prose:not(.max-w-none) {
 	border-radius: 1.2rem;
 }
 
-.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__metric {
+:where(.ha-machine-home-signal[data-status="deleted"])
+	.ha-machine-home-signal__metric {
 	background:
 		linear-gradient(
 			180deg,
@@ -528,7 +531,8 @@ main .prose:not(.max-w-none) {
 	color: var(--success);
 }
 
-.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__status {
+:where(.ha-machine-home-signal[data-status="deleted"])
+	.ha-machine-home-signal__status {
 	color: var(--destructive);
 }
 
@@ -555,12 +559,13 @@ main .prose:not(.max-w-none) {
 	clip-path: inset(0 0 0 0);
 }
 
-.ha-machine-home-signal.is-active .ha-machine-home-signal__progress-bar {
+:where(.ha-machine-home-signal.is-active)
+	.ha-machine-home-signal__progress-bar {
 	animation: ha-machine-home-signal-progress
 		var(--ha-machine-home-signal-duration, 60s) linear forwards;
 }
 
-.ha-machine-home-signal[data-status="deleted"]
+:where(.ha-machine-home-signal[data-status="deleted"])
 	.ha-machine-home-signal__progress-bar {
 	background: linear-gradient(
 		90deg,
@@ -764,7 +769,8 @@ main .prose:not(.max-w-none) {
 }
 
 .ha-machine-home-signal__frame,
-.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__frame {
+:where(.ha-machine-home-signal[data-status="deleted"])
+	.ha-machine-home-signal__frame {
 	display: grid;
 	gap: 1.25rem;
 	padding: 0;
@@ -775,15 +781,14 @@ main .prose:not(.max-w-none) {
 	box-shadow: 0 16px 32px rgb(0 0 0 / 0.12);
 }
 
-.dark .ha-machine-home-signal__frame,
-.dark
-	.ha-machine-home-signal[data-status="deleted"]
+:where(.dark) .ha-machine-home-signal__frame,
+:where(.dark .ha-machine-home-signal[data-status="deleted"])
 	.ha-machine-home-signal__frame {
 	box-shadow: 0 16px 32px rgb(0 0 0 / 0.28);
 }
 
-.ha-machine-home-signal:focus-visible .ha-machine-home-signal__frame,
-.ha-machine-home-signal[data-status="deleted"]:focus-visible
+:where(.ha-machine-home-signal:focus-visible) .ha-machine-home-signal__frame,
+:where(.ha-machine-home-signal[data-status="deleted"]:focus-visible)
 	.ha-machine-home-signal__frame {
 	box-shadow:
 		0 0 0 2px
@@ -840,7 +845,8 @@ main .prose:not(.max-w-none) {
 }
 
 .ha-machine-home-signal__metric,
-.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__metric {
+:where(.ha-machine-home-signal[data-status="deleted"])
+	.ha-machine-home-signal__metric {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -905,7 +911,8 @@ main .prose:not(.max-w-none) {
 	color: var(--hot-orange-contrast);
 }
 
-.ha-machine-home-signal[data-status="deleted"] .ha-machine-home-signal__status {
+:where(.ha-machine-home-signal[data-status="deleted"])
+	.ha-machine-home-signal__status {
 	color: var(--destructive);
 }
 
@@ -915,13 +922,13 @@ main .prose:not(.max-w-none) {
 }
 
 .ha-machine-home-signal__progress-bar,
-.ha-machine-home-signal[data-status="deleted"]
+:where(.ha-machine-home-signal[data-status="deleted"])
 	.ha-machine-home-signal__progress-bar {
 	background: var(--hot-orange-contrast);
 	box-shadow: none;
 }
 
-.ha-machine-home-signal[data-status="deleted"]
+:where(.ha-machine-home-signal[data-status="deleted"])
 	.ha-machine-home-signal__progress-bar {
 	background: var(--destructive);
 }
@@ -944,7 +951,7 @@ main .prose:not(.max-w-none) {
 	}
 
 	.ha-machine-home-signal__metric,
-	.ha-machine-home-signal[data-status="deleted"]
+	:where(.ha-machine-home-signal[data-status="deleted"])
 		.ha-machine-home-signal__metric {
 		min-width: 4.25rem;
 		padding-right: 0.85rem;
@@ -1368,12 +1375,31 @@ img[data-image-modal="true"] {
 	box-shadow: none;
 }
 
-.ha-embedded-terminal {
+.ha-embedded-terminal-stage {
+	position: relative;
+	z-index: 0;
+	display: none;
+	width: 100%;
 	max-width: 69.625rem;
+	padding-block-start: 1.25rem;
+	padding-inline-start: 1.25rem;
 	margin-inline: auto;
 }
 
+.ha-embedded-terminal-stage::before {
+	position: absolute;
+	inset: 0 1.25rem 1.25rem 0;
+	z-index: -1;
+	content: "";
+	background: var(--hot-orange);
+}
+
+.ha-embedded-terminal {
+	box-shadow: 0 1.75rem 4.5rem rgb(20 14 10 / 0.18);
+}
+
 @media (min-width: 64rem) {
+	:root[data-terminal-support="supported"] .ha-embedded-terminal-stage,
 	:root[data-terminal-support="supported"] .ha-embedded-terminal,
 	:root[data-terminal-support="supported"] [data-terminal-supported-copy],
 	:root:not([data-terminal-support="supported"])
@@ -1396,7 +1422,7 @@ img[data-image-modal="true"] {
 	position: relative;
 }
 
-.ha-embedded-terminal[data-terminal-ready="true"]
+:where(.ha-embedded-terminal[data-terminal-ready="true"])
 	.ha-embedded-terminal__screen {
 	visibility: visible;
 }
@@ -1422,7 +1448,9 @@ img[data-image-modal="true"] {
 	backdrop-filter: blur(4px);
 }
 
-.ha-embedded-terminal[data-terminal-ready="true"][data-terminal-focus="false"]
+:where(
+		.ha-embedded-terminal[data-terminal-ready="true"][data-terminal-focus="false"]
+	)
 	.ha-embedded-terminal__focus-prompt {
 	display: flex;
 }
@@ -1434,11 +1462,14 @@ img[data-image-modal="true"] {
 	border-color: var(--hot-orange);
 }
 
-.ha-embedded-terminal__viewport:active .ha-embedded-terminal__focus-prompt {
+:where(.ha-embedded-terminal__viewport:active)
+	.ha-embedded-terminal__focus-prompt {
 	display: none;
 }
 
-.ha-embedded-terminal[data-terminal-ready="true"][data-terminal-selecting="true"]
+:where(
+		.ha-embedded-terminal[data-terminal-ready="true"][data-terminal-selecting="true"]
+	)
 	.ha-embedded-terminal__focus-prompt {
 	display: none;
 }
@@ -1481,29 +1512,28 @@ img[data-image-modal="true"] {
 	box-shadow: inset 0 0 0 1px var(--hot-orange);
 }
 
-.dark .ha-embedded-terminal__screen {
+:where(.dark) .ha-embedded-terminal__screen {
 	background: #050805;
 }
 
-.dark .ha-embedded-terminal__focus-prompt {
+:where(.dark) .ha-embedded-terminal {
+	box-shadow: 0 2rem 6rem rgb(0 0 0 / 0.46);
+}
+
+:where(.dark) .ha-embedded-terminal__focus-prompt {
 	color: #8aff9f;
 	background: color-mix(in srgb, #050805 92%, transparent);
 	box-shadow: 0 0 0 1px color-mix(in srgb, #050805 70%, transparent);
 }
 
-.dark .ha-embedded-terminal__focus-prompt:hover,
-.dark .ha-embedded-terminal__focus-prompt:focus-visible {
+:where(.dark) .ha-embedded-terminal__focus-prompt:hover,
+:where(.dark) .ha-embedded-terminal__focus-prompt:focus-visible {
 	color: #c7ffd2;
 	border-color: #8aff9f;
 }
 
 .ha-embedded-terminal .term-grid {
-	position: relative;
-	display: block;
-	min-width: 120ch;
 	min-height: 100%;
-	contain: layout paint style;
-	white-space: pre;
 	background: var(--term-bg);
 }
 
@@ -1521,104 +1551,6 @@ img[data-image-modal="true"] {
 	pointer-events: none;
 	user-select: none;
 	object-fit: fill;
-}
-
-.ha-embedded-terminal .term-row {
-	display: block;
-	height: var(--term-row-height);
-	contain: layout style;
-	line-height: var(--term-row-height);
-}
-
-.ha-embedded-terminal .term-row > span {
-	display: inline-block;
-	height: var(--term-row-height);
-	overflow: hidden;
-	vertical-align: top;
-}
-
-.ha-embedded-terminal .term-block {
-	width: var(--term-cell-width, 1ch);
-	overflow: hidden;
-}
-
-.ha-embedded-terminal .term-wide {
-	width: calc(2 * var(--term-cell-width, 1ch));
-	overflow: hidden;
-}
-
-.ha-embedded-terminal .term-box-drawing {
-	position: relative;
-}
-
-.ha-embedded-terminal .term-box-drawing::before,
-.ha-embedded-terminal .term-box-drawing::after {
-	position: absolute;
-	content: "";
-	background: currentColor;
-}
-
-.ha-embedded-terminal .term-box-h::before {
-	top: 50%;
-	right: 0;
-	left: 0;
-	height: 1px;
-	transform: translateY(-50%);
-}
-
-.ha-embedded-terminal .term-box-v::after {
-	top: -1px;
-	bottom: -1px;
-	left: 50%;
-	width: 1px;
-	transform: translateX(-50%);
-}
-
-.ha-embedded-terminal .term-box-tl::before,
-.ha-embedded-terminal .term-box-bl::before {
-	right: 0;
-	left: 50%;
-	height: 1px;
-}
-
-.ha-embedded-terminal .term-box-tr::before,
-.ha-embedded-terminal .term-box-br::before {
-	right: 50%;
-	left: 0;
-	height: 1px;
-}
-
-.ha-embedded-terminal .term-box-tl::before,
-.ha-embedded-terminal .term-box-tr::before {
-	top: 50%;
-}
-
-.ha-embedded-terminal .term-box-bl::before,
-.ha-embedded-terminal .term-box-br::before {
-	bottom: 50%;
-}
-
-.ha-embedded-terminal .term-box-tl::after,
-.ha-embedded-terminal .term-box-tr::after {
-	top: 50%;
-	bottom: -1px;
-	left: 50%;
-	width: 1px;
-}
-
-.ha-embedded-terminal .term-box-bl::after,
-.ha-embedded-terminal .term-box-br::after {
-	top: -1px;
-	bottom: 50%;
-	left: 50%;
-	width: 1px;
-}
-
-.ha-embedded-terminal .term-box-tl::after,
-.ha-embedded-terminal .term-box-tr::after,
-.ha-embedded-terminal .term-box-bl::after,
-.ha-embedded-terminal .term-box-br::after {
-	transform: translateX(-50%);
 }
 
 .ha-embedded-terminal .term-cursor {

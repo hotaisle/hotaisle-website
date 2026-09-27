@@ -231,6 +231,12 @@ const initializeTerminal = async (container: HTMLElement): Promise<void> => {
 	let cursorBlinkTimer: ReturnType<typeof setInterval> | null = null;
 	let revealTimer: ReturnType<typeof setTimeout> | null = null;
 
+	const sendTerminalResize = (cols: number, rows: number): void => {
+		if (socket?.readyState === WebSocket.OPEN) {
+			socket.send(JSON.stringify({ cols, rows, type: 'resize' }));
+		}
+	};
+
 	const sendTerminalInput = (data: string): void => {
 		if (socket?.readyState === WebSocket.OPEN) {
 			socket.send(JSON.stringify({ data, type: 'input' }));
@@ -288,15 +294,13 @@ const initializeTerminal = async (container: HTMLElement): Promise<void> => {
 	};
 
 	const terminal = new WTerm(screen, {
-		autoResize: false,
+		autoResize: true,
 		cols: TERMINAL_COLUMNS,
 		core,
 		cursorBlink: true,
 		onData: sendTerminalInput,
 		onResize: (cols, rows) => {
-			if (socket?.readyState === WebSocket.OPEN) {
-				socket.send(JSON.stringify({ cols, rows, type: 'resize' }));
-			}
+			sendTerminalResize(cols, rows);
 		},
 		rows: TERMINAL_ROWS,
 	});
@@ -403,6 +407,7 @@ const initializeTerminal = async (container: HTMLElement): Promise<void> => {
 			}
 			status.textContent = 'Connected';
 			container.dataset.state = 'connected';
+			sendTerminalResize(terminal.cols, terminal.rows);
 			terminal.focus();
 		});
 

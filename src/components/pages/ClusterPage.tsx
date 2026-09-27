@@ -102,7 +102,7 @@ export default function ClusterPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								Clusters designed for the work ahead.
+								Clusters designed for the work ahead
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								Design, deploy, and operate AMD GPU infrastructure with an
@@ -126,7 +126,7 @@ export default function ClusterPage() {
 						<p className="ha-briefing-label">Engagement scope</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								A cluster is more than a GPU count.
+								A cluster is more than a GPU count
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We start with the workload, then make the hardware, facility,
@@ -154,7 +154,7 @@ export default function ClusterPage() {
 						<p className="ha-briefing-label">Why Hot Aisle</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								A delivery partner that operates infrastructure.
+								A delivery partner that operates infrastructure
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								The decisions that matter most happen before hardware arrives. We
@@ -183,7 +183,7 @@ export default function ClusterPage() {
 						<p className="ha-briefing-label">Services</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								From architecture through operations.
+								From architecture through operations
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								Bring us in for a focused design engagement or carry the work
@@ -211,7 +211,7 @@ export default function ClusterPage() {
 						<p className="ha-briefing-label">Start here</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Bring us the workload and constraints.
+								Bring us the workload and constraints
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We will help map the compute, facility, network, and operating

@@ -15,26 +15,35 @@ const toCell = (character: string) => ({
 	width: 1,
 });
 
+const createRenderer = (columns: number): object => {
+	const renderer: object = Object.create(Renderer.prototype);
+	Reflect.set(renderer, 'cols', columns);
+	Reflect.set(renderer, 'prevRowBg', []);
+	Reflect.set(renderer, 'rowHtml', new WeakMap());
+	Reflect.set(renderer, 'rowText', new WeakMap());
+	return renderer;
+};
+
+const createRow = () => ({ innerHTML: '', style: { background: '' } });
+
 const renderCell = (cell: object): string => {
-	const renderer: object = Reflect.construct(Renderer, [{}]);
-	Reflect.set(renderer, 'cols', 1);
-	const row = { innerHTML: '' };
+	const renderer = createRenderer(1);
+	const row = createRow();
 	const buildRowContent = Reflect.get(renderer, '_buildRowContent');
 
-	Reflect.apply(buildRowContent, renderer, [row, () => cell, 1, -1]);
+	Reflect.apply(buildRowContent, renderer, [row, () => cell, 1, -1, -1]);
 	return row.innerHTML;
 };
 
 describe('terminal renderer', () => {
 	test('turns web URLs into safe links without including trailing punctuation', () => {
-		const renderer: object = Reflect.construct(Renderer, [{}]);
-		Reflect.set(renderer, 'cols', TERMINAL_TEXT.length);
-		const row = { innerHTML: '' };
+		const renderer = createRenderer(TERMINAL_TEXT.length);
+		const row = createRow();
 		const cells = Array.from(TERMINAL_TEXT, toCell);
 		const readCell = (column: number) => cells[column] ?? toCell(' ');
 		const buildRowContent = Reflect.get(renderer, '_buildRowContent');
 
-		Reflect.apply(buildRowContent, renderer, [row, readCell, TERMINAL_TEXT.length, -1]);
+		Reflect.apply(buildRowContent, renderer, [row, readCell, TERMINAL_TEXT.length, -1, -1]);
 
 		expect(row.innerHTML).toContain(
 			'<a class="term-link" href="https://admin.hotaisle.app/r/example" target="_blank" rel="noopener noreferrer">https://admin.hotaisle.app/r/example</a>.'
@@ -55,14 +64,13 @@ describe('terminal renderer', () => {
 			text: SSH_URL_TEXT,
 		},
 	])('$name', ({ expected, text }) => {
-		const renderer: object = Reflect.construct(Renderer, [{}]);
-		Reflect.set(renderer, 'cols', text.length);
-		const row = { innerHTML: '' };
+		const renderer = createRenderer(text.length);
+		const row = createRow();
 		const cells = Array.from(text, toCell);
 		const readCell = (column: number) => cells[column] ?? toCell(' ');
 		const buildRowContent = Reflect.get(renderer, '_buildRowContent');
 
-		Reflect.apply(buildRowContent, renderer, [row, readCell, text.length, -1]);
+		Reflect.apply(buildRowContent, renderer, [row, readCell, text.length, -1, -1]);
 
 		expect(row.innerHTML).toContain(expected);
 	});
@@ -89,20 +97,15 @@ describe('terminal renderer', () => {
 	});
 
 	test('preserves two-column characters and skips their continuation cells', () => {
-		const renderer: object = Reflect.construct(Renderer, [{}]);
-		Reflect.set(renderer, 'cols', 3);
-		const row = { innerHTML: '' };
+		const renderer = createRenderer(3);
+		const row = createRow();
 		const cells = [{ ...toCell('界'), width: 2 }, { ...toCell(' '), width: 0 }, toCell('A')];
 		const readCell = (column: number) => cells[column] ?? toCell(' ');
 		const buildRowContent = Reflect.get(renderer, '_buildRowContent');
 
-		Reflect.apply(buildRowContent, renderer, [row, readCell, cells.length, -1]);
+		Reflect.apply(buildRowContent, renderer, [row, readCell, cells.length, -1, -1]);
 
-		expect(row.innerHTML).toContain(
-			'<span class="term-wide" style="width:calc(2 * var(--term-cell-width, 1ch));">界</span>'
-		);
-		expect(row.innerHTML).toContain(
-			'<span style="width:calc(1 * var(--term-cell-width, 1ch));">A</span>'
-		);
+		expect(row.innerHTML).toContain('<span class="term-wide">界</span>');
+		expect(row.innerHTML).toContain('<span>A</span>');
 	});
 });

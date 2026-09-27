@@ -10,7 +10,7 @@ export function VideoSection() {
 					<div className="flex-1 text-center md:text-left">
 						<h2 className="mb-6 font-black text-4xl tracking-tight md:text-5xl">
 							Just {MI300X_VM_PRICE}. <br />
-							<span className="text-hot-orange-contrast">Zero Commitment.</span>
+							<span className="text-hot-orange-contrast">Zero Commitment</span>
 						</h2>
 						<p className="mb-8 text-muted-foreground text-xl leading-relaxed">
 							Stop paying for idle GPUs. With Hot Aisle, you get instant access to raw

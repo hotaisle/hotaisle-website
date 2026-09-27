@@ -112,7 +112,7 @@ export default function NetworkingPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								A fabric built for GPU clusters.
+								A fabric built for GPU clusters
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								We automate SONiC networking beneath the compute layer, providing
@@ -136,7 +136,7 @@ export default function NetworkingPage() {
 						<p className="ha-briefing-label">Fabric layers</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Separate paths for every job.
+								Separate paths for every job
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								The network is designed as distinct planes, so high-throughput
@@ -196,7 +196,7 @@ export default function NetworkingPage() {
 						<p className="ha-briefing-label">Operational network</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Connectivity that can be operated.
+								Connectivity that can be operated
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								IPv6-first addressing, VRF isolation, and serviceable switching are

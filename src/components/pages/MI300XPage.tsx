@@ -92,7 +92,7 @@ export default function MI300XPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								AMD Instinct MI300X.
+								AMD Instinct MI300X
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								A high-memory AMD accelerator for production inference. Start with
@@ -122,7 +122,7 @@ export default function MI300XPage() {
 						<p className="ha-briefing-label">At a glance</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Built for memory-intensive serving.
+								Built for memory-intensive serving
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								MI300X pairs a large HBM3 footprint with the bandwidth needed to
@@ -151,7 +151,7 @@ export default function MI300XPage() {
 						<p className="ha-briefing-label">Inference fit</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Capacity that does not get in the way.
+								Capacity that does not get in the way
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								The accelerator is only part of the offering. Hot Aisle automates
@@ -183,7 +183,7 @@ export default function MI300XPage() {
 						<p className="ha-briefing-label">System profile</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								The accelerator, in a complete platform.
+								The accelerator, in a complete platform
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								Infrastructure is more useful when the physical system,
@@ -209,7 +209,7 @@ export default function MI300XPage() {
 						<p className="ha-briefing-label">Deploy MI300X</p>
 						<div>
 							<h3 className="font-black text-3xl text-foreground">
-								Ready when the workload is.
+								Ready when the workload is
 							</h3>
 							<p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
 								Create a team, add credit, and provision isolated AMD GPU compute

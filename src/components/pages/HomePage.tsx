@@ -96,11 +96,8 @@ export default function Home() {
 			<section className="border-border border-b">
 				<div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-10 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-20">
 					<div className="relative z-10 max-w-2xl">
-						<p className="mb-7 font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
-							Automated inference cloud
-						</p>
 						<h1 className="max-w-2xl font-semibold text-6xl leading-[1.02] sm:text-7xl lg:text-8xl">
-							Compute that keeps pace with the work.
+							Compute that keeps pace with the work
 						</h1>
 						<p className="mt-8 max-w-2xl text-muted-foreground text-xl leading-9 sm:text-2xl">
 							Hot Aisle is novel developer-first cloud infrastructure for production
@@ -199,11 +196,8 @@ export default function Home() {
 			<section className="border-border border-b">
 				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.78fr_1.22fr] lg:px-8 lg:py-28">
 					<div>
-						<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
-							The work underneath
-						</p>
-						<h2 className="mt-5 max-w-xl font-semibold text-5xl sm:text-6xl">
-							Kubernetes is not the first layer.
+						<h2 className="max-w-xl font-semibold text-5xl sm:text-6xl">
+							Kubernetes is not the first layer
 						</h2>
 						<p className="mt-6 max-w-xl text-muted-foreground text-xl leading-9">
 							Most providers stop at orchestration. We made the physical and virtual
@@ -235,11 +229,8 @@ export default function Home() {
 			<section className="border-border border-b bg-muted/70">
 				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
 					<div>
-						<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
-							Run it your way
-						</p>
-						<h2 className="mt-5 max-w-2xl font-semibold text-5xl sm:text-6xl">
-							One platform. No artificial ceiling.
+						<h2 className="max-w-2xl font-semibold text-5xl sm:text-6xl">
+							One platform. No artificial ceiling
 						</h2>
 						<p className="mt-6 max-w-2xl text-muted-foreground text-xl leading-9">
 							Start with one GPU for one minute. Scale to a group of isolated compute.
@@ -267,11 +258,8 @@ export default function Home() {
 				<div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
 						<div>
-							<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
-								Built for the decision
-							</p>
-							<h2 className="mt-5 max-w-xl font-semibold text-5xl sm:text-6xl">
-								Infrastructure developers can use. Terms leadership can defend.
+							<h2 className="max-w-xl font-semibold text-5xl sm:text-6xl">
+								Infrastructure developers can use. Terms leadership can defend
 							</h2>
 						</div>
 						<p className="max-w-3xl text-muted-foreground text-xl leading-9">
@@ -300,7 +288,7 @@ export default function Home() {
 				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
 					<div>
 						<h2 className="font-medium text-3xl">
-							Private workload, visible operations.
+							Private workload, visible operations
 						</h2>
 						<p className="mt-4 max-w-3xl text-lg text-muted-foreground leading-8 sm:text-xl">
 							We monitor platform health and account usage, not the contents of your
@@ -321,11 +309,8 @@ export default function Home() {
 			<section className="bg-background">
 				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8 lg:py-28">
 					<div>
-						<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.16em]">
-							Compute is ready when you are
-						</p>
-						<h2 className="mt-5 max-w-4xl font-semibold text-5xl sm:text-7xl">
-							Start with an inference request, not a sales process.
+						<h2 className="max-w-4xl font-semibold text-5xl sm:text-7xl">
+							Start with an inference request, not a sales process
 						</h2>
 					</div>
 					<div className="flex flex-wrap gap-3">

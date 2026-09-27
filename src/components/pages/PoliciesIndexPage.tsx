@@ -52,7 +52,7 @@ export default function PoliciesIndexPage() {
 						<p className="ha-briefing-label">Legal and policies</p>
 						<div>
 							<h1 className="font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								Policies, clearly stated.
+								Policies, clearly stated
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								The documents that govern Hot Aisle services, infrastructure, and

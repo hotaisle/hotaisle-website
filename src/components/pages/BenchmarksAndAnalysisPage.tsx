@@ -165,7 +165,7 @@ export default function BenchmarksPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								Evidence, not assertions.
+								Evidence, not assertions
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								A curated index of third-party benchmarks, engineering analysis, and
@@ -187,7 +187,7 @@ export default function BenchmarksPage() {
 						<p className="ha-briefing-label">How to read results</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Benchmark context is part of the result.
+								Benchmark context is part of the result
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								Useful benchmarks document what was tested and how. These references
@@ -216,7 +216,7 @@ export default function BenchmarksPage() {
 						<p className="ha-briefing-label">Reference index</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Research, benchmarks, and field reports.
+								Research, benchmarks, and field reports
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								External sources from engineering teams, cloud providers,
@@ -253,7 +253,7 @@ export default function BenchmarksPage() {
 						<p className="ha-briefing-label">Your workload</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Run the test that matters to you.
+								Run the test that matters to you
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								Bring your model, runtime, and request profile to an isolated AMD
