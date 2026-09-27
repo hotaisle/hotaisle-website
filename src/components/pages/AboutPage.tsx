@@ -70,8 +70,7 @@ export default function AboutPage() {
 				<header className="border-border border-b py-14 md:py-18">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">About Hot Aisle</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
 								<OptimizedImage
 									alt="3D pixel-art cloud infrastructure engineering workspace with a server rack, terminal, network switch, and storage"
 									className="aspect-4/3 w-full object-cover"
@@ -109,20 +108,15 @@ export default function AboutPage() {
 				</header>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">The founders</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								The people accountable for the platform.
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Jon Stevens and Clint Armstrong founded Hot Aisle in October 2023
-								after years of working together on large-scale compute deployments.
-								They remain close to the systems, the customers, and the decisions
-								that keep capacity productive.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						The people accountable for the platform.
+					</h2>
+					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						Jon Stevens and Clint Armstrong founded Hot Aisle in October 2023 after
+						years of working together on large-scale compute deployments. They remain
+						close to the systems, the customers, and the decisions that keep capacity
+						productive.
+					</p>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
 						{FOUNDERS.map((founder) => (
@@ -161,19 +155,14 @@ export default function AboutPage() {
 				</section>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">The operating ethos</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								How we earn the right to operate your infrastructure.
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								A developer-first experience only works when the layers behind it
-								are designed with the same care. These are the standards behind our
-								product, our support, and our customer relationships.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						How we earn the right to operate your infrastructure.
+					</h2>
+					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						A developer-first experience only works when the layers behind it are
+						designed with the same care. These are the standards behind our product, our
+						support, and our customer relationships.
+					</p>
 
 					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
 						{OPERATING_PRINCIPLES.map((principle) => (
@@ -190,52 +179,40 @@ export default function AboutPage() {
 				</section>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Why Hot Aisle</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								A name for the work we do.
-							</h2>
-							<div className="mt-5 max-w-2xl space-y-5 text-lg text-muted-foreground leading-relaxed">
-								<p>
-									A hot aisle is where a data center’s heat is deliberately
-									contained and managed. It is an unglamorous detail with real
-									consequences for the systems around it.
-								</p>
-								<p>
-									That is a useful description of our work: stay close to the
-									physical constraints, design for the actual operating
-									environment, and make the result straightforward for the people
-									using the platform.
-								</p>
-							</div>
-						</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						A name for the work we do.
+					</h2>
+					<div className="mt-5 max-w-2xl space-y-5 text-lg text-muted-foreground leading-relaxed">
+						<p>
+							A hot aisle is where a data center’s heat is deliberately contained and
+							managed. It is an unglamorous detail with real consequences for the
+							systems around it.
+						</p>
+						<p>
+							That is a useful description of our work: stay close to the physical
+							constraints, design for the actual operating environment, and make the
+							result straightforward for the people using the platform.
+						</p>
 					</div>
 				</section>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Early backing</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Backed by people who understand infrastructure.
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								We are grateful for the support that let us build patiently, learn
-								from real workloads, and keep improving the platform before pursuing
-								scale. After nearly three years in production, the foundation is
-								ready for its next stage. We are now looking for additional
-								investors to help expand developer-first sovereign inference
-								capacity.{' '}
-								<AppLink
-									className="font-medium text-foreground underline decoration-hot-orange underline-offset-4 transition-colors hover:text-hot-orange-contrast"
-									href="/investors"
-								>
-									Learn more about investing in Hot Aisle.
-								</AppLink>
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						Backed by people who understand infrastructure.
+					</h2>
+					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						We are grateful for the support that let us build patiently, learn from real
+						workloads, and keep improving the platform before pursuing scale. After
+						nearly three years in production, the foundation is ready for its next
+						stage. We are now looking for additional investors to help expand
+						developer-first sovereign inference capacity.{' '}
+						<AppLink
+							className="font-medium text-foreground underline decoration-hot-orange underline-offset-4 transition-colors hover:text-hot-orange-contrast"
+							href="/investors"
+						>
+							Learn more about investing in Hot Aisle.
+						</AppLink>
+					</p>
 
 					<div className="mt-12 grid gap-px border border-border bg-border md:grid-cols-2">
 						{EARLY_BACKERS.map((backer) => (

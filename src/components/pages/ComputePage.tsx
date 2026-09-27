@@ -78,8 +78,7 @@ export default function ComputePage() {
 				<header className="border-border border-b py-14 md:py-18">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Platform</p>
-							<figure className="mt-10 max-w-sm border border-border bg-muted/20 p-3">
+							<figure className="max-w-sm border border-border bg-muted/20 p-3">
 								<ClickableImage
 									alt="Dell PowerEdge XE9680"
 									className="h-40 w-full object-contain"
@@ -123,18 +122,13 @@ export default function ComputePage() {
 				</header>
 
 				<section className="border-border border-b py-16" id="specifications">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Hardware profile</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Built for large inference workloads.
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								A balanced system from GPU memory through storage, network fabric,
-								and power delivery.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						Built for large inference workloads.
+					</h2>
+					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						A balanced system from GPU memory through storage, network fabric, and power
+						delivery.
+					</p>
 
 					<div className="mt-12 grid gap-px bg-border">
 						{SPECS.map((spec) => (
@@ -179,18 +173,13 @@ export default function ComputePage() {
 				</section>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Operational continuity</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Uptime matters to both of us.
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Every server is covered by Dell ProSupport Next Business Day
-								warranty, with parts held on site to minimize downtime.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						Uptime matters to both of us.
+					</h2>
+					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						Every server is covered by Dell ProSupport Next Business Day warranty, with
+						parts held on site to minimize downtime.
+					</p>
 
 					<div className="mt-12 grid gap-px bg-border lg:grid-cols-[0.65fr_1.35fr]">
 						<figure className="bg-background p-4">
@@ -214,8 +203,7 @@ export default function ComputePage() {
 								</div>
 							))}
 							<div className="bg-background p-8 md:col-span-2">
-								<p className="ha-briefing-label">Custom design</p>
-								<h3 className="mt-4 font-black text-3xl text-foreground">
+								<h3 className="font-black text-3xl text-foreground">
 									Need a specific configuration?
 								</h3>
 								<p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">

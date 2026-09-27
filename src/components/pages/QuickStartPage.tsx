@@ -151,8 +151,7 @@ export default function QuickStartPage() {
 				<header className="border-border border-b py-14 md:py-18">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Quick start</p>
-							<figure className="relative mt-10 max-w-sm overflow-hidden border border-border bg-black">
+							<figure className="relative max-w-sm overflow-hidden border border-border bg-black">
 								<OptimizedImage
 									alt="3D pixel-art terminal workstation for provisioning cloud compute"
 									className="aspect-4/3 w-full object-cover"
@@ -212,31 +211,25 @@ export default function QuickStartPage() {
 				</header>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Terminal access</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Connect via SSH.
-							</h2>
-							<p
-								className="mt-5 hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
-								data-terminal-supported-copy
-							>
-								This is a live terminal connected exclusively to{' '}
-								<span className="text-success">admin.hotaisle.app</span>, so you can
-								explore our unique platform right here, right now. For regular use,
-								we recommend one of the terminal apps listed below.
-							</p>
-							<p
-								className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed"
-								data-terminal-fallback-copy
-							>
-								Log in to the Hot Aisle terminal UI with your favorite console
-								application and create your team, add credits, and provision
-								compute.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						Connect via SSH.
+					</h2>
+					<p
+						className="mt-5 hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
+						data-terminal-supported-copy
+					>
+						This is a live terminal connected exclusively to{' '}
+						<span className="text-success">admin.hotaisle.app</span>, so you can explore
+						our unique platform right here, right now. For regular use, we recommend one
+						of the terminal apps listed below.
+					</p>
+					<p
+						className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed"
+						data-terminal-fallback-copy
+					>
+						Log in to the Hot Aisle terminal UI with your favorite console application
+						and create your team, add credits, and provision compute.
+					</p>
 					<EmbeddedTerminal />
 					<div className="mt-8">
 						<CopyCommand command="ssh admin.hotaisle.app" />
@@ -265,58 +258,40 @@ export default function QuickStartPage() {
 				</section>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">After launch</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Next steps
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Your VM already comes with a recent ROCm setup, and Docker or Podman
-								is ready to go. AMD recommends using their dev containers, which is
-								a lot easier than installing everything by hand, and their docs are
-								solid. If you have any feedback, we’d be happy to pass it along to
-								them.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">Next steps</h2>
+					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						Your VM already comes with a recent ROCm setup, and Docker or Podman is
+						ready to go. AMD recommends using their dev containers, which is a lot
+						easier than installing everything by hand, and their docs are solid. If you
+						have any feedback, we’d be happy to pass it along to them.
+					</p>
 					<ResourceGrid columns="md:grid-cols-2" resources={NEXT_STEP_RESOURCES} />
 				</section>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Programmatic access</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Build from your own tooling.
-							</h2>
-							<p className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed">
-								The same platform is available through the API, CLI, and cloud-init
-								templates.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						Build from your own tooling.
+					</h2>
+					<p className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed">
+						The same platform is available through the API, CLI, and cloud-init
+						templates.
+					</p>
 					<ResourceGrid columns="md:grid-cols-3" resources={PROGRAMMATIC_RESOURCES} />
 				</section>
 
 				<section className="border-border border-b py-16">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Questions</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Talk to a real person.
-							</h2>
-							<a
-								className="mt-5 inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
-								href="mailto:hello@hotaisle.ai"
-							>
-								hello@hotaisle.ai
-							</a>
-							<p className="mt-3 text-muted-foreground text-sm">
-								A real human will reply, not an AI bot or support agent.
-							</p>
-						</div>
-					</div>
+					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						Talk to a real person.
+					</h2>
+					<a
+						className="mt-5 inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
+						href="mailto:hello@hotaisle.ai"
+					>
+						hello@hotaisle.ai
+					</a>
+					<p className="mt-3 text-muted-foreground text-sm">
+						A real human will reply, not an AI bot or support agent.
+					</p>
 				</section>
 			</div>
 		</div>
