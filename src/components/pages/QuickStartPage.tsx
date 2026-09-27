@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import CopyCommand from '@/components/CopyCommand.tsx';
 import { EmbeddedTerminal } from '@/components/EmbeddedTerminal.tsx';
@@ -104,23 +104,36 @@ export function generateMetadata() {
 	});
 }
 
-function ResourceGrid({ columns, resources }: { columns: string; resources: readonly Resource[] }) {
+function ResourceLinkList({ resources }: { resources: readonly Resource[] }) {
+	const linkClassName = 'group block py-6 text-foreground';
+
 	return (
-		<div className={`mt-12 grid gap-px bg-border ${columns}`}>
+		<ul className="[&>li:first-child>a]:pt-0 [&>li:last-child>a]:pb-0">
 			{resources.map((resource) => {
 				const isExternal = resource.href.startsWith('http');
-				const linkClassName =
-					'mt-auto inline-flex items-center gap-2 pt-8 font-medium text-hot-orange-contrast text-sm hover:text-foreground';
+				const content = (
+					<>
+						<span className="flex items-start justify-between gap-6">
+							<span className="font-bold text-2xl transition-colors group-hover:text-hot-orange-contrast">
+								{resource.title}
+							</span>
+							<ArrowUpRight
+								aria-hidden="true"
+								className="mt-1 shrink-0 text-hot-orange-contrast transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+								size={24}
+							/>
+						</span>
+						<span className="mt-2 block max-w-lg text-base text-muted-foreground leading-relaxed">
+							{resource.description}
+						</span>
+						<span className="mt-4 block font-medium text-hot-orange-contrast text-sm">
+							{resource.label}
+						</span>
+					</>
+				);
 
 				return (
-					<article
-						className="flex min-h-60 flex-col bg-background p-8"
-						key={resource.title}
-					>
-						<h3 className="font-bold text-2xl text-foreground">{resource.title}</h3>
-						<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
-							{resource.description}
-						</p>
+					<li className="border-border border-b last:border-b-0" key={resource.title}>
 						{isExternal ? (
 							<a
 								className={linkClassName}
@@ -128,19 +141,17 @@ function ResourceGrid({ columns, resources }: { columns: string; resources: read
 								rel="noopener"
 								target="_blank"
 							>
-								{resource.label}
-								<ArrowRight aria-hidden="true" size={16} />
+								{content}
 							</a>
 						) : (
 							<AppLink className={linkClassName} href={resource.href}>
-								{resource.label}
-								<ArrowRight aria-hidden="true" size={16} />
+								{content}
 							</AppLink>
 						)}
-					</article>
+					</li>
 				);
 			})}
-		</div>
+		</ul>
 	);
 }
 
@@ -184,7 +195,7 @@ export default function QuickStartPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								From terminal to isolated compute.
+								From terminal to isolated compute
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								Self-service AMD GPU compute with no sales handoff in the way.
@@ -212,7 +223,7 @@ export default function QuickStartPage() {
 
 				<section className="border-border border-b py-16">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Connect via SSH.
+						Connect via SSH
 					</h2>
 					<p
 						className="mt-5 hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
@@ -257,31 +268,44 @@ export default function QuickStartPage() {
 					</p>
 				</section>
 
-				<section className="border-border border-b py-16">
-					<h2 className="font-black text-4xl text-foreground md:text-5xl">Next steps</h2>
-					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-						Your VM already comes with a recent ROCm setup, and Docker or Podman is
-						ready to go. AMD recommends using their dev containers, which is a lot
-						easier than installing everything by hand, and their docs are solid. If you
-						have any feedback, we’d be happy to pass it along to them.
-					</p>
-					<ResourceGrid columns="md:grid-cols-2" resources={NEXT_STEP_RESOURCES} />
+				<section className="border-border border-b">
+					<div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+						<div className="py-14 lg:border-border lg:border-r lg:pr-16 xl:pr-20">
+							<h2 className="max-w-sm font-black text-5xl text-foreground tracking-tighter md:text-6xl">
+								Next steps
+							</h2>
+							<p className="mt-6 max-w-md text-lg text-muted-foreground leading-relaxed">
+								Your VM already comes with a recent ROCm setup, and Docker or Podman
+								is ready to go. AMD recommends using their dev containers, which is
+								a lot easier than installing everything by hand, and their docs are
+								solid. If you have any feedback, we’d be happy to pass it along to
+								them.
+							</p>
+						</div>
+						<div className="pb-14 lg:py-14 lg:pl-16">
+							<ResourceLinkList resources={NEXT_STEP_RESOURCES} />
+						</div>
+					</div>
+
+					<div className="grid border-border border-t lg:grid-cols-[0.95fr_1.05fr]">
+						<div className="py-14 lg:border-border lg:border-r lg:pr-16 xl:pr-20">
+							<h2 className="max-w-md font-black text-4xl text-foreground tracking-tighter md:text-5xl">
+								Build from your own tooling
+							</h2>
+							<p className="mt-6 max-w-md text-lg text-muted-foreground leading-relaxed">
+								The same platform is available through the API, CLI, and cloud-init
+								templates.
+							</p>
+						</div>
+						<div className="pb-14 lg:py-14 lg:pl-16">
+							<ResourceLinkList resources={PROGRAMMATIC_RESOURCES} />
+						</div>
+					</div>
 				</section>
 
 				<section className="border-border border-b py-16">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Build from your own tooling.
-					</h2>
-					<p className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed">
-						The same platform is available through the API, CLI, and cloud-init
-						templates.
-					</p>
-					<ResourceGrid columns="md:grid-cols-3" resources={PROGRAMMATIC_RESOURCES} />
-				</section>
-
-				<section className="border-border border-b py-16">
-					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Talk to a real person.
+						Talk to a real person
 					</h2>
 					<a
 						className="mt-5 inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
