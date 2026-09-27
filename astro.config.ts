@@ -34,6 +34,9 @@ export default defineConfig({
 	site: 'https://hotaisle.xyz',
 	trailingSlash: 'never',
 	vite: {
+		optimizeDeps: {
+			exclude: ['@wterm/core', '@wterm/dom', '@wterm/ghostty'],
+		},
 		plugins: [tailwindcss()],
 		resolve: {
 			alias: {
