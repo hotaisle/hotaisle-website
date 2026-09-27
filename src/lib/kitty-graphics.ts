@@ -328,6 +328,7 @@ export class KittyGraphicsBridge {
 	private readonly grid: HTMLElement;
 	private readonly images = new Map<string, StoredImage>();
 	private readonly layer: HTMLDivElement;
+	private readonly layerObserver: MutationObserver | null;
 	private readonly parser = new KittyGraphicsParser();
 	private pendingPlacement: PendingPlacement | null = null;
 	private readonly placements = new Map<string, RenderedPlacement>();
@@ -341,7 +342,14 @@ export class KittyGraphicsBridge {
 		this.writeTerminal = options.writeTerminal;
 		this.layer = this.grid.ownerDocument.createElement('div');
 		this.layer.className = 'term-image-layer';
-		this.grid.append(this.layer);
+		const MutationObserverConstructor = this.grid.ownerDocument.defaultView?.MutationObserver;
+		this.layerObserver = MutationObserverConstructor
+			? new MutationObserverConstructor(() => {
+					this.ensureLayerAttached();
+				})
+			: null;
+		this.layerObserver?.observe(this.grid, { childList: true });
+		this.ensureLayerAttached();
 	}
 
 	write(data: string | Uint8Array): void {
@@ -354,6 +362,7 @@ export class KittyGraphicsBridge {
 			this.writeTerminal(event.bytes);
 			this.placePendingImage();
 		}
+		this.ensureLayerAttached();
 	}
 
 	reset(): void {
@@ -363,7 +372,14 @@ export class KittyGraphicsBridge {
 
 	destroy(): void {
 		this.reset();
+		this.layerObserver?.disconnect();
 		this.layer.remove();
+	}
+
+	private ensureLayerAttached(): void {
+		if (this.layer.parentElement !== this.grid) {
+			this.grid.append(this.layer);
+		}
 	}
 
 	private handleCommand(command: KittyGraphicsCommand): void {
