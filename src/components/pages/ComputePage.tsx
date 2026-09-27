@@ -130,7 +130,12 @@ export default function ComputePage() {
 						delivery.
 					</p>
 
-					<div className="mt-12 grid gap-px bg-border">
+					<div className="mt-12 hidden gap-8 px-8 md:grid md:grid-cols-[0.55fr_1.45fr_0.7fr]">
+						<p className="col-start-3 pl-8 font-mono text-muted-foreground text-xs uppercase">
+							Total capacity
+						</p>
+					</div>
+					<div className="mt-3 grid gap-px bg-border">
 						{SPECS.map((spec) => (
 							<article
 								className="grid gap-8 bg-background p-8 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
@@ -160,10 +165,8 @@ export default function ComputePage() {
 									</ul>
 								</div>
 								<div className="md:border-border md:border-l md:pl-8">
-									<p className="font-mono text-muted-foreground text-xs uppercase">
-										Total capacity
-									</p>
-									<p className="mt-3 font-bold text-2xl text-hot-orange-contrast">
+									<p className="font-bold text-2xl text-hot-orange-contrast">
+										<span className="sr-only">Total capacity: </span>
 										{spec.capacity}
 									</p>
 								</div>
