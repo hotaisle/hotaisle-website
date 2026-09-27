@@ -50,17 +50,20 @@ class FakeElement {
 	}
 
 	append(child: FakeElement): void {
+		child.parentElement?.removeChild(child);
 		child.parentElement = this;
+		child.removed = false;
 		this.children.push(child);
+	}
+
+	removeChild(child: FakeElement): void {
+		this.children = this.children.filter((candidate) => candidate !== child);
+		child.parentElement = null;
 	}
 
 	remove(): void {
 		this.removed = true;
-		if (this.parentElement) {
-			this.parentElement.children = this.parentElement.children.filter(
-				(child) => child !== this
-			);
-		}
+		this.parentElement?.removeChild(this);
 	}
 }
 
@@ -209,6 +212,30 @@ describe('findKittyPlaceholder', () => {
 });
 
 describe('KittyGraphicsBridge', () => {
+	test('reattaches its image layer after the terminal renderer rebuilds the grid', () => {
+		const document = new FakeDocument();
+		const terminal = new FakeElement(document);
+		const grid = new FakeElement(document);
+		terminal.append(grid);
+		const core = createFakeCore(() => ({ bg: 256, char: 32, fg: 256, flags: 0 }));
+		const bridge = new KittyGraphicsBridge({
+			core,
+			grid: grid as unknown as HTMLElement,
+			sendResponse: () => undefined,
+			writeTerminal: () => undefined,
+		});
+		const [imageLayer] = grid.children;
+		if (!imageLayer) {
+			throw new Error('Expected the Kitty image layer');
+		}
+
+		imageLayer.remove();
+		bridge.write('terminal output after resize');
+
+		expect(grid.children).toContain(imageLayer);
+		expect(imageLayer.removed).toBeFalse();
+	});
+
 	test('overlays an uploaded PNG when the placeholder is rendered before placement', () => {
 		const document = new FakeDocument();
 		const terminal = new FakeElement(document);
