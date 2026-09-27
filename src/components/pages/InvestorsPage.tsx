@@ -85,7 +85,7 @@ export default function InvestorsPage() {
 				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8 lg:py-20">
 					<div className="max-w-3xl">
 						<h1 className="font-semibold text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
-							Built patiently. Ready to deploy.
+							Built patiently. Ready to deploy
 						</h1>
 						<p className="mt-7 max-w-2xl text-muted-foreground text-xl leading-9 sm:text-2xl">
 							Hot Aisle has spent nearly three years operating developer-first AMD
@@ -145,7 +145,7 @@ export default function InvestorsPage() {
 				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-28">
 					<div>
 						<h2 className="max-w-xl font-semibold text-5xl leading-[1.04] sm:text-6xl">
-							Inference needs sovereignty, not just scale.
+							Inference needs sovereignty, not just scale
 						</h2>
 					</div>
 					<div className="max-w-3xl space-y-7 text-muted-foreground text-xl leading-9">
@@ -175,7 +175,7 @@ export default function InvestorsPage() {
 				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.78fr_1.22fr] lg:px-8 lg:py-28">
 					<div>
 						<h2 className="max-w-xl font-semibold text-5xl leading-[1.04] sm:text-6xl">
-							Small deployments. Global reach.
+							Small deployments. Global reach
 						</h2>
 						<p className="mt-6 max-w-xl text-muted-foreground text-xl leading-9">
 							We are not pursuing one giant deployment and hoping demand follows. We
@@ -204,7 +204,7 @@ export default function InvestorsPage() {
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
 						<div>
 							<h2 className="max-w-lg font-semibold text-5xl leading-[1.04] sm:text-6xl">
-								We know the machinery underneath.
+								We know the machinery underneath
 							</h2>
 						</div>
 						<p className="max-w-3xl text-muted-foreground text-xl leading-9">
@@ -253,7 +253,7 @@ export default function InvestorsPage() {
 						/>
 						<div>
 							<h2 className="font-semibold text-4xl leading-[1.06] sm:text-5xl">
-								$50–100 million for deployable MI355X capacity.
+								$50–100 million for deployable MI355X capacity
 							</h2>
 						</div>
 					</div>
@@ -279,7 +279,7 @@ export default function InvestorsPage() {
 				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-20 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8 lg:py-28">
 					<div>
 						<h2 className="max-w-4xl font-semibold text-5xl leading-[1.04] sm:text-7xl">
-							Let&apos;s build a verifiably secure sovereign inference cloud.
+							Let&apos;s build a verifiably secure sovereign inference cloud
 						</h2>
 					</div>
 					<AppLink

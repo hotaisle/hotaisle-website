@@ -161,7 +161,7 @@ export default function ApiDocsPage() {
 					<p className="ha-briefing-label">API access</p>
 					<div>
 						<h2 className="font-black text-4xl text-foreground md:text-5xl">
-							From reference to live request.
+							From reference to live request
 						</h2>
 						<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 							The API reference covers the request surface. The quick start gets your
@@ -181,7 +181,7 @@ export default function ApiDocsPage() {
 								className="mt-5 font-bold text-3xl text-foreground"
 								id="api-resources-heading"
 							>
-								Everything needed to make the first request.
+								Everything needed to make the first request
 							</h2>
 						</div>
 						<div className="mt-8 divide-y divide-border border-border border-y">
@@ -197,7 +197,7 @@ export default function ApiDocsPage() {
 							className="mt-5 font-bold text-3xl text-foreground"
 							id="api-start-heading"
 						>
-							A clear path through the basics.
+							A clear path through the basics
 						</h2>
 						<ol className="mt-8 divide-y divide-border border-border border-y">
 							{GETTING_STARTED_STEPS.map((step) => (

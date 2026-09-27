@@ -15,7 +15,7 @@ export default function NotFound() {
 
 				<p className="mb-4 font-black text-8xl tracking-tight md:text-9xl">404</p>
 				<h1 className="mb-4 whitespace-nowrap font-black text-xl tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-					Wrong turn in the data center.
+					Wrong turn in the data center
 				</h1>
 				<p className="mb-10 max-w-2xl text-lg text-muted-foreground md:text-xl">
 					The page you requested does not exist.

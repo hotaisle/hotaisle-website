@@ -97,7 +97,7 @@ export default function ComputePage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								Dell PowerEdge XE9680.
+								Dell PowerEdge XE9680
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								Eight AMD MI300X GPUs, high-bandwidth networking, and the automation
@@ -123,7 +123,7 @@ export default function ComputePage() {
 
 				<section className="border-border border-b py-16" id="specifications">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Built for large inference workloads.
+						Built for large inference workloads
 					</h2>
 					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 						A balanced system from GPU memory through storage, network fabric, and power
@@ -174,7 +174,7 @@ export default function ComputePage() {
 
 				<section className="border-border border-b py-16">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Uptime matters to both of us.
+						Uptime matters to both of us
 					</h2>
 					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 						Every server is covered by Dell ProSupport Next Business Day warranty, with

@@ -264,7 +264,7 @@ export default function PricingPage() {
 						<div>
 							<p className="ha-briefing-label">Quick start</p>
 							<h3 className="mt-4 font-medium text-2xl text-foreground">
-								From terminal to isolated compute.
+								From terminal to isolated compute
 							</h3>
 							<p className="mt-3 max-w-2xl text-muted-foreground leading-relaxed">
 								Create your team, add credits, and provision AMD GPU compute in

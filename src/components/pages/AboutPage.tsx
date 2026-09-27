@@ -95,7 +95,7 @@ export default function AboutPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								Pragmatic infrastructure execution.
+								Pragmatic infrastructure execution
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								Hot Aisle was founded to make high-performance AMD compute practical
@@ -109,7 +109,7 @@ export default function AboutPage() {
 
 				<section className="border-border border-b py-16">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						The people accountable for the platform.
+						The people accountable for the platform
 					</h2>
 					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 						Jon Stevens and Clint Armstrong founded Hot Aisle in October 2023 after
@@ -156,7 +156,7 @@ export default function AboutPage() {
 
 				<section className="border-border border-b py-16">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						How we earn the right to operate your infrastructure.
+						How we earn the right to operate your infrastructure
 					</h2>
 					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 						A developer-first experience only works when the layers behind it are
@@ -180,7 +180,7 @@ export default function AboutPage() {
 
 				<section className="border-border border-b py-16">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						A name for the work we do.
+						A name for the work we do
 					</h2>
 					<div className="mt-5 max-w-2xl space-y-5 text-lg text-muted-foreground leading-relaxed">
 						<p>
@@ -198,7 +198,7 @@ export default function AboutPage() {
 
 				<section className="border-border border-b py-16">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Backed by people who understand infrastructure.
+						Backed by people who understand infrastructure
 					</h2>
 					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 						We are grateful for the support that let us build patiently, learn from real

@@ -52,7 +52,7 @@ export default function ContactPage() {
 						</div>
 						<div>
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								Talk to the people who built it.
+								Talk to the people who built it
 							</h1>
 							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
 								Whether you are planning an inference deployment, working through a
@@ -77,7 +77,7 @@ export default function ContactPage() {
 						<p className="ha-briefing-label">Bring context</p>
 						<div>
 							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Start with the problem you are solving.
+								Start with the problem you are solving
 							</h2>
 							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We will route the conversation to the person who can address it,

@@ -12,7 +12,7 @@ featured: false
 tags: ["GPU"]
 ---
 
-# Hot Aisle Inc.'s 8x AMD MI300x server is the fastest computer I've ever tested in FluidX3D CFD, achieving a peak LBM performance of 205 GLUPs/s, and a combined VRAM bandwidth of 23 TB/s.
+# Hot Aisle Inc.'s 8x AMD MI300x server is the fastest computer I've ever tested in FluidX3D CFD, achieving a peak LBM performance of 205 GLUPs/s, and a combined VRAM bandwidth of 23 TB/s
 
 In terms of performance it leaves every other computer I've seen behind in the dust. The RTX 5090 - the fastest consumer GPU in the world - looks like a toy in comparison.
 
