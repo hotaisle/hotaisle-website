@@ -52,16 +52,16 @@ export function generateMetadata() {
 
 export default function PricingPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
+		<div className="animation-fade-in bg-background pb-12 text-foreground">
 			{/* Hero Header */}
-			<div className="relative overflow-hidden border-border border-b px-6 py-20 text-center md:py-24">
+			<div className="relative overflow-hidden border-border border-b px-6 py-14 text-center md:py-16">
 				<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-200 via-background to-background opacity-80 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-950" />
 
 				<div className="relative z-10 mx-auto max-w-4xl">
 					<h1 className="mb-6 font-black text-5xl tracking-tighter md:text-7xl">
 						Transparent <span className="text-hot-orange">Pricing</span>
 					</h1>
-					<div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 text-left md:grid-cols-2">
+					<div className="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-4 text-left md:grid-cols-2">
 						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">
 							<p className="font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
 								Virtual machines
@@ -89,10 +89,10 @@ export default function PricingPage() {
 			</div>
 
 			{/* Pricing Grid */}
-			<div className="container relative z-20 mx-auto -mt-12 px-6">
-				<div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+			<div className="container relative z-20 mx-auto -mt-8 px-6">
+				<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
 					{/* Small Tier */}
-					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
+					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
 						<div className="mb-6">
 							<p className="mb-2 font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
 								VM
@@ -105,7 +105,7 @@ export default function PricingPage() {
 								</span>
 							</div>
 							<p className="mb-3 font-bold text-foreground">{MI300X_VM_PRICE}</p>
-							<p className="text-muted-foreground text-sm md:min-h-10">
+							<p className="text-muted-foreground text-sm md:min-h-14">
 								Ideal for experimentation and development.
 							</p>
 						</div>
@@ -138,7 +138,7 @@ export default function PricingPage() {
 					</div>
 
 					{/* Medium Tier */}
-					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
+					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
 						<div className="mb-6">
 							<p className="mb-2 font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
 								VM
@@ -151,7 +151,7 @@ export default function PricingPage() {
 								</span>
 							</div>
 							<p className="mb-3 font-bold text-foreground">{MI300X_VM_PRICE}</p>
-							<p className="text-muted-foreground text-sm md:min-h-10">
+							<p className="text-muted-foreground text-sm md:min-h-14">
 								For model fine-tuning and medium workloads.
 							</p>
 						</div>
@@ -184,7 +184,7 @@ export default function PricingPage() {
 					</div>
 
 					{/* Large Tier */}
-					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-8 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
+					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
 						<div className="mb-6">
 							<p className="mb-2 font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
 								Bare metal
@@ -199,7 +199,7 @@ export default function PricingPage() {
 							<p className="mb-3 font-bold text-foreground">
 								{MI300X_BARE_METAL_PRICE}
 							</p>
-							<p className="text-muted-foreground text-sm md:min-h-10">
+							<p className="text-muted-foreground text-sm md:min-h-14">
 								Dedicated full-node power for training and massive inference.
 							</p>
 						</div>
@@ -234,15 +234,15 @@ export default function PricingPage() {
 			</div>
 
 			{/* Features List */}
-			<div className="container mx-auto mt-24 max-w-7xl px-6">
+			<div className="container mx-auto mt-12 max-w-7xl px-6">
 				<section className="border-border border-y py-12">
 					<h2 className="font-black text-4xl text-foreground md:text-5xl">
 						All plans <span className="text-hot-orange-contrast">include</span>
 					</h2>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-lg-3 mt-8 grid gap-y-px bg-border md:grid-cols-2 lg:grid-cols-3">
 						{INCLUDED_CAPABILITIES.map((capability) => (
-							<div className="min-h-56 bg-background p-8" key={capability.title}>
+							<div className="bg-background p-6" key={capability.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{capability.title}
 								</h3>
@@ -256,12 +256,11 @@ export default function PricingPage() {
 			</div>
 
 			{/* Quick Start Section */}
-			<div className="container mx-auto mt-16 max-w-7xl px-6">
+			<div className="container mx-auto mt-12 max-w-7xl px-6">
 				<div className="border border-border bg-muted/35">
 					<div className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
 						<div>
-							<p className="ha-briefing-label">Quick start</p>
-							<h3 className="mt-4 font-medium text-2xl text-foreground">
+							<h3 className="font-medium text-2xl text-foreground">
 								From terminal to isolated compute
 							</h3>
 							<p className="mt-3 max-w-2xl text-muted-foreground leading-relaxed">

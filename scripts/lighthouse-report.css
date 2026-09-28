@@ -98,7 +98,7 @@ code {
 
 main {
 	max-width: 82rem;
-	padding: 0 1.25rem 5rem;
+	padding: 0 1.25rem 3rem;
 	margin: 0 auto;
 }
 
@@ -257,14 +257,14 @@ main {
 
 .hero-copy,
 .hero-status {
-	padding: clamp(2.5rem, 6vw, 5.5rem);
+	padding: clamp(2.5rem, 5vw, 4rem);
 }
 
 .hero-copy {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	min-height: 31rem;
+	min-height: 26rem;
 }
 
 .hero h1 {
@@ -279,17 +279,28 @@ main {
 .hero-copy > p:last-child {
 	max-width: 46rem;
 	margin: 2rem 0 0;
-	font-size: clamp(1rem, 2vw, 1.25rem);
+	font-size: clamp(1.125rem, 2vw, 1.25rem);
 	line-height: 1.55;
 	color: var(--muted-foreground);
 }
 
 .hero-status {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
 	background: var(--card);
-	border-left: 1px solid var(--border);
+}
+
+.hero-status::before {
+	position: absolute;
+	top: 2rem;
+	bottom: 2rem;
+	left: 0;
+	width: 1px;
+	pointer-events: none;
+	content: "";
+	background: var(--border);
 }
 
 .hero-status dl {
@@ -329,7 +340,7 @@ main {
 }
 
 main > section:not(.hero) {
-	padding-top: 5rem;
+	padding-top: 3rem;
 }
 
 .panel {
@@ -355,14 +366,17 @@ main > section:not(.hero) {
 .section-header p {
 	max-width: 47rem;
 	margin: 0;
+	font-size: 1.125rem;
+	line-height: 1.75rem;
 	color: var(--muted-foreground);
 }
 
 .score-grid {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	border-top: 1px solid var(--border);
-	border-left: 1px solid var(--border);
+	row-gap: 1px;
+	background: var(--border);
+	border: 1px solid var(--border);
 }
 
 .score-card {
@@ -373,9 +387,23 @@ main > section:not(.hero) {
 	min-height: 13rem;
 	padding: 1.5rem;
 	background: var(--card);
-	border-right: 1px solid var(--border);
-	border-bottom: 1px solid var(--border);
 	transition: background-color 150ms ease;
+}
+
+.score-card::before {
+	position: absolute;
+	top: 1.5rem;
+	bottom: 1.5rem;
+	left: 0;
+	display: none;
+	width: 1px;
+	pointer-events: none;
+	content: "";
+	background: var(--border);
+}
+
+.score-card:not(:nth-child(4n + 1))::before {
+	display: block;
 }
 
 .score-card:hover {
@@ -434,12 +462,23 @@ main > section:not(.hero) {
 }
 
 .page-card-header {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
 	justify-content: space-between;
 	padding: 2rem;
-	border-right: 1px solid var(--border);
+}
+
+.page-card-header::after {
+	position: absolute;
+	top: 2rem;
+	right: 0;
+	bottom: 2rem;
+	width: 1px;
+	pointer-events: none;
+	content: "";
+	background: var(--border);
 }
 
 .page-card h2 {
@@ -464,8 +503,7 @@ main > section:not(.hero) {
 }
 
 .page-card .score-grid {
-	border-top: 0;
-	border-left: 0;
+	border: 0;
 }
 
 .page-card .score-card {
@@ -487,7 +525,7 @@ main > section:not(.hero) {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 	gap: 2rem;
-	padding: 4rem 0;
+	padding: 3rem 0;
 	text-align: center;
 }
 
@@ -580,12 +618,16 @@ main > section:not(.hero) {
 	}
 
 	.hero-copy {
-		min-height: 26rem;
+		min-height: 23rem;
 	}
 
 	.hero-status {
 		border-top: 1px solid var(--border);
-		border-left: 0;
+	}
+
+	.hero-status::before,
+	.page-card-header::after {
+		display: none;
 	}
 
 	.page-card {
@@ -593,7 +635,6 @@ main > section:not(.hero) {
 	}
 
 	.page-card-header {
-		border-right: 0;
 		border-bottom: 1px solid var(--border);
 	}
 }
@@ -623,7 +664,7 @@ main > section:not(.hero) {
 	}
 
 	.hero-copy {
-		min-height: 23rem;
+		min-height: 20rem;
 	}
 
 	.section-header {
@@ -632,6 +673,14 @@ main > section:not(.hero) {
 
 	.score-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.score-grid > .score-card::before {
+		display: none;
+	}
+
+	.score-card:not(:nth-child(2n + 1))::before {
+		display: block;
 	}
 
 	.footer-grid {
@@ -648,8 +697,16 @@ main > section:not(.hero) {
 		grid-template-columns: 1fr;
 	}
 
+	.score-grid > .score-card::before {
+		display: none;
+	}
+
 	.page-card .score-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.page-card .score-card:not(:nth-child(2n + 1))::before {
+		display: block;
 	}
 }
 

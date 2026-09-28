@@ -211,7 +211,8 @@ export function initializeSearchScript({ searchIndexUrl }: SearchScriptConfig): 
 			arrow.setAttribute('stroke-width', '2');
 			arrowLine.setAttribute('d', 'M5 12h14');
 			arrowHead.setAttribute('d', 'm12 5 7 7-7 7');
-			description.className = 'mt-2 line-clamp-2 text-muted-foreground text-sm leading-snug';
+			description.className =
+				'mt-2 line-clamp-2 text-lg text-muted-foreground leading-relaxed';
 			description.textContent = result.description;
 
 			arrow.append(arrowLine, arrowHead);

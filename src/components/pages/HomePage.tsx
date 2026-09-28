@@ -94,7 +94,7 @@ export default function Home() {
 	return (
 		<div className="ha-home overflow-x-hidden bg-background text-foreground">
 			<section className="border-border border-b">
-				<div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-10 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-20">
+				<div className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-12 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-16">
 					<div className="relative z-10 max-w-2xl">
 						<h1 className="max-w-2xl font-semibold text-6xl leading-[1.02] sm:text-7xl lg:text-8xl">
 							Compute that keeps pace with the work
@@ -119,14 +119,14 @@ export default function Home() {
 								Talk to an engineer
 							</AppLink>
 						</div>
-						<div className="mt-12 grid max-w-2xl grid-cols-3 border-border border-y py-6 lg:w-[calc(100%+5rem)]">
+						<div className="ha-inset-dividers ha-inset-dividers-cols-3 mt-8 grid max-w-2xl grid-cols-3 border-border border-y py-6 lg:w-[calc(100%+5rem)]">
 							<div>
 								<p className="font-mono text-2xl">&lt; 60 sec</p>
 								<p className="mt-1 text-muted-foreground text-sm sm:text-base">
 									to a running VM
 								</p>
 							</div>
-							<div className="border-border border-x px-4">
+							<div className="px-4">
 								<p className="font-mono text-2xl">700+</p>
 								<p className="mt-1 text-muted-foreground text-sm sm:text-base">
 									customers served
@@ -194,18 +194,18 @@ export default function Home() {
 			</section>
 
 			<section className="border-border border-b">
-				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.78fr_1.22fr] lg:px-8 lg:py-28">
-					<div>
+				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<h2 className="max-w-xl font-semibold text-5xl sm:text-6xl">
 							Kubernetes is not the first layer
 						</h2>
-						<p className="mt-6 max-w-xl text-muted-foreground text-xl leading-9">
+						<p className="max-w-3xl text-muted-foreground text-xl leading-9">
 							Most providers stop at orchestration. We made the physical and virtual
 							layers programmable too, so the request that reaches Kubernetes already
 							has a network, an operating system, drivers, and a secure place to run.
 						</p>
 					</div>
-					<div className="border-border border-t">
+					<div className="mt-8 border-border border-t">
 						{PLATFORM_LAYERS.map((layer) => (
 							<article
 								className="grid gap-4 border-border border-b py-6 sm:grid-cols-[12rem_1fr] sm:items-start"
@@ -227,18 +227,18 @@ export default function Home() {
 			</section>
 
 			<section className="border-border border-b bg-muted/70">
-				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
-					<div>
+				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<h2 className="max-w-2xl font-semibold text-5xl sm:text-6xl">
 							One platform. No artificial ceiling
 						</h2>
-						<p className="mt-6 max-w-2xl text-muted-foreground text-xl leading-9">
+						<p className="max-w-3xl text-muted-foreground text-xl leading-9">
 							Start with one GPU for one minute. Scale to a group of isolated compute.
 							When the work needs it, move to a complete bare-metal cluster without
 							moving to another vendor.
 						</p>
 					</div>
-					<div className="border-border border-t">
+					<div className="mt-8 border-border border-t">
 						{OPERATING_POINTS.map((point) => (
 							<div
 								className="grid gap-3 border-border border-b py-6 text-lg sm:grid-cols-[8rem_1fr] sm:items-baseline"
@@ -255,7 +255,7 @@ export default function Home() {
 			</section>
 
 			<section className="border-border border-b">
-				<div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
 						<div>
 							<h2 className="max-w-xl font-semibold text-5xl sm:text-6xl">
@@ -268,10 +268,10 @@ export default function Home() {
 							entire path from hardware to workload.
 						</p>
 					</div>
-					<div className="mt-12 grid border-border border-t md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid border-border border-t md:grid-cols-3">
 						{LEADERSHIP_POINTS.map((point, index) => (
 							<article
-								className={`border-border border-b py-7 ${index ? 'md:border-l md:pl-7' : 'md:pr-7'}`}
+								className={`border-border border-b py-7 ${index ? 'md:pl-7' : 'md:pr-7'}`}
 								key={point.title}
 							>
 								<h3 className="font-medium text-xl">{point.title}</h3>
@@ -285,29 +285,27 @@ export default function Home() {
 			</section>
 
 			<section className="border-border border-b bg-muted/35">
-				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
+				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start lg:px-8">
+					<h2 className="font-medium text-3xl">Private workload, visible operations</h2>
 					<div>
-						<h2 className="font-medium text-3xl">
-							Private workload, visible operations
-						</h2>
-						<p className="mt-4 max-w-3xl text-lg text-muted-foreground leading-8 sm:text-xl">
+						<p className="max-w-3xl text-lg text-muted-foreground leading-8 sm:text-xl">
 							We monitor platform health and account usage, not the contents of your
 							work. Bare-metal customers control the whole machine. We keep the
 							environment secure, well-run, and backed by a support team that answers
 							like owners, because we are the owners.
 						</p>
+						<AppLink
+							className="mt-6 inline-flex min-h-12 items-center gap-2 border border-border px-6 py-3 font-medium text-base transition-colors hover:bg-background"
+							href="/policies/security-and-compliance"
+						>
+							Security and compliance
+						</AppLink>
 					</div>
-					<AppLink
-						className="inline-flex min-h-12 items-center gap-2 border border-border px-6 py-3 font-medium text-base transition-colors hover:bg-background"
-						href="/policies/security-and-compliance"
-					>
-						Security and compliance
-					</AppLink>
 				</div>
 			</section>
 
 			<section className="bg-background">
-				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8 lg:py-28">
+				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8 lg:py-20">
 					<div>
 						<h2 className="max-w-4xl font-semibold text-5xl sm:text-7xl">
 							Start with an inference request, not a sales process

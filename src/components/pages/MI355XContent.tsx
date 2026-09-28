@@ -41,15 +41,12 @@ const DEPLOYMENT_FOUNDATIONS = [
 
 export default function MI355XContent() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">
-								AMD Instinct accelerator / capacity planning
-							</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-white p-3 dark:bg-black">
+							<figure className="max-w-sm overflow-hidden border border-border bg-white p-3 dark:bg-black">
 								<OptimizedImage
 									alt="AMD Instinct MI355X liquid-cooled accelerator platform"
 									className="aspect-25/18 w-full object-contain"
@@ -81,24 +78,21 @@ export default function MI355XContent() {
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">At a glance</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								More memory per accelerator. More room to operate
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								MI355X is designed for teams preparing to serve larger models, more
-								concurrent users, and regional workloads without compromising on
-								isolation or control.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							More memory per accelerator. More room to operate
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							MI355X is designed for teams preparing to serve larger models, more
+							concurrent users, and regional workloads without compromising on
+							isolation or control.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border sm:grid-cols-2 xl:grid-cols-4">
+					<div className="ha-inset-dividers ha-inset-dividers-sm-2 ha-inset-dividers-xl-4 mt-8 grid gap-y-px bg-border sm:grid-cols-2 xl:grid-cols-4">
 						{MI355X_METRICS.map((metric) => (
-							<div className="min-h-44 bg-background p-7" key={metric.label}>
+							<div className="bg-background p-6" key={metric.label}>
 								<p className="font-mono text-muted-foreground text-xs uppercase">
 									{metric.label}
 								</p>
@@ -110,27 +104,21 @@ export default function MI355XContent() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Platform profile</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Density without a new operating burden
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								The hardware advances, while the operating experience stays direct:
-								a platform that turns capacity into isolated compute through the
-								terminal UI, API, and CLI.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Density without a new operating burden
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							The hardware advances, while the operating experience stays direct: a
+							platform that turns capacity into isolated compute through the terminal
+							UI, API, and CLI.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
 						{PLATFORM_CHARACTERISTICS.map((characteristic) => (
-							<article
-								className="min-h-64 bg-background p-8"
-								key={characteristic.title}
-							>
+							<article className="bg-background p-6" key={characteristic.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{characteristic.title}
 								</h3>
@@ -142,24 +130,20 @@ export default function MI355XContent() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Deployment path</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Built to expand deliberately
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Our approach is smaller, well-operated deployments in more data
-								centers, not a single oversized buildout. MI355X capacity fits that
-								plan.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Built to expand deliberately
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							Our approach is smaller, well-operated deployments in more data centers,
+							not a single oversized buildout. MI355X capacity fits that plan.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
 						{DEPLOYMENT_FOUNDATIONS.map((foundation) => (
-							<article className="min-h-60 bg-background p-8" key={foundation.title}>
+							<article className="bg-background p-6" key={foundation.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{foundation.title}
 								</h3>
@@ -171,30 +155,26 @@ export default function MI355XContent() {
 					</div>
 				</section>
 
-				<section className="scroll-mt-24 border-border border-b py-16" id="reserve">
+				<section className="scroll-mt-24 border-border border-b py-12" id="reserve">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Experiment complete</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								The signup form is gone. The signal is not
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								We ran an experiment to see whether anyone would put real money
-								behind future MI355X capacity. The response was much stronger than
-								we expected.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							The signup form is gone. The signal is not
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							We ran an experiment to see whether anyone would put real money behind
+							future MI355X capacity. The response was much stronger than we expected.
+						</p>
 					</div>
 
-					<div className="mt-12 border border-border bg-muted/20">
-						<div className="grid divide-y divide-border border-border border-b sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-							<div className="p-7">
+					<div className="mt-8 border border-border bg-muted/20">
+						<div className="ha-inset-dividers ha-inset-dividers-sm-2 grid gap-y-px border-border border-b bg-border sm:grid-cols-2">
+							<div className="bg-muted/20 p-7">
 								<p className="font-black text-5xl text-hot-orange-contrast">$100</p>
 								<p className="mt-3 font-mono text-muted-foreground text-xs uppercase">
 									pledged by each person
 								</p>
 							</div>
-							<div className="p-7">
+							<div className="bg-muted/20 p-7">
 								<p className="font-black text-5xl text-hot-orange-contrast">17×</p>
 								<p className="mt-3 font-mono text-muted-foreground text-xs uppercase">
 									our expected response
@@ -244,14 +224,13 @@ export default function MI355XContent() {
 					</div>
 				</section>
 
-				<section className="py-16">
+				<section className="py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Available now</p>
+						<h2 className="font-black text-3xl text-foreground">
+							Need inference compute today?
+						</h2>
 						<div>
-							<h2 className="font-black text-3xl text-foreground">
-								Need inference compute today?
-							</h2>
-							<p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
+							<p className="max-w-xl text-muted-foreground leading-relaxed">
 								MI300X capacity is available through the same platform, with
 								isolated VMs and bare metal provisioned without a sales process.
 							</p>

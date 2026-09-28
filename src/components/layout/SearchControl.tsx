@@ -42,8 +42,7 @@ export function SearchControl() {
 					role="dialog"
 				>
 					<div className="border-border border-b px-5 py-5 sm:px-6">
-						<div className="flex items-start justify-between gap-4">
-							<p className="ha-briefing-label pt-1">Search</p>
+						<div className="flex items-start justify-end gap-4">
 							<button
 								aria-label="Close search"
 								className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"

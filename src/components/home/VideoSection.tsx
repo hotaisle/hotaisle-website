@@ -3,7 +3,7 @@ import { MI300X_VM_PRICE } from '@/lib/pricing.ts';
 
 export function VideoSection() {
 	return (
-		<section className="bg-background py-24">
+		<section className="bg-background py-16">
 			<div className="container mx-auto max-w-6xl px-6">
 				<div className="flex flex-col items-center gap-16 md:flex-row">
 					{/* Text Side */}

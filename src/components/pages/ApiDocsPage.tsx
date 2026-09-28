@@ -30,13 +30,6 @@ const PRIMARY_RESOURCES = [
 	},
 ] as const;
 
-const GETTING_STARTED_STEPS = [
-	'Create or access your Hot Aisle account.',
-	'Review the quick start flow for login, SSH, and environment setup.',
-	'Use the API reference to inspect operations and request shapes.',
-	'Automate the requests your workflow needs, then contact us for support when needed.',
-] as const;
-
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
@@ -61,18 +54,24 @@ function ResourceLink({
 	isExternal: boolean;
 	label: string;
 }) {
-	const className =
-		'group grid gap-5 py-7 transition-colors hover:bg-muted/35 sm:grid-cols-[1fr_auto] sm:items-start sm:px-5';
+	const className = 'group block py-6 text-foreground';
 
 	const content = (
 		<>
-			<div>
-				<h3 className="font-bold text-foreground text-xl">{label}</h3>
-				<p className="mt-3 max-w-xl text-muted-foreground leading-relaxed">{description}</p>
-			</div>
-			<span className="inline-flex items-center gap-2 font-medium text-hot-orange-contrast text-sm transition-colors group-hover:text-foreground">
+			<span className="flex items-start justify-between gap-6">
+				<span className="font-bold text-2xl transition-colors group-hover:text-hot-orange-contrast">
+					{label}
+				</span>
+				<ArrowUpRight
+					aria-hidden="true"
+					className="mt-1 h-6 w-6 shrink-0 text-hot-orange-contrast transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+				/>
+			</span>
+			<span className="mt-2 block max-w-lg text-base text-muted-foreground leading-relaxed">
+				{description}
+			</span>
+			<span className="mt-4 block font-medium text-hot-orange-contrast text-sm">
 				{action}
-				<ArrowUpRight className="h-4 w-4" />
 			</span>
 		</>
 	);
@@ -100,12 +99,9 @@ export default function ApiDocsPage() {
 				<div className="absolute inset-0 bg-[linear-gradient(rgb(15_23_42/0.03)_1px,transparent_1px),linear-gradient(90deg,rgb(15_23_42/0.03)_1px,transparent_1px)] bg-size-[44px_44px] dark:bg-[linear-gradient(rgb(255_255_255/0.08)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.08)_1px,transparent_1px)]" />
 				<div className="absolute inset-0 hidden dark:block dark:bg-[linear-gradient(180deg,rgb(255_255_255/0.03),transparent_28%,transparent_72%,rgb(14_165_233/0.05))]" />
 
-				<div className="relative mx-auto grid w-full max-w-6xl gap-12 px-6 py-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center lg:py-20">
+				<div className="relative mx-auto grid w-full max-w-6xl gap-8 px-6 py-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center lg:py-14">
 					<div className="order-2 max-w-2xl space-y-8 lg:order-1">
 						<div className="space-y-5">
-							<p className="font-semibold text-hot-orange text-sm uppercase tracking-[0.24em]">
-								Service documentation
-							</p>
 							<h1 className="font-black text-4xl tracking-tight sm:text-5xl lg:text-6xl">
 								Hot Aisle API access and reference docs
 							</h1>
@@ -156,56 +152,35 @@ export default function ApiDocsPage() {
 				</div>
 			</section>
 
-			<section className="mx-auto w-full max-w-6xl px-6 py-16 md:py-20">
-				<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-					<p className="ha-briefing-label">API access</p>
-					<div>
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
-							From reference to live request
+			<section className="mx-auto w-full max-w-6xl border-border border-b px-6">
+				<div className="ha-inset-dividers ha-inset-dividers-lg-2 grid lg:grid-cols-[0.95fr_1.05fr]">
+					<div className="py-10 lg:pr-16 xl:pr-20">
+						<h2
+							className="max-w-md font-black text-4xl text-foreground tracking-tighter md:text-5xl"
+							id="api-resources-heading"
+						>
+							Everything needed to make the first request
 						</h2>
-						<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+					</div>
+					<section
+						aria-labelledby="api-resources-heading"
+						className="pb-10 lg:py-10 lg:pl-16"
+					>
+						<p className="max-w-md text-lg text-muted-foreground leading-relaxed">
 							The API reference covers the request surface. The quick start gets your
 							team authenticated and running. Both lead to the same isolated compute
 							platform.
 						</p>
-					</div>
-				</div>
-
-				<div className="mt-12 grid gap-px bg-border lg:grid-cols-[1.2fr_0.8fr]">
-					<section aria-labelledby="api-resources-heading" className="bg-background p-8">
-						<div>
-							<p className="font-mono text-hot-orange-contrast text-xs">
-								PRIMARY RESOURCES
-							</p>
-							<h2
-								className="mt-5 font-bold text-3xl text-foreground"
-								id="api-resources-heading"
-							>
-								Everything needed to make the first request
-							</h2>
-						</div>
-						<div className="mt-8 divide-y divide-border border-border border-y">
+						<ul className="mt-8 [&>li:first-child>a]:pt-0 [&>li:last-child>a]:pb-0">
 							{PRIMARY_RESOURCES.map((resource) => (
-								<ResourceLink key={resource.label} {...resource} />
-							))}
-						</div>
-					</section>
-
-					<section aria-labelledby="api-start-heading" className="bg-muted/35 p-8">
-						<p className="font-mono text-hot-orange-contrast text-xs">GET STARTED</p>
-						<h2
-							className="mt-5 font-bold text-3xl text-foreground"
-							id="api-start-heading"
-						>
-							A clear path through the basics
-						</h2>
-						<ol className="mt-8 divide-y divide-border border-border border-y">
-							{GETTING_STARTED_STEPS.map((step) => (
-								<li className="py-6" key={step}>
-									<p className="text-muted-foreground leading-relaxed">{step}</p>
+								<li
+									className="border-border border-b last:border-b-0"
+									key={resource.label}
+								>
+									<ResourceLink {...resource} />
 								</li>
 							))}
-						</ol>
+						</ul>
 					</section>
 				</div>
 			</section>

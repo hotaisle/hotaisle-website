@@ -157,9 +157,9 @@ function ResourceLinkList({ resources }: { resources: readonly Resource[] }) {
 
 export default function QuickStartPage() {
 	return (
-		<div className="min-h-screen bg-background text-foreground">
+		<div className="bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b pt-14 pb-8 md:pt-18 md:pb-10">
+				<header className="border-border border-b pt-12 pb-8 md:pt-14 md:pb-10">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
 							<figure className="relative max-w-sm overflow-hidden border border-border bg-black">
@@ -204,9 +204,9 @@ export default function QuickStartPage() {
 					</div>
 
 					<h2 className="sr-only">First launch steps</h2>
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
 						{FIRST_LAUNCH_STEPS.map((step, index) => (
-							<div className="min-h-48 bg-background p-7" key={step.title}>
+							<div className="bg-background p-6" key={step.title}>
 								<p className="font-mono text-2xl text-hot-orange-contrast">
 									{String(index + 1).padStart(2, '0')}
 								</p>
@@ -221,26 +221,31 @@ export default function QuickStartPage() {
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16">
-					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Connect via SSH
-					</h2>
-					<p
-						className="mt-5 hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
-						data-terminal-supported-copy
-					>
-						This is a live terminal connected exclusively to{' '}
-						<span className="text-success">admin.hotaisle.app</span>, so you can explore
-						our unique platform right here, right now. For regular use, we recommend one
-						of the terminal apps listed below.
-					</p>
-					<p
-						className="mt-5 max-w-xl text-lg text-muted-foreground leading-relaxed"
-						data-terminal-fallback-copy
-					>
-						Log in to the Hot Aisle terminal UI with your favorite console application
-						and create your team, add credits, and provision compute.
-					</p>
+				<section className="border-border border-b py-12">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Connect via SSH
+						</h2>
+						<div>
+							<p
+								className="hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
+								data-terminal-supported-copy
+							>
+								This is a live terminal connected exclusively to{' '}
+								<span className="text-success">admin.hotaisle.app</span>, so you can
+								explore our unique platform right here, right now. For regular use,
+								we recommend one of the terminal apps listed below.
+							</p>
+							<p
+								className="max-w-xl text-lg text-muted-foreground leading-relaxed"
+								data-terminal-fallback-copy
+							>
+								Log in to the Hot Aisle terminal UI with your favorite console
+								application and create your team, add credits, and provision
+								compute.
+							</p>
+						</div>
+					</div>
 					<EmbeddedTerminal />
 					<div className="mt-8">
 						<CopyCommand command="ssh admin.hotaisle.app" />
@@ -269,8 +274,8 @@ export default function QuickStartPage() {
 				</section>
 
 				<section className="border-border border-b">
-					<div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-						<div className="py-14 lg:border-border lg:border-r lg:pr-16 xl:pr-20">
+					<div className="ha-inset-dividers ha-inset-dividers-lg-2 grid lg:grid-cols-[0.95fr_1.05fr]">
+						<div className="py-10 lg:pr-16 xl:pr-20">
 							<h2 className="max-w-sm font-black text-5xl text-foreground tracking-tighter md:text-6xl">
 								Next steps
 							</h2>
@@ -282,13 +287,13 @@ export default function QuickStartPage() {
 								them.
 							</p>
 						</div>
-						<div className="pb-14 lg:py-14 lg:pl-16">
+						<div className="pb-10 lg:py-10 lg:pl-16">
 							<ResourceLinkList resources={NEXT_STEP_RESOURCES} />
 						</div>
 					</div>
 
-					<div className="grid border-border border-t lg:grid-cols-[0.95fr_1.05fr]">
-						<div className="py-14 lg:border-border lg:border-r lg:pr-16 xl:pr-20">
+					<div className="ha-inset-dividers ha-inset-dividers-lg-2 grid border-border border-t lg:grid-cols-[0.95fr_1.05fr]">
+						<div className="py-10 lg:pr-16 xl:pr-20">
 							<h2 className="max-w-md font-black text-4xl text-foreground tracking-tighter md:text-5xl">
 								Build from your own tooling
 							</h2>
@@ -297,25 +302,29 @@ export default function QuickStartPage() {
 								templates.
 							</p>
 						</div>
-						<div className="pb-14 lg:py-14 lg:pl-16">
+						<div className="pb-10 lg:py-10 lg:pl-16">
 							<ResourceLinkList resources={PROGRAMMATIC_RESOURCES} />
 						</div>
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
-					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Talk to a real person
-					</h2>
-					<a
-						className="mt-5 inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
-						href="mailto:hello@hotaisle.ai"
-					>
-						hello@hotaisle.ai
-					</a>
-					<p className="mt-3 text-muted-foreground text-sm">
-						A real human will reply, not an AI bot or support agent.
-					</p>
+				<section className="border-border border-b py-12">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Talk to a real person
+						</h2>
+						<div>
+							<a
+								className="inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
+								href="mailto:hello@hotaisle.ai"
+							>
+								hello@hotaisle.ai
+							</a>
+							<p className="mt-3 text-muted-foreground text-sm">
+								A real human will reply, not an AI bot or support agent.
+							</p>
+						</div>
+					</div>
 				</section>
 			</div>
 		</div>

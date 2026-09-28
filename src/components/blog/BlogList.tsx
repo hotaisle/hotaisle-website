@@ -17,7 +17,7 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 	const threeColumnFillers = (3 - (posts.length % 3)) % 3;
 
 	return (
-		<div className="grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+		<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-xl-3 grid gap-y-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
 			{posts.map((post, index) => {
 				const isLatest = index === 0;
 				const isGuestPost = post.tags?.includes(GUEST_TAG) ?? false;
@@ -89,14 +89,14 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 			{GRID_FILLER_KEYS.slice(0, twoColumnFillers).map((key) => (
 				<div
 					aria-hidden="true"
-					className="hidden bg-background md:block xl:hidden"
+					className="ha-divider-md hidden bg-background md:block xl:hidden"
 					key={`two-column-filler-${key}`}
 				/>
 			))}
-			{GRID_FILLER_KEYS.slice(0, threeColumnFillers).map((key) => (
+			{GRID_FILLER_KEYS.slice(0, threeColumnFillers).map((key, index) => (
 				<div
 					aria-hidden="true"
-					className="hidden bg-background xl:block"
+					className={`hidden bg-background xl:block ${(posts.length + index) % 3 === 0 ? 'ha-no-divider-xl' : 'ha-divider-xl'}`}
 					key={`three-column-filler-${key}`}
 				/>
 			))}
