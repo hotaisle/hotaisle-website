@@ -81,13 +81,12 @@ export function generateMetadata() {
 
 export default function NetworkingPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Networking / AS 21566</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
 								<OptimizedImage
 									alt="3D pixel-art GPU networking fabric with server racks and connected switches"
 									className="aspect-4/3 w-full object-cover"
@@ -131,25 +130,21 @@ export default function NetworkingPage() {
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Fabric layers</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Separate paths for every job
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								The network is designed as distinct planes, so high-throughput
-								inference traffic, storage activity, and hardware management remain
-								predictable.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Separate paths for every job
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							The network is designed as distinct planes, so high-throughput inference
+							traffic, storage activity, and hardware management remain predictable.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border">
+					<div className="mt-8 grid gap-y-px bg-border">
 						{FABRIC_LAYERS.map((layer) => (
 							<article
-								className="grid gap-8 bg-background p-8 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
+								className="ha-inset-dividers ha-inset-dividers-md-3 grid gap-8 bg-background p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
 								key={layer.title}
 							>
 								<div>
@@ -160,7 +155,7 @@ export default function NetworkingPage() {
 										{layer.summary}
 									</p>
 								</div>
-								<div className="md:border-border md:border-l md:pl-8">
+								<div className="md:pl-8">
 									<p className="text-foreground text-lg leading-relaxed">
 										{layer.description}
 									</p>
@@ -178,7 +173,7 @@ export default function NetworkingPage() {
 										))}
 									</div>
 								</div>
-								<div className="md:border-border md:border-l md:pl-8">
+								<div className="md:pl-8">
 									<p className="font-mono text-muted-foreground text-xs uppercase">
 										Capacity
 									</p>
@@ -191,23 +186,20 @@ export default function NetworkingPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Operational network</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Connectivity that can be operated
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								IPv6-first addressing, VRF isolation, and serviceable switching are
-								built into the environment from the start.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Connectivity that can be operated
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							IPv6-first addressing, VRF isolation, and serviceable switching are
+							built into the environment from the start.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
 						{OPERATING_FOUNDATIONS.map((foundation) => (
-							<article className="min-h-60 bg-background p-8" key={foundation.title}>
+							<article className="bg-background p-6" key={foundation.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{foundation.title}
 								</h3>
@@ -218,13 +210,12 @@ export default function NetworkingPage() {
 						))}
 					</div>
 
-					<div className="mt-12 grid gap-8 border-border border-t pt-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Network design</p>
+					<div className="mt-8 grid gap-8 border-border border-t pt-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h3 className="font-black text-3xl text-foreground">
+							Need a topology for a specific workload?
+						</h3>
 						<div>
-							<h3 className="font-black text-3xl text-foreground">
-								Need a topology for a specific workload?
-							</h3>
-							<p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
+							<p className="max-w-xl text-muted-foreground leading-relaxed">
 								We can design the compute, storage, management, and public network
 								paths around the constraints of your deployment.
 							</p>

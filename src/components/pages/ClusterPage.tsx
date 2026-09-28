@@ -71,13 +71,12 @@ export function generateMetadata() {
 
 export default function ClusterPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Cluster design services</p>
-							<figure className="mt-10 max-w-sm border border-border bg-muted/20 p-3">
+							<figure className="max-w-sm border border-border bg-muted/20 p-3">
 								<OptimizedImage
 									alt="3D pixel-art data center construction site with server racks, crane, and construction equipment"
 									className="aspect-4/3 w-full object-cover"
@@ -121,23 +120,20 @@ export default function ClusterPage() {
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Engagement scope</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								A cluster is more than a GPU count
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								We start with the workload, then make the hardware, facility,
-								network, and operating model work together.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							A cluster is more than a GPU count
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							We start with the workload, then make the hardware, facility, network,
+							and operating model work together.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
 						{CLUSTER_CAPABILITIES.map((capability) => (
-							<article className="min-h-60 bg-background p-8" key={capability.title}>
+							<article className="bg-background p-6" key={capability.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{capability.title}
 								</h3>
@@ -149,24 +145,20 @@ export default function ClusterPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b pt-12 pb-8">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Why Hot Aisle</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								A delivery partner that operates infrastructure
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								The decisions that matter most happen before hardware arrives. We
-								bring operating experience to those decisions from the first design
-								review.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							A delivery partner that operates infrastructure
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							The decisions that matter most happen before hardware arrives. We bring
+							operating experience to those decisions from the first design review.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid md:grid-cols-2">
 						{DELIVERY_FOUNDATIONS.map((foundation) => (
-							<article className="min-h-56 bg-background p-8" key={foundation.title}>
+							<article className="bg-background p-6" key={foundation.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{foundation.title}
 								</h3>
@@ -178,23 +170,20 @@ export default function ClusterPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Services</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								From architecture through operations
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Bring us in for a focused design engagement or carry the work
-								through deployment and ongoing operation.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							From architecture through operations
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							Bring us in for a focused design engagement or carry the work through
+							deployment and ongoing operation.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-lg-4 mt-8 grid gap-y-px bg-border md:grid-cols-2 lg:grid-cols-4">
 						{SERVICES.map((service) => (
-							<article className="min-h-56 bg-background p-8" key={service.title}>
+							<article className="bg-background p-6" key={service.title}>
 								<h3 className="font-bold text-foreground text-xl">
 									{service.title}
 								</h3>
@@ -206,19 +195,18 @@ export default function ClusterPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Start here</p>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Bring us the workload and constraints
+						</h2>
 						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Bring us the workload and constraints
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We will help map the compute, facility, network, and operating
 								decisions into a deployable plan.
 							</p>
 							<AppLink
-								className="mt-8 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
 								href="/contact"
 							>
 								Start a design conversation

@@ -134,13 +134,12 @@ export function generateMetadata() {
 
 export default function BenchmarksPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Benchmarks and analysis</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
 								<OptimizedImage
 									alt="3D pixel-art GPU performance lab with server racks and benchmark displays"
 									className="aspect-4/3 w-full object-cover"
@@ -182,24 +181,20 @@ export default function BenchmarksPage() {
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">How to read results</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Benchmark context is part of the result
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Useful benchmarks document what was tested and how. These references
-								are intended to help you frame the right questions before running
-								your own.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Benchmark context is part of the result
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							Useful benchmarks document what was tested and how. These references are
+							intended to help you frame the right questions before running your own.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
 						{EVALUATION_CONTEXT.map((context) => (
-							<article className="min-h-56 bg-background p-8" key={context.title}>
+							<article className="bg-background p-6" key={context.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{context.title}
 								</h3>
@@ -211,24 +206,21 @@ export default function BenchmarksPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Reference index</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Research, benchmarks, and field reports
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								External sources from engineering teams, cloud providers,
-								researchers, and the AMD community.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Research, benchmarks, and field reports
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							External sources from engineering teams, cloud providers, researchers,
+							and the AMD community.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
 						{REFERENCES.map((reference) => (
 							<a
-								className="group flex min-h-48 flex-col bg-background p-8 transition-colors hover:bg-muted"
+								className="group flex flex-col bg-background p-6 transition-colors hover:bg-muted"
 								href={reference.url}
 								key={reference.url}
 								rel="noopener"
@@ -248,20 +240,19 @@ export default function BenchmarksPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Your workload</p>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Run the test that matters to you
+						</h2>
 						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Run the test that matters to you
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								Bring your model, runtime, and request profile to an isolated AMD
 								GPU VM, then validate performance against your own operating
 								requirements.
 							</p>
 							<AppLink
-								className="mt-8 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
 								href="/quick-start"
 							>
 								Launch compute

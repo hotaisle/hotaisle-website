@@ -53,13 +53,12 @@ export function generateMetadata() {
 
 export default function MI300XPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">AMD Instinct accelerator</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-white p-3 dark:bg-black">
+							<figure className="max-w-sm overflow-hidden border border-border bg-white p-3 dark:bg-black">
 								<OptimizedImage
 									alt="AMD Instinct MI300X accelerator package and board"
 									className="aspect-video w-full object-cover"
@@ -117,24 +116,21 @@ export default function MI300XPage() {
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">At a glance</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Built for memory-intensive serving
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								MI300X pairs a large HBM3 footprint with the bandwidth needed to
-								serve open-source models reliably, without turning deployment into a
-								hardware project for your team.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Built for memory-intensive serving
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							MI300X pairs a large HBM3 footprint with the bandwidth needed to serve
+							open-source models reliably, without turning deployment into a hardware
+							project for your team.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border sm:grid-cols-2 xl:grid-cols-4">
+					<div className="ha-inset-dividers ha-inset-dividers-sm-2 ha-inset-dividers-xl-4 mt-8 grid gap-y-px bg-border sm:grid-cols-2 xl:grid-cols-4">
 						{MI300X_METRICS.map((metric) => (
-							<div className="min-h-44 bg-background p-7" key={metric.label}>
+							<div className="bg-background p-6" key={metric.label}>
 								<p className="font-mono text-muted-foreground text-xs uppercase">
 									{metric.label}
 								</p>
@@ -146,27 +142,21 @@ export default function MI300XPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Inference fit</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Capacity that does not get in the way
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								The accelerator is only part of the offering. Hot Aisle automates
-								the networking, PXE, operating system, ROCm, virtualization, and
-								billing layers required to make this capacity usable.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Capacity that does not get in the way
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							The accelerator is only part of the offering. Hot Aisle automates the
+							networking, PXE, operating system, ROCm, virtualization, and billing
+							layers required to make this capacity usable.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
 						{INFERENCE_CHARACTERISTICS.map((characteristic) => (
-							<article
-								className="min-h-64 bg-background p-8"
-								key={characteristic.title}
-							>
+							<article className="bg-background p-6" key={characteristic.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{characteristic.title}
 								</h3>
@@ -178,23 +168,20 @@ export default function MI300XPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">System profile</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								The accelerator, in a complete platform
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Infrastructure is more useful when the physical system,
-								virtualization model, and control surface are designed together.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							The accelerator, in a complete platform
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							Infrastructure is more useful when the physical system, virtualization
+							model, and control surface are designed together.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
 						{ARCHITECTURE_DETAILS.map((detail) => (
-							<article className="min-h-60 bg-background p-8" key={detail.title}>
+							<article className="bg-background p-6" key={detail.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{detail.title}
 								</h3>
@@ -205,13 +192,12 @@ export default function MI300XPage() {
 						))}
 					</div>
 
-					<div className="mt-12 grid gap-8 border-border border-t pt-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Deploy MI300X</p>
+					<div className="mt-8 grid gap-8 border-border border-t pt-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h3 className="font-black text-3xl text-foreground">
+							Ready when the workload is
+						</h3>
 						<div>
-							<h3 className="font-black text-3xl text-foreground">
-								Ready when the workload is
-							</h3>
-							<p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
+							<p className="max-w-xl text-muted-foreground leading-relaxed">
 								Create a team, add credit, and provision isolated AMD GPU compute
 								from the terminal UI, API, or CLI. No sales handoff is required.
 							</p>

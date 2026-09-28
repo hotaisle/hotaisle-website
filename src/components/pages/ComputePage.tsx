@@ -73,9 +73,9 @@ export function generateMetadata() {
 
 export default function ComputePage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
 							<figure className="max-w-sm border border-border bg-muted/20 p-3">
@@ -121,24 +121,26 @@ export default function ComputePage() {
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16" id="specifications">
-					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Built for large inference workloads
-					</h2>
-					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-						A balanced system from GPU memory through storage, network fabric, and power
-						delivery.
-					</p>
+				<section className="border-border border-b py-12" id="specifications">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Built for large inference workloads
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							A balanced system from GPU memory through storage, network fabric, and
+							power delivery.
+						</p>
+					</div>
 
-					<div className="mt-12 hidden gap-8 px-8 md:grid md:grid-cols-[0.55fr_1.45fr_0.7fr]">
+					<div className="mt-8 hidden gap-8 px-6 md:grid md:grid-cols-[0.55fr_1.45fr_0.7fr]">
 						<p className="col-start-3 pl-8 font-mono text-muted-foreground text-xs uppercase">
 							Total capacity
 						</p>
 					</div>
-					<div className="mt-3 grid gap-px bg-border">
+					<div className="mt-3 grid gap-y-px bg-border">
 						{SPECS.map((spec) => (
 							<article
-								className="grid gap-8 bg-background p-8 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
+								className="ha-inset-dividers ha-inset-dividers-md-3 grid gap-8 bg-background p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
 								key={spec.name}
 							>
 								<div>
@@ -149,7 +151,7 @@ export default function ComputePage() {
 										{spec.summary}
 									</p>
 								</div>
-								<div className="md:border-border md:border-l md:pl-8">
+								<div className="md:pl-8">
 									<p className="font-medium text-foreground text-lg leading-relaxed">
 										{spec.description}
 									</p>
@@ -164,7 +166,7 @@ export default function ComputePage() {
 										))}
 									</ul>
 								</div>
-								<div className="md:border-border md:border-l md:pl-8">
+								<div className="md:pl-8">
 									<p className="font-bold text-2xl text-hot-orange-contrast">
 										<span className="sr-only">Total capacity: </span>
 										{spec.capacity}
@@ -175,16 +177,18 @@ export default function ComputePage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
-					<h2 className="font-black text-4xl text-foreground md:text-5xl">
-						Uptime matters to both of us
-					</h2>
-					<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-						Every server is covered by Dell ProSupport Next Business Day warranty, with
-						parts held on site to minimize downtime.
-					</p>
+				<section className="border-border border-b py-12">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Uptime matters to both of us
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							Every server is covered by Dell ProSupport Next Business Day warranty,
+							with parts held on site to minimize downtime.
+						</p>
+					</div>
 
-					<div className="mt-12 grid gap-px bg-border lg:grid-cols-[0.65fr_1.35fr]">
+					<div className="ha-inset-dividers ha-inset-dividers-lg-2 mt-8 grid gap-y-px bg-border lg:grid-cols-[0.65fr_1.35fr]">
 						<figure className="bg-background p-4">
 							<ClickableImage
 								alt="Hot Aisle server racks, network fabric, and cabling"
@@ -194,9 +198,9 @@ export default function ComputePage() {
 								width={600}
 							/>
 						</figure>
-						<div className="grid gap-px bg-border md:grid-cols-2">
+						<div className="ha-inset-dividers ha-inset-dividers-md-2 grid gap-y-px bg-border md:grid-cols-2">
 							{OPERATIONS.map((operation) => (
-								<div className="min-h-56 bg-background p-8" key={operation.title}>
+								<div className="bg-background p-6" key={operation.title}>
 									<h3 className="font-bold text-2xl text-foreground">
 										{operation.title}
 									</h3>
@@ -205,7 +209,7 @@ export default function ComputePage() {
 									</p>
 								</div>
 							))}
-							<div className="bg-background p-8 md:col-span-2">
+							<div className="bg-background p-6 md:col-span-2">
 								<h3 className="font-black text-3xl text-foreground">
 									Need a specific configuration?
 								</h3>

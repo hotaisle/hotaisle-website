@@ -61,13 +61,12 @@ export function generateMetadata() {
 
 export default function PartnersPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background text-foreground">
+		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Ecosystem</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
 								<OptimizedImage
 									alt="3D pixel-art coordinated data center deployment with a server rack, network switch, cable spool, and installation arm"
 									className="aspect-4/3 w-full object-cover"
@@ -104,24 +103,21 @@ export default function PartnersPage() {
 					</div>
 				</header>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Why it matters</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								The work starts well before a server comes online
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								Our partners are part of how we turn AMD GPU hardware into usable,
-								serviceable inference capacity. The outcome should be simple for the
-								customer, even when the work underneath is not.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							The work starts well before a server comes online
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							Our partners are part of how we turn AMD GPU hardware into usable,
+							serviceable inference capacity. The outcome should be simple for the
+							customer, even when the work underneath is not.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
 						{RELATIONSHIP_OUTCOMES.map((outcome) => (
-							<article className="min-h-64 bg-background p-8" key={outcome.title}>
+							<article className="bg-background p-6" key={outcome.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{outcome.title}
 								</h3>
@@ -133,21 +129,18 @@ export default function PartnersPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">The network</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Relationships at every layer of delivery
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								We work with specialists in the layers we operate, rather than
-								treating the infrastructure supply chain as a black box.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Relationships at every layer of delivery
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							We work with specialists in the layers we operate, rather than treating
+							the infrastructure supply chain as a black box.
+						</p>
 					</div>
 
-					<div className="mt-12 border-border border-t">
+					<div className="mt-8 border-border border-t">
 						{PARTNER_GROUPS.map((group) => (
 							<section
 								className="grid gap-8 py-10 lg:grid-cols-[0.75fr_1.25fr]"
@@ -161,7 +154,7 @@ export default function PartnersPage() {
 										{group.description}
 									</p>
 								</div>
-								<div className="grid gap-px border border-border bg-border sm:grid-cols-2">
+								<div className="ha-inset-dividers ha-inset-dividers-sm-2 grid gap-y-px border border-border bg-border sm:grid-cols-2">
 									{group.partners.map((partner) => (
 										<a
 											className="group min-h-36 bg-background p-6 transition-colors hover:bg-muted/35"
@@ -184,20 +177,19 @@ export default function PartnersPage() {
 					</div>
 				</section>
 
-				<section className="border-border border-b py-16">
+				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Work with us</p>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Bring us a deployment with real constraints
+						</h2>
 						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Bring us a deployment with real constraints
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								We are interested in relationships that make sovereign inference
 								infrastructure faster to deploy, easier to operate, and more useful
 								to developers and the businesses they support.
 							</p>
 							<AppLink
-								className="mt-8 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
 								href="/contact"
 							>
 								Start a conversation

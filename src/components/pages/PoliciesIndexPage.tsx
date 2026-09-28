@@ -47,25 +47,21 @@ export default function PoliciesIndexPage() {
 	return (
 		<main className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Legal and policies</p>
-						<div>
-							<h1 className="font-black text-5xl text-foreground tracking-tighter md:text-7xl">
-								Policies, clearly stated
-							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
-								The documents that govern Hot Aisle services, infrastructure, and
-								shared responsibilities.
-							</p>
-						</div>
+						<h1 className="font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							Policies, clearly stated
+						</h1>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							The documents that govern Hot Aisle services, infrastructure, and shared
+							responsibilities.
+						</p>
 					</div>
 				</header>
 
-				<section className="pt-16 pb-20 md:pt-20">
+				<section className="py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Documents</p>
-						<div className="border-border border-y">
+						<div className="border-border border-y lg:col-start-2">
 							{POLICIES.map((policy) => (
 								<AppLink
 									className="group grid gap-5 border-border border-b py-7 transition-colors last:border-b-0 hover:bg-muted/35 sm:grid-cols-[1fr_auto] sm:items-start sm:px-5"

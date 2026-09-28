@@ -42,10 +42,10 @@ const advantages = [
 
 export default function DatacenterPage() {
 	return (
-		<div className="animation-fade-in min-h-screen bg-background pb-20 text-foreground">
+		<div className="animation-fade-in bg-background pb-12 text-foreground">
 			{/* Hero Section */}
 			<div className="relative border-border border-b bg-muted/30">
-				<div className="container mx-auto flex max-w-7xl flex-col items-center gap-12 px-6 py-24 md:flex-row">
+				<div className="container mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 py-16 md:flex-row">
 					<div className="flex-1 space-y-8">
 						<div className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 font-bold text-foreground text-xs uppercase tracking-wider shadow-sm">
 							<span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
@@ -111,23 +111,20 @@ export default function DatacenterPage() {
 			</div>
 
 			{/* Strategic Advantages */}
-			<div className="container mx-auto max-w-7xl px-6 py-24">
-				<div className="grid gap-8 border-border border-b pb-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-					<p className="ha-briefing-label">Site conditions</p>
-					<div>
-						<h2 className="max-w-2xl font-black text-4xl text-foreground md:text-6xl">
-							Strategic advantages
-						</h2>
-						<p className="mt-5 max-w-2xl text-muted-foreground text-xl leading-relaxed">
-							Located at the Switch Pyramid data center in Grand Rapids, Michigan. A
-							facility our partners can brag about.
-						</p>
-					</div>
+			<div className="container mx-auto max-w-7xl px-6 py-16">
+				<div className="grid gap-8 border-border border-b pb-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+					<h2 className="max-w-2xl font-black text-4xl text-foreground md:text-6xl">
+						Strategic advantages
+					</h2>
+					<p className="max-w-2xl text-muted-foreground text-xl leading-relaxed">
+						Located at the Switch Pyramid data center in Grand Rapids, Michigan. A
+						facility our partners can brag about.
+					</p>
 				</div>
 
-				<div className="mt-10 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
+				<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-lg-3 mt-10 grid gap-y-px bg-border md:grid-cols-2 lg:grid-cols-3">
 					{advantages.map((item) => (
-						<div className="min-h-64 bg-background p-8" key={item.title}>
+						<div className="bg-background p-6" key={item.title}>
 							<h3 className="font-bold text-2xl text-foreground">{item.title}</h3>
 							<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
 								{item.desc}
@@ -138,7 +135,7 @@ export default function DatacenterPage() {
 			</div>
 
 			{/* External Details & CTA */}
-			<div className="border-border border-t bg-muted px-6 py-24">
+			<div className="border-border border-t bg-muted px-6 py-16">
 				<div className="container mx-auto flex max-w-7xl flex-col items-center gap-16 lg:flex-row">
 					{/* Outside Image */}
 					<div className="order-2 w-full flex-1 lg:order-1">

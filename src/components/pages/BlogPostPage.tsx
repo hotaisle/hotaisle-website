@@ -49,7 +49,7 @@ function AdjacentPostNavigation({
 		<section className="border-border border-t">
 			<nav
 				aria-label="Adjacent blog posts"
-				className="mx-auto grid max-w-7xl gap-px border-border border-x bg-border md:grid-cols-2"
+				className="ha-inset-dividers ha-inset-dividers-md-2 mx-auto grid max-w-7xl gap-y-px border-border border-x bg-border md:grid-cols-2"
 			>
 				{adjacentPosts.map(({ label, post }) => (
 					<AppLink
@@ -112,18 +112,17 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 	return (
 		<div className="animation-fade-in bg-background text-foreground">
 			<header className="border-border border-b">
-				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:px-8 lg:py-20">
+				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:px-8 lg:py-16">
 					<div className="flex flex-col items-start">
-						<p className="ha-briefing-label">Field note</p>
 						<AppLink
-							className="group mt-8 inline-flex items-center font-mono text-muted-foreground text-xs uppercase tracking-[0.12em] transition-colors hover:text-foreground"
+							className="group inline-flex items-center font-mono text-muted-foreground text-xs uppercase tracking-[0.12em] transition-colors hover:text-foreground"
 							href="/blog"
 						>
 							<ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
 							Back to Blog
 						</AppLink>
 
-						<h1 className="mt-12 max-w-3xl font-semibold text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
+						<h1 className="mt-8 max-w-3xl font-semibold text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
 							{post.title}
 						</h1>
 
@@ -182,7 +181,7 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 				</div>
 			</header>
 
-			<article className="mx-auto max-w-4xl px-5 py-14 sm:px-8 lg:py-20">
+			<article className="mx-auto max-w-4xl px-5 py-12 sm:px-8 lg:py-16">
 				<div className="ha-blog-article prose prose-lg max-w-none prose-img:rounded-none prose-pre:rounded-none prose-img:border prose-img:border-border prose-a:text-hot-orange prose-blockquote:text-muted-foreground prose-code:text-hot-orange prose-headings:text-foreground prose-strong:text-foreground text-foreground leading-relaxed prose-headings:tracking-normal prose-img:shadow-none">
 					<BlogContent
 						authorProfile={post.authorProfile}

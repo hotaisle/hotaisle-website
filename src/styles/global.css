@@ -193,13 +193,13 @@ main .prose:not(.max-w-none) {
 	max-width: 76ch;
 }
 
-.ha-briefing-label {
-	font-family: var(--font-mono);
-	font-size: 0.75rem;
-	font-weight: 500;
-	color: var(--hot-orange-contrast);
-	text-transform: uppercase;
-	letter-spacing: 0;
+/* Keep descriptive copy readable and consistent without enlarging metadata or lead text. */
+main
+:where(p, div, span).text-muted-foreground:not(.font-mono):not(.uppercase):not(
+	.text-xl
+):not(.text-2xl):not(.text-3xl) {
+	font-size: 1.125rem;
+	line-height: 1.75rem;
 }
 
 /* Inset column rules keep internal dividers clear of horizontal grid borders. */

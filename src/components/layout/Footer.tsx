@@ -8,7 +8,7 @@ export function Footer() {
 		<footer className="border-border border-t bg-card">
 			<div className="mx-auto max-w-6xl px-5 lg:px-8">
 				{/* Link columns grid */}
-				<div className="grid grid-cols-2 gap-8 py-16 md:grid-cols-4">
+				<div className="grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
 					{FOOTER_COLUMNS.map((column) => (
 						<div className="text-center" key={column.heading}>
 							<h3 className="mb-4 font-mono text-foreground text-xs uppercase">

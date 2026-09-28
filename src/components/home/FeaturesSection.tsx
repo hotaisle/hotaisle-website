@@ -48,13 +48,10 @@ const FEATURES = [
 
 export function FeaturesSection() {
 	return (
-		<section className="border-border/60 border-t bg-background py-24">
+		<section className="border-border/60 border-t bg-background py-16">
 			<div className="mx-auto max-w-7xl px-6">
 				{/* Section header */}
 				<div className="mb-16 text-center">
-					<p className="mb-4 font-semibold text-hot-orange-contrast text-sm uppercase tracking-widest">
-						Why Hot Aisle
-					</p>
 					<h2 className="font-bold text-3xl tracking-tight sm:text-4xl">
 						GPU infrastructure that gets out of your way
 					</h2>
@@ -91,7 +88,7 @@ export function FeaturesSection() {
 				</div>
 
 				{/* Bottom CTA */}
-				<div className="mt-12 text-center">
+				<div className="mt-8 text-center">
 					<AppLink
 						className="group inline-flex items-center gap-2 font-medium text-hot-orange-contrast text-sm transition hover:opacity-80"
 						href="/compute"

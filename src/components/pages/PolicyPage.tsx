@@ -30,14 +30,13 @@ export default function PolicyPage({ page }: { page: PageData }) {
 	const policySummary = POLICY_SUMMARIES[page.slug] ?? page.description;
 
 	return (
-		<main className="animation-fade-in min-h-screen bg-background text-foreground">
+		<main className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Policy document</p>
 							<AppLink
-								className="mt-8 inline-flex border border-border px-4 py-2 font-medium text-foreground text-sm transition-colors hover:bg-muted"
+								className="inline-flex border border-border px-4 py-2 font-medium text-foreground text-sm transition-colors hover:bg-muted"
 								href="/policies"
 							>
 								All policies
@@ -56,10 +55,9 @@ export default function PolicyPage({ page }: { page: PageData }) {
 					</div>
 				</header>
 
-				<section className="grid gap-8 py-16 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+				<section className="grid gap-8 py-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 					<aside className="lg:sticky lg:top-24">
-						<p className="ha-briefing-label">Hot Aisle / legal</p>
-						<p className="mt-5 max-w-xs text-muted-foreground text-sm leading-relaxed">
+						<p className="max-w-xs text-muted-foreground text-sm leading-relaxed">
 							{policySummary}
 						</p>
 					</aside>

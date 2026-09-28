@@ -82,7 +82,7 @@ export default function InvestorsPage() {
 	return (
 		<div className="overflow-x-hidden bg-background text-foreground">
 			<section className="border-border border-b">
-				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8 lg:py-20">
+				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8 lg:py-16">
 					<div className="max-w-3xl">
 						<h1 className="font-semibold text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
 							Built patiently. Ready to deploy
@@ -126,8 +126,8 @@ export default function InvestorsPage() {
 			</section>
 
 			<section className="border-border border-b bg-muted/35">
-				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-5">
+				<div className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-xl-5 grid gap-y-px border border-border bg-border md:grid-cols-2 xl:grid-cols-5">
 						{OPERATING_PROOF.map((point) => (
 							<article className="bg-background p-7" key={point.label}>
 								<p className="font-mono text-3xl">{point.value}</p>
@@ -142,7 +142,7 @@ export default function InvestorsPage() {
 			</section>
 
 			<section className="border-border border-b">
-				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-28">
+				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-20">
 					<div>
 						<h2 className="max-w-xl font-semibold text-5xl leading-[1.04] sm:text-6xl">
 							Inference needs sovereignty, not just scale
@@ -172,18 +172,18 @@ export default function InvestorsPage() {
 			</section>
 
 			<section className="border-border border-b bg-muted/70">
-				<div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.78fr_1.22fr] lg:px-8 lg:py-28">
-					<div>
+				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<h2 className="max-w-xl font-semibold text-5xl leading-[1.04] sm:text-6xl">
 							Small deployments. Global reach
 						</h2>
-						<p className="mt-6 max-w-xl text-muted-foreground text-xl leading-9">
+						<p className="max-w-3xl text-muted-foreground text-xl leading-9">
 							We are not pursuing one giant deployment and hoping demand follows. We
 							will grow through smaller inference-focused sites, each able to serve a
 							regional market with the same platform and operating discipline.
 						</p>
 					</div>
-					<div className="border-border border-t">
+					<div className="mt-8 border-border border-t">
 						{EXPANSION_MODEL.map((point) => (
 							<article
 								className="grid gap-4 border-border border-b py-7 sm:grid-cols-[11rem_1fr]"
@@ -200,7 +200,7 @@ export default function InvestorsPage() {
 			</section>
 
 			<section className="border-border border-b">
-				<div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
 						<div>
 							<h2 className="max-w-lg font-semibold text-5xl leading-[1.04] sm:text-6xl">
@@ -227,10 +227,10 @@ export default function InvestorsPage() {
 							and every new deployment.
 						</p>
 					</div>
-					<div className="mt-14 grid border-border border-t md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid border-border border-t md:grid-cols-3">
 						{OPERATING_HISTORY.map((item, index) => (
 							<article
-								className={`border-border border-b py-7 ${index ? 'md:border-l md:pl-7' : 'md:pr-7'}`}
+								className={`border-border border-b py-7 ${index ? 'md:pl-7' : 'md:pr-7'}`}
 								key={item.title}
 							>
 								<p className="font-mono text-3xl">{item.metric}</p>
@@ -245,7 +245,7 @@ export default function InvestorsPage() {
 			</section>
 
 			<section className="border-border border-b bg-muted/35">
-				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-28">
+				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-20">
 					<div className="flex gap-4">
 						<Landmark
 							aria-hidden="true"
@@ -276,7 +276,7 @@ export default function InvestorsPage() {
 			</section>
 
 			<section>
-				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-20 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8 lg:py-28">
+				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8 lg:py-20">
 					<div>
 						<h2 className="max-w-4xl font-semibold text-5xl leading-[1.04] sm:text-7xl">
 							Let&apos;s build a verifiably secure sovereign inference cloud

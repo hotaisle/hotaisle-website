@@ -397,7 +397,6 @@ function renderHero(
 	return `
 		<section class="hero">
 			<div class="hero-copy">
-				<p class="briefing-label">Performance reports</p>
 				<h1>Lighthouse reports</h1>
 				<p>Performance matters in every part of our business. We work to make this site fast, accessible, and reliable with the same care we bring to running GPU compute efficiently.</p>
 			</div>

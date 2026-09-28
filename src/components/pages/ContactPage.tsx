@@ -31,11 +31,10 @@ export default function ContactPage() {
 	return (
 		<div className="animation-fade-in bg-background text-foreground">
 			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-14 md:py-18">
+				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<p className="ha-briefing-label">Contact</p>
-							<figure className="mt-10 max-w-sm overflow-hidden border border-border bg-muted p-3 dark:bg-black">
+							<figure className="max-w-sm overflow-hidden border border-border bg-muted p-3 dark:bg-black">
 								<video
 									autoPlay
 									className="aspect-4/3 w-full object-cover"
@@ -54,7 +53,7 @@ export default function ContactPage() {
 							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
 								Talk to the people who built it
 							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
 								Whether you are planning an inference deployment, working through a
 								technical issue, or evaluating a partnership, write to us directly.
 							</p>
@@ -64,35 +63,32 @@ export default function ContactPage() {
 							>
 								hello@hotaisle.ai
 							</a>
-							<p className="mt-4 text-muted-foreground text-sm">
-								A person on the Hot Aisle team will reply directly. No AI bot, and
-								no spam.
+							<p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+								A human on the Hot Aisle team will reply directly. No AI bot, and no
+								spam.
 							</p>
 						</div>
 					</div>
 				</header>
 
-				<section className="border-border border-b pt-16 pb-10">
+				<section className="border-border border-b py-10">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<p className="ha-briefing-label">Bring context</p>
-						<div>
-							<h2 className="font-black text-4xl text-foreground md:text-5xl">
-								Start with the problem you are solving
-							</h2>
-							<p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-								We will route the conversation to the person who can address it,
-								without making you repeat the requirements through a sales chain.
-							</p>
-						</div>
+						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+							Start with the problem you are solving
+						</h2>
+						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							We will route the conversation to the person who can address it, without
+							making you repeat the requirements through a sales chain.
+						</p>
 					</div>
 
-					<div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
 						{CONTACT_TOPICS.map((topic) => (
-							<article className="min-h-64 bg-background p-8" key={topic.title}>
+							<article className="bg-background p-6" key={topic.title}>
 								<h3 className="font-bold text-2xl text-foreground">
 									{topic.title}
 								</h3>
-								<p className="mt-4 text-muted-foreground leading-relaxed">
+								<p className="mt-4 text-lg text-muted-foreground leading-relaxed">
 									{topic.description}
 								</p>
 							</article>
