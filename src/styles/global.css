@@ -202,6 +202,89 @@ main .prose:not(.max-w-none) {
 	letter-spacing: 0;
 }
 
+/* Inset column rules keep internal dividers clear of horizontal grid borders. */
+.ha-inset-dividers > * {
+	position: relative;
+}
+
+.ha-inset-dividers > *::before {
+	position: absolute;
+	top: 1.5rem;
+	bottom: 1.5rem;
+	left: 0;
+	display: none;
+	width: 1px;
+	pointer-events: none;
+	content: "";
+	background: var(--border);
+}
+
+.ha-inset-dividers-cols-3 > :not(:nth-child(3n + 1))::before {
+	display: block;
+}
+
+@media (min-width: 40rem) {
+	.ha-inset-dividers-sm-2 > :nth-child(n)::before {
+		display: none;
+	}
+
+	.ha-inset-dividers-sm-2 > :not(:nth-child(2n + 1))::before {
+		display: block;
+	}
+}
+
+@media (min-width: 48rem) {
+	.ha-inset-dividers-md-2 > :nth-child(n)::before,
+	.ha-inset-dividers-md-3 > :nth-child(n)::before {
+		display: none;
+	}
+
+	.ha-inset-dividers-md-2 > :not(:nth-child(2n + 1))::before,
+	.ha-inset-dividers-md-3 > :not(:nth-child(3n + 1))::before {
+		display: block;
+	}
+
+	.ha-inset-dividers-md-2 > .ha-divider-md::before {
+		display: block;
+	}
+}
+
+@media (min-width: 64rem) {
+	.ha-inset-dividers-lg-2 > :nth-child(n)::before,
+	.ha-inset-dividers-lg-3 > :nth-child(n)::before,
+	.ha-inset-dividers-lg-4 > :nth-child(n)::before {
+		display: none;
+	}
+
+	.ha-inset-dividers-lg-2 > :not(:nth-child(2n + 1))::before,
+	.ha-inset-dividers-lg-3 > :not(:nth-child(3n + 1))::before,
+	.ha-inset-dividers-lg-4 > :not(:nth-child(4n + 1))::before {
+		display: block;
+	}
+}
+
+@media (min-width: 80rem) {
+	.ha-inset-dividers-xl-3 > :nth-child(n)::before,
+	.ha-inset-dividers-xl-4 > :nth-child(n)::before,
+	.ha-inset-dividers-xl-5 > :nth-child(n)::before {
+		display: none;
+	}
+
+	.ha-inset-dividers-xl-3 > :not(:nth-child(3n + 1))::before,
+	.ha-inset-dividers-xl-4 > :not(:nth-child(4n + 1))::before,
+	.ha-inset-dividers-xl-5 > :not(:nth-child(5n + 1))::before {
+		display: block;
+	}
+
+	.ha-inset-dividers-xl-3 > .ha-divider-xl::before {
+		display: block;
+	}
+
+	.ha-inset-dividers-xl-3 > .ha-no-divider-xl::before {
+		display: none;
+	}
+}
+
 .ha-visually-hidden {
 	position: absolute;
 	width: 1px;
