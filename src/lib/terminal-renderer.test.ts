@@ -6,6 +6,7 @@ const TERMINAL_TEXT = 'Checkout: https://admin.hotaisle.app/r/example.';
 const SSH_COMMAND_TEXT = 'SSH: ssh hotaisle@23.183.40.70';
 const SSH_URL_TEXT = 'Open ssh://hotaisle@23.183.40.70';
 const FLAG_DIM = 0x02;
+const FLAG_REVERSE = 0x20;
 
 const toCell = (character: string) => ({
 	bg: DEFAULT_COLOR,
@@ -19,7 +20,8 @@ const createRenderer = (columns: number): object => {
 	const renderer: object = Object.create(Renderer.prototype);
 	Reflect.set(renderer, 'cols', columns);
 	Reflect.set(renderer, 'prevRowBg', []);
-	Reflect.set(renderer, 'rowHtml', new WeakMap());
+	Reflect.set(renderer, 'rowParts', new WeakMap());
+	Reflect.set(renderer, 'rowBackground', new WeakMap());
 	Reflect.set(renderer, 'rowText', new WeakMap());
 	return renderer;
 };
@@ -88,12 +90,52 @@ describe('terminal renderer', () => {
 			name: 'preserves direct foreground colors on colored backgrounds',
 		},
 		{
+			cell: { ...toCell('A'), bgRgb: 0x93_c5_fd, flags: FLAG_REVERSE },
+			expected:
+				'color:color-mix(in srgb,rgb(147,197,253) var(--term-direct-fg-weight,100%),var(--term-direct-fg-mix,transparent));background:var(--term-app-fg, var(--term-fg));',
+			name: 'adjusts reversed foreground colors on a default background',
+		},
+		{
+			cell: { ...toCell('A'), fgRgb: 0x93_c5_fd, flags: FLAG_REVERSE },
+			expected: 'color:var(--term-app-bg, var(--term-bg));background:rgb(147,197,253);',
+			name: 'preserves direct colors used as reversed backgrounds',
+		},
+		{
 			cell: { ...toCell('A'), flags: FLAG_DIM },
 			expected: 'opacity:var(--term-dim-opacity,0.5);',
 			name: 'uses the theme-specific faint opacity',
 		},
 	])('$name', ({ cell, expected }) => {
 		expect(renderCell(cell)).toContain(expected);
+	});
+
+	test('creates a link when an existing plain-text run is redrawn as a URL', () => {
+		const renderer = createRenderer(TERMINAL_TEXT.length);
+		const textNode = { nodeType: 3, nodeValue: ' '.repeat(TERMINAL_TEXT.length) };
+		const row = {
+			...createRow(),
+			childNodes: [{ childNodes: [textNode], firstChild: textNode }],
+		};
+		const buildRowContent = Reflect.get(renderer, '_buildRowContent');
+		Reflect.apply(buildRowContent, renderer, [
+			row,
+			() => toCell(' '),
+			TERMINAL_TEXT.length,
+			-1,
+			-1,
+		]);
+
+		const cells = Array.from(TERMINAL_TEXT, toCell);
+		Reflect.apply(buildRowContent, renderer, [
+			row,
+			(column: number) => cells[column] ?? toCell(' '),
+			TERMINAL_TEXT.length,
+			-1,
+			-1,
+		]);
+
+		expect(row.innerHTML).toContain('<a class="term-link"');
+		expect(row.innerHTML).toContain('href="https://admin.hotaisle.app/r/example"');
 	});
 
 	test('preserves two-column characters and skips their continuation cells', () => {

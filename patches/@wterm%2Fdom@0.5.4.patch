@@ -1,0 +1,201 @@
+diff --git a/dist/renderer.js b/dist/renderer.js
+index 688ad09a7ea32990d94b751642fb496c3999f1c5..13eb4ce7dfd5ed9ef3c34bfd9bf07bc595c32fae 100644
+--- a/dist/renderer.js
++++ b/dist/renderer.js
+@@ -4,6 +4,7 @@ import { selectionRange } from "./selection-range.js";
+ import { rectangleSelection } from "./rectangle-selection.js";
+ import { TrackedSelection, MAX_TRACKED_SELECTION_ROWS, } from "./tracked-selection.js";
+ const DEFAULT_COLOR = 256;
++const KITTY_PLACEHOLDER = 0x10eeee;
+ const DEFAULT_FG_CSS = "var(--term-app-fg, var(--term-fg))";
+ const DEFAULT_BG_CSS = "var(--term-app-bg, var(--term-bg))";
+ const FLAG_BOLD = 0x01;
+@@ -14,13 +15,19 @@ const FLAG_REVERSE = 0x20;
+ const FLAG_INVISIBLE = 0x40;
+ const FLAG_STRIKETHROUGH = 0x80;
+ const DEFAULT_SCROLLBACK_OVERSCAN_ROWS = 10;
+-function rgbToCSS(packed) {
++const LINK_PATTERN = /(?:(?:https?|ssh):\/\/[^\s<>"']*[^\s<>"'(),.;!?]|\bssh\s+(?:-p\s+\d+\s+)?[a-z0-9._-]+@[a-z0-9.-]+(?::\d+)?)/giu;
++const SSH_COMMAND_PATTERN = /^ssh\s+(?:-p\s+(\d+)\s+)?(\S+)$/u;
++function adjustDirectForeground(color) {
++    return `color-mix(in srgb,${color} var(--term-direct-fg-weight,100%),var(--term-direct-fg-mix,transparent))`;
++}
++function rgbToCSS(packed, adjustForeground = false) {
+     const r = (packed >> 16) & 0xff;
+     const g = (packed >> 8) & 0xff;
+     const b = packed & 0xff;
+-    return `rgb(${r},${g},${b})`;
++    const color = `rgb(${r},${g},${b})`;
++    return adjustForeground ? adjustDirectForeground(color) : color;
+ }
+-function colorToCSS(index) {
++function colorToCSS(index, adjustForeground = false) {
+     if (index === DEFAULT_COLOR)
+         return null;
+     if (index < 16)
+@@ -30,24 +37,25 @@ function colorToCSS(index) {
+         const r = Math.floor(n / 36) * 51;
+         const g = (Math.floor(n / 6) % 6) * 51;
+         const b = (n % 6) * 51;
+-        return `rgb(${r},${g},${b})`;
++        const color = `rgb(${r},${g},${b})`;
++        return adjustForeground ? adjustDirectForeground(color) : color;
+     }
+     const level = (index - 232) * 10 + 8;
+-    return `rgb(${level},${level},${level})`;
++    const color = `rgb(${level},${level},${level})`;
++    return adjustForeground ? adjustDirectForeground(color) : color;
+ }
+-function cellFgCSS(fg, fgRgb) {
++function cellFgCSS(fg, fgRgb, adjustForeground = false) {
+     if (fgRgb !== undefined)
+-        return rgbToCSS(fgRgb);
+-    return colorToCSS(fg);
++        return rgbToCSS(fgRgb, adjustForeground);
++    return colorToCSS(fg, adjustForeground);
+ }
+-function cellBgCSS(bg, bgRgb) {
+-    if (bgRgb !== undefined)
+-        return rgbToCSS(bgRgb);
+-    return colorToCSS(bg);
++function cellBgCSS(bg, bgRgb, adjustForeground = false) {
++    return cellFgCSS(bg, bgRgb, adjustForeground);
+ }
+ function buildCellStyle({ fg, bg, flags, fgRgb, bgRgb, underlineStyle, underlineRgb, }) {
+-    let fgCSS = cellFgCSS(fg, fgRgb);
+-    let bgCSS = cellBgCSS(bg, bgRgb);
++    const reversed = Boolean(flags & FLAG_REVERSE);
++    let fgCSS = cellFgCSS(fg, fgRgb, !reversed && bgRgb === undefined && bg === DEFAULT_COLOR);
++    let bgCSS = cellBgCSS(bg, bgRgb, reversed && fgRgb === undefined && fg === DEFAULT_COLOR);
+     if (flags & FLAG_REVERSE) {
+         [fgCSS, bgCSS] = [bgCSS ?? DEFAULT_BG_CSS, fgCSS ?? DEFAULT_FG_CSS];
+     }
+@@ -59,7 +67,7 @@ function buildCellStyle({ fg, bg, flags, fgRgb, bgRgb, underlineStyle, underline
+     if (flags & FLAG_BOLD)
+         style += "font-weight:bold;";
+     if (flags & FLAG_DIM)
+-        style += "opacity:0.5;";
++        style += "opacity:var(--term-dim-opacity,0.5);";
+     if (flags & FLAG_ITALIC)
+         style += "font-style:italic;";
+     const decorations = [];
+@@ -112,11 +120,30 @@ function escapeHTML(text) {
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;");
+ }
++function linkifyText(text) {
++    let html = "";
++    let lastIndex = 0;
++    for (const match of text.matchAll(LINK_PATTERN)) {
++        const matchIndex = match.index ?? 0;
++        const label = match[0];
++        const sshCommand = label.match(SSH_COMMAND_PATTERN);
++        const href = sshCommand
++            ? `ssh://${sshCommand[2]}${sshCommand[1] ? `:${sshCommand[1]}` : ""}`
++            : label;
++        html += escapeHTML(text.slice(lastIndex, matchIndex));
++        html += `<a class="term-link" href="${escapeHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a>`;
++        lastIndex = matchIndex + label.length;
++    }
++    html += escapeHTML(text.slice(lastIndex));
++    return html;
++}
+ // CSS applies one decoration style/color to every line on an element. Keep
+ // the strike on its own inline element so colored/curly underlines do not
+ // change it. The cell span still owns geometry and the text appears only once.
+-function cellSpanPart(className, style, text) {
+-    let content = escapeHTML(text);
++function cellSpanPart(className, style, text, detectLinks = true) {
++    const escaped = escapeHTML(text);
++    let content = detectLinks ? linkifyText(text) : escaped;
++    const textOnly = content === escaped;
+     const flat = !style.includes("text-decoration:underline line-through;");
+     if (!flat) {
+         style = style.replace("text-decoration:underline line-through;", "text-decoration:underline;");
+@@ -127,8 +154,8 @@ function cellSpanPart(className, style, text) {
+     const opening = `<span${classAttr}${styleAttr}>`;
+     return {
+         html: `${opening}${content}</span>`,
+-        opening: flat ? opening : undefined,
+-        text: flat ? text : undefined,
++        opening: flat && textOnly ? opening : undefined,
++        text: flat && textOnly ? text : undefined,
+     };
+ }
+ function safeLinkHref(uri) {
+@@ -136,7 +163,7 @@ function safeLinkHref(uri) {
+         return undefined;
+     try {
+         const url = new URL(uri);
+-        return url.protocol === "http:" || url.protocol === "https:"
++        return url.protocol === "http:" || url.protocol === "https:" || url.protocol === "ssh:"
+             ? url.href
+             : undefined;
+     }
+@@ -150,8 +177,9 @@ function linkIdentity(cell) {
+     return cell.linkKey ?? `fallback\0${cell.linkId ?? ""}\0${cell.linkUri}`;
+ }
+ function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
+-    const foreground = cellFgCSS(fg, fgRgb) || DEFAULT_FG_CSS;
+-    const background = cellBgCSS(bg, bgRgb) || DEFAULT_BG_CSS;
++    const reversed = Boolean(flags & FLAG_REVERSE);
++    const foreground = cellFgCSS(fg, fgRgb, !reversed && bgRgb === undefined && bg === DEFAULT_COLOR) || DEFAULT_FG_CSS;
++    const background = cellBgCSS(bg, bgRgb, reversed && fgRgb === undefined && fg === DEFAULT_COLOR) || DEFAULT_BG_CSS;
+     return flags & FLAG_REVERSE
+         ? { fg: background, bg: foreground }
+         : { fg: foreground, bg: background };
+@@ -446,7 +474,7 @@ export class Renderer {
+         const flushRun = (endCol) => {
+             if (!runText)
+                 return;
+-            const append = (className, style, text) => appendContent(cellSpanPart(className, style, text), runLinkKey, runLinkUri);
++            const append = (className, style, text) => appendContent(cellSpanPart(className, style, text, !runLinkKey), runLinkKey, runLinkUri);
+             if (cursorCol >= runStart && cursorCol < endCol) {
+                 const offset = cursorCol - runStart;
+                 const before = runCells.slice(0, offset).join("");
+@@ -471,10 +499,15 @@ export class Renderer {
+             runCells = [];
+         };
+         const appendStyledSpan = (className, style, text, linkKey, linkUri) => {
+-            appendContent(cellSpanPart(className, style, text), linkKey, linkUri);
++            appendContent(cellSpanPart(className, style, text, !linkKey), linkKey, linkUri);
+         };
+         for (let col = 0; col < this.cols; col++) {
+-            const cell = getCell(col);
++            const sourceCell = getCell(col);
++            // The host draws virtual Kitty images over these cells. Keep their
++            // geometry, but never paint the private-use glyph or its diacritics.
++            const cell = sourceCell.char === KITTY_PLACEHOLDER
++                ? { ...sourceCell, char: 32, chars: undefined }
++                : sourceCell;
+             const inBounds = col < lineLen;
+             const cp = inBounds ? cell.char : 0;
+             const width = inBounds ? (cell.width ?? 1) : 1;
+diff --git a/dist/wterm.js b/dist/wterm.js
+index d7be2e26454351f261d2697b6eb9fcc64f3e0c77..56513bb103bdae86888263868be7ba6bead3bafb 100644
+--- a/dist/wterm.js
++++ b/dist/wterm.js
+@@ -10,6 +10,7 @@ import { isLinkActivationModifier } from "./hyperlink.js";
+ import { SearchController, } from "./search.js";
+ const SYNCHRONIZED_OUTPUT_TIMEOUT_MS = 1000;
+ const PROGRAMMATIC_SCROLL_TOLERANCE = 1;
++const INTERACTIVE_ELEMENT_SELECTOR = 'a[href], button, input, select, textarea, [role="button"]';
+ export class WTerm {
+     constructor(element, options = {}) {
+         this.bridge = null;
+@@ -115,13 +116,8 @@ export class WTerm {
+             if (event.defaultPrevented || this._historySelection.active)
+                 return;
+             const target = event.target;
+-            if (target instanceof Element && target.closest(".term-link")) {
+-                if (isLinkActivationModifier(event, this.element.ownerDocument.defaultView?.navigator ?? navigator) ||
+-                    event.detail === 0) {
+-                    return;
+-                }
+-                event.preventDefault();
+-            }
++            if (target instanceof Element && target.closest(INTERACTIVE_ELEMENT_SELECTOR))
++                return;
+             const sel = window.getSelection();
+             if (!sel || sel.isCollapsed)
+                 this.input?.focus();

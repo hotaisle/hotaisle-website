@@ -141,10 +141,21 @@ export default function NetworkingPage() {
 						</p>
 					</div>
 
-					<div className="mt-8 grid gap-y-px bg-border">
+					<div className="mt-8 hidden gap-8 px-6 md:grid md:grid-cols-[0.55fr_1.45fr_0.7fr]">
+						<p className="font-mono text-muted-foreground text-xs uppercase">
+							Network layer
+						</p>
+						<p className="pl-8 font-mono text-muted-foreground text-xs uppercase">
+							Description
+						</p>
+						<p className="pl-8 font-mono text-muted-foreground text-xs uppercase">
+							Capacity
+						</p>
+					</div>
+					<div className="mt-3 grid gap-y-px bg-border">
 						{FABRIC_LAYERS.map((layer) => (
 							<article
-								className="ha-inset-dividers ha-inset-dividers-md-3 grid gap-8 bg-background p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
+								className="ha-inset-dividers ha-inset-dividers-md-3 ha-specification-row grid gap-8 bg-background p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr]"
 								key={layer.title}
 							>
 								<div>
@@ -174,10 +185,8 @@ export default function NetworkingPage() {
 									</div>
 								</div>
 								<div className="md:pl-8">
-									<p className="font-mono text-muted-foreground text-xs uppercase">
-										Capacity
-									</p>
-									<p className="mt-3 font-bold text-2xl text-hot-orange-contrast">
+									<p className="font-bold text-2xl text-hot-orange-contrast">
+										<span className="sr-only">Capacity: </span>
 										{layer.speed}
 									</p>
 								</div>

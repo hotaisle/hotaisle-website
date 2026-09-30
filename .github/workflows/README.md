@@ -6,9 +6,9 @@ This directory contains the repository's CI automation.
 
 `ci.yml` handles pull request validation and production deployments from `main`.
 
-The `check` job installs dependencies and runs formatting, linting, type checks, tests, the static build, and Lighthouse through `bun run ci`. Lighthouse writes its report index and supporting files to `dist-static/lighthouse`, keeping the reports with the site they measured.
+The `check` job installs dependencies and runs formatting, linting, type checks, tests, the static build, Lighthouse, and the Worker build through `bun run ci`. Lighthouse writes its report index and supporting files to `dist-static/lighthouse`, keeping the reports with the site they measured. The Cloudflare Vite plugin bundles the Worker and copies the audited static output into `.cloudflare/output`.
 
-For pull requests, the job stops after validation. For pushes to `main`, the same job passes the generated `dist-static` directory directly to the repository's pinned Wrangler version. No build artifact or second build is required.
+For pull requests, the job stops after validation. For pushes to `main`, `bun run deploy` packages the existing static output and deploys it with the repository's pinned `cf` CLI using `cf deploy --prebuilt`. Deployment does not rerun Astro or Lighthouse.
 
 Production deployment requires these GitHub Actions repository secrets:
 

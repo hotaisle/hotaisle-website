@@ -452,17 +452,6 @@ export class KittyGraphicsBridge {
 		if (!ownerWindow) {
 			return;
 		}
-		const terminal = this.grid.parentElement;
-		if (!terminal) {
-			return;
-		}
-		const styles = ownerWindow.getComputedStyle(terminal);
-		const cellWidth = Number.parseFloat(styles.getPropertyValue('--term-cell-width'));
-		const rowHeight = Number.parseFloat(styles.getPropertyValue('--term-row-height'));
-		if (!(cellWidth > 0 && rowHeight > 0)) {
-			return;
-		}
-
 		const placementKey = `${pending.imageKey}#${pending.placementId}`;
 		this.removePlacement(placementKey);
 		const objectUrl = ownerWindow.URL.createObjectURL(
@@ -473,10 +462,12 @@ export class KittyGraphicsBridge {
 		image.className = 'term-image';
 		image.draggable = false;
 		image.src = objectUrl;
-		image.style.height = `${pending.rows * rowHeight}px`;
-		image.style.left = `${placeholder.column * cellWidth}px`;
-		image.style.top = `${(this.core.getScrollbackCount() + placeholder.row) * rowHeight}px`;
-		image.style.width = `${pending.columns * cellWidth}px`;
+		// Use the same live metrics as wterm's cells. Pixel snapshots become stale
+		// when a font loads or the terminal changes its measured cell dimensions.
+		image.style.height = `calc(${pending.rows} * var(--term-row-height))`;
+		image.style.left = `calc(${placeholder.column} * var(--term-cell-width))`;
+		image.style.top = `calc(${this.core.getScrollbackCount() + placeholder.row} * var(--term-row-height))`;
+		image.style.width = `calc(${pending.columns} * var(--term-cell-width))`;
 		if (pending.zIndex !== undefined) {
 			image.style.zIndex = String(pending.zIndex);
 		}

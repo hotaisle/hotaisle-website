@@ -36,7 +36,7 @@ logs
 .dev*
 
 # cf
-.wrangler/*
+/.cloudflare/
 worker
 !src/worker/
 !src/worker/**

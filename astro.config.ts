@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
+import { wtermSourceMaps } from './scripts/vite_wterm_sourcemaps.ts';
 
 const LOCAL_TLS_CERT_PATH = path.resolve(import.meta.dirname, './.dev-localhost-cert.pem');
 const LOCAL_TLS_KEY_PATH = path.resolve(import.meta.dirname, './.dev-localhost-key.pem');
@@ -37,7 +38,7 @@ export default defineConfig({
 		optimizeDeps: {
 			exclude: ['@wterm/core', '@wterm/dom', '@wterm/ghostty'],
 		},
-		plugins: [tailwindcss()],
+		plugins: [wtermSourceMaps(), tailwindcss()],
 		resolve: {
 			alias: {
 				'@': path.resolve(import.meta.dirname, './src'),

@@ -20,10 +20,13 @@
 	},
 	"include": [
 		"astro.config.ts",
+		"cloudflare.config.ts",
+		"vite.config.ts",
 		"scripts/*.ts",
 		"src/content.config.ts",
 		"src/lib/**/*.ts",
 		"src/scripts/theme.ts",
+		"src/worker/**/*.test.ts",
 		"src/env.d.ts"
 	]
 }

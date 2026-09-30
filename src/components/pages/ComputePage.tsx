@@ -133,14 +133,20 @@ export default function ComputePage() {
 					</div>
 
 					<div className="mt-8 hidden gap-8 px-6 md:grid md:grid-cols-[0.55fr_1.45fr_0.7fr]">
-						<p className="col-start-3 pl-8 font-mono text-muted-foreground text-xs uppercase">
+						<p className="font-mono text-muted-foreground text-xs uppercase">
+							Component
+						</p>
+						<p className="pl-8 font-mono text-muted-foreground text-xs uppercase">
+							Description
+						</p>
+						<p className="pl-8 font-mono text-muted-foreground text-xs uppercase">
 							Total capacity
 						</p>
 					</div>
 					<div className="mt-3 grid gap-y-px bg-border">
 						{SPECS.map((spec) => (
 							<article
-								className="ha-inset-dividers ha-inset-dividers-md-3 grid gap-8 bg-background p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr] md:items-start"
+								className="ha-inset-dividers ha-inset-dividers-md-3 ha-specification-row grid gap-8 bg-background p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr]"
 								key={spec.name}
 							>
 								<div>

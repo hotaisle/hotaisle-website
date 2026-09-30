@@ -1,5 +1,20 @@
+diff --git a/lib/protocol/constants.js b/lib/protocol/constants.js
+index ad7759257d6bdbcafa353dec8946258d64c14eb0..af5e1c4637119878f2e3d9e2306ee93e55fe24ab 100644
+--- a/lib/protocol/constants.js
++++ b/lib/protocol/constants.js
+@@ -78,7 +78,9 @@ const SUPPORTED_SERVER_HOST_KEY = DEFAULT_SERVER_HOST_KEY.concat([
+
+ const canUseCipher = (() => {
+   const ciphers = crypto.getCiphers();
+-  return (name) => ciphers.includes(CIPHER_INFO[name].sslName);
++  // The Worker build does not initialize the optional Poly1305 WASM module.
++  return (name) => name !== 'chacha20-poly1305@openssh.com'
++                   && ciphers.includes(CIPHER_INFO[name].sslName);
+ })();
+ let DEFAULT_CIPHER = [
+   // http://tools.ietf.org/html/rfc5647
 diff --git a/lib/protocol/crypto.js b/lib/protocol/crypto.js
-index 851cc73817537c1eace3442c792bc1e5e5289cd2..2e2caea24c4e94d45c48ffc0a4256d79e978dad7 100644
+index 851cc73817537c1eace3442c792bc1e5e5289cd2..75be1ccfa0e8f18b297b2f6e33283b71dbcbab25 100644
 --- a/lib/protocol/crypto.js
 +++ b/lib/protocol/crypto.js
 @@ -26,11 +26,9 @@ let GenericCipher;
@@ -14,6 +29,33 @@ index 851cc73817537c1eace3442c792bc1e5e5289cd2..2e2caea24c4e94d45c48ffc0a4256d79
 +
 +// Cloudflare Workers cannot bundle or execute native Node.js addons. Leave the
 +// optional binding unset so ssh2 uses its built-in JavaScript crypto fallback.
- 
+
  const CIPHER_STREAM = 1 << 0;
  const CIPHER_INFO = (() => {
+@@ -1577,23 +1575,9 @@ module.exports = {
+   CIPHER_INFO,
+   MAC_INFO,
+   bindingAvailable: !!binding,
+-  init: (() => {
+-    // eslint-disable-next-line no-async-promise-executor
+-    return new Promise(async (resolve, reject) => {
+-      try {
+-        POLY1305_WASM_MODULE = await require('./crypto/poly1305.js')();
+-        POLY1305_RESULT_MALLOC = POLY1305_WASM_MODULE._malloc(16);
+-        poly1305_auth = POLY1305_WASM_MODULE.cwrap(
+-          'poly1305_auth',
+-          null,
+-          ['number', 'array', 'number', 'array', 'number', 'array']
+-        );
+-      } catch (ex) {
+-        return reject(ex);
+-      }
+-      resolve();
+-    });
+-  })(),
++  // Workers prohibit compiling the embedded Poly1305 WASM at runtime. The
++  // terminal uses AES-CTR; constants.js excludes the unavailable ChaCha cipher.
++  init: Promise.resolve(),
+
+   NullCipher,
+   createCipher,

@@ -5,14 +5,15 @@
 	"type": "module",
 	"scripts": {
 		"build": "bun run generate:images && astro build && bun run validate:static",
+		"build:worker": "vite build",
 		"check": "bun ./node_modules/ultracite/dist/index.js check && bun run check:imports && bun run typecheck && bun run lint:tailwind",
 		"check:imports": "bun run scripts/check_import_paths.ts",
-		"ci": "bun run check && bun run test && bun run lighthouse",
-		"deploy": "wrangler deploy --config wrangler.jsonc",
+		"ci": "bun run check && bun run test && bun run lighthouse && bun run build:worker",
+		"deploy": "bun run build:worker && CF_SEND_TELEMETRY=false cf deploy --prebuilt",
 		"dev": "bun run dev:tls && bun run generate:images && bun run scripts/run_dev.ts",
 		"dev:site": "ASTRO_DEV_BACKGROUND=false astro dev",
 		"dev:tls": "bun run scripts/ensure_dev_tls.ts",
-		"dev:worker": "wrangler dev --config wrangler.jsonc --port 4175 --https-key-path .dev-localhost-key.pem --https-cert-path .dev-localhost-cert.pem --log-level warn",
+		"dev:worker": "vite --port 4175 --logLevel warn",
 		"fix": "bun ./node_modules/ultracite/dist/index.js fix && bun run scripts/fix_tailwind_lint.ts",
 		"generate:images": "bun run scripts/generate_image_variants.ts && bun run scripts/sync_blog_assets.ts",
 		"generate:mermaid": "FORCE_MERMAID_DIAGRAM_GENERATION=true astro sync && bun run scripts/sync_blog_assets.ts",
@@ -20,7 +21,7 @@
 		"lint:tailwind": "bun run scripts/fix_tailwind_lint.ts --dry-run",
 		"machine-status:local": "bun run scripts/probe_machine_status_local.ts",
 		"machine-status:production": "bun run scripts/probe_machine_status_production.ts",
-		"preview": "LIGHTHOUSE_IF_CHANGED=true bun run lighthouse && wrangler dev --config wrangler.jsonc --https-key-path .dev-localhost-key.pem --https-cert-path .dev-localhost-cert.pem --log-level warn",
+		"preview": "LIGHTHOUSE_IF_CHANGED=true bun run lighthouse && bun run build:worker && vite preview --logLevel warn",
 		"test": "bun test",
 		"typecheck": "bun run tsc -b && bun run astro check",
 		"validate:static": "bun run scripts/validate_static.ts"
@@ -29,11 +30,11 @@
 		"@astrojs/react": "^7.0.0",
 		"@astrojs/sitemap": "^3.7.4",
 		"@tailwindcss/typography": "^0.5.20",
-		"@wterm/dom": "0.5.1",
-		"@wterm/ghostty": "0.5.1",
+		"@wterm/dom": "0.5.4",
+		"@wterm/ghostty": "0.5.4",
 		"astro": "^7.3.5",
 		"gray-matter": "^4.0.3",
-		"lucide-react": "^1.48.0",
+		"lucide-react": "^1.49.0",
 		"react": "19.3.0",
 		"react-dom": "19.3.0",
 		"rehype-autolink-headings": "^7.1.0",
@@ -49,6 +50,7 @@
 	"devDependencies": {
 		"@astrojs/check": "^0.9.10",
 		"@biomejs/biome": "^2.5.14",
+		"@cloudflare/vite-plugin": "2.0.0-beta.sha-ad79608dd",
 		"@tailwindcss/language-server": "^0.16.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"@types/node": "^26.6.3",
@@ -56,17 +58,18 @@
 		"@types/react-dom": "^19.3.0",
 		"@types/ssh2": "^1.15.6",
 		"bun-types": "^1.4.2",
+		"cf": "1.0.0-beta.5",
+		"happy-dom": "^20.14.5",
 		"lighthouse": "^13.5.0",
-		"sharp": "^0.35.4",
+		"sharp": "^0.35.5",
 		"tailwindcss": "^4.3.3",
 		"typescript": "^6.0.3",
-		"ultracite": "^7.12.0",
-		"vite": "8.3.1",
-		"wrangler": "^4.141.0"
+		"ultracite": "^7.12.2",
+		"vite": "8.3.1"
 	},
 	"packageManager": "bun@1.4.2",
 	"patchedDependencies": {
-		"@wterm/dom@0.5.1": "patches/@wterm%2Fdom@0.5.1.patch",
-		"ssh2@1.17.0": "patches/ssh2@1.17.0.patch"
+		"ssh2@1.17.0": "patches/ssh2@1.17.0.patch",
+		"@wterm/dom@0.5.4": "patches/@wterm%2Fdom@0.5.4.patch"
 	}
 }

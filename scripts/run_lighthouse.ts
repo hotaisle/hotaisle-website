@@ -53,10 +53,11 @@ const FINGERPRINT_FILES = [
 	'astro.config.ts',
 	'biome.jsonc',
 	'bun.lock',
+	'cloudflare.config.ts',
 	'package.json',
 	'tsconfig.json',
 	'tsconfig.node.json',
-	'wrangler.jsonc',
+	'vite.config.ts',
 ] as const;
 const FINGERPRINT_EXCLUDED_PATH_PREFIXES = ['public/assets/blog/'] as const;
 const REUSE_LIGHTHOUSE_ENVIRONMENT_VALUE = 'true';
