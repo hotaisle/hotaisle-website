@@ -301,10 +301,10 @@ describe('KittyGraphicsBridge', () => {
 		const [image] = imageLayer.children;
 		expect(image.className).toBe('term-image');
 		expect(image.style).toMatchObject({
-			height: '144px',
-			left: '24px',
-			top: '80px',
-			width: '144px',
+			height: 'calc(9 * var(--term-row-height))',
+			left: 'calc(3 * var(--term-cell-width))',
+			top: 'calc(5 * var(--term-row-height))',
+			width: 'calc(18 * var(--term-cell-width))',
 		});
 		expect(image.src).toBe('blob:test-1');
 

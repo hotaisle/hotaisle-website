@@ -1,4 +1,4 @@
 export const GHOSTTY_WASM_SHA256 =
-	'c45205b70dbfd9b2510ea7186f05772db35f78ffa0da7586b2f85cc1a2e201f3';
+	'da382d54a9d1115e994802c90411e754fc1f7d090e3a28b34b465b187f41be6d';
 export const GHOSTTY_WASM_PATH =
 	`/assets/terminal/ghostty-vt.wasm?v=${GHOSTTY_WASM_SHA256}` as const;
