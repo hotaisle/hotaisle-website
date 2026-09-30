@@ -26,6 +26,7 @@
 		"src/content.config.ts",
 		"src/lib/**/*.ts",
 		"src/scripts/theme.ts",
+		"src/worker/**/*.test.ts",
 		"src/env.d.ts"
 	]
 }
