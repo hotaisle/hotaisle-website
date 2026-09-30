@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { cloudflare } from '@cloudflare/vite-plugin';
 import { defineConfig } from 'vite';
+import { httpsWebSockets } from './scripts/vite_https_websockets.ts';
 
 const PROJECT_ROOT = import.meta.dirname;
 const LOCAL_PORT = 4174;
@@ -27,7 +28,7 @@ export default defineConfig(({ command }) => {
 			__dirname: JSON.stringify('/'),
 			__filename: JSON.stringify('/worker.js'),
 		},
-		plugins: [cloudflare({ types: { generate: false } })],
+		plugins: [httpsWebSockets(), cloudflare({ types: { generate: false } })],
 		preview: { host: 'localhost', https, port: LOCAL_PORT, strictPort: true },
 		// Astro owns the static build; copy its audited output without transforming it.
 		publicDir: 'dist-static',
