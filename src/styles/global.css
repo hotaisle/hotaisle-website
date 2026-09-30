@@ -223,6 +223,13 @@ main
 	display: block;
 }
 
+.ha-inset-dividers.ha-specification-row > *::before {
+	top: 50%;
+	bottom: auto;
+	height: 4rem;
+	transform: translateY(-50%);
+}
+
 @media (min-width: 40rem) {
 	.ha-inset-dividers-sm-2 > :nth-child(n)::before {
 		display: none;
