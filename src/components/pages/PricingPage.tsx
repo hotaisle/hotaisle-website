@@ -81,7 +81,7 @@ export default function PricingPage() {
 								{MI300X_BARE_METAL_PRICE}
 							</p>
 							<p className="mt-2 text-muted-foreground text-sm">
-								Dedicated full-node access.
+								Dedicated full-node access, billed by the minute.
 							</p>
 						</div>
 					</div>
