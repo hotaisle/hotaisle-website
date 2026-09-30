@@ -20,6 +20,8 @@
 	},
 	"include": [
 		"astro.config.ts",
+		"cloudflare.config.ts",
+		"vite.config.ts",
 		"scripts/*.ts",
 		"src/content.config.ts",
 		"src/lib/**/*.ts",

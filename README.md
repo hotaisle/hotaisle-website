@@ -57,9 +57,10 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - `bun run check` runs formatting, import and Tailwind checks, TypeScript, and Astro diagnostics.
 - `bun run test` runs the test suite.
 - `bun run build` generates and validates all Astro static pages used for deploys.
+- `bun run build:worker` bundles the Worker and copies the existing `dist-static` output into `.cloudflare/output` for deployment.
 - `bun run lighthouse` builds and audits the static site, then writes the reports to `dist-static/lighthouse`.
 - `bun run ci` runs the complete local equivalent of the CI validation job, including Lighthouse.
-- `bun run deploy` deploys the existing `dist-static` output through Wrangler. GitHub Actions builds, validates, audits, and then deploys that exact output on pushes to `main`.
+- `bun run deploy` packages the existing `dist-static` output and deploys it through `cf deploy --prebuilt`. GitHub Actions builds, validates, audits, and then deploys that exact static output on pushes to `main`.
 - `bun run generate:mermaid` refreshes committed Mermaid diagram assets after diagram source changes.
 - `bun run preview` builds the site, refreshes Lighthouse only when relevant inputs changed, includes the reports at `/lighthouse`, and serves the complete static output with the local Cloudflare Worker over HTTPS at `https://localhost:4174`.
 - `bun run machine-status:local` posts a sample machine-status event to the local Worker.
@@ -67,7 +68,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 
 ### Previewing with the Worker (WSS / machine-status)
 
-`bun run preview` generates the production-equivalent site, reuses the last complete Lighthouse report set when its inputs are unchanged, then starts Wrangler with the generated localhost TLS certificate. Wrangler serves the static assets, reports, and these Worker endpoints from the same origin:
+`bun run preview` generates the production-equivalent site, reuses the last complete Lighthouse report set when its inputs are unchanged, then packages and previews the deployment with the Cloudflare Vite plugin and generated localhost TLS certificate. The preview serves the static assets, reports, and these Worker endpoints from the same origin:
 
 ```bash
 bun run preview
@@ -77,6 +78,8 @@ bun run preview
 - `GET /api/ws`
 
 Preview cannot run alongside `bun run dev` because both use port 4174.
+
+Cloudflare configuration lives in `cloudflare.config.ts`; `vite.config.ts` configures Worker bundling, static assets, and local HTTPS. The `cf` CLI and Cloudflare Vite v2 plugin are pinned to matching beta releases. Worker development and builds invoke Vite directly so framework detection does not select Astro's separate static-site commands. Local Worker secrets continue to load from the ignored `.dev.vars` file. Generated deployment output and local state live in the ignored `.cloudflare` directory.
 
 ### Realtime machine-status events
 
@@ -181,7 +184,8 @@ hotaisle-website/
 │   ├── scripts/         # Browser-side initialization scripts
 │   ├── styles/          # Global and route-specific styles
 │   └── worker/          # Cloudflare Worker entrypoint and Durable Object
-├── wrangler.jsonc       # Cloudflare Worker config
+├── cloudflare.config.ts # Cloudflare Worker config
+├── vite.config.ts       # Worker build and local HTTPS config
 └── dist-static/         # Generated deploy output
 ```
 
