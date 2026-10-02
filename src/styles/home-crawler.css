@@ -1,0 +1,79 @@
+.home-crawler {
+	--crawler-body: #35444b;
+	--crawler-chassis: #17242a;
+	--crawler-scan: #367b86;
+	position: absolute;
+	inset: 0;
+	z-index: 20;
+	overflow: hidden;
+	color: #61757e;
+	pointer-events: none;
+	user-select: none;
+}
+
+.dark .home-crawler {
+	--crawler-body: #263942;
+	--crawler-chassis: #0c171e;
+	--crawler-scan: #7ab9c7;
+	color: #78939f;
+}
+
+.home-crawler svg {
+	display: block;
+	visibility: hidden;
+	width: 100%;
+	height: 100%;
+	opacity: 0.8;
+}
+
+.home-crawler[data-ready] svg {
+	visibility: visible;
+}
+
+.home-crawler-shadow {
+	opacity: 0.2;
+	fill: #030a0e;
+}
+
+.home-crawler-chassis {
+	fill: var(--crawler-chassis);
+}
+
+.home-crawler-shell {
+	fill: var(--crawler-body);
+}
+
+.home-crawler-joint {
+	fill: currentColor;
+}
+
+.home-crawler-vents {
+	opacity: 0.55;
+}
+
+.home-crawler-core {
+	fill: #e6a65b;
+}
+
+.home-crawler-beam {
+	fill: var(--crawler-scan);
+}
+
+.home-crawler-scan {
+	stroke: var(--crawler-scan);
+}
+
+.home-crawler-probe {
+	opacity: 0.8;
+}
+
+.home-crawler-contact {
+	fill: #e6a65b;
+	stroke: #e6a65b;
+}
+
+@media print {
+	.home-crawler {
+		display: none;
+	}
+}

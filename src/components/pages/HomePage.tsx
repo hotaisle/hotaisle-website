@@ -1,4 +1,5 @@
 import { AppLink } from '@/components/AppLink.tsx';
+import { HomeCrawler } from '@/components/home/HomeCrawler.tsx';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
@@ -166,6 +167,7 @@ export default function Home() {
 							src="/assets/home/automated-inference-platform-dark.png"
 							width={1600}
 						/>
+						<HomeCrawler />
 					</figure>
 				</div>
 			</section>
