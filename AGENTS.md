@@ -8,6 +8,7 @@ Agents must follow:
 - Keep max allowed context/cache window.
 - Be friendly but cold. No praise or filler.
 - Minimize token usage. Don’t over-explain.
+- Never add decorative eyebrow headings or numbered section labels such as "01 / Earn the demand" to pages. Use the descriptive section heading directly, without a redundant label above it.
 - Ask for clarification if instructions are ambiguous.
 - When unsure, prefer retrieval-led reasoning over pre-training-led reasoning
 - Write code that is **accessible, performant, type-safe, and maintainable**. Focus on clarity and explicit intent over brevity.
