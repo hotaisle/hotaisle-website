@@ -5,10 +5,10 @@ import { createPageMetadata } from '@/lib/metadata.ts';
 
 const EXPANSION_STORY = '/blog/case-for-small-distributed-on-demand-ai-compute';
 const OPERATING_PROOF = [
-	{ label: 'An operating business today', value: 'Profitable' },
+	{ label: 'Not just revenue', value: 'Profitable' },
 	{ label: 'Customers served', value: '700+' },
 	{ label: 'Building and operating', value: '3 years' },
-	{ label: 'Backlog of requests for compute', value: '2,000+ MI355X' },
+	{ label: 'Backlog of compute requests', value: '2,000+ MI355X' },
 ] as const;
 
 const STORY_CHAPTERS = [
@@ -115,10 +115,12 @@ export default function InvestorsPage() {
 				aria-label="Our operating track record"
 				className="border-border border-b bg-muted/35"
 			>
-				<dl className="ha-inset-dividers ha-inset-dividers-sm-2 ha-inset-dividers-lg-4 mx-auto grid max-w-7xl sm:grid-cols-2 lg:grid-cols-4">
+				<dl className="ha-inset-dividers ha-inset-dividers-sm-2 ha-inset-dividers-xl-4 mx-auto grid max-w-7xl sm:grid-cols-2 xl:grid-cols-4">
 					{OPERATING_PROOF.map(({ label, value }) => (
 						<div className="flex flex-col gap-3 px-5 py-7 lg:px-8" key={label}>
-							<dt className="text-lg text-muted-foreground leading-7">{label}</dt>
+							<dt className="whitespace-nowrap text-lg text-muted-foreground leading-7">
+								{label}
+							</dt>
 							<dd className="order-first font-mono text-3xl">{value}</dd>
 						</div>
 					))}
