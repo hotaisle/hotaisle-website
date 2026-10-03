@@ -1,78 +1,49 @@
-import { ArrowRight, Landmark, Waypoints } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
+const EXPANSION_STORY = '/blog/case-for-small-distributed-on-demand-ai-compute';
 const OPERATING_PROOF = [
-	{
-		detail: 'Equity, strategic investment, and asset finance can all play a role in funding the deployment.',
-		label: 'Target raise',
-		value: '$50–100M',
-	},
-	{
-		detail: 'Customer requests for MI355X capacity already exceed what we can deploy with the capital available today.',
-		label: 'MI355X demand',
-		value: '$50M+',
-	},
-	{
-		detail: 'Customers around the world have used the platform for compute without procurement drag.',
-		label: 'Customers served',
-		value: '700+',
-	},
-	{
-		detail: 'Hot Aisle has spent nearly three years operating, refining, and learning from real production workloads.',
-		label: 'Operating in production',
-		value: '3 years',
-	},
-	{
-		detail: 'Existing MI300X capacity is fully utilized, with additional customer demand waiting on hardware.',
-		label: 'Current capacity utilized',
-		value: '100%',
-	},
+	{ label: 'An operating business today', value: 'Profitable' },
+	{ label: 'Customers served', value: '700+' },
+	{ label: 'Building and operating', value: '3 years' },
+	{ label: 'Backlog of requests for compute', value: '2,000+ MI355X' },
 ] as const;
 
-const EXPANSION_MODEL = [
+const STORY_CHAPTERS = [
 	{
-		description:
-			'Compact, repeatable inference deployments in more data centers, placed near the teams and jurisdictions that need them.',
-		title: 'Distributed by design',
+		id: 'customers',
+		paragraphs: [
+			'Our mission is to make powerful, reliable AI compute easy to access. We are obsessive about building what customers want to pay for. Their workloads, feedback, and willingness to come back guide what we build next.',
+			'That means removing friction at every step. Customers can fund an account, provision compute, and get to work without a sales process or a long-term contract. Three years of listening and delivering have built a profitable business, a broad customer base, and a queue for MI355X capacity.',
+		],
+		title: 'Build what customers choose.',
 	},
 	{
-		description:
-			'Existing automation brings networking, PXE boot, operating systems, ROCm, and KVM isolation online without rebuilding the process at every site.',
-		title: 'A repeatable unit',
+		id: 'operations',
+		paragraphs: [
+			'Reliability is earned in daily operation. We run the infrastructure, support the people using it, and turn what production teaches us into a better service. Enterprise hardware, direct support, and SOC 2 Type 2 compliance are part of that discipline.',
+			'We have spent three years automating the business: provisioning, networking, access, payments, usage tracking, billing, and returning capacity to inventory. Customers get a simpler experience, and a lean team can operate more infrastructure with fewer manual handoffs.',
+		],
+		title: 'Make reliability repeatable.',
 	},
 	{
-		description:
-			'Partner relationships across hardware, networking, and deployment reduce execution risk before a new location is brought online.',
-		title: 'De-risked with partners',
-	},
-] as const;
-
-const OPERATING_HISTORY = [
-	{
-		detail: 'Prior experience operating an Ethereum cluster at a scale that made every part of the stack consequential.',
-		metric: '150,000',
-		title: 'AMD GPUs at W3BCloud',
-	},
-	{
-		detail: 'Experience operating durable, high-throughput storage alongside large-scale compute infrastructure.',
-		metric: '20 PB',
-		title: 'Filecoin storage cluster',
-	},
-	{
-		detail: 'Hardware, storage, networking, orchestration, and the operations needed to keep all of it useful.',
-		metric: 'Full stack',
-		title: 'Operational depth',
+		id: 'expansion',
+		paragraphs: [
+			'We have designed the business to limit risk. Prepaid usage and demand spread across hundreds of customers reduce dependence on a handful of large contracts. Smaller deployments limit the capital exposed at any one site, while trusted infrastructure partners help us bring capacity online.',
+			'We operate from one location today. The next iteration adds MI355X capacity and expands through manageable clusters near available power and customer demand. Each deployment should prove its economics before we repeat it. Over time, that builds a distributed AI cloud with more choice in hardware, location, and control over where workloads run.',
+		],
+		title: 'Expand one proven deployment at a time.',
 	},
 ] as const;
 
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
-			'Hot Aisle is raising $50–100 million to deploy AMD MI355X capacity through repeatable, globally distributed sovereign inference infrastructure.',
+			'Back the next chapter of Hot Aisle: a profitable AI compute business with 700+ customers, three years of execution, and demand waiting for MI355X capacity.',
 		image: '/assets/investors/global-inference-network.png',
-		imageAlt: 'Global network of distributed Hot Aisle inference deployments',
+		imageAlt: 'A vision of regional Hot Aisle compute deployments connected around the world',
 		path: '/investors',
 		title: 'Investors | Hot Aisle',
 	});
@@ -80,214 +51,153 @@ export function generateMetadata() {
 
 export default function InvestorsPage() {
 	return (
-		<div className="overflow-x-hidden bg-background text-foreground">
-			<section className="border-border border-b">
-				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8 lg:py-16">
-					<div className="max-w-3xl">
-						<h1 className="font-semibold text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
-							Built patiently. Ready to deploy
+		<div className="bg-background text-foreground">
+			<section aria-labelledby="investors-heading" className="border-border border-b">
+				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:px-8 lg:py-16">
+					<div>
+						<h1
+							className="max-w-2xl font-semibold text-5xl leading-[1.04] sm:text-6xl lg:text-7xl"
+							id="investors-heading"
+						>
+							Back the next chapter of Hot Aisle.
 						</h1>
-						<p className="mt-7 max-w-2xl text-muted-foreground text-xl leading-9 sm:text-2xl">
-							Hot Aisle has spent nearly three years operating developer-first AMD
-							infrastructure for more than 700 customers. We are raising $50–100
-							million to turn proven demand into deployed MI355X capacity.
+						<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-7">
+							We have built a profitable business by making reliable AI compute easier
+							to use. Now we are looking for people who share our mission and want to
+							help us expand. Compute infrastructure requires substantial capital, and
+							we need backing to secure leases supported by the earnings our business
+							already generates.
 						</p>
-						<div className="mt-10 flex flex-wrap gap-3">
+						<div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
 							<AppLink
-								className="inline-flex min-h-12 items-center gap-2 bg-foreground px-6 py-3 font-medium text-background text-base transition-opacity hover:opacity-80"
+								className="inline-flex min-h-12 items-center gap-2 bg-foreground px-6 py-3 font-medium text-background text-lg transition-opacity hover:opacity-80"
 								href="/contact"
 							>
-								Discuss the raise <ArrowRight className="h-4 w-4" />
+								Start a conversation{' '}
+								<ArrowRight aria-hidden="true" className="h-4 w-4" />
+							</AppLink>
+							<AppLink
+								className="inline-flex min-h-12 items-center gap-2 font-medium text-lg underline decoration-current/35 underline-offset-4 hover:text-hot-orange-contrast"
+								href={EXPANSION_STORY}
+							>
+								Read our approach{' '}
+								<ArrowRight aria-hidden="true" className="h-4 w-4" />
 							</AppLink>
 						</div>
 					</div>
-
-					<figure className="relative mx-auto w-full max-w-3xl lg:mr-0">
-						<div className="pointer-events-none absolute inset-3 border border-hot-orange/25" />
+					<figure className="mx-auto w-full max-w-3xl">
 						<OptimizedImage
-							alt="3D pixel-art map of distributed inference infrastructure"
-							className="relative aspect-16/10 w-full object-cover dark:hidden"
+							alt="Pixel-art map illustrating a future network of regional Hot Aisle compute deployments"
+							className="aspect-16/10 w-full object-cover"
 							height={900}
-							sizes="(max-width: 1024px) 100vw, 56vw"
+							pictureClassName="dark:hidden"
+							sizes="(max-width: 1024px) 100vw, 50vw"
 							src="/assets/investors/global-inference-network.png"
 							width={1600}
 						/>
 						<OptimizedImage
-							alt=""
-							aria-hidden="true"
-							className="relative hidden aspect-16/10 w-full object-cover dark:block"
+							alt="Pixel-art map illustrating a future network of regional Hot Aisle compute deployments"
+							className="aspect-16/10 w-full object-cover"
 							height={900}
-							sizes="(max-width: 1024px) 100vw, 56vw"
+							pictureClassName="hidden dark:block"
+							sizes="(max-width: 1024px) 100vw, 50vw"
 							src="/assets/investors/global-inference-network-dark.png"
 							width={1600}
 						/>
+						<figcaption className="mt-3 border-border border-t pt-3 font-mono text-lg text-muted-foreground leading-7">
+							The ambition: useful compute, in more places.
+						</figcaption>
 					</figure>
 				</div>
 			</section>
 
-			<section className="border-border border-b bg-muted/35">
-				<div className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
-					<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-xl-5 grid gap-y-px border border-border bg-border md:grid-cols-2 xl:grid-cols-5">
-						{OPERATING_PROOF.map((point) => (
-							<article className="bg-background p-7" key={point.label}>
-								<p className="font-mono text-3xl">{point.value}</p>
-								<h2 className="mt-4 font-medium text-xl">{point.label}</h2>
-								<p className="mt-3 max-w-sm text-lg text-muted-foreground leading-8">
-									{point.detail}
-								</p>
-							</article>
-						))}
-					</div>
-				</div>
-			</section>
-
-			<section className="border-border border-b">
-				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-20">
-					<div>
-						<h2 className="max-w-xl font-semibold text-5xl leading-[1.04] sm:text-6xl">
-							Inference needs sovereignty, not just scale
-						</h2>
-					</div>
-					<div className="max-w-3xl space-y-7 text-muted-foreground text-xl leading-9">
-						<p>
-							The next generation of useful software will be built around tokens: a
-							practical unit of intelligence that products can request, measure, and
-							ship. Even if the market overcorrects, we do not believe the world
-							returns to building software without models in the loop.
-						</p>
-						<p>
-							We use AI deeply in our own engineering workflow. With experienced
-							operators directing it, AI gives a small team unusual leverage: faster
-							iteration, stronger review loops, and more time for the hard systems
-							work that cannot be delegated.
-						</p>
-						<p>
-							Sovereign inference gives organizations a credible answer to where their
-							models run, where their data stays, and who can operate the environment.
-							Open-source models make that control practical. Hot Aisle exists to make
-							that choice straightforward for teams that need it.
-						</p>
-					</div>
-				</div>
-			</section>
-
-			<section className="border-border border-b bg-muted/70">
-				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="max-w-xl font-semibold text-5xl leading-[1.04] sm:text-6xl">
-							Small deployments. Global reach
-						</h2>
-						<p className="max-w-3xl text-muted-foreground text-xl leading-9">
-							We are not pursuing one giant deployment and hoping demand follows. We
-							will grow through smaller inference-focused sites, each able to serve a
-							regional market with the same platform and operating discipline.
-						</p>
-					</div>
-					<div className="mt-8 border-border border-t">
-						{EXPANSION_MODEL.map((point) => (
-							<article
-								className="grid gap-4 border-border border-b py-7 sm:grid-cols-[11rem_1fr]"
-								key={point.title}
-							>
-								<h3 className="font-medium text-xl">{point.title}</h3>
-								<p className="text-lg text-muted-foreground leading-8">
-									{point.description}
-								</p>
-							</article>
-						))}
-					</div>
-				</div>
-			</section>
-
-			<section className="border-border border-b">
-				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-						<div>
-							<h2 className="max-w-lg font-semibold text-5xl leading-[1.04] sm:text-6xl">
-								We know the machinery underneath
-							</h2>
+			<section
+				aria-label="Our operating track record"
+				className="border-border border-b bg-muted/35"
+			>
+				<dl className="ha-inset-dividers ha-inset-dividers-sm-2 ha-inset-dividers-lg-4 mx-auto grid max-w-7xl sm:grid-cols-2 lg:grid-cols-4">
+					{OPERATING_PROOF.map(({ label, value }) => (
+						<div className="flex flex-col gap-3 px-5 py-7 lg:px-8" key={label}>
+							<dt className="text-lg text-muted-foreground leading-7">{label}</dt>
+							<dd className="order-first font-mono text-3xl">{value}</dd>
 						</div>
-						<p className="max-w-3xl text-muted-foreground text-xl leading-9">
-							Our decades of experience, prior infrastructure work at W3BCloud, and
-							three years operating a{' '}
-							<a
-								aria-haspopup="dialog"
-								className="text-hot-orange-contrast underline decoration-current/35 underline-offset-4 transition-colors hover:text-hot-orange"
-								data-image-modal="true"
-								data-image-modal-alt="SemiAnalysis GPU Cloud ClusterMAX rating with Hot Aisle highlighted in the bronze tier"
-								data-image-modal-height="1574"
-								data-image-modal-src="/assets/investors/clustermax-neocloud-ranking-v2.1.jpg"
-								data-image-modal-width="3132"
-								href="/assets/investors/clustermax-neocloud-ranking-v2.1.jpg"
-							>
-								bronze-tier neocloud
-							</a>{' '}
-							taught us how compute, storage, and networking behave when the scale is
-							real. That experience shapes how we design every customer environment
-							and every new deployment.
-						</p>
-					</div>
-					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid border-border border-t md:grid-cols-3">
-						{OPERATING_HISTORY.map((item, index) => (
-							<article
-								className={`border-border border-b py-7 ${index ? 'md:pl-7' : 'md:pr-7'}`}
-								key={item.title}
-							>
-								<p className="font-mono text-3xl">{item.metric}</p>
-								<h3 className="mt-4 font-medium text-xl">{item.title}</h3>
-								<p className="mt-3 max-w-sm text-lg text-muted-foreground leading-8">
-									{item.detail}
-								</p>
-							</article>
-						))}
-					</div>
-				</div>
+					))}
+				</dl>
 			</section>
 
-			<section className="border-border border-b bg-muted/35">
-				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-20">
-					<div className="flex gap-4">
-						<Landmark
-							aria-hidden="true"
-							className="mt-1 h-6 w-6 shrink-0 text-hot-orange-contrast"
-						/>
-						<div>
-							<h2 className="font-semibold text-4xl leading-[1.06] sm:text-5xl">
-								$50–100 million for deployable MI355X capacity
-							</h2>
-						</div>
-					</div>
-					<div className="max-w-3xl space-y-7 text-muted-foreground text-xl leading-9">
-						<p>
-							Hot Aisle is raising $50–100 million across equity, strategic
-							investment, and asset finance. The capital will purchase AMD MI355X
-							systems and fund the networking, rack integration, and site deployment
-							required to bring each regional unit online.
-						</p>
-						<p>
-							We have more than $50 million in customer requests for MI355X capacity.
-							The constraint is access to hardware, not demand for the platform. We
-							bring the operating software, deployment experience, partner
-							relationships, and customers. The right capital turns that foundation
-							into available capacity.
-						</p>
-					</div>
-				</div>
-			</section>
-
-			<section>
-				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8 lg:py-20">
-					<div>
-						<h2 className="max-w-4xl font-semibold text-5xl leading-[1.04] sm:text-7xl">
-							Let&apos;s build a verifiably secure sovereign inference cloud
-						</h2>
-					</div>
-					<AppLink
-						className="inline-flex min-h-12 items-center gap-2 bg-hot-orange px-6 py-3 font-medium text-base text-white transition-opacity hover:opacity-85"
-						href="/contact"
+			<div className="mx-auto max-w-7xl px-5 lg:px-8">
+				{STORY_CHAPTERS.map(({ id, title, paragraphs }) => (
+					<section
+						aria-labelledby={`${id}-heading`}
+						className="grid gap-6 border-border border-b py-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:py-12"
+						key={id}
 					>
-						<Waypoints className="h-4 w-4" /> Discuss the opportunity
-					</AppLink>
+						<div>
+							<h2
+								className="max-w-lg font-semibold text-3xl sm:text-4xl"
+								id={`${id}-heading`}
+							>
+								{title}
+							</h2>
+						</div>
+						<div className="max-w-2xl space-y-5 text-lg text-muted-foreground leading-7">
+							{paragraphs.map((paragraph) => (
+								<p key={paragraph}>{paragraph}</p>
+							))}
+						</div>
+					</section>
+				))}
+
+				<aside
+					aria-labelledby="expansion-story-heading"
+					className="my-10 border border-border bg-muted/35 p-6 sm:p-8"
+				>
+					<h2 className="font-medium text-2xl sm:text-3xl" id="expansion-story-heading">
+						<AppLink
+							className="underline decoration-current/25 underline-offset-4 hover:text-hot-orange-contrast"
+							href={EXPANSION_STORY}
+						>
+							The Case for Small, Distributed, On-Demand AI Compute
+						</AppLink>
+					</h2>
+					<p className="mt-3 max-w-3xl text-lg text-muted-foreground">
+						Jon Stevens on the operating model, automation, and discipline behind the
+						expansion.
+					</p>
+				</aside>
+			</div>
+
+			<section
+				aria-labelledby="backing-heading"
+				className="border-border border-t bg-muted/35"
+			>
+				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:px-8 lg:py-16">
+					<h2
+						className="max-w-lg font-semibold text-4xl sm:text-5xl"
+						id="backing-heading"
+					>
+						Help us take the next step.
+					</h2>
+					<div className="max-w-2xl">
+						<p className="text-lg text-muted-foreground leading-7">
+							We are looking for backing that helps us keep building: aligned capital,
+							equipment partnerships, and access to power and data-center space. We
+							bring a profitable operation, an automated platform, and customers ready
+							for more.
+						</p>
+						<p className="mt-5 text-lg text-muted-foreground leading-7">
+							If you believe in accessible, reliable AI compute and want to back a
+							team that has spent three years executing, let&apos;s talk about what we
+							can build together.
+						</p>
+						<AppLink
+							className="mt-7 inline-flex min-h-12 items-center gap-2 bg-foreground px-6 py-3 font-medium text-background text-lg transition-opacity hover:opacity-80"
+							href="/contact"
+						>
+							Talk about the next chapter{' '}
+							<ArrowRight aria-hidden="true" className="h-4 w-4" />
+						</AppLink>
+					</div>
 				</div>
 			</section>
 		</div>
