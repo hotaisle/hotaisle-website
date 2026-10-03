@@ -207,11 +207,11 @@ export default function QuickStartPage() {
 					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
 						{FIRST_LAUNCH_STEPS.map((step, index) => (
 							<div className="bg-background p-6" key={step.title}>
-								<p className="font-mono text-2xl text-hot-orange-contrast">
-									{String(index + 1).padStart(2, '0')}
-								</p>
-								<h3 className="mt-8 font-bold text-2xl text-foreground">
-									{step.title}
+								<h3 className="flex items-baseline gap-3 font-bold text-2xl text-foreground">
+									<span className="shrink-0 font-mono font-normal text-hot-orange-contrast">
+										{String(index + 1).padStart(2, '0')}
+									</span>
+									<span>{step.title}</span>
 								</h3>
 								<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
 									{step.description}
