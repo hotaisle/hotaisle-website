@@ -30,16 +30,16 @@ const DEFAULT_PUBLIC_BASE_URL = 'https://hotaisle.xyz/';
 const DEFAULT_STATIC_DIRECTORY = './dist-static';
 const LIGHTHOUSE_REPORT_INDEX_PATH = '/lighthouse';
 const MANIFEST_FILE_NAME = 'manifest.json';
-const PATH_SEPARATOR_REGEX = /\\/g;
-const LEADING_SLASHES_REGEX = /^\/+/;
+const PATH_SEPARATOR_REGEX = /\\/gu;
+const LEADING_SLASHES_REGEX = /^\/+/u;
 const SCORE_CATEGORY_IDS = ['performance', 'accessibility', 'best-practices', 'seo'] as const;
-const CHROME_FLAG_TOKEN_REGEX = /"[^"]*"|'[^']*'|[^\s]+/g;
+const CHROME_FLAG_TOKEN_REGEX = /"[^"]*"|'[^']*'|[^\s]+/gu;
 const HEADLESS_CHROME_FLAGS = [
 	'--headless=new',
 	'--no-first-run',
 	'--allow-insecure-localhost',
 ] as const;
-const DUPLICATE_SLASHES_REGEX = /\/{2,}/g;
+const DUPLICATE_SLASHES_REGEX = /\/{2,}/gu;
 const PROJECT_ROOT = path.join(import.meta.dirname, '..');
 const LOCAL_TLS_CERT_PATH = path.join(PROJECT_ROOT, '.dev-localhost-cert.pem');
 const LOCAL_TLS_KEY_PATH = path.join(PROJECT_ROOT, '.dev-localhost-key.pem');
@@ -277,7 +277,7 @@ function parseChromeFlags(chromeFlags: string | undefined): string[] {
 	}
 
 	const tokens = chromeFlags.match(CHROME_FLAG_TOKEN_REGEX) ?? [];
-	const normalizedFlags = tokens.map((token) => token.replace(/^['"]|['"]$/g, ''));
+	const normalizedFlags = tokens.map((token) => token.replace(/^['"]|['"]$/gu, ''));
 
 	for (const requiredFlag of HEADLESS_CHROME_FLAGS) {
 		const [requiredFlagName] = requiredFlag.split('=');
@@ -335,10 +335,10 @@ function getSummary(lhr: LighthouseRunResult['lhr']): LighthouseSummary {
 
 function getRelativeReportStem(url: string, runIndex: number): string {
 	const { pathname } = new URL(url);
-	const normalizedPathname = pathname === '/' ? 'home' : pathname.replace(/^\/+|\/+$/g, '');
+	const normalizedPathname = pathname === '/' ? 'home' : pathname.replace(/^\/+|\/+$/gu, '');
 	const fileSafePathname = normalizedPathname
 		.replaceAll('/', '--')
-		.replace(/[^a-zA-Z0-9-_]/g, '-');
+		.replace(/[^a-zA-Z0-9-_]/gu, '-');
 
 	return `${fileSafePathname}-run-${runIndex + 1}`;
 }

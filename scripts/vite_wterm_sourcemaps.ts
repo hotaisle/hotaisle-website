@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { normalizePath, type Plugin } from 'vite';
 
-const WTERM_MODULE_PATTERN = /\/node_modules\/@wterm\/(?:core|dom|ghostty)\/dist\/[^?#]+\.js$/;
-const SOURCE_MAP_COMMENT_PATTERN = /^[\t ]*\/\/[#@][\t ]*sourceMappingURL=[^\r\n]*/gm;
+const WTERM_MODULE_PATTERN = /\/node_modules\/@wterm\/(?:core|dom|ghostty)\/dist\/[^?#]+\.js$/u;
+const SOURCE_MAP_COMMENT_PATTERN = /^[\t ]*\/\/[#@][\t ]*sourceMappingURL=[^\r\n]*/gmu;
 
 // wterm publishes maps without their TypeScript sources or sourcesContent.
 // Load its distributed JS directly so Vite does not follow those broken maps.

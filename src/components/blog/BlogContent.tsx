@@ -11,9 +11,9 @@ function HotAisleFooter() {
 	return (
 		<section
 			aria-labelledby="contribute-to-hot-aisle"
-			className="mt-12 border-border border-t pt-8"
+			className="border-border mt-12 border-t pt-8"
 		>
-			<h2 className="mb-4 font-bold text-2xl" id="contribute-to-hot-aisle">
+			<h2 className="mb-4 text-2xl font-bold" id="contribute-to-hot-aisle">
 				Contribute to Hot Aisle
 			</h2>
 			<p className="mb-4">

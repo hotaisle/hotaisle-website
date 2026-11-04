@@ -56,12 +56,12 @@ export default function InvestorsPage() {
 				<div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:px-8 lg:py-16">
 					<div>
 						<h1
-							className="max-w-2xl font-semibold text-5xl leading-[1.04] sm:text-6xl lg:text-7xl"
+							className="max-w-2xl text-5xl leading-[1.04] font-semibold sm:text-6xl lg:text-7xl"
 							id="investors-heading"
 						>
 							Back the next chapter of Hot Aisle.
 						</h1>
-						<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-7">
+						<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-7">
 							We have built a profitable business by making reliable AI compute easier
 							to use. Now we are looking for people who share our mission and want to
 							help us expand. Compute infrastructure requires substantial capital, and
@@ -70,14 +70,14 @@ export default function InvestorsPage() {
 						</p>
 						<div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
 							<AppLink
-								className="inline-flex min-h-12 items-center gap-2 bg-foreground px-6 py-3 font-medium text-background text-lg transition-opacity hover:opacity-80"
+								className="bg-foreground text-background inline-flex min-h-12 items-center gap-2 px-6 py-3 text-lg font-medium transition-opacity hover:opacity-80"
 								href="/contact"
 							>
 								Start a conversation{' '}
 								<ArrowRight aria-hidden="true" className="h-4 w-4" />
 							</AppLink>
 							<AppLink
-								className="inline-flex min-h-12 items-center gap-2 font-medium text-lg underline decoration-current/35 underline-offset-4 hover:text-hot-orange-contrast"
+								className="hover:text-hot-orange-contrast inline-flex min-h-12 items-center gap-2 text-lg font-medium underline decoration-current/35 underline-offset-4"
 								href={EXPANSION_STORY}
 							>
 								Read our approach{' '}
@@ -104,7 +104,7 @@ export default function InvestorsPage() {
 							src="/assets/investors/global-inference-network-dark.png"
 							width={1600}
 						/>
-						<figcaption className="mt-3 border-border border-t pt-3 font-mono text-lg text-muted-foreground leading-7">
+						<figcaption className="border-border text-muted-foreground mt-3 border-t pt-3 font-mono text-lg leading-7">
 							The ambition: useful compute, in more places.
 						</figcaption>
 					</figure>
@@ -113,12 +113,12 @@ export default function InvestorsPage() {
 
 			<section
 				aria-label="Our operating track record"
-				className="border-border border-b bg-muted/35"
+				className="border-border bg-muted/35 border-b"
 			>
 				<dl className="ha-inset-dividers ha-inset-dividers-sm-2 ha-inset-dividers-xl-4 mx-auto grid max-w-7xl sm:grid-cols-2 xl:grid-cols-4">
 					{OPERATING_PROOF.map(({ label, value }) => (
 						<div className="flex flex-col gap-3 px-5 py-7 lg:px-8" key={label}>
-							<dt className="whitespace-nowrap text-lg text-muted-foreground leading-7">
+							<dt className="text-muted-foreground text-lg leading-7 whitespace-nowrap">
 								{label}
 							</dt>
 							<dd className="order-first font-mono text-3xl">{value}</dd>
@@ -131,18 +131,18 @@ export default function InvestorsPage() {
 				{STORY_CHAPTERS.map(({ id, title, paragraphs }) => (
 					<section
 						aria-labelledby={`${id}-heading`}
-						className="grid gap-6 border-border border-b py-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:py-12"
+						className="border-border grid gap-6 border-b py-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:py-12"
 						key={id}
 					>
 						<div>
 							<h2
-								className="max-w-lg font-semibold text-3xl sm:text-4xl"
+								className="max-w-lg text-3xl font-semibold sm:text-4xl"
 								id={`${id}-heading`}
 							>
 								{title}
 							</h2>
 						</div>
-						<div className="max-w-2xl space-y-5 text-lg text-muted-foreground leading-7">
+						<div className="text-muted-foreground max-w-2xl space-y-5 text-lg leading-7">
 							{paragraphs.map((paragraph) => (
 								<p key={paragraph}>{paragraph}</p>
 							))}
@@ -152,17 +152,17 @@ export default function InvestorsPage() {
 
 				<aside
 					aria-labelledby="expansion-story-heading"
-					className="my-10 border border-border bg-muted/35 p-6 sm:p-8"
+					className="border-border bg-muted/35 my-10 border p-6 sm:p-8"
 				>
-					<h2 className="font-medium text-2xl sm:text-3xl" id="expansion-story-heading">
+					<h2 className="text-2xl font-medium sm:text-3xl" id="expansion-story-heading">
 						<AppLink
-							className="underline decoration-current/25 underline-offset-4 hover:text-hot-orange-contrast"
+							className="hover:text-hot-orange-contrast underline decoration-current/25 underline-offset-4"
 							href={EXPANSION_STORY}
 						>
 							The Case for Small, Distributed, On-Demand AI Compute
 						</AppLink>
 					</h2>
-					<p className="mt-3 max-w-3xl text-lg text-muted-foreground">
+					<p className="text-muted-foreground mt-3 max-w-3xl text-lg">
 						Jon Stevens on the operating model, automation, and discipline behind the
 						expansion.
 					</p>
@@ -171,29 +171,29 @@ export default function InvestorsPage() {
 
 			<section
 				aria-labelledby="backing-heading"
-				className="border-border border-t bg-muted/35"
+				className="border-border bg-muted/35 border-t"
 			>
 				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:px-8 lg:py-16">
 					<h2
-						className="max-w-lg font-semibold text-4xl sm:text-5xl"
+						className="max-w-lg text-4xl font-semibold sm:text-5xl"
 						id="backing-heading"
 					>
 						Help us take the next step.
 					</h2>
 					<div className="max-w-2xl">
-						<p className="text-lg text-muted-foreground leading-7">
+						<p className="text-muted-foreground text-lg leading-7">
 							We are looking for backing that helps us keep building: aligned capital,
 							equipment partnerships, and access to power and data-center space. We
 							bring a profitable operation, an automated platform, and customers ready
 							for more.
 						</p>
-						<p className="mt-5 text-lg text-muted-foreground leading-7">
+						<p className="text-muted-foreground mt-5 text-lg leading-7">
 							If you believe in accessible, reliable AI compute and want to back a
 							team that has spent three years executing, let&apos;s talk about what we
 							can build together.
 						</p>
 						<AppLink
-							className="mt-7 inline-flex min-h-12 items-center gap-2 bg-foreground px-6 py-3 font-medium text-background text-lg transition-opacity hover:opacity-80"
+							className="bg-foreground text-background mt-7 inline-flex min-h-12 items-center gap-2 px-6 py-3 text-lg font-medium transition-opacity hover:opacity-80"
 							href="/contact"
 						>
 							Talk about the next chapter{' '}

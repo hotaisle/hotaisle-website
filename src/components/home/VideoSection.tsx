@@ -8,11 +8,11 @@ export function VideoSection() {
 				<div className="flex flex-col items-center gap-16 md:flex-row">
 					{/* Text Side */}
 					<div className="flex-1 text-center md:text-left">
-						<h2 className="mb-6 font-black text-4xl tracking-tight md:text-5xl">
+						<h2 className="mb-6 text-4xl font-black tracking-tight md:text-5xl">
 							Just {MI300X_VM_PRICE}. <br />
 							<span className="text-hot-orange-contrast">Zero Commitment</span>
 						</h2>
-						<p className="mb-8 text-muted-foreground text-xl leading-relaxed">
+						<p className="text-muted-foreground mb-8 text-xl leading-relaxed">
 							Stop paying for idle GPUs. With Hot Aisle, you get instant access to raw
 							HBM3 performance without the enterprise contracts.
 						</p>
@@ -24,7 +24,7 @@ export function VideoSection() {
 								'High Performance',
 							].map((item) => (
 								<li className="flex items-center gap-3 font-medium" key={item}>
-									<div className="flex h-6 w-6 items-center justify-center rounded-full bg-hot-orange/20 text-hot-orange">
+									<div className="bg-hot-orange/20 text-hot-orange flex h-6 w-6 items-center justify-center rounded-full">
 										<Play fill="currentColor" size={10} />
 									</div>
 									{item}
@@ -36,9 +36,9 @@ export function VideoSection() {
 					{/* Video Side */}
 					<div className="group relative mx-auto w-full max-w-md flex-1">
 						{/* Glow Effect */}
-						<div className="absolute inset-0 rounded-full bg-hot-orange/20 opacity-50 blur-3xl transition-opacity group-hover:opacity-75" />
+						<div className="bg-hot-orange/20 absolute inset-0 rounded-full opacity-50 blur-3xl transition-opacity group-hover:opacity-75" />
 
-						<div className="relative aspect-square overflow-hidden rounded-3xl border border-border bg-black shadow-2xl transition-colors group-hover:border-hot-orange/50">
+						<div className="border-border group-hover:border-hot-orange/50 relative aspect-square overflow-hidden rounded-3xl border bg-black shadow-2xl transition-colors">
 							<video
 								autoPlay
 								className="h-full w-full object-cover"

@@ -49,18 +49,18 @@ function AdjacentPostNavigation({
 		<section className="border-border border-t">
 			<nav
 				aria-label="Adjacent blog posts"
-				className="ha-inset-dividers ha-inset-dividers-md-2 mx-auto grid max-w-7xl gap-y-px border-border border-x bg-border md:grid-cols-2"
+				className="ha-inset-dividers ha-inset-dividers-md-2 border-border bg-border mx-auto grid max-w-7xl gap-y-px border-x md:grid-cols-2"
 			>
 				{adjacentPosts.map(({ label, post }) => (
 					<AppLink
-						className={`group bg-background p-6 transition-colors hover:bg-muted/45 sm:p-8 ${hasBothAdjacentPosts ? '' : 'md:col-span-2'}`}
+						className={`group bg-background hover:bg-muted/45 p-6 transition-colors sm:p-8 ${hasBothAdjacentPosts ? '' : 'md:col-span-2'}`}
 						href={`/blog/${post.slug}`}
 						key={post.slug}
 					>
-						<p className="font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.12em]">
+						<p className="text-hot-orange-contrast font-mono text-xs tracking-[0.12em] uppercase">
 							{label}
 						</p>
-						<p className="mt-5 max-w-2xl font-medium text-2xl text-foreground transition-colors group-hover:text-hot-orange-contrast sm:text-3xl">
+						<p className="text-foreground group-hover:text-hot-orange-contrast mt-5 max-w-2xl text-2xl font-medium transition-colors sm:text-3xl">
 							{post.title}
 						</p>
 					</AppLink>
@@ -115,25 +115,25 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 				<div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:px-8 lg:py-16">
 					<div className="flex flex-col items-start">
 						<AppLink
-							className="group inline-flex items-center font-mono text-muted-foreground text-xs uppercase tracking-[0.12em] transition-colors hover:text-foreground"
+							className="group text-muted-foreground hover:text-foreground inline-flex items-center font-mono text-xs tracking-[0.12em] uppercase transition-colors"
 							href="/blog"
 						>
 							<ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
 							Back to Blog
 						</AppLink>
 
-						<h1 className="mt-8 max-w-3xl font-semibold text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
+						<h1 className="mt-8 max-w-3xl text-4xl leading-[1.04] font-semibold sm:text-5xl lg:text-6xl">
 							{post.title}
 						</h1>
 
-						<div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-border border-t pt-4 font-mono text-muted-foreground text-xs uppercase tracking-[0.12em]">
+						<div className="border-border text-muted-foreground mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t pt-4 font-mono text-xs tracking-[0.12em] uppercase">
 							<time dateTime={post.date}>{prettyDate}</time>
 							{post.author ? (
 								<p className="border-border border-l pl-4">
 									<span>By </span>
 									{post.authorProfile ? (
 										<a
-											className="text-foreground transition-colors hover:text-hot-orange-contrast"
+											className="text-foreground hover:text-hot-orange-contrast transition-colors"
 											href="#about-the-author"
 										>
 											{post.author}
@@ -146,7 +146,7 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 						</div>
 
 						{post.tags.length ? (
-							<div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 font-mono text-hot-orange-contrast text-xs uppercase tracking-[0.12em]">
+							<div className="text-hot-orange-contrast mt-5 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs tracking-[0.12em] uppercase">
 								{post.tags.map((tag: string) => (
 									<span key={tag}>{tag}</span>
 								))}
@@ -155,7 +155,7 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 					</div>
 
 					{post.coverImage ? (
-						<figure className="border border-border bg-muted p-2 sm:p-3 lg:self-center">
+						<figure className="border-border bg-muted border p-2 sm:p-3 lg:self-center">
 							<ClickableImage
 								alt={post.title}
 								className={`aspect-video w-full object-cover object-left ${post.coverImageDark ? 'dark:hidden' : ''}`}
@@ -182,7 +182,7 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 			</header>
 
 			<article className="mx-auto max-w-4xl px-5 py-12 sm:px-8 lg:py-16">
-				<div className="ha-blog-article prose prose-lg max-w-none prose-img:rounded-none prose-pre:rounded-none prose-img:border prose-img:border-border prose-a:text-hot-orange prose-blockquote:text-muted-foreground prose-code:text-hot-orange prose-headings:text-foreground prose-strong:text-foreground text-foreground leading-relaxed prose-headings:tracking-normal prose-img:shadow-none">
+				<div className="ha-blog-article prose prose-lg prose-img:rounded-none prose-pre:rounded-none prose-img:border prose-img:border-border prose-a:text-hot-orange prose-blockquote:text-muted-foreground prose-code:text-hot-orange prose-headings:text-foreground prose-strong:text-foreground text-foreground prose-headings:tracking-normal prose-img:shadow-none max-w-none leading-relaxed">
 					<BlogContent
 						authorProfile={post.authorProfile}
 						contentHtml={post.contentHtml}

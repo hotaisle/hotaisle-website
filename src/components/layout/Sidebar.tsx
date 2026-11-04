@@ -36,7 +36,7 @@ const NAV_ITEMS = [
 export function Sidebar() {
 	return (
 		<>
-			<div className="border-b bg-card/95 backdrop-blur lg:hidden">
+			<div className="bg-card/95 border-b backdrop-blur lg:hidden">
 				<div className="flex h-16 items-center justify-between px-4">
 					<AppLink
 						aria-label="Home"
@@ -60,7 +60,7 @@ export function Sidebar() {
 							aria-controls="mobile-sidebar-nav"
 							aria-expanded="false"
 							aria-label="Toggle navigation menu"
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
+							className="text-muted-foreground hover:bg-hot-orange/10 hover:text-hot-orange rounded-md p-2 transition-colors"
 							data-mobile-nav-toggle
 							type="button"
 						>
@@ -81,7 +81,7 @@ export function Sidebar() {
 					data-mobile-nav-close
 					type="button"
 				/>
-				<div className="relative flex h-full w-full flex-col bg-card shadow-2xl">
+				<div className="bg-card relative flex h-full w-full flex-col shadow-2xl">
 					<div className="flex h-16 items-center justify-between border-b px-4">
 						<div className="h-9 w-32">
 							<img
@@ -94,7 +94,7 @@ export function Sidebar() {
 						</div>
 						<button
 							aria-label="Close navigation menu"
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
+							className="text-muted-foreground hover:bg-hot-orange/10 hover:text-hot-orange rounded-md p-2 transition-colors"
 							data-mobile-nav-close
 							type="button"
 						>
@@ -108,7 +108,7 @@ export function Sidebar() {
 
 								return (
 									<AppLink
-										className="group relative flex items-center rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
+										className="group text-muted-foreground hover:bg-hot-orange/10 hover:text-hot-orange relative flex items-center rounded-md px-3 py-2 text-base font-medium transition-colors"
 										data-mobile-nav-close
 										href={item.href}
 										key={item.href}
@@ -122,20 +122,20 @@ export function Sidebar() {
 					</nav>
 					<div className="flex items-center justify-between border-t p-4">
 						<AppLink
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
+							className="text-muted-foreground hover:bg-hot-orange/10 hover:text-hot-orange rounded-md p-2 transition-colors"
 							data-mobile-nav-close
 							href="/contact"
 						>
 							<Mail size={20} />
 						</AppLink>
-						<span className="font-medium text-muted-foreground text-sm opacity-70">
+						<span className="text-muted-foreground text-sm font-medium opacity-70">
 							© 2026 Hot Aisle
 						</span>
 					</div>
 				</div>
 			</div>
 
-			<aside className="sticky top-0 hidden h-screen w-64 shrink-0 border-r bg-card lg:flex lg:flex-col">
+			<aside className="bg-card sticky top-0 hidden h-screen w-64 shrink-0 border-r lg:flex lg:flex-col">
 				<div className="relative flex h-16 w-full items-center justify-center border-b px-4">
 					<AppLink
 						aria-label="Home"
@@ -153,13 +153,13 @@ export function Sidebar() {
 						</div>
 					</AppLink>
 				</div>
-				<nav className="scrollbar-none flex-1 space-y-1 overflow-y-auto overflow-x-hidden px-2 py-4">
+				<nav className="flex-1 scrollbar-none space-y-1 overflow-x-hidden overflow-y-auto px-2 py-4">
 					{NAV_ITEMS.map((item) => {
 						const Icon = item.icon;
 
 						return (
 							<AppLink
-								className="group relative flex items-center rounded-md px-3 py-2 font-medium text-base text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
+								className="group text-muted-foreground hover:bg-hot-orange/10 hover:text-hot-orange relative flex items-center rounded-md px-3 py-2 text-base font-medium transition-colors"
 								href={item.href}
 								key={item.href}
 							>
@@ -169,11 +169,11 @@ export function Sidebar() {
 						);
 					})}
 				</nav>
-				<div className="shrink-0 border-t bg-card/50 p-4 backdrop-blur-sm">
+				<div className="bg-card/50 shrink-0 border-t p-4 backdrop-blur-sm">
 					<div className="flex items-center justify-between gap-3">
 						<div className="flex gap-2">
 							<AppLink
-								className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-hot-orange/10 hover:text-hot-orange"
+								className="text-muted-foreground hover:bg-hot-orange/10 hover:text-hot-orange rounded-md p-2 transition-colors"
 								href="/contact"
 							>
 								<Mail size={20} />
@@ -181,7 +181,7 @@ export function Sidebar() {
 							<ThemeToggle className="hover:bg-hot-orange/10 hover:text-hot-orange" />
 						</div>
 						<div className="min-w-0 flex-1 text-right">
-							<span className="font-medium text-muted-foreground text-sm opacity-70">
+							<span className="text-muted-foreground text-sm font-medium opacity-70">
 								© 2026 Hot Aisle
 							</span>
 						</div>

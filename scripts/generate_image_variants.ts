@@ -18,9 +18,9 @@ const RESPONSIVE_IMAGE_SOURCE_PATHS = new Set([
 	'assets/quickstart/terminal-provisioning-pixel-art-light.png',
 	'assets/quickstart/terminal-provisioning-pixel-art.png',
 ]);
-const SOURCE_IMAGE_REGEX = /\.(png|jpe?g)$/i;
-const WEBP_EXTENSION_REGEX = /\.(png|jpe?g)$/i;
-const AVIF_EXTENSION_REGEX = /\.(png|jpe?g)$/i;
+const SOURCE_IMAGE_REGEX = /\.(?<extension>png|jpe?g)$/iu;
+const WEBP_EXTENSION_REGEX = /\.(?<extension>png|jpe?g)$/iu;
+const AVIF_EXTENSION_REGEX = /\.(?<extension>png|jpe?g)$/iu;
 const IMAGE_VARIANT_CONCURRENCY = Math.max(1, availableParallelism() - 1);
 const FORCE_IMAGE_VARIANT_GENERATION_VALUE = 'true';
 const CI_ENVIRONMENT_VALUE = 'true';

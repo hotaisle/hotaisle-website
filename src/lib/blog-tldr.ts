@@ -1,5 +1,5 @@
 const TLDR_BLOCKQUOTE_REGEX =
-	/<blockquote>\s*<p><strong>TL;DR:?<\/strong>\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi;
+	/<blockquote>\s*<p><strong>TL;DR:?<\/strong>\s*(?<summary>[\s\S]*?)<\/p>\s*<\/blockquote>/giu;
 
 export function enhanceBlogTldrBlocks(html: string): string {
 	return html.replace(

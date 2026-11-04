@@ -17,7 +17,7 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 	const threeColumnFillers = (3 - (posts.length % 3)) % 3;
 
 	return (
-		<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-xl-3 grid gap-y-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+		<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-xl-3 border-border bg-border grid gap-y-px border md:grid-cols-2 xl:grid-cols-3">
 			{posts.map((post, index) => {
 				const isLatest = index === 0;
 				const isGuestPost = post.tags?.includes(GUEST_TAG) ?? false;
@@ -25,11 +25,11 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 
 				return (
 					<AppLink
-						className="group flex min-h-full flex-col bg-background transition-colors hover:bg-muted/45 focus-visible:bg-muted focus-visible:outline-none"
+						className="group bg-background hover:bg-muted/45 focus-visible:bg-muted flex min-h-full flex-col transition-colors focus-visible:outline-none"
 						href={`/blog/${post.slug}`}
 						key={post.slug}
 					>
-						<div className="relative aspect-16/10 w-full overflow-hidden border-border border-b bg-white dark:bg-black">
+						<div className="border-border relative aspect-16/10 w-full overflow-hidden border-b bg-white dark:bg-black">
 							{post.coverImage ? (
 								<>
 									<OptimizedImage
@@ -54,7 +54,7 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 						</div>
 
 						<div className="flex flex-1 flex-col p-5 sm:p-6">
-							<div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-[0.12em]">
+							<div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-[0.12em] uppercase">
 								<span className="text-hot-orange-contrast">
 									{postNumber}
 									{isLatest ? ' / Latest' : ''}
@@ -63,21 +63,21 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 									{PUBLISH_DATE_FORMATTER.format(new Date(post.date))}
 								</time>
 								{isGuestPost ? (
-									<span className="border-border border-l pl-3 text-muted-foreground">
+									<span className="border-border text-muted-foreground border-l pl-3">
 										Guest feature
 									</span>
 								) : null}
 							</div>
 
-							<h2 className="mt-5 line-clamp-2 font-medium text-2xl text-foreground transition-colors group-hover:text-hot-orange-contrast">
+							<h2 className="text-foreground group-hover:text-hot-orange-contrast mt-5 line-clamp-2 text-2xl font-medium transition-colors">
 								{post.title}
 							</h2>
 
-							<p className="mt-3 line-clamp-3 flex-1 text-muted-foreground text-sm leading-relaxed">
+							<p className="text-muted-foreground mt-3 line-clamp-3 flex-1 text-sm leading-relaxed">
 								{post.description}
 							</p>
 
-							<div className="mt-6 flex flex-wrap gap-x-3 gap-y-1 border-border border-t pt-4 font-mono text-muted-foreground text-xs uppercase tracking-widest">
+							<div className="border-border text-muted-foreground mt-6 flex flex-wrap gap-x-3 gap-y-1 border-t pt-4 font-mono text-xs tracking-widest uppercase">
 								{post.tags?.slice(0, 3).map((tag: string) => (
 									<span key={tag}>{tag}</span>
 								))}
@@ -89,14 +89,14 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 			{GRID_FILLER_KEYS.slice(0, twoColumnFillers).map((key) => (
 				<div
 					aria-hidden="true"
-					className="ha-divider-md hidden bg-background md:block xl:hidden"
+					className="ha-divider-md bg-background hidden md:block xl:hidden"
 					key={`two-column-filler-${key}`}
 				/>
 			))}
 			{GRID_FILLER_KEYS.slice(0, threeColumnFillers).map((key, index) => (
 				<div
 					aria-hidden="true"
-					className={`hidden bg-background xl:block ${(posts.length + index) % 3 === 0 ? 'ha-no-divider-xl' : 'ha-divider-xl'}`}
+					className={`bg-background hidden xl:block ${(posts.length + index) % 3 === 0 ? 'ha-no-divider-xl' : 'ha-divider-xl'}`}
 					key={`three-column-filler-${key}`}
 				/>
 			))}

@@ -18,7 +18,7 @@ const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run');
 const requestedPaths = args.filter((arg) => arg !== '--dry-run');
 
-const contentLengthRegex = /Content-Length:\s*(\d+)/;
+const contentLengthRegex = /Content-Length:\s*(?<bytes>\d+)/u;
 const sevMap: Record<number, string> = { 1: 'error', 2: 'warn', 3: 'info', 4: 'hint' };
 
 // ---------------------------------------------------------------------------

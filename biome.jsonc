@@ -69,6 +69,39 @@
 					}
 				}
 			}
+		},
+		{
+			// CSS features use fallbacks; keep the existing progressive enhancement policy.
+			"includes": ["**/*.css"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"useBaseline": "off"
+					}
+				}
+			}
+		},
+		{
+			// The shared stylesheet intentionally layers component overrides in cascade order.
+			"includes": ["src/styles/global.css"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noDuplicateSelectors": "off"
+					}
+				}
+			}
+		},
+		{
+			// Cloudflare Durable Object callbacks must be instance methods.
+			"includes": ["src/worker/index.ts"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useThisInClassMethods": "off"
+					}
+				}
+			}
 		}
 	]
 }

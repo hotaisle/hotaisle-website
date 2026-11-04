@@ -23,7 +23,7 @@ export function initializeMobileNavScript(): void {
 				continue;
 			}
 
-			const panel = document.getElementById(panelId);
+			const panel = document.querySelector(`#${CSS.escape(panelId)}`);
 			if (!(panel instanceof HTMLElement)) {
 				continue;
 			}
@@ -45,7 +45,7 @@ export function initializeMobileNavScript(): void {
 					return;
 				}
 
-				const panel = document.getElementById(panelId);
+				const panel = document.querySelector(`#${CSS.escape(panelId)}`);
 				if (!(panel instanceof HTMLElement)) {
 					return;
 				}

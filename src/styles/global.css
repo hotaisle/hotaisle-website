@@ -195,9 +195,9 @@ main .prose:not(.max-w-none) {
 
 /* Keep descriptive copy readable and consistent without enlarging metadata or lead text. */
 main
-:where(p, div, span).text-muted-foreground:not(.font-mono):not(.uppercase):not(
-	.text-xl
-):not(.text-2xl):not(.text-3xl) {
+	:where(p, div, span).text-muted-foreground:not(.font-mono):not(
+		.uppercase
+	):not(.text-xl):not(.text-2xl):not(.text-3xl) {
 	font-size: 1.125rem;
 	line-height: 1.75rem;
 }

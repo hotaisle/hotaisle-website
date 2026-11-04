@@ -13,7 +13,7 @@ const INCLUDED_CAPABILITIES = [
 			<>
 				Located in our{' '}
 				<AppLink
-					className="underline decoration-current/40 underline-offset-4 transition-colors hover:text-foreground"
+					className="hover:text-foreground underline decoration-current/40 underline-offset-4 transition-colors"
 					href="/datacenter"
 				>
 					secure Michigan facility
@@ -52,35 +52,35 @@ export function generateMetadata() {
 
 export default function PricingPage() {
 	return (
-		<div className="animation-fade-in bg-background pb-12 text-foreground">
+		<div className="animation-fade-in bg-background text-foreground pb-12">
 			{/* Hero Header */}
-			<div className="relative overflow-hidden border-border border-b px-6 py-14 text-center md:py-16">
-				<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-200 via-background to-background opacity-80 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-950" />
+			<div className="border-border relative overflow-hidden border-b px-6 py-14 text-center md:py-16">
+				<div className="via-background to-background absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-200 opacity-80 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-950" />
 
 				<div className="relative z-10 mx-auto max-w-4xl">
-					<h1 className="mb-6 font-black text-5xl tracking-tighter md:text-7xl">
+					<h1 className="mb-6 text-5xl font-black tracking-tighter md:text-7xl">
 						Transparent <span className="text-hot-orange">Pricing</span>
 					</h1>
 					<div className="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-4 text-left md:grid-cols-2">
-						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">
-							<p className="font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
+						<div className="border-border bg-card/90 rounded-lg border p-5 backdrop-blur-sm">
+							<p className="text-hot-orange-contrast text-sm font-bold tracking-wide uppercase">
 								Virtual machines
 							</p>
-							<p className="mt-3 font-black text-3xl text-foreground md:text-4xl">
+							<p className="text-foreground mt-3 text-3xl font-black md:text-4xl">
 								{MI300X_VM_PRICE}
 							</p>
-							<p className="mt-2 text-muted-foreground text-sm">
+							<p className="text-muted-foreground mt-2 text-sm">
 								1, 2, and 4x MI300X VMs, billed by the minute.
 							</p>
 						</div>
-						<div className="rounded-lg border border-border bg-card/90 p-5 backdrop-blur-sm">
-							<p className="font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
+						<div className="border-border bg-card/90 rounded-lg border p-5 backdrop-blur-sm">
+							<p className="text-hot-orange-contrast text-sm font-bold tracking-wide uppercase">
 								8x bare metal
 							</p>
-							<p className="mt-3 font-black text-3xl text-foreground md:text-4xl">
+							<p className="text-foreground mt-3 text-3xl font-black md:text-4xl">
 								{MI300X_BARE_METAL_PRICE}
 							</p>
-							<p className="mt-2 text-muted-foreground text-sm">
+							<p className="text-muted-foreground mt-2 text-sm">
 								Dedicated full-node access, billed by the minute.
 							</p>
 						</div>
@@ -89,48 +89,48 @@ export default function PricingPage() {
 			</div>
 
 			{/* Pricing Grid */}
-			<div className="container relative z-20 mx-auto -mt-8 px-6">
+			<div className="relative z-20 container mx-auto -mt-8 px-6">
 				<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
 					{/* Small Tier */}
-					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
+					<div className="border-border bg-card/90 hover:border-hot-orange/50 flex flex-col rounded-lg border p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:shadow-2xl">
 						<div className="mb-6">
-							<p className="mb-2 font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
+							<p className="text-hot-orange-contrast mb-2 text-sm font-bold tracking-wide uppercase">
 								VM
 							</p>
-							<h2 className="mb-2 font-bold text-2xl text-foreground">Small</h2>
-							<div className="mb-2 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
+							<h2 className="text-foreground mb-2 text-2xl font-bold">Small</h2>
+							<div className="text-hot-orange-contrast mb-2 inline-flex items-baseline gap-1 text-4xl font-black">
 								<span>1x</span>
-								<span className="font-normal text-lg text-muted-foreground">
+								<span className="text-muted-foreground text-lg font-normal">
 									MI300x
 								</span>
 							</div>
-							<p className="mb-3 font-bold text-foreground">{MI300X_VM_PRICE}</p>
+							<p className="text-foreground mb-3 font-bold">{MI300X_VM_PRICE}</p>
 							<p className="text-muted-foreground text-sm md:min-h-14">
 								Ideal for experimentation and development.
 							</p>
 						</div>
 						<ul className="mb-8 flex-1 space-y-4">
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>
 									<strong className="text-foreground">192GB</strong> HBM3 Memory
 								</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>8 or 13 CPU Cores</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>224GB System RAM</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>12TB NVMe Storage</span>
 							</li>
 						</ul>
 						<AppLink
-							className="w-full rounded-lg bg-foreground py-3 text-center font-bold text-background transition-colors hover:bg-foreground/90"
+							className="bg-foreground text-background hover:bg-foreground/90 w-full rounded-lg py-3 text-center font-bold transition-colors"
 							href="/quick-start"
 						>
 							Deploy Small
@@ -138,45 +138,45 @@ export default function PricingPage() {
 					</div>
 
 					{/* Medium Tier */}
-					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
+					<div className="border-border bg-card/90 hover:border-hot-orange/50 flex flex-col rounded-lg border p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:shadow-2xl">
 						<div className="mb-6">
-							<p className="mb-2 font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
+							<p className="text-hot-orange-contrast mb-2 text-sm font-bold tracking-wide uppercase">
 								VM
 							</p>
-							<h2 className="mb-2 font-bold text-2xl text-foreground">Medium</h2>
-							<div className="mb-2 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
+							<h2 className="text-foreground mb-2 text-2xl font-bold">Medium</h2>
+							<div className="text-hot-orange-contrast mb-2 inline-flex items-baseline gap-1 text-4xl font-black">
 								<span>2x &amp; 4x</span>
-								<span className="font-normal text-lg text-muted-foreground">
+								<span className="text-muted-foreground text-lg font-normal">
 									MI300x
 								</span>
 							</div>
-							<p className="mb-3 font-bold text-foreground">{MI300X_VM_PRICE}</p>
+							<p className="text-foreground mb-3 font-bold">{MI300X_VM_PRICE}</p>
 							<p className="text-muted-foreground text-sm md:min-h-14">
 								For model fine-tuning and medium workloads.
 							</p>
 						</div>
 						<ul className="mb-8 flex-1 space-y-4">
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>
 									<strong className="text-foreground">384GB or 768GB</strong> HBM3
 								</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>26 or 52 CPU Cores</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>448GB or 896GB RAM</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>12TB NVMe Storage</span>
 							</li>
 						</ul>
 						<AppLink
-							className="w-full rounded-lg bg-foreground py-3 text-center font-bold text-background transition-colors hover:bg-foreground/90"
+							className="bg-foreground text-background hover:bg-foreground/90 w-full rounded-lg py-3 text-center font-bold transition-colors"
 							href="/quick-start"
 						>
 							Deploy Medium
@@ -184,19 +184,19 @@ export default function PricingPage() {
 					</div>
 
 					{/* Large Tier */}
-					<div className="flex flex-col rounded-lg border border-border bg-card/90 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:border-hot-orange/50 hover:shadow-2xl">
+					<div className="border-border bg-card/90 hover:border-hot-orange/50 flex flex-col rounded-lg border p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:transform hover:shadow-2xl">
 						<div className="mb-6">
-							<p className="mb-2 font-bold text-hot-orange-contrast text-sm uppercase tracking-wide">
+							<p className="text-hot-orange-contrast mb-2 text-sm font-bold tracking-wide uppercase">
 								Bare metal
 							</p>
-							<h2 className="mb-2 font-bold text-2xl text-foreground">Large</h2>
-							<div className="mb-2 inline-flex items-baseline gap-1 font-black text-4xl text-hot-orange-contrast">
+							<h2 className="text-foreground mb-2 text-2xl font-bold">Large</h2>
+							<div className="text-hot-orange-contrast mb-2 inline-flex items-baseline gap-1 text-4xl font-black">
 								<span>8x</span>
-								<span className="font-normal text-lg text-muted-foreground">
+								<span className="text-muted-foreground text-lg font-normal">
 									MI300x
 								</span>
 							</div>
-							<p className="mb-3 font-bold text-foreground">
+							<p className="text-foreground mb-3 font-bold">
 								{MI300X_BARE_METAL_PRICE}
 							</p>
 							<p className="text-muted-foreground text-sm md:min-h-14">
@@ -204,27 +204,27 @@ export default function PricingPage() {
 							</p>
 						</div>
 						<ul className="mb-8 flex-1 space-y-4">
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>
 									<strong className="text-foreground">1.5 TB</strong> HBM3 Memory
 								</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>Dedicated bare-metal option</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>64 or 102 CPU Cores</span>
 							</li>
-							<li className="flex items-start text-muted-foreground">
+							<li className="text-muted-foreground flex items-start">
 								<Check className="mr-3 h-5 w-5 shrink-0 text-green-400" />
 								<span>2TB RAM + 122TB NVMe</span>
 							</li>
 						</ul>
 						<AppLink
-							className="w-full rounded-lg bg-foreground py-3 text-center font-bold text-background transition-colors hover:bg-foreground/90"
+							className="bg-foreground text-background hover:bg-foreground/90 w-full rounded-lg py-3 text-center font-bold transition-colors"
 							href="/quick-start"
 						>
 							Deploy Bare Metal
@@ -236,17 +236,17 @@ export default function PricingPage() {
 			{/* Features List */}
 			<div className="container mx-auto mt-12 max-w-7xl px-6">
 				<section className="border-border border-y py-12">
-					<h2 className="font-black text-4xl text-foreground md:text-5xl">
+					<h2 className="text-foreground text-4xl font-black md:text-5xl">
 						All plans <span className="text-hot-orange-contrast">include</span>
 					</h2>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-lg-3 mt-8 grid gap-y-px bg-border md:grid-cols-2 lg:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-lg-3 bg-border mt-8 grid gap-y-px md:grid-cols-2 lg:grid-cols-3">
 						{INCLUDED_CAPABILITIES.map((capability) => (
 							<div className="bg-background p-6" key={capability.title}>
-								<h3 className="font-bold text-2xl text-foreground">
+								<h3 className="text-foreground text-2xl font-bold">
 									{capability.title}
 								</h3>
-								<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 max-w-sm leading-relaxed">
 									{capability.description}
 								</p>
 							</div>
@@ -257,19 +257,19 @@ export default function PricingPage() {
 
 			{/* Quick Start Section */}
 			<div className="container mx-auto mt-12 max-w-7xl px-6">
-				<div className="border border-border bg-muted/35">
+				<div className="border-border bg-muted/35 border">
 					<div className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
 						<div>
-							<h3 className="font-medium text-2xl text-foreground">
+							<h3 className="text-foreground text-2xl font-medium">
 								From terminal to isolated compute
 							</h3>
-							<p className="mt-3 max-w-2xl text-muted-foreground leading-relaxed">
+							<p className="text-muted-foreground mt-3 max-w-2xl leading-relaxed">
 								Create your team, add credits, and provision AMD GPU compute in
 								under 60 seconds.
 							</p>
 						</div>
 						<AppLink
-							className="inline-flex min-h-12 items-center justify-center bg-foreground px-6 py-3 font-medium text-background transition-opacity hover:opacity-85"
+							className="bg-foreground text-background inline-flex min-h-12 items-center justify-center px-6 py-3 font-medium transition-opacity hover:opacity-85"
 							href="/quick-start"
 						>
 							Open quick start

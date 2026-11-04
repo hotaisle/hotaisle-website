@@ -99,7 +99,7 @@ export function Navbar({ pathname }: NavbarProps) {
 	return (
 		<>
 			{/* Top Navbar */}
-			<header className="sticky top-0 z-40 w-full border-border border-b bg-background/95 backdrop-blur-md">
+			<header className="border-border bg-background/95 sticky top-0 z-40 w-full border-b backdrop-blur-md">
 				<div className="mx-auto flex h-18 max-w-360 items-center justify-between px-5 lg:px-8">
 					{/* Left: Logo + Primary Nav */}
 					<div className="flex items-center gap-6">
@@ -148,7 +148,7 @@ export function Navbar({ pathname }: NavbarProps) {
 						<ThemeToggle />
 
 						<AppLink
-							className="hidden min-h-9 items-center gap-1.5 border border-hot-orange/55 bg-hot-orange/8 px-3 py-2 font-mono text-hot-orange-contrast text-xs transition-colors hover:border-hot-orange hover:bg-hot-orange/15 lg:inline-flex"
+							className="border-hot-orange/55 bg-hot-orange/8 text-hot-orange-contrast hover:border-hot-orange hover:bg-hot-orange/15 hidden min-h-9 items-center gap-1.5 border px-3 py-2 font-mono text-xs transition-colors lg:inline-flex"
 							href={HEADER_RESERVE_ID_LINK.href}
 							rel="noopener"
 							target="_blank"
@@ -158,7 +158,7 @@ export function Navbar({ pathname }: NavbarProps) {
 						</AppLink>
 
 						<AppLink
-							className="ha-header-cta hidden border border-hot-orange bg-hot-orange px-4 py-2 font-mono text-white text-xs transition hover:opacity-85 lg:inline-flex"
+							className="ha-header-cta border-hot-orange bg-hot-orange hidden border px-4 py-2 font-mono text-xs text-white transition hover:opacity-85 lg:inline-flex"
 							href={HEADER_CTA_LINK.href}
 						>
 							{HEADER_CTA_LINK.label}
@@ -169,7 +169,7 @@ export function Navbar({ pathname }: NavbarProps) {
 							aria-controls="mobile-nav-panel"
 							aria-expanded="false"
 							aria-label="Toggle navigation menu"
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:hidden"
+							className="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md p-2 transition-colors lg:hidden"
 							data-mobile-nav-toggle
 							type="button"
 						>
@@ -186,7 +186,7 @@ export function Navbar({ pathname }: NavbarProps) {
 				hidden
 				id="mobile-nav-panel"
 			>
-				<div className="flex h-full w-full flex-col bg-card">
+				<div className="bg-card flex h-full w-full flex-col">
 					<div className="flex h-16 items-center justify-between border-b px-4">
 						<img
 							alt={LOGO_ALT}
@@ -197,7 +197,7 @@ export function Navbar({ pathname }: NavbarProps) {
 						/>
 						<button
 							aria-label="Close navigation menu"
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+							className="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md p-2 transition-colors"
 							data-mobile-nav-close
 							type="button"
 						>
@@ -227,7 +227,7 @@ export function Navbar({ pathname }: NavbarProps) {
 
 					<div className="border-t p-4">
 						<AppLink
-							className="mb-3 flex w-full items-center justify-center gap-2 border border-hot-orange/55 bg-hot-orange/8 px-4 py-3 font-semibold text-hot-orange-contrast transition-colors hover:border-hot-orange hover:bg-hot-orange/15"
+							className="border-hot-orange/55 bg-hot-orange/8 text-hot-orange-contrast hover:border-hot-orange hover:bg-hot-orange/15 mb-3 flex w-full items-center justify-center gap-2 border px-4 py-3 font-semibold transition-colors"
 							data-mobile-nav-close
 							href={HEADER_RESERVE_ID_LINK.href}
 							rel="noopener"
@@ -237,7 +237,7 @@ export function Navbar({ pathname }: NavbarProps) {
 							<ExternalLink aria-hidden="true" className="h-4 w-4" />
 						</AppLink>
 						<AppLink
-							className="flex w-full items-center justify-center rounded-lg bg-hot-orange px-4 py-3 font-semibold text-white transition hover:opacity-90"
+							className="bg-hot-orange flex w-full items-center justify-center rounded-lg px-4 py-3 font-semibold text-white transition hover:opacity-90"
 							data-mobile-nav-close
 							href="/quick-start"
 						>
@@ -245,7 +245,7 @@ export function Navbar({ pathname }: NavbarProps) {
 						</AppLink>
 						<div className="mt-3 flex items-center justify-between">
 							<AppLink
-								className="ha-nav-link flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground text-sm transition-colors hover:text-foreground"
+								className="ha-nav-link text-muted-foreground hover:text-foreground flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors"
 								data-mobile-nav-close
 								href="/contact"
 								{...getNavLinkProps('/contact', 'exact')}

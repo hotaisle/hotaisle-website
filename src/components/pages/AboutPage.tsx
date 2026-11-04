@@ -70,7 +70,7 @@ export default function AboutPage() {
 				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<figure className="max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="border-border bg-muted/20 max-w-sm overflow-hidden border p-3">
 								<OptimizedImage
 									alt="3D pixel-art cloud infrastructure engineering workspace with a server rack, terminal, network switch, and storage"
 									className="aspect-4/3 w-full object-cover"
@@ -88,16 +88,16 @@ export default function AboutPage() {
 									src="/assets/about/operator-workspace-pixel-art-light.png"
 									width={1448}
 								/>
-								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+								<figcaption className="border-border text-muted-foreground mt-3 border-t pt-3 font-mono text-xs">
 									The systems we build and run
 								</figcaption>
 							</figure>
 						</div>
 						<div>
-							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
 								Pragmatic infrastructure execution
 							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 								Hot Aisle was founded to make high-performance AMD compute practical
 								to acquire and operate. We stay close to the details that make
 								infrastructure useful, from the physical systems to the customer
@@ -109,10 +109,10 @@ export default function AboutPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							The people accountable for the platform
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							Jon Stevens and Clint Armstrong founded Hot Aisle in October 2023 after
 							years of working together on large-scale compute deployments. They
 							remain close to the systems, the customers, and the decisions that keep
@@ -120,29 +120,29 @@ export default function AboutPage() {
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 bg-border mt-8 grid gap-y-px md:grid-cols-2">
 						{FOUNDERS.map((founder) => (
 							<article className="bg-background p-6" key={founder.name}>
 								<div className="grid gap-6 sm:grid-cols-[12rem_1fr] sm:items-start">
 									<OptimizedImage
 										alt={founder.name}
-										className="aspect-2/3 w-full border border-border object-cover"
+										className="border-border aspect-2/3 w-full border object-cover"
 										height={256}
 										src={founder.image}
 										width={256}
 									/>
 									<div>
-										<h3 className="font-bold text-2xl text-foreground">
+										<h3 className="text-foreground text-2xl font-bold">
 											{founder.name}
 										</h3>
-										<p className="mt-2 font-mono text-hot-orange-contrast text-xs uppercase">
+										<p className="text-hot-orange-contrast mt-2 font-mono text-xs uppercase">
 											{founder.role}
 										</p>
-										<p className="mt-5 text-muted-foreground leading-relaxed">
+										<p className="text-muted-foreground mt-5 leading-relaxed">
 											{founder.summary}
 										</p>
 										<a
-											className="mt-5 inline-flex font-medium text-hot-orange-contrast text-sm hover:text-foreground"
+											className="text-hot-orange-contrast hover:text-foreground mt-5 inline-flex text-sm font-medium"
 											href={founder.linkedIn}
 											rel="noopener"
 											target="_blank"
@@ -158,23 +158,23 @@ export default function AboutPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							How we earn the right to operate your infrastructure
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							A developer-first experience only works when the layers behind it are
 							designed with the same care. These are the standards behind our product,
 							our support, and our customer relationships.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 bg-border mt-8 grid gap-y-px md:grid-cols-3">
 						{OPERATING_PRINCIPLES.map((principle) => (
 							<article className="bg-background p-6" key={principle.title}>
-								<h3 className="font-bold text-2xl text-foreground">
+								<h3 className="text-foreground text-2xl font-bold">
 									{principle.title}
 								</h3>
-								<p className="mt-4 text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 leading-relaxed">
 									{principle.description}
 								</p>
 							</article>
@@ -184,10 +184,10 @@ export default function AboutPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							A name for the work we do
 						</h2>
-						<div className="max-w-2xl space-y-5 text-lg text-muted-foreground leading-relaxed">
+						<div className="text-muted-foreground max-w-2xl space-y-5 text-lg leading-relaxed">
 							<p>
 								A hot aisle is where a data center’s heat is deliberately contained
 								and managed. It is an unglamorous detail with real consequences for
@@ -204,17 +204,17 @@ export default function AboutPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Backed by people who understand infrastructure
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							We are grateful for the support that let us build patiently, learn from
 							real workloads, and keep improving the platform before pursuing scale.
 							After nearly three years in production, the foundation is ready for its
 							next stage. We are now looking for additional investors to help expand
 							developer-first sovereign inference capacity.{' '}
 							<AppLink
-								className="font-medium text-foreground underline decoration-hot-orange underline-offset-4 transition-colors hover:text-hot-orange-contrast"
+								className="text-foreground decoration-hot-orange hover:text-hot-orange-contrast font-medium underline underline-offset-4 transition-colors"
 								href="/investors"
 							>
 								Learn more about investing in Hot Aisle.
@@ -222,17 +222,17 @@ export default function AboutPage() {
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px border border-border bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 border-border bg-border mt-8 grid gap-y-px border md:grid-cols-2">
 						{EARLY_BACKERS.map((backer) => (
 							<a
-								className="bg-background p-6 transition-colors hover:bg-muted/35"
+								className="bg-background hover:bg-muted/35 p-6 transition-colors"
 								href={backer.url}
 								key={backer.name}
 								rel="noopener"
 								target="_blank"
 							>
-								<p className="font-bold text-2xl text-foreground">{backer.name}</p>
-								<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+								<p className="text-foreground text-2xl font-bold">{backer.name}</p>
+								<p className="text-muted-foreground mt-4 max-w-sm leading-relaxed">
 									{backer.description}
 								</p>
 							</a>

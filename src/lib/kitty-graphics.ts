@@ -10,7 +10,7 @@ const STRING_TERMINATOR = 0x5c;
 const UNDERSCORE = 0x5f;
 const MAX_TRANSFER_BASE64_BYTES = 32 * 1024 * 1024;
 const PNG_FORMAT = 100;
-const INTEGER_PATTERN = /^-?\d+$/;
+const INTEGER_PATTERN = /^-?\d+$/u;
 
 const PARSER_STATE = {
 	ApplicationProgramCommand: 2,

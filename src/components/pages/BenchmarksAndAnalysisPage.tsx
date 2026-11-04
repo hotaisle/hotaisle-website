@@ -139,7 +139,7 @@ export default function BenchmarksPage() {
 				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<figure className="max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="border-border bg-muted/20 max-w-sm overflow-hidden border p-3">
 								<OptimizedImage
 									alt="3D pixel-art GPU performance lab with server racks and benchmark displays"
 									className="aspect-4/3 w-full object-cover"
@@ -157,22 +157,22 @@ export default function BenchmarksPage() {
 									src="/assets/benchmarks/performance-lab-pixel-art-light.png"
 									width={1448}
 								/>
-								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+								<figcaption className="border-border text-muted-foreground mt-3 border-t pt-3 font-mono text-xs">
 									Measured workload, not marketing shorthand
 								</figcaption>
 							</figure>
 						</div>
 						<div>
-							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
 								Evidence, not assertions
 							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 								A curated index of third-party benchmarks, engineering analysis, and
 								operational references for AMD MI300X infrastructure and inference
 								workloads.
 							</p>
 							<AppLink
-								className="mt-8 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								className="border-foreground bg-foreground text-background mt-8 inline-flex border px-5 py-3 font-medium transition-colors hover:opacity-85"
 								href="/quick-start"
 							>
 								Start now
@@ -183,22 +183,22 @@ export default function BenchmarksPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Benchmark context is part of the result
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							Useful benchmarks document what was tested and how. These references are
 							intended to help you frame the right questions before running your own.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 bg-border mt-8 grid gap-y-px md:grid-cols-3">
 						{EVALUATION_CONTEXT.map((context) => (
 							<article className="bg-background p-6" key={context.title}>
-								<h3 className="font-bold text-2xl text-foreground">
+								<h3 className="text-foreground text-2xl font-bold">
 									{context.title}
 								</h3>
-								<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 max-w-sm leading-relaxed">
 									{context.description}
 								</p>
 							</article>
@@ -208,31 +208,31 @@ export default function BenchmarksPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Research, benchmarks, and field reports
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							External sources from engineering teams, cloud providers, researchers,
 							and the AMD community.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 bg-border mt-8 grid gap-y-px md:grid-cols-2">
 						{REFERENCES.map((reference) => (
 							<a
-								className="group flex flex-col bg-background p-6 transition-colors hover:bg-muted"
+								className="group bg-background hover:bg-muted flex flex-col p-6 transition-colors"
 								href={reference.url}
 								key={reference.url}
 								rel="noopener"
 								target="_blank"
 							>
-								<p className="font-mono text-hot-orange-contrast text-xs">
+								<p className="text-hot-orange-contrast font-mono text-xs">
 									{reference.source}
 								</p>
-								<h3 className="mt-8 max-w-xl font-bold text-2xl text-foreground group-hover:text-hot-orange-contrast">
+								<h3 className="text-foreground group-hover:text-hot-orange-contrast mt-8 max-w-xl text-2xl font-bold">
 									{reference.title}
 								</h3>
-								<span className="mt-auto pt-6 font-medium text-hot-orange-contrast text-sm">
+								<span className="text-hot-orange-contrast mt-auto pt-6 text-sm font-medium">
 									Open source
 								</span>
 							</a>
@@ -242,17 +242,17 @@ export default function BenchmarksPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Run the test that matters to you
 						</h2>
 						<div>
-							<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 								Bring your model, runtime, and request profile to an isolated AMD
 								GPU VM, then validate performance against your own operating
 								requirements.
 							</p>
 							<AppLink
-								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								className="border-foreground bg-foreground text-background mt-6 inline-flex border px-5 py-3 font-medium transition-colors hover:opacity-85"
 								href="/quick-start"
 							>
 								Launch compute

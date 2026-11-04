@@ -17,7 +17,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 	typeof value === 'object' && value !== null;
 
 const readClientConfig = (): ClientConfig => {
-	const configElement = document.getElementById(CLIENT_CONFIG_ID);
+	const configElement = document.querySelector(`#${CLIENT_CONFIG_ID}`);
 	if (!(configElement instanceof HTMLScriptElement)) {
 		throw new Error(`Missing client configuration element: #${CLIENT_CONFIG_ID}`);
 	}

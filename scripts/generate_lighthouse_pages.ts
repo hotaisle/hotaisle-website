@@ -18,7 +18,7 @@ const MANIFEST_FILE_NAME = 'manifest.json';
 const INDEX_FILE_NAME = 'index.html';
 const LOGO_FILE_PATH = path.join(PROJECT_ROOT, 'public', 'hotaisle-logo.svg');
 const STYLES_FILE_PATH = path.join(PROJECT_ROOT, 'scripts', 'lighthouse-report.css');
-const PATH_SEPARATOR_REGEX = /\\/g;
+const PATH_SEPARATOR_REGEX = /\\/gu;
 const CATEGORY_IDS = ['performance', 'accessibility', 'best-practices', 'seo'] as const;
 const GENERATED_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
 	day: 'numeric',

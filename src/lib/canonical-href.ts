@@ -1,7 +1,7 @@
 const CANONICAL_HREF_BASE_URL = 'https://hotaisle.local';
 const INTERNAL_ROOT_RELATIVE_HREF_PREFIX = '/';
 const PROTOCOL_RELATIVE_HREF_PREFIX = '//';
-const LAST_PATH_SEGMENT_EXTENSION_REGEX = /\/[^/]*\.[^/]*$/;
+const LAST_PATH_SEGMENT_EXTENSION_REGEX = /\/[^/]*\.[^/]*$/u;
 
 export function toCanonicalDocumentHref(href: string): string {
 	if (

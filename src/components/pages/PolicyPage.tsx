@@ -36,18 +36,18 @@ export default function PolicyPage({ page }: { page: PageData }) {
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
 							<AppLink
-								className="inline-flex border border-border px-4 py-2 font-medium text-foreground text-sm transition-colors hover:bg-muted"
+								className="border-border text-foreground hover:bg-muted inline-flex border px-4 py-2 text-sm font-medium transition-colors"
 								href="/policies"
 							>
 								All policies
 							</AppLink>
 						</div>
 						<div>
-							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
 								{page.title}
 							</h1>
 							{page.description ? (
-								<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+								<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 									{page.description}
 								</p>
 							) : null}
@@ -57,12 +57,12 @@ export default function PolicyPage({ page }: { page: PageData }) {
 
 				<section className="grid gap-8 py-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 					<aside className="lg:sticky lg:top-24">
-						<p className="max-w-xs text-muted-foreground text-sm leading-relaxed">
+						<p className="text-muted-foreground max-w-xs text-sm leading-relaxed">
 							{policySummary}
 						</p>
 					</aside>
 
-					<article className="policy-document prose prose-lg dark:prose-invert max-w-none prose-code:bg-muted prose-a:text-hot-orange prose-code:text-hot-orange prose-headings:text-foreground prose-li:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-td:text-foreground prose-th:text-foreground hover:prose-a:underline">
+					<article className="policy-document prose prose-lg dark:prose-invert prose-code:bg-muted prose-a:text-hot-orange prose-code:text-hot-orange prose-headings:text-foreground prose-li:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-td:text-foreground prose-th:text-foreground hover:prose-a:underline max-w-none">
 						{/** biome-ignore lint/security/noDangerouslySetInnerHtml: policy content is generated from trusted local Markdown. */}
 						<div dangerouslySetInnerHTML={{ __html: page.contentHtml }} />
 					</article>

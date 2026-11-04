@@ -33,22 +33,22 @@ export function EmbeddedTerminal() {
 		<div className="ha-embedded-terminal-stage mt-10">
 			<section
 				aria-label="Hot Aisle browser terminal"
-				className="ha-embedded-terminal hidden w-full overflow-hidden border border-border bg-card"
+				className="ha-embedded-terminal border-border bg-card hidden w-full overflow-hidden border"
 				data-embedded-terminal
 				data-ssh-keys-enabled={ENABLE_BROWSER_SSH_KEYS}
 			>
-				<div className="grid grid-cols-[1fr_auto_1fr] items-center border-border border-b bg-muted/30 px-4 py-3">
+				<div className="border-border bg-muted/30 grid grid-cols-[1fr_auto_1fr] items-center border-b px-4 py-3">
 					<div aria-hidden="true" className="flex items-center gap-2">
-						<span className="size-2 bg-hot-orange" />
-						<span className="size-2 bg-muted-foreground/40" />
-						<span className="size-2 bg-muted-foreground/40" />
+						<span className="bg-hot-orange size-2" />
+						<span className="bg-muted-foreground/40 size-2" />
+						<span className="bg-muted-foreground/40 size-2" />
 					</div>
-					<span className="ha-embedded-terminal__host font-mono text-foreground text-xs uppercase tracking-widest">
+					<span className="ha-embedded-terminal__host text-foreground font-mono text-xs tracking-widest uppercase">
 						admin.hotaisle.app
 					</span>
 					<div className="flex items-center gap-3 justify-self-end">
 						<button
-							className="hidden border border-border px-3 py-1.5 font-mono text-foreground text-xs uppercase tracking-widest hover:border-foreground hover:text-hot-orange-contrast focus-visible:border-hot-orange focus-visible:outline-none"
+							className="border-border text-foreground hover:border-foreground hover:text-hot-orange-contrast focus-visible:border-hot-orange hidden border px-3 py-1.5 font-mono text-xs tracking-widest uppercase focus-visible:outline-none"
 							data-terminal-reconnect
 							type="button"
 						>
@@ -56,11 +56,11 @@ export function EmbeddedTerminal() {
 						</button>
 						<span
 							aria-hidden="true"
-							className="ha-embedded-terminal__status-dot size-2 bg-muted-foreground"
+							className="ha-embedded-terminal__status-dot bg-muted-foreground size-2"
 						/>
 						<p
 							aria-live="polite"
-							className="font-mono text-muted-foreground text-xs uppercase tracking-widest"
+							className="text-muted-foreground font-mono text-xs tracking-widest uppercase"
 							data-terminal-status
 						>
 							Loading
@@ -83,8 +83,8 @@ export function EmbeddedTerminal() {
 						Click terminal to focus
 					</button>
 				</div>
-				<div className="hidden border-border border-t p-4" data-terminal-key-downloads>
-					<div className="max-w-3xl space-y-4 text-muted-foreground text-sm">
+				<div className="border-border hidden border-t p-4" data-terminal-key-downloads>
+					<div className="text-muted-foreground max-w-3xl space-y-4 text-sm">
 						<p>
 							You can always sign in again with your email address and the
 							verification code we send you.
@@ -101,21 +101,21 @@ export function EmbeddedTerminal() {
 					</div>
 					<div className="mt-3 flex flex-wrap gap-3">
 						<button
-							className="border border-border bg-foreground px-4 py-2 font-medium text-background text-sm hover:bg-hot-orange"
+							className="border-border bg-foreground text-background hover:bg-hot-orange border px-4 py-2 text-sm font-medium"
 							data-download-private-key
 							type="button"
 						>
 							Download private key
 						</button>
 						<button
-							className="border border-border px-4 py-2 font-medium text-foreground text-sm hover:border-foreground"
+							className="border-border text-foreground hover:border-foreground border px-4 py-2 text-sm font-medium"
 							data-download-public-key
 							type="button"
 						>
 							Download public key
 						</button>
 					</div>
-					<p className="mt-6 max-w-3xl text-muted-foreground text-sm">
+					<p className="text-muted-foreground mt-6 max-w-3xl text-sm">
 						Move the downloaded files into your SSH directory and restrict the private
 						key so only your user can read it. If your browser saves downloads somewhere
 						else, update the source paths below.
@@ -152,7 +152,7 @@ export function EmbeddedTerminal() {
 								key={id}
 								role="tabpanel"
 							>
-								<pre className="overflow-x-auto border border-border border-t-0 bg-background p-4 text-foreground text-sm">
+								<pre className="border-border bg-background text-foreground overflow-x-auto border border-t-0 p-4 text-sm">
 									<code>{commands}</code>
 								</pre>
 							</div>

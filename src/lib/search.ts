@@ -182,5 +182,5 @@ function scoreSearchResult(
 }
 
 function normalizeSearchText(value: string): string {
-	return value.trim().toLowerCase().replace(/\s+/g, ' ');
+	return value.trim().toLowerCase().replace(/\s+/gu, ' ');
 }
