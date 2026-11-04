@@ -8,8 +8,8 @@
         "@astrojs/react": "^7.0.0",
         "@astrojs/sitemap": "^3.7.4",
         "@tailwindcss/typography": "^0.5.20",
-        "@wterm/dom": "0.5.4",
-        "@wterm/ghostty": "0.5.4",
+        "@wterm/dom": "0.5.8",
+        "@wterm/ghostty": "0.5.8",
         "astro": "^7.3.5",
         "gray-matter": "^4.0.3",
         "lucide-react": "^1.49.0",
@@ -49,7 +49,7 @@
   },
   "patchedDependencies": {
     "ssh2@1.17.0": "patches/ssh2@1.17.0.patch",
-    "@wterm/dom@0.5.4": "patches/@wterm%2Fdom@0.5.4.patch",
+    "@wterm/dom@0.5.8": "patches/@wterm%2Fdom@0.5.8.patch",
   },
   "packages": {
     "@astrojs/astro2tsx": ["@astrojs/astro2tsx@0.1.2", "", { "dependencies": { "@emnapi/core": "1.11.3", "@napi-rs/wasm-runtime": "1.2.4" } }, "sha512-Uj/M9zbrhu5cIZEvWAGTbQJRKSxXWJ/E59BZwt7F+chrKhbfttW+9rkS/l+1QxoJP1KU3UnpM62M7yszfAI0WA=="],
@@ -508,11 +508,11 @@
 
     "@vscode/l10n": ["@vscode/l10n@0.0.18", "", {}, "sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ=="],
 
-    "@wterm/core": ["@wterm/core@0.5.4", "", {}, "sha512-yIhbn27ELHDjEDtduDIycHWEEaobJGhqR+WqKgCoSPYReCIrR+skJS67PBk3Wp6+yLImfQ3Fv1CJ4hLXKLa7Fg=="],
+    "@wterm/core": ["@wterm/core@0.5.8", "", {}, "sha512-lOzFrNmrIbh+HEkyp+Ewa/HFZZOtiYPSedTyp8stjLA6zE0saGJWZF0vjc1e2892/s3Z7My6b9WXcPapq8ESww=="],
 
-    "@wterm/dom": ["@wterm/dom@0.5.4", "", { "dependencies": { "@wterm/core": "0.5.4" } }, "sha512-9zxZq52BFpBtVEkBEbZF5a+9dX+eIADQdlTRq6YgGxHP/G/aDXyRja+tebQtAYqx9KY8qJVm20vNOhQxwBe/FQ=="],
+    "@wterm/dom": ["@wterm/dom@0.5.8", "", { "dependencies": { "@wterm/core": "0.5.8" } }, "sha512-BPrn8bN3jEbVh7lLDWshjX5CNIw/gsKorMbCA0bBiO1ccXvJcqIZTv9mtSi++BNn73CtfY/kyrvm69VVWG+1vg=="],
 
-    "@wterm/ghostty": ["@wterm/ghostty@0.5.4", "", { "dependencies": { "@wterm/core": "0.5.4" } }, "sha512-W6wlGhHiGf/2tF/uZo8qHtaYqA3Ebf+6VhdPidiWuqEU37Kj+YSkuXCXP/qORSD0roec/5Z16qYRyF5HsC9XJg=="],
+    "@wterm/ghostty": ["@wterm/ghostty@0.5.8", "", { "dependencies": { "@wterm/core": "0.5.8" } }, "sha512-mrtFqlorzmNLo203UfgPa3+eY0JSGFfC8ioqcuBY9S80te8RD1g7nnbGVUerbjACkaY5MlBzLbu8mXZNUCjBpA=="],
 
     "acorn": ["acorn@8.18.0", "", { "bin": { "acorn": "bin/acorn" } }, "sha512-lGq+9yr1/GuAWaVYIHRjvvySG5/4VfKIvC8EWxStPdcDh/Ka7FG3twP6v4d5BkravUilhIAsG4Qj83t02LWUPQ=="],
 
