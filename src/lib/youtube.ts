@@ -1,6 +1,7 @@
-const HTML_AMPERSAND_REGEX = /&amp;/g;
-const STANDALONE_LINK_PARAGRAPH_REGEX = /<p>\s*<a\s+href="([^"]+)"[^>]*>[\s\S]*?<\/a>\s*<\/p>/g;
-const VIDEO_ID_REGEX = /^[A-Za-z0-9_-]{11}$/;
+const HTML_AMPERSAND_REGEX = /&amp;/gu;
+const STANDALONE_LINK_PARAGRAPH_REGEX =
+	/<p>\s*<a\s+href="(?<href>[^"]+)"[^>]*>[\s\S]*?<\/a>\s*<\/p>/gu;
+const VIDEO_ID_REGEX = /^[A-Za-z0-9_-]{11}$/u;
 const YOUTUBE_HOSTS = new Set([
 	'm.youtube.com',
 	'music.youtube.com',

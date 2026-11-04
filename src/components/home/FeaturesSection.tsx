@@ -48,14 +48,14 @@ const FEATURES = [
 
 export function FeaturesSection() {
 	return (
-		<section className="border-border/60 border-t bg-background py-16">
+		<section className="border-border/60 bg-background border-t py-16">
 			<div className="mx-auto max-w-7xl px-6">
 				{/* Section header */}
 				<div className="mb-16 text-center">
-					<h2 className="font-bold text-3xl tracking-tight sm:text-4xl">
+					<h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
 						GPU infrastructure that gets out of your way
 					</h2>
-					<p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+					<p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
 						Everything you need to run serious AI workloads — none of the enterprise
 						friction.
 					</p>
@@ -67,16 +67,16 @@ export function FeaturesSection() {
 						const Icon = feature.icon;
 						return (
 							<div
-								className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-hot-orange/30 hover:shadow-hot-orange/5 hover:shadow-lg"
+								className="group border-border/60 bg-card hover:border-hot-orange/30 hover:shadow-hot-orange/5 relative overflow-hidden rounded-2xl border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
 								key={feature.title}
 							>
-								<div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-hot-orange/10">
-									<Icon className="h-5 w-5 text-hot-orange" />
+								<div className="bg-hot-orange/10 mb-4 flex h-10 w-10 items-center justify-center rounded-lg">
+									<Icon className="text-hot-orange h-5 w-5" />
 								</div>
-								<div className="mb-1 font-semibold text-hot-orange-contrast text-xs uppercase tracking-wider">
+								<div className="text-hot-orange-contrast mb-1 text-xs font-semibold tracking-wider uppercase">
 									{feature.label}
 								</div>
-								<h3 className="mb-2 font-semibold text-foreground text-lg">
+								<h3 className="text-foreground mb-2 text-lg font-semibold">
 									{feature.title}
 								</h3>
 								<p className="text-muted-foreground text-sm leading-relaxed">
@@ -90,7 +90,7 @@ export function FeaturesSection() {
 				{/* Bottom CTA */}
 				<div className="mt-8 text-center">
 					<AppLink
-						className="group inline-flex items-center gap-2 font-medium text-hot-orange-contrast text-sm transition hover:opacity-80"
+						className="group text-hot-orange-contrast inline-flex items-center gap-2 text-sm font-medium transition hover:opacity-80"
 						href="/compute"
 					>
 						Explore the full infrastructure

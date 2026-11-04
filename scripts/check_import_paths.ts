@@ -4,10 +4,10 @@ import path from 'node:path';
 const PROJECT_ROOT = process.cwd();
 const SOURCE_ROOT = path.join(PROJECT_ROOT, 'src');
 const IMPORT_PATTERNS = [
-	/\b(?:import|export)\b[\s\S]*?\bfrom\s*['"]([^'"]+)['"]/g,
-	/\bimport\s*\(\s*['"]([^'"]+)['"]\s*\)/g,
+	/\b(?:import|export)\b[\s\S]*?\bfrom\s*['"](?<specifier>[^'"]+)['"]/gu,
+	/\bimport\s*\(\s*['"](?<specifier>[^'"]+)['"]\s*\)/gu,
 ] as const;
-const PATH_SEPARATOR_REGEX = /\\/g;
+const PATH_SEPARATOR_REGEX = /\\/gu;
 
 interface ImportIssue {
 	filePath: string;

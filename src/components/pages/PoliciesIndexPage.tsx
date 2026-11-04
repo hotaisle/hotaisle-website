@@ -49,10 +49,10 @@ export default function PoliciesIndexPage() {
 			<div className="container mx-auto max-w-6xl px-6">
 				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h1 className="font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+						<h1 className="text-foreground text-5xl font-black tracking-tighter md:text-7xl">
 							Policies, clearly stated
 						</h1>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed md:text-xl">
 							The documents that govern Hot Aisle services, infrastructure, and shared
 							responsibilities.
 						</p>
@@ -64,19 +64,19 @@ export default function PoliciesIndexPage() {
 						<div className="border-border border-y lg:col-start-2">
 							{POLICIES.map((policy) => (
 								<AppLink
-									className="group grid gap-5 border-border border-b py-7 transition-colors last:border-b-0 hover:bg-muted/35 sm:grid-cols-[1fr_auto] sm:items-start sm:px-5"
+									className="group border-border hover:bg-muted/35 grid gap-5 border-b py-7 transition-colors last:border-b-0 sm:grid-cols-[1fr_auto] sm:items-start sm:px-5"
 									href={`/policies/${policy.slug}`}
 									key={policy.slug}
 								>
 									<div>
-										<h2 className="font-bold text-foreground text-xl">
+										<h2 className="text-foreground text-xl font-bold">
 											{policy.title}
 										</h2>
-										<p className="mt-3 text-muted-foreground leading-relaxed">
+										<p className="text-muted-foreground mt-3 leading-relaxed">
 											{policy.description}
 										</p>
 									</div>
-									<span className="font-medium text-hot-orange-contrast text-sm transition-colors group-hover:text-foreground">
+									<span className="text-hot-orange-contrast group-hover:text-foreground text-sm font-medium transition-colors">
 										Read policy
 									</span>
 								</AppLink>

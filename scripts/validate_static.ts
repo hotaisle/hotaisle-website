@@ -31,10 +31,11 @@ const REQUIRED_TWITTER_NAMES = [
 	'twitter:site',
 	'twitter:title',
 ] as const;
-const TAG_ATTRIBUTE_REGEX = /([^\s=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g;
-const LINK_TAG_REGEX = /<link\b[^>]*>/g;
-const META_TAG_REGEX = /<meta\b[^>]*>/g;
-const HREF_REGEX = /\shref=(?:"([^"]+)"|'([^']+)')/g;
+const TAG_ATTRIBUTE_REGEX =
+	/(?<name>[^\s=]+)(?:\s*=\s*(?:"(?<doubleQuoted>[^"]*)"|'(?<singleQuoted>[^']*)'|(?<unquoted>[^\s>]+)))?/gu;
+const LINK_TAG_REGEX = /<link\b[^>]*>/gu;
+const META_TAG_REGEX = /<meta\b[^>]*>/gu;
+const HREF_REGEX = /\shref=(?:"(?<doubleQuoted>[^"]+)"|'(?<singleQuoted>[^']+)')/gu;
 
 interface HtmlDocument {
 	html: string;
@@ -162,7 +163,7 @@ function toStaticOutputPath(href: string): string | null {
 		return path.join(STATIC_OUTPUT_DIRECTORY, 'index.html');
 	}
 
-	const relativePath = decodedPathname.replace(/^\/|\/$/g, '');
+	const relativePath = decodedPathname.replace(/^\/|\/$/gu, '');
 	if (!relativePath) {
 		return path.join(STATIC_OUTPUT_DIRECTORY, 'index.html');
 	}

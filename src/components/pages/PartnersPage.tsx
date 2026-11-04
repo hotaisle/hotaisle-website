@@ -66,7 +66,7 @@ export default function PartnersPage() {
 				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<figure className="max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="border-border bg-muted/20 max-w-sm overflow-hidden border p-3">
 								<OptimizedImage
 									alt="3D pixel-art coordinated data center deployment with a server rack, network switch, cable spool, and installation arm"
 									className="aspect-4/3 w-full object-cover"
@@ -84,16 +84,16 @@ export default function PartnersPage() {
 									src="/assets/partners/deployment-coordination-pixel-art-light.png"
 									width={1448}
 								/>
-								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+								<figcaption className="border-border text-muted-foreground mt-3 border-t pt-3 font-mono text-xs">
 									Hardware, network, and delivery coordination
 								</figcaption>
 							</figure>
 						</div>
 						<div>
-							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
 								Partnerships that move capacity
 							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 								Reliable infrastructure is built through close working
 								relationships. We bring the hardware, networking, facility,
 								deployment, and orchestration conversations together before capacity
@@ -105,23 +105,23 @@ export default function PartnersPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							The work starts well before a server comes online
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							Our partners are part of how we turn AMD GPU hardware into usable,
 							serviceable inference capacity. The outcome should be simple for the
 							customer, even when the work underneath is not.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 bg-border mt-8 grid gap-y-px md:grid-cols-3">
 						{RELATIONSHIP_OUTCOMES.map((outcome) => (
 							<article className="bg-background p-6" key={outcome.title}>
-								<h3 className="font-bold text-2xl text-foreground">
+								<h3 className="text-foreground text-2xl font-bold">
 									{outcome.title}
 								</h3>
-								<p className="mt-4 text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 leading-relaxed">
 									{outcome.description}
 								</p>
 							</article>
@@ -131,42 +131,42 @@ export default function PartnersPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Relationships at every layer of delivery
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							We work with specialists in the layers we operate, rather than treating
 							the infrastructure supply chain as a black box.
 						</p>
 					</div>
 
-					<div className="mt-8 border-border border-t">
+					<div className="border-border mt-8 border-t">
 						{PARTNER_GROUPS.map((group) => (
 							<section
 								className="grid gap-8 py-10 lg:grid-cols-[0.75fr_1.25fr]"
 								key={group.title}
 							>
 								<div>
-									<h3 className="font-bold text-2xl text-foreground">
+									<h3 className="text-foreground text-2xl font-bold">
 										{group.title}
 									</h3>
-									<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+									<p className="text-muted-foreground mt-4 max-w-sm leading-relaxed">
 										{group.description}
 									</p>
 								</div>
-								<div className="ha-inset-dividers ha-inset-dividers-sm-2 grid gap-y-px border border-border bg-border sm:grid-cols-2">
+								<div className="ha-inset-dividers ha-inset-dividers-sm-2 border-border bg-border grid gap-y-px border sm:grid-cols-2">
 									{group.partners.map((partner) => (
 										<a
-											className="group min-h-36 bg-background p-6 transition-colors hover:bg-muted/35"
+											className="group bg-background hover:bg-muted/35 min-h-36 p-6 transition-colors"
 											href={partner.url}
 											key={partner.url}
 											rel="noopener"
 											target="_blank"
 										>
-											<p className="font-bold text-foreground text-xl transition-colors group-hover:text-hot-orange-contrast">
+											<p className="text-foreground group-hover:text-hot-orange-contrast text-xl font-bold transition-colors">
 												{partner.name}
 											</p>
-											<p className="mt-3 text-muted-foreground text-sm leading-relaxed">
+											<p className="text-muted-foreground mt-3 text-sm leading-relaxed">
 												{partner.role}
 											</p>
 										</a>
@@ -179,17 +179,17 @@ export default function PartnersPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Bring us a deployment with real constraints
 						</h2>
 						<div>
-							<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+							<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 								We are interested in relationships that make sovereign inference
 								infrastructure faster to deploy, easier to operate, and more useful
 								to developers and the businesses they support.
 							</p>
 							<AppLink
-								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								className="border-foreground bg-foreground text-background mt-6 inline-flex border px-5 py-3 font-medium transition-colors hover:opacity-85"
 								href="/contact"
 							>
 								Start a conversation

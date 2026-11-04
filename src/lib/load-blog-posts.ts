@@ -27,43 +27,45 @@ const BLOG_CONTENT_DIR = path.join(CONTENT_DIR, 'blog');
 const BLOG_ASSET_SOURCE_DIR = path.join(BLOG_CONTENT_DIR, 'assets');
 const BLOG_AUTHORS_PATH = path.join(BLOG_CONTENT_DIR, '0-authors.json');
 const BLOG_ASSET_PREFIX = '/assets/blog/';
-const FILE_SUFFIX_REGEX = /\s[0-9a-f]{32}$/i;
-const MD_EXTENSION_REGEX = /\.md$/i;
-const DATE_REGEX = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
-const MARKDOWN_IMAGE_REGEX = /!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g;
-const FIRST_MARKDOWN_IMAGE_REGEX = /!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/;
-const MARKDOWN_LINK_REGEX = /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g;
-const EXTERNAL_OR_SPECIAL_LINK_REGEX = /^(?:https?:|mailto:|tel:|#|\/)/i;
-const LEADING_H1_REGEX = /^\s*#\s+(.+)\n+/;
-const LEGACY_METADATA_LINE_REGEX = /^([A-Za-z][A-Za-z0-9 '&()._/+-]*):\s*(.*)$/;
-const MARKDOWN_PARAGRAPH_SPLIT_REGEX = /\n\s*\n/;
-const MARKDOWN_INLINE_LINK_REGEX = /\[(.*?)\]\((.*?)\)/g;
-const RELATIVE_PATH_PREFIX_REGEX = /^\.\//;
-const WINDOWS_PATH_SEPARATOR_REGEX = /\\/g;
-const NEW_LINE_SPLIT_REGEX = /\r?\n/;
-const CAMEL_CASE_BOUNDARY_REGEX = /([a-z0-9])([A-Z])/g;
-const IMAGE_EXTENSION_REGEX = /\.(?:avif|gif|jpe?g|png|svg|webp)(?:$|[?#])/i;
+const FILE_SUFFIX_REGEX = /\s[0-9a-f]{32}$/iu;
+const MD_EXTENSION_REGEX = /\.md$/iu;
+const DATE_REGEX = /^(?<month>\d{1,2})\/(?<day>\d{1,2})\/(?<year>\d{4})$/u;
+const MARKDOWN_IMAGE_REGEX = /!\[(?<alt>[^\]]*)\]\((?<path>[^)\s]+)(?:\s+"(?<title>[^"]*)")?\)/gu;
+const FIRST_MARKDOWN_IMAGE_REGEX =
+	/!\[(?<alt>[^\]]*)\]\((?<path>[^)\s]+)(?:\s+"(?<title>[^"]*)")?\)/u;
+const MARKDOWN_LINK_REGEX = /(?<!!)\[(?<label>[^\]]+)\]\((?<path>[^)]+)\)/gu;
+const EXTERNAL_OR_SPECIAL_LINK_REGEX = /^(?:https?:|mailto:|tel:|#|\/)/iu;
+const LEADING_H1_REGEX = /^\s*#\s+(?<heading>.+)\n+/u;
+const LEGACY_METADATA_LINE_REGEX = /^(?<key>[A-Za-z][A-Za-z0-9 '&()._/+-]*):\s*(?<value>.*)$/u;
+const MARKDOWN_PARAGRAPH_SPLIT_REGEX = /\n\s*\n/u;
+const MARKDOWN_INLINE_LINK_REGEX = /\[(?<label>.*?)\]\((?<path>.*?)\)/gu;
+const RELATIVE_PATH_PREFIX_REGEX = /^\.\//u;
+const WINDOWS_PATH_SEPARATOR_REGEX = /\\/gu;
+const NEW_LINE_SPLIT_REGEX = /\r?\n/u;
+const CAMEL_CASE_BOUNDARY_REGEX = /(?<before>[a-z0-9])(?<after>[A-Z])/gu;
+const IMAGE_EXTENSION_REGEX = /\.(?:avif|gif|jpe?g|png|svg|webp)(?:$|[?#])/iu;
 const BLOG_HEADER_FILE_NAMES = ['header.jpg', 'header.png'] as const;
 const BLOG_DARK_HEADER_FILE_NAMES = ['header-dark.jpg', 'header-dark.png'] as const;
-const BLOG_IMAGE_TAG_REGEX = /<img\b([^>]*?)src="([^"]+)"([^>]*)>/g;
-const CLASS_ATTRIBUTE_REGEX = /\sclass="([^"]*)"/;
-const TITLE_ATTRIBUTE_REGEX = /\stitle="([^"]*)"/;
+const BLOG_IMAGE_TAG_REGEX = /<img\b(?<before>[^>]*?)src="(?<src>[^"]+)"(?<after>[^>]*)>/gu;
+const CLASS_ATTRIBUTE_REGEX = /\sclass="(?<classes>[^"]*)"/u;
+const TITLE_ATTRIBUTE_REGEX = /\stitle="(?<title>[^"]*)"/u;
 const LEGACY_MULTILINE_METADATA_KEYS = new Set(['description']);
-const UNICODE_DIACRITICS_REGEX = /[\u0300-\u036f]/g;
-const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]+/g;
-const EDGE_DASHES_REGEX = /^-+|-+$/g;
-const WHITESPACE_REGEX = /\s+/g;
+const UNICODE_DIACRITICS_REGEX = /[\u0300-\u036f]/gu;
+const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]+/gu;
+const EDGE_DASHES_REGEX = /^-+|-+$/gu;
+const WHITESPACE_REGEX = /\s+/gu;
 const INLINE_IMAGE_CLASS = 'blog-inline-image';
 const PORTRAIT_IMAGE_CLASS = 'blog-inline-image--portrait';
 const SMALL_IMAGE_CLASS = 'blog-inline-image--small';
 const SMALL_IMAGE_TITLE = 'small';
 const PORTRAIT_IMAGE_RATIO_THRESHOLD = 1;
-const AUTHOR_SECTION_REGEX = /\n---\s*\n## About the Author[\s\S]*$/i;
+const AUTHOR_SECTION_REGEX = /\n---\s*\n## About the Author[\s\S]*$/iu;
 const MERMAID_DIAGRAM_TITLE = 'mermaid-diagram';
-const MERMAID_PARAGRAPH_WRAPPER_REGEX = /<p>(<div class="mermaid-diagram">[\s\S]*?<\/div>)<\/p>/g;
-const MERMAID_LIGHT_SVG_SUFFIX_REGEX = /-light\.svg$/;
-const SVG_VIEWBOX_REGEX = /\bviewBox="[^"]*?\s([\d.]+)\s([\d.]+)"/i;
-const SVG_MAX_WIDTH_STYLE_REGEX = /\bmax-width:\s*([\d.]+)px/i;
+const MERMAID_PARAGRAPH_WRAPPER_REGEX =
+	/<p>(?<diagram><div class="mermaid-diagram">[\s\S]*?<\/div>)<\/p>/gu;
+const MERMAID_LIGHT_SVG_SUFFIX_REGEX = /-light\.svg$/u;
+const SVG_VIEWBOX_REGEX = /\bviewBox="[^"]*?\s(?<width>[\d.]+)\s(?<height>[\d.]+)"/iu;
+const SVG_MAX_WIDTH_STYLE_REGEX = /\bmax-width:\s*(?<width>[\d.]+)px/iu;
 
 export interface BlogAuthorLink {
 	label: string;
@@ -232,10 +234,10 @@ function normalizeFileStem(fileName: string): string {
 function slugify(input: string): string {
 	const cleaned = input
 		.toLowerCase()
-		.replace(/[^a-z0-9\s-]/g, ' ')
-		.replace(/\s+/g, '-')
-		.replace(/-+/g, '-')
-		.replace(/^-|-$/g, '');
+		.replace(/[^a-z0-9\s-]/gu, ' ')
+		.replace(/\s+/gu, '-')
+		.replace(/-+/gu, '-')
+		.replace(/^-|-$/gu, '');
 
 	return cleaned || 'untitled';
 }
@@ -292,7 +294,7 @@ function parseTags(value: string | undefined): string[] {
 }
 
 function extractDescription(contentMarkdown: string): string {
-	const noHeadings = contentMarkdown.replace(/^#+\s+/gm, '').trim();
+	const noHeadings = contentMarkdown.replace(/^#+\s+/gmu, '').trim();
 	const firstParagraph = noHeadings.split(MARKDOWN_PARAGRAPH_SPLIT_REGEX)[0] ?? '';
 	const plain = firstParagraph.replace(MARKDOWN_INLINE_LINK_REGEX, '$1').trim();
 	if (plain.length <= 220) {
@@ -307,8 +309,8 @@ function stripLeadingMatchingHeading(contentMarkdown: string, title: string): st
 		return contentMarkdown;
 	}
 
-	const headingText = match[1].replace(/[*_`]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
-	const normalizedTitle = title.replace(/[*_`]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+	const headingText = match[1].replace(/[*_`]/gu, '').replace(/\s+/gu, ' ').trim().toLowerCase();
+	const normalizedTitle = title.replace(/[*_`]/gu, '').replace(/\s+/gu, ' ').trim().toLowerCase();
 
 	if (headingText !== normalizedTitle) {
 		return contentMarkdown;
@@ -322,7 +324,7 @@ function stripAuthorSection(contentMarkdown: string): string {
 }
 
 function decodeMarkdownPath(rawPath: string): string {
-	const trimmed = rawPath.trim().replace(/^<|>$/g, '');
+	const trimmed = rawPath.trim().replace(/^<|>$/gu, '');
 	try {
 		return decodeURIComponent(trimmed);
 	} catch {

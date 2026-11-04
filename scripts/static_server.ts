@@ -5,7 +5,7 @@ import { file, serve } from 'bun';
 const INDEX_FILE_NAME = 'index.html';
 const HTML_EXTENSION = '.html';
 const HTML_CONTENT_TYPE = 'text/html; charset=utf-8';
-const COMPRESSIBLE_FILE_REGEX = /\.(?:css|html|js|json|svg|txt|xml)$/i;
+const COMPRESSIBLE_FILE_REGEX = /\.(?:css|html|js|json|svg|txt|xml)$/iu;
 const HASHED_ASSET_PATH_PREFIX = '/_astro/';
 const PUBLIC_ASSET_PATH_PREFIX = '/assets/';
 const IMMUTABLE_CACHE_CONTROL = 'public, max-age=31536000, immutable';

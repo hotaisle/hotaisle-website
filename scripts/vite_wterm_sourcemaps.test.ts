@@ -7,7 +7,7 @@ import { wtermSourceMaps } from './vite_wterm_sourcemaps.ts';
 const DOM_DIST = dirname(fileURLToPath(import.meta.resolve('@wterm/dom')));
 const GHOSTTY_DIST = dirname(fileURLToPath(import.meta.resolve('@wterm/ghostty')));
 const CORE_DIST = dirname(fileURLToPath(import.meta.resolve('@wterm/core')));
-const SOURCE_MAP_COMMENT_PATTERN = /^[\t ]*\/\/[#@][\t ]*sourceMappingURL=[^\r\n]*/gm;
+const SOURCE_MAP_COMMENT_PATTERN = /^[\t ]*\/\/[#@][\t ]*sourceMappingURL=[^\r\n]*/gmu;
 
 describe('wterm source map loading', () => {
 	test.each([

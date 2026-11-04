@@ -58,7 +58,7 @@ export default function MI300XPage() {
 				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<figure className="max-w-sm overflow-hidden border border-border bg-white p-3 dark:bg-black">
+							<figure className="border-border max-w-sm overflow-hidden border bg-white p-3 dark:bg-black">
 								<OptimizedImage
 									alt="AMD Instinct MI300X accelerator package and board"
 									className="aspect-video w-full object-cover"
@@ -84,29 +84,29 @@ export default function MI300XPage() {
 									src="/assets/mi300x/mi300x-amd-product.jpg"
 									width={1200}
 								/>
-								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+								<figcaption className="border-border text-muted-foreground mt-3 border-t pt-3 font-mono text-xs">
 									MI300X / 192 GB HBM3
 								</figcaption>
 							</figure>
 						</div>
 						<div>
-							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
 								AMD Instinct MI300X
 							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 								A high-memory AMD accelerator for production inference. Start with
 								one isolated GPU VM or scale to an eight-GPU server without changing
 								the operational model.
 							</p>
 							<div className="mt-8 flex flex-wrap gap-3">
 								<AppLink
-									className="border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+									className="border-foreground bg-foreground text-background border px-5 py-3 font-medium transition-colors hover:opacity-85"
 									href="/quick-start"
 								>
 									Start now
 								</AppLink>
 								<AppLink
-									className="border border-border px-5 py-3 font-medium text-foreground transition-colors hover:bg-muted"
+									className="border-border text-foreground hover:bg-muted border px-5 py-3 font-medium transition-colors"
 									href="/benchmarks-and-analysis"
 								>
 									View benchmarks
@@ -118,23 +118,23 @@ export default function MI300XPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Built for memory-intensive serving
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							MI300X pairs a large HBM3 footprint with the bandwidth needed to serve
 							open-source models reliably, without turning deployment into a hardware
 							project for your team.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-sm-2 ha-inset-dividers-xl-4 mt-8 grid gap-y-px bg-border sm:grid-cols-2 xl:grid-cols-4">
+					<div className="ha-inset-dividers ha-inset-dividers-sm-2 ha-inset-dividers-xl-4 bg-border mt-8 grid gap-y-px sm:grid-cols-2 xl:grid-cols-4">
 						{MI300X_METRICS.map((metric) => (
 							<div className="bg-background p-6" key={metric.label}>
-								<p className="font-mono text-muted-foreground text-xs uppercase">
+								<p className="text-muted-foreground font-mono text-xs uppercase">
 									{metric.label}
 								</p>
-								<p className="mt-8 font-black text-3xl text-hot-orange-contrast md:text-4xl">
+								<p className="text-hot-orange-contrast mt-8 text-3xl font-black md:text-4xl">
 									{metric.value}
 								</p>
 							</div>
@@ -144,23 +144,23 @@ export default function MI300XPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Capacity that does not get in the way
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							The accelerator is only part of the offering. Hot Aisle automates the
 							networking, PXE, operating system, ROCm, virtualization, and billing
 							layers required to make this capacity usable.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 bg-border mt-8 grid gap-y-px md:grid-cols-3">
 						{INFERENCE_CHARACTERISTICS.map((characteristic) => (
 							<article className="bg-background p-6" key={characteristic.title}>
-								<h3 className="font-bold text-2xl text-foreground">
+								<h3 className="text-foreground text-2xl font-bold">
 									{characteristic.title}
 								</h3>
-								<p className="mt-4 text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 leading-relaxed">
 									{characteristic.description}
 								</p>
 							</article>
@@ -170,39 +170,39 @@ export default function MI300XPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							The accelerator, in a complete platform
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							Infrastructure is more useful when the physical system, virtualization
 							model, and control surface are designed together.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 bg-border mt-8 grid gap-y-px md:grid-cols-2">
 						{ARCHITECTURE_DETAILS.map((detail) => (
 							<article className="bg-background p-6" key={detail.title}>
-								<h3 className="font-bold text-2xl text-foreground">
+								<h3 className="text-foreground text-2xl font-bold">
 									{detail.title}
 								</h3>
-								<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 max-w-md leading-relaxed">
 									{detail.description}
 								</p>
 							</article>
 						))}
 					</div>
 
-					<div className="mt-8 grid gap-8 border-border border-t pt-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h3 className="font-black text-3xl text-foreground">
+					<div className="border-border mt-8 grid gap-8 border-t pt-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h3 className="text-foreground text-3xl font-black">
 							Ready when the workload is
 						</h3>
 						<div>
-							<p className="max-w-xl text-muted-foreground leading-relaxed">
+							<p className="text-muted-foreground max-w-xl leading-relaxed">
 								Create a team, add credit, and provision isolated AMD GPU compute
 								from the terminal UI, API, or CLI. No sales handoff is required.
 							</p>
 							<AppLink
-								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								className="border-foreground bg-foreground text-background mt-6 inline-flex border px-5 py-3 font-medium transition-colors hover:opacity-85"
 								href="/quick-start"
 							>
 								Quick start

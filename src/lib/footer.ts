@@ -1,6 +1,6 @@
 export const SITE_BASE_URL = 'https://hotaisle.xyz' as const;
 export const LIGHTHOUSE_INDEX_URL = '/lighthouse' as const;
-const ABSOLUTE_URL_REGEX = /^https?:\/\//;
+const ABSOLUTE_URL_REGEX = /^https?:\/\//u;
 
 export interface FooterLink {
 	href: string;

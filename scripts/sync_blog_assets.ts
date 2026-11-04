@@ -5,9 +5,9 @@ const PROJECT_ROOT = path.join(import.meta.dirname, '..');
 const BLOG_ASSET_SOURCE_DIRECTORY = path.join(PROJECT_ROOT, 'src', 'content', 'blog', 'assets');
 const PUBLIC_BLOG_ASSET_DIRECTORY = path.join(PROJECT_ROOT, 'public', 'assets', 'blog');
 const DS_STORE_FILE_NAME = '.DS_Store';
-const UNICODE_DIACRITICS_REGEX = /[\u0300-\u036f]/g;
-const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]+/g;
-const EDGE_DASHES_REGEX = /^-+|-+$/g;
+const UNICODE_DIACRITICS_REGEX = /[\u0300-\u036f]/gu;
+const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]+/gu;
+const EDGE_DASHES_REGEX = /^-+|-+$/gu;
 
 const toSlugSegment = (segment: string): string => {
 	const parsed = path.parse(segment);

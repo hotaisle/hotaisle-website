@@ -78,7 +78,7 @@ export default function ComputePage() {
 				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<figure className="max-w-sm border border-border bg-muted/20 p-3">
+							<figure className="border-border bg-muted/20 max-w-sm border p-3">
 								<ClickableImage
 									alt="Dell PowerEdge XE9680"
 									className="h-40 w-full object-contain"
@@ -90,28 +90,28 @@ export default function ComputePage() {
 									src="/assets/compute/hero-compact.webp"
 									width={544}
 								/>
-								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+								<figcaption className="border-border text-muted-foreground mt-3 border-t pt-3 font-mono text-xs">
 									XE9680 / 8x MI300X
 								</figcaption>
 							</figure>
 						</div>
 						<div>
-							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
 								Dell PowerEdge XE9680
 							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 								Eight AMD MI300X GPUs, high-bandwidth networking, and the automation
 								to provision isolated compute without infrastructure handoffs.
 							</p>
 							<div className="mt-8 flex flex-wrap gap-3">
 								<AppLink
-									className="border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+									className="border-foreground bg-foreground text-background border px-5 py-3 font-medium transition-colors hover:opacity-85"
 									href="/quick-start"
 								>
 									Start now
 								</AppLink>
 								<AppLink
-									className="border border-border px-5 py-3 font-medium text-foreground transition-colors hover:bg-muted"
+									className="border-border text-foreground hover:bg-muted border px-5 py-3 font-medium transition-colors"
 									href="#specifications"
 								>
 									View specifications
@@ -123,42 +123,42 @@ export default function ComputePage() {
 
 				<section className="border-border border-b py-12" id="specifications">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Built for large inference workloads
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							A balanced system from GPU memory through storage, network fabric, and
 							power delivery.
 						</p>
 					</div>
 
 					<div className="mt-8 hidden gap-8 px-6 md:grid md:grid-cols-[0.55fr_1.45fr_0.7fr]">
-						<p className="font-mono text-muted-foreground text-xs uppercase">
+						<p className="text-muted-foreground font-mono text-xs uppercase">
 							Component
 						</p>
-						<p className="pl-8 font-mono text-muted-foreground text-xs uppercase">
+						<p className="text-muted-foreground pl-8 font-mono text-xs uppercase">
 							Description
 						</p>
-						<p className="pl-8 font-mono text-muted-foreground text-xs uppercase">
+						<p className="text-muted-foreground pl-8 font-mono text-xs uppercase">
 							Total capacity
 						</p>
 					</div>
-					<div className="mt-3 grid gap-y-px bg-border">
+					<div className="bg-border mt-3 grid gap-y-px">
 						{SPECS.map((spec) => (
 							<article
-								className="ha-inset-dividers ha-inset-dividers-md-3 ha-specification-row grid gap-8 bg-background p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr]"
+								className="ha-inset-dividers ha-inset-dividers-md-3 ha-specification-row bg-background grid gap-8 p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr]"
 								key={spec.name}
 							>
 								<div>
-									<h3 className="font-bold text-2xl text-foreground">
+									<h3 className="text-foreground text-2xl font-bold">
 										{spec.name}
 									</h3>
-									<p className="mt-3 max-w-xs text-muted-foreground text-sm leading-relaxed">
+									<p className="text-muted-foreground mt-3 max-w-xs text-sm leading-relaxed">
 										{spec.summary}
 									</p>
 								</div>
 								<div className="md:pl-8">
-									<p className="font-medium text-foreground text-lg leading-relaxed">
+									<p className="text-foreground text-lg leading-relaxed font-medium">
 										{spec.description}
 									</p>
 									<ul className="mt-5 space-y-3">
@@ -173,7 +173,7 @@ export default function ComputePage() {
 									</ul>
 								</div>
 								<div className="md:pl-8">
-									<p className="font-bold text-2xl text-hot-orange-contrast">
+									<p className="text-hot-orange-contrast text-2xl font-bold">
 										<span className="sr-only">Total capacity: </span>
 										{spec.capacity}
 									</p>
@@ -185,16 +185,16 @@ export default function ComputePage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Uptime matters to both of us
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							Every server is covered by Dell ProSupport Next Business Day warranty,
 							with parts held on site to minimize downtime.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-lg-2 mt-8 grid gap-y-px bg-border lg:grid-cols-[0.65fr_1.35fr]">
+					<div className="ha-inset-dividers ha-inset-dividers-lg-2 bg-border mt-8 grid gap-y-px lg:grid-cols-[0.65fr_1.35fr]">
 						<figure className="bg-background p-4">
 							<ClickableImage
 								alt="Hot Aisle server racks, network fabric, and cabling"
@@ -204,27 +204,27 @@ export default function ComputePage() {
 								width={600}
 							/>
 						</figure>
-						<div className="ha-inset-dividers ha-inset-dividers-md-2 grid gap-y-px bg-border md:grid-cols-2">
+						<div className="ha-inset-dividers ha-inset-dividers-md-2 bg-border grid gap-y-px md:grid-cols-2">
 							{OPERATIONS.map((operation) => (
 								<div className="bg-background p-6" key={operation.title}>
-									<h3 className="font-bold text-2xl text-foreground">
+									<h3 className="text-foreground text-2xl font-bold">
 										{operation.title}
 									</h3>
-									<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
+									<p className="text-muted-foreground mt-4 max-w-md leading-relaxed">
 										{operation.description}
 									</p>
 								</div>
 							))}
 							<div className="bg-background p-6 md:col-span-2">
-								<h3 className="font-black text-3xl text-foreground">
+								<h3 className="text-foreground text-3xl font-black">
 									Need a specific configuration?
 								</h3>
-								<p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">
 									Work with our team on a cluster that matches your workload,
 									location, and operational requirements.
 								</p>
 								<AppLink
-									className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+									className="border-foreground bg-foreground text-background mt-6 inline-flex border px-5 py-3 font-medium transition-colors hover:opacity-85"
 									href="/cluster"
 								>
 									Cluster design services

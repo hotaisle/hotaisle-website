@@ -11,12 +11,12 @@ export function BlogAuthorCard({ profile }: BlogAuthorCardProps) {
 		: profile.bio;
 
 	return (
-		<section aria-labelledby="about-the-author" className="mt-12 border-border border-t pt-8">
-			<h2 className="mb-4 font-bold text-2xl" id="about-the-author">
+		<section aria-labelledby="about-the-author" className="border-border mt-12 border-t pt-8">
+			<h2 className="mb-4 text-2xl font-bold" id="about-the-author">
 				About the Author
 			</h2>
 			{profile.note ? (
-				<p className="mb-4 text-muted-foreground italic">{profile.note}</p>
+				<p className="text-muted-foreground mb-4 italic">{profile.note}</p>
 			) : null}
 			<p className="mb-6">
 				<span className="inline-label-group">

@@ -42,23 +42,23 @@ const advantages = [
 
 export default function DatacenterPage() {
 	return (
-		<div className="animation-fade-in bg-background pb-12 text-foreground">
+		<div className="animation-fade-in bg-background text-foreground pb-12">
 			{/* Hero Section */}
-			<div className="relative border-border border-b bg-muted/30">
+			<div className="border-border bg-muted/30 relative border-b">
 				<div className="container mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 py-16 md:flex-row">
 					<div className="flex-1 space-y-8">
-						<div className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 font-bold text-foreground text-xs uppercase tracking-wider shadow-sm">
+						<div className="border-border bg-background text-foreground inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-bold tracking-wider uppercase shadow-sm">
 							<span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
 							Switch Pyramid • Grand Rapids, MI
 						</div>
 
-						<h1 className="font-black text-5xl text-foreground leading-tight tracking-tighter md:text-7xl">
+						<h1 className="text-foreground text-5xl leading-tight font-black tracking-tighter md:text-7xl">
 							Tier 5 <span className="text-hot-orange">Platinum</span>
 							<br />
 							Infrastructure
 						</h1>
 
-						<p className="max-w-xl text-muted-foreground text-xl leading-relaxed">
+						<p className="text-muted-foreground max-w-xl text-xl leading-relaxed">
 							Our mission is to de-risk our best-in-class business operations, provide
 							top-tier computational resources, and deliver robust infrastructure for
 							our partners.
@@ -66,7 +66,7 @@ export default function DatacenterPage() {
 
 						<div className="flex flex-wrap gap-4">
 							<a
-								className="flex items-center gap-2 rounded-lg bg-foreground px-6 py-3 font-bold text-background transition-transform hover:scale-105 hover:opacity-90"
+								className="bg-foreground text-background flex items-center gap-2 rounded-lg px-6 py-3 font-bold transition-transform hover:scale-105 hover:opacity-90"
 								href="https://www.switch.com/grand-rapids/"
 								rel="noopener noreferrer"
 								target="_blank"
@@ -75,7 +75,7 @@ export default function DatacenterPage() {
 								Watch Video
 							</a>
 							<a
-								className="flex items-center gap-2 rounded-lg border border-border px-6 py-3 font-bold text-foreground transition-colors hover:bg-muted"
+								className="border-border text-foreground hover:bg-muted flex items-center gap-2 rounded-lg border px-6 py-3 font-bold transition-colors"
 								href="https://www.switch.com/photos/"
 								rel="noopener noreferrer"
 								target="_blank"
@@ -88,7 +88,7 @@ export default function DatacenterPage() {
 
 					{/* Hero Image - Inside View */}
 					<div className="relative w-full flex-1">
-						<div className="relative aspect-video overflow-hidden rounded-2xl border-4 border-background shadow-2xl">
+						<div className="border-background relative aspect-video overflow-hidden rounded-2xl border-4 shadow-2xl">
 							<ClickableImage
 								alt="Switch Datacenter Interior"
 								className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
@@ -97,11 +97,11 @@ export default function DatacenterPage() {
 								width={1920}
 							/>
 						</div>
-						<div className="absolute -bottom-6 -left-6 flex items-center gap-3 rounded-xl border border-border bg-background p-4 shadow-lg">
+						<div className="border-border bg-background absolute -bottom-6 -left-6 flex items-center gap-3 rounded-xl border p-4 shadow-lg">
 							<Shield className="h-8 w-8 text-green-500" />
 							<div>
-								<div className="font-bold text-foreground text-lg">100% Secure</div>
-								<div className="text-muted-foreground text-xs uppercase tracking-wider">
+								<div className="text-foreground text-lg font-bold">100% Secure</div>
+								<div className="text-muted-foreground text-xs tracking-wider uppercase">
 									Armed Guards & Biometrics
 								</div>
 							</div>
@@ -112,21 +112,21 @@ export default function DatacenterPage() {
 
 			{/* Strategic Advantages */}
 			<div className="container mx-auto max-w-7xl px-6 py-16">
-				<div className="grid gap-8 border-border border-b pb-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-					<h2 className="max-w-2xl font-black text-4xl text-foreground md:text-6xl">
+				<div className="border-border grid gap-8 border-b pb-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+					<h2 className="text-foreground max-w-2xl text-4xl font-black md:text-6xl">
 						Strategic advantages
 					</h2>
-					<p className="max-w-2xl text-muted-foreground text-xl leading-relaxed">
+					<p className="text-muted-foreground max-w-2xl text-xl leading-relaxed">
 						Located at the Switch Pyramid data center in Grand Rapids, Michigan. A
 						facility our partners can brag about.
 					</p>
 				</div>
 
-				<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-lg-3 mt-10 grid gap-y-px bg-border md:grid-cols-2 lg:grid-cols-3">
+				<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-lg-3 bg-border mt-10 grid gap-y-px md:grid-cols-2 lg:grid-cols-3">
 					{advantages.map((item) => (
 						<div className="bg-background p-6" key={item.title}>
-							<h3 className="font-bold text-2xl text-foreground">{item.title}</h3>
-							<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+							<h3 className="text-foreground text-2xl font-bold">{item.title}</h3>
+							<p className="text-muted-foreground mt-4 max-w-sm leading-relaxed">
 								{item.desc}
 							</p>
 						</div>
@@ -135,12 +135,12 @@ export default function DatacenterPage() {
 			</div>
 
 			{/* External Details & CTA */}
-			<div className="border-border border-t bg-muted px-6 py-16">
+			<div className="border-border bg-muted border-t px-6 py-16">
 				<div className="container mx-auto flex max-w-7xl flex-col items-center gap-16 lg:flex-row">
 					{/* Outside Image */}
 					<div className="order-2 w-full flex-1 lg:order-1">
 						<div
-							className="relative overflow-hidden rounded-2xl border-4 border-background shadow-2xl"
+							className="border-background relative overflow-hidden rounded-2xl border-4 shadow-2xl"
 							style={{ aspectRatio: '4/3' }}
 						>
 							<ClickableImage
@@ -152,7 +152,7 @@ export default function DatacenterPage() {
 							/>
 							<div className="pointer-events-none absolute inset-0 flex items-end bg-linear-to-t from-black/60 to-transparent p-8">
 								<div className="text-white">
-									<div className="font-bold text-2xl">The Pyramid</div>
+									<div className="text-2xl font-bold">The Pyramid</div>
 									<div className="text-sm opacity-80">Grand Rapids, Michigan</div>
 								</div>
 							</div>
@@ -160,7 +160,7 @@ export default function DatacenterPage() {
 					</div>
 
 					<div className="order-1 flex-1 space-y-8 lg:order-2">
-						<h2 className="font-black text-4xl text-foreground leading-tight">
+						<h2 className="text-foreground text-4xl leading-tight font-black">
 							Unparalleled Professionalism & Security
 						</h2>
 						<p className="text-muted-foreground text-xl leading-relaxed">
@@ -169,17 +169,17 @@ export default function DatacenterPage() {
 							industry.
 						</p>
 
-						<div className="rounded-xl border border-border bg-background p-6">
-							<h4 className="mb-2 flex items-center gap-2 font-bold text-foreground">
+						<div className="border-border bg-background rounded-xl border p-6">
+							<h4 className="text-foreground mb-2 flex items-center gap-2 font-bold">
 								<ExternalLink className="text-hot-orange" size={18} />
 								switch.com
 							</h4>
-							<p className="mb-4 text-muted-foreground text-sm">
+							<p className="text-muted-foreground mb-4 text-sm">
 								"The Grand Rapids facility is one of the most secure data centers on
 								the planet."
 							</p>
 							<a
-								className="font-medium text-hot-orange underline underline-offset-4 transition-colors hover:text-foreground"
+								className="text-hot-orange hover:text-foreground font-medium underline underline-offset-4 transition-colors"
 								href="https://www.switch.com/grand-rapids/"
 								rel="noopener noreferrer"
 								target="_blank"

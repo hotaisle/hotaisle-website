@@ -30,7 +30,7 @@ export function SearchControl() {
 			>
 				<button
 					aria-label="Close search"
-					className="absolute inset-0 h-full w-full cursor-default bg-foreground/15 backdrop-blur-sm"
+					className="bg-foreground/15 absolute inset-0 h-full w-full cursor-default backdrop-blur-sm"
 					data-site-search-close
 					type="button"
 				/>
@@ -38,14 +38,14 @@ export function SearchControl() {
 				<section
 					aria-labelledby={SEARCH_DIALOG_TITLE_ID}
 					aria-modal="true"
-					className="relative mx-auto mt-[max(4rem,12vh)] w-[min(calc(100vw-1.5rem),52rem)] overflow-hidden border border-border bg-background shadow-2xl"
+					className="border-border bg-background relative mx-auto mt-[max(4rem,12vh)] w-[min(calc(100vw-1.5rem),52rem)] overflow-hidden border shadow-2xl"
 					role="dialog"
 				>
 					<div className="border-border border-b px-5 py-5 sm:px-6">
 						<div className="flex items-start justify-end gap-4">
 							<button
 								aria-label="Close search"
-								className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+								className="border-border text-muted-foreground hover:bg-muted hover:text-foreground inline-flex h-9 w-9 shrink-0 items-center justify-center border transition-colors"
 								data-site-search-close
 								type="button"
 							>
@@ -62,7 +62,7 @@ export function SearchControl() {
 								</label>
 								<input
 									autoComplete="off"
-									className="h-12 w-full border-0 bg-transparent font-display text-2xl text-foreground outline-none placeholder:text-muted-foreground sm:text-3xl"
+									className="font-display text-foreground placeholder:text-muted-foreground h-12 w-full border-0 bg-transparent text-2xl outline-none sm:text-3xl"
 									data-site-search-input
 									id={SEARCH_INPUT_ID}
 									inputMode="search"
@@ -76,7 +76,7 @@ export function SearchControl() {
 					<div className="max-h-[min(30rem,calc(100vh-14rem))] overflow-y-auto">
 						<div data-site-search-results />
 						<p
-							className="px-5 py-12 text-muted-foreground text-sm sm:px-6"
+							className="text-muted-foreground px-5 py-12 text-sm sm:px-6"
 							data-site-search-empty
 							hidden
 						>

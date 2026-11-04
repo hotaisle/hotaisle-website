@@ -1,9 +1,9 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import { type SearchResult, STATIC_SEARCH_PAGES } from '@/lib/search.ts';
 
-const HTML_TAG_REGEX = /<[^>]+>/g;
-const HTML_ENTITY_REGEX = /&(?:[a-zA-Z]+|#\d+|#x[\da-fA-F]+);/g;
-const WHITESPACE_REGEX = /\s+/g;
+const HTML_TAG_REGEX = /<[^>]+>/gu;
+const HTML_ENTITY_REGEX = /&(?:[a-zA-Z]+|#\d+|#x[\da-fA-F]+);/gu;
+const WHITESPACE_REGEX = /\s+/gu;
 
 const toSearchText = (html: string): string =>
 	html

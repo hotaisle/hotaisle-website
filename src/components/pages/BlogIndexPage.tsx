@@ -18,18 +18,18 @@ export default function BlogPage({ posts }: { posts: BlogPost[] }) {
 		<div className="bg-background text-foreground">
 			<header className="border-border border-b">
 				<div className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
-					<h1 className="max-w-3xl font-semibold text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
+					<h1 className="max-w-3xl text-5xl leading-[1.02] font-semibold sm:text-6xl lg:text-7xl">
 						Blog
 					</h1>
-					<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-8 sm:text-xl">
+					<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-8 sm:text-xl">
 						Technical guides, operating notes, and the work behind the infrastructure.
 					</p>
 				</div>
 			</header>
 
 			<main className="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-12">
-				<div className="mb-5 flex items-center justify-end border-border border-t pt-4">
-					<p className="font-mono text-muted-foreground text-xs uppercase tracking-[0.12em]">
+				<div className="border-border mb-5 flex items-center justify-end border-t pt-4">
+					<p className="text-muted-foreground font-mono text-xs tracking-[0.12em] uppercase">
 						{posts.length} posts
 					</p>
 				</div>

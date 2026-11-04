@@ -6,9 +6,9 @@ export function ComputeHero() {
 	const rackDepths = [16, -36, -88, -140, -192, -244, -296, -348];
 
 	return (
-		<section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-background">
+		<section className="bg-background relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden">
 			{/* Background Ambience */}
-			<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-200 via-background to-background opacity-60 dark:from-neutral-800 dark:via-neutral-950 dark:to-neutral-950" />
+			<div className="via-background to-background absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-200 opacity-60 dark:from-neutral-800 dark:via-neutral-950 dark:to-neutral-950" />
 
 			{/* 3D Translucent Datacenter Hall */}
 			<div className="hall-wrapper mt-10 mb-10 scale-[1.05] md:scale-[1.45]">
@@ -98,13 +98,13 @@ export function ComputeHero() {
 						width={260}
 					/>
 				</div>
-				<p className="mx-auto mb-10 max-w-2xl font-light text-muted-foreground text-xl md:text-3xl">
-					<span className="font-semibold text-hot-orange">AMD Exclusive AI Cloud</span>
+				<p className="text-muted-foreground mx-auto mb-10 max-w-2xl text-xl font-light md:text-3xl">
+					<span className="text-hot-orange font-semibold">AMD Exclusive AI Cloud</span>
 				</p>
 
 				<div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
 					<AppLink
-						className="group relative overflow-hidden rounded-full bg-hot-orange px-8 py-4 font-bold text-lg text-white shadow-hot-orange/30 shadow-lg transition-all hover:scale-105 hover:opacity-90 hover:shadow-hot-orange/50"
+						className="group bg-hot-orange shadow-hot-orange/30 hover:shadow-hot-orange/50 relative overflow-hidden rounded-full px-8 py-4 text-lg font-bold text-white shadow-lg transition-all hover:scale-105 hover:opacity-90"
 						href="/quick-start"
 					>
 						<div className="absolute inset-0 translate-y-full bg-white/20 transition-transform duration-300 group-hover:translate-y-0" />
@@ -113,14 +113,14 @@ export function ComputeHero() {
 						</div>
 					</AppLink>
 					<AppLink
-						className="flex items-center gap-2 rounded-full border border-border bg-muted/50 px-8 py-4 font-bold text-foreground text-lg transition-all hover:bg-muted"
+						className="border-border bg-muted/50 text-foreground hover:bg-muted flex items-center gap-2 rounded-full border px-8 py-4 text-lg font-bold transition-all"
 						href="/pricing"
 					>
 						See Pricing <ArrowRight size={18} />
 					</AppLink>
 				</div>
 
-				<p className="mt-6 text-base text-muted-foreground opacity-80">
+				<p className="text-muted-foreground mt-6 text-base opacity-80">
 					No Contracts. No Commitments. No Drama. Just {MI300X_VM_PRICE}.
 				</p>
 			</div>

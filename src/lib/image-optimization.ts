@@ -1,7 +1,7 @@
-const LOCAL_RASTER_IMAGE_REGEX = /^(\/[^?#]+\.(png|jpe?g))(?:[?#].*)?$/i;
-const URL_SUFFIX_REGEX = /([?#].*)$/;
-const AVIF_SOURCE_EXTENSION_REGEX = /\.(png|jpe?g)$/i;
-const WEBP_SOURCE_EXTENSION_REGEX = /\.(png|jpe?g)$/i;
+const LOCAL_RASTER_IMAGE_REGEX = /^(?<pathname>\/[^?#]+\.(?<extension>png|jpe?g))(?:[?#].*)?$/iu;
+const URL_SUFFIX_REGEX = /(?<suffix>[?#].*)$/u;
+const AVIF_SOURCE_EXTENSION_REGEX = /\.(?<extension>png|jpe?g)$/iu;
+const WEBP_SOURCE_EXTENSION_REGEX = /\.(?<extension>png|jpe?g)$/iu;
 
 interface ModernImageVariant {
 	src: string;

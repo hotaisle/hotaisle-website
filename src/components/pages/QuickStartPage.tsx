@@ -114,19 +114,19 @@ function ResourceLinkList({ resources }: { resources: readonly Resource[] }) {
 				const content = (
 					<>
 						<span className="flex items-start justify-between gap-6">
-							<span className="font-bold text-2xl transition-colors group-hover:text-hot-orange-contrast">
+							<span className="group-hover:text-hot-orange-contrast text-2xl font-bold transition-colors">
 								{resource.title}
 							</span>
 							<ArrowUpRight
 								aria-hidden="true"
-								className="mt-1 shrink-0 text-hot-orange-contrast transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+								className="text-hot-orange-contrast mt-1 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
 								size={24}
 							/>
 						</span>
-						<span className="mt-2 block max-w-lg text-base text-muted-foreground leading-relaxed">
+						<span className="text-muted-foreground mt-2 block max-w-lg text-base leading-relaxed">
 							{resource.description}
 						</span>
-						<span className="mt-4 block font-medium text-hot-orange-contrast text-sm">
+						<span className="text-hot-orange-contrast mt-4 block text-sm font-medium">
 							{resource.label}
 						</span>
 					</>
@@ -162,7 +162,7 @@ export default function QuickStartPage() {
 				<header className="border-border border-b pt-12 pb-8 md:pt-14 md:pb-10">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<figure className="relative max-w-sm overflow-hidden border border-border bg-black">
+							<figure className="border-border relative max-w-sm overflow-hidden border bg-black">
 								<OptimizedImage
 									alt="3D pixel-art terminal workstation for provisioning cloud compute"
 									className="aspect-4/3 w-full object-cover"
@@ -194,26 +194,26 @@ export default function QuickStartPage() {
 							</figure>
 						</div>
 						<div>
-							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
 								From terminal to isolated compute
 							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 								Self-service AMD GPU compute with no sales handoff in the way.
 							</p>
 						</div>
 					</div>
 
 					<h2 className="sr-only">First launch steps</h2>
-					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid gap-y-px bg-border md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 bg-border mt-8 grid gap-y-px md:grid-cols-3">
 						{FIRST_LAUNCH_STEPS.map((step, index) => (
 							<div className="bg-background p-6" key={step.title}>
-								<h3 className="flex items-baseline gap-3 font-bold text-2xl text-foreground">
-									<span className="shrink-0 font-mono font-normal text-hot-orange-contrast">
+								<h3 className="text-foreground flex items-baseline gap-3 text-2xl font-bold">
+									<span className="text-hot-orange-contrast shrink-0 font-mono font-normal">
 										{String(index + 1).padStart(2, '0')}
 									</span>
 									<span>{step.title}</span>
 								</h3>
-								<p className="mt-4 max-w-sm text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 max-w-sm leading-relaxed">
 									{step.description}
 								</p>
 							</div>
@@ -223,12 +223,12 @@ export default function QuickStartPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Connect via SSH
 						</h2>
 						<div>
 							<p
-								className="hidden max-w-xl text-lg text-muted-foreground leading-relaxed"
+								className="text-muted-foreground hidden max-w-xl text-lg leading-relaxed"
 								data-terminal-supported-copy
 							>
 								This is a live terminal connected exclusively to{' '}
@@ -237,7 +237,7 @@ export default function QuickStartPage() {
 								we recommend one of the terminal apps listed below.
 							</p>
 							<p
-								className="max-w-xl text-lg text-muted-foreground leading-relaxed"
+								className="text-muted-foreground max-w-xl text-lg leading-relaxed"
 								data-terminal-fallback-copy
 							>
 								Log in to the Hot Aisle terminal UI with your favorite console
@@ -250,10 +250,10 @@ export default function QuickStartPage() {
 					<div className="mt-8">
 						<CopyCommand command="ssh admin.hotaisle.app" />
 					</div>
-					<p className="mt-4 text-muted-foreground text-sm leading-relaxed">
+					<p className="text-muted-foreground mt-4 text-sm leading-relaxed">
 						For a terminal app, use{' '}
 						<a
-							className="font-medium text-hot-orange-contrast hover:text-foreground"
+							className="text-hot-orange-contrast hover:text-foreground font-medium"
 							href="https://ghostty.org/"
 							rel="noopener"
 							target="_blank"
@@ -262,7 +262,7 @@ export default function QuickStartPage() {
 						</a>{' '}
 						on macOS and Linux, or{' '}
 						<a
-							className="font-medium text-hot-orange-contrast hover:text-foreground"
+							className="text-hot-orange-contrast hover:text-foreground font-medium"
 							href="https://wezterm.org/"
 							rel="noopener"
 							target="_blank"
@@ -276,10 +276,10 @@ export default function QuickStartPage() {
 				<section className="border-border border-b">
 					<div className="ha-inset-dividers ha-inset-dividers-lg-2 grid lg:grid-cols-[0.95fr_1.05fr]">
 						<div className="py-10 lg:pr-16 xl:pr-20">
-							<h2 className="max-w-sm font-black text-5xl text-foreground tracking-tighter md:text-6xl">
+							<h2 className="text-foreground max-w-sm text-5xl font-black tracking-tighter md:text-6xl">
 								Next steps
 							</h2>
-							<p className="mt-6 max-w-md text-lg text-muted-foreground leading-relaxed">
+							<p className="text-muted-foreground mt-6 max-w-md text-lg leading-relaxed">
 								Your VM already comes with a recent ROCm setup, and Docker or Podman
 								is ready to go. AMD recommends using their dev containers, which is
 								a lot easier than installing everything by hand, and their docs are
@@ -292,12 +292,12 @@ export default function QuickStartPage() {
 						</div>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-lg-2 grid border-border border-t lg:grid-cols-[0.95fr_1.05fr]">
+					<div className="ha-inset-dividers ha-inset-dividers-lg-2 border-border grid border-t lg:grid-cols-[0.95fr_1.05fr]">
 						<div className="py-10 lg:pr-16 xl:pr-20">
-							<h2 className="max-w-md font-black text-4xl text-foreground tracking-tighter md:text-5xl">
+							<h2 className="text-foreground max-w-md text-4xl font-black tracking-tighter md:text-5xl">
 								Build from your own tooling
 							</h2>
-							<p className="mt-6 max-w-md text-lg text-muted-foreground leading-relaxed">
+							<p className="text-muted-foreground mt-6 max-w-md text-lg leading-relaxed">
 								The same platform is available through the API, CLI, and cloud-init
 								templates.
 							</p>
@@ -310,17 +310,17 @@ export default function QuickStartPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Talk to a real person
 						</h2>
 						<div>
 							<a
-								className="inline-flex font-bold text-2xl text-hot-orange-contrast hover:text-foreground"
+								className="text-hot-orange-contrast hover:text-foreground inline-flex text-2xl font-bold"
 								href="mailto:hello@hotaisle.ai"
 							>
 								hello@hotaisle.ai
 							</a>
-							<p className="mt-3 text-muted-foreground text-sm">
+							<p className="text-muted-foreground mt-3 text-sm">
 								A real human will reply, not an AI bot or support agent.
 							</p>
 						</div>

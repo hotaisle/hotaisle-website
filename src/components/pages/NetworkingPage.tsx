@@ -86,7 +86,7 @@ export default function NetworkingPage() {
 				<header className="border-border border-b py-12 md:py-14">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
 						<div>
-							<figure className="max-w-sm overflow-hidden border border-border bg-muted/20 p-3">
+							<figure className="border-border bg-muted/20 max-w-sm overflow-hidden border p-3">
 								<OptimizedImage
 									alt="3D pixel-art GPU networking fabric with server racks and connected switches"
 									className="aspect-4/3 w-full object-cover"
@@ -104,23 +104,23 @@ export default function NetworkingPage() {
 									src="/assets/networking/fabric-pixel-art-light.png"
 									width={1448}
 								/>
-								<figcaption className="mt-3 border-border border-t pt-3 font-mono text-muted-foreground text-xs">
+								<figcaption className="border-border text-muted-foreground mt-3 border-t pt-3 font-mono text-xs">
 									Compute, storage, and management planes
 								</figcaption>
 							</figure>
 						</div>
 						<div>
-							<h1 className="max-w-3xl font-black text-5xl text-foreground tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
 								A fabric built for GPU clusters
 							</h1>
-							<p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed md:text-xl">
+							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 								We automate SONiC networking beneath the compute layer, providing
 								fast, isolated paths for inference, storage, and operational
 								control.
 							</p>
 							<div className="mt-8 flex flex-wrap gap-3">
 								<AppLink
-									className="border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+									className="border-foreground bg-foreground text-background border px-5 py-3 font-medium transition-colors hover:opacity-85"
 									href="/quick-start"
 								>
 									Start now
@@ -132,37 +132,37 @@ export default function NetworkingPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Separate paths for every job
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							The network is designed as distinct planes, so high-throughput inference
 							traffic, storage activity, and hardware management remain predictable.
 						</p>
 					</div>
 
 					<div className="mt-8 hidden gap-8 px-6 md:grid md:grid-cols-[0.55fr_1.45fr_0.7fr]">
-						<p className="font-mono text-muted-foreground text-xs uppercase">
+						<p className="text-muted-foreground font-mono text-xs uppercase">
 							Network layer
 						</p>
-						<p className="pl-8 font-mono text-muted-foreground text-xs uppercase">
+						<p className="text-muted-foreground pl-8 font-mono text-xs uppercase">
 							Description
 						</p>
-						<p className="pl-8 font-mono text-muted-foreground text-xs uppercase">
+						<p className="text-muted-foreground pl-8 font-mono text-xs uppercase">
 							Capacity
 						</p>
 					</div>
-					<div className="mt-3 grid gap-y-px bg-border">
+					<div className="bg-border mt-3 grid gap-y-px">
 						{FABRIC_LAYERS.map((layer) => (
 							<article
-								className="ha-inset-dividers ha-inset-dividers-md-3 ha-specification-row grid gap-8 bg-background p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr]"
+								className="ha-inset-dividers ha-inset-dividers-md-3 ha-specification-row bg-background grid gap-8 p-6 md:grid-cols-[0.55fr_1.45fr_0.7fr]"
 								key={layer.title}
 							>
 								<div>
-									<h3 className="font-bold text-2xl text-foreground">
+									<h3 className="text-foreground text-2xl font-bold">
 										{layer.title}
 									</h3>
-									<p className="mt-3 text-muted-foreground text-sm leading-relaxed">
+									<p className="text-muted-foreground mt-3 text-sm leading-relaxed">
 										{layer.summary}
 									</p>
 								</div>
@@ -173,7 +173,7 @@ export default function NetworkingPage() {
 									<div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
 										{layer.links.map((link) => (
 											<a
-												className="font-medium text-hot-orange-contrast text-sm hover:text-foreground"
+												className="text-hot-orange-contrast hover:text-foreground text-sm font-medium"
 												href={link.url}
 												key={link.url}
 												rel="noopener"
@@ -185,7 +185,7 @@ export default function NetworkingPage() {
 									</div>
 								</div>
 								<div className="md:pl-8">
-									<p className="font-bold text-2xl text-hot-orange-contrast">
+									<p className="text-hot-orange-contrast text-2xl font-bold">
 										<span className="sr-only">Capacity: </span>
 										{layer.speed}
 									</p>
@@ -197,39 +197,39 @@ export default function NetworkingPage() {
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="font-black text-4xl text-foreground md:text-5xl">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
 							Connectivity that can be operated
 						</h2>
-						<p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed">
 							IPv6-first addressing, VRF isolation, and serviceable switching are
 							built into the environment from the start.
 						</p>
 					</div>
 
-					<div className="ha-inset-dividers ha-inset-dividers-md-2 mt-8 grid gap-y-px bg-border md:grid-cols-2">
+					<div className="ha-inset-dividers ha-inset-dividers-md-2 bg-border mt-8 grid gap-y-px md:grid-cols-2">
 						{OPERATING_FOUNDATIONS.map((foundation) => (
 							<article className="bg-background p-6" key={foundation.title}>
-								<h3 className="font-bold text-2xl text-foreground">
+								<h3 className="text-foreground text-2xl font-bold">
 									{foundation.title}
 								</h3>
-								<p className="mt-4 max-w-md text-muted-foreground leading-relaxed">
+								<p className="text-muted-foreground mt-4 max-w-md leading-relaxed">
 									{foundation.description}
 								</p>
 							</article>
 						))}
 					</div>
 
-					<div className="mt-8 grid gap-8 border-border border-t pt-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h3 className="font-black text-3xl text-foreground">
+					<div className="border-border mt-8 grid gap-8 border-t pt-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h3 className="text-foreground text-3xl font-black">
 							Need a topology for a specific workload?
 						</h3>
 						<div>
-							<p className="max-w-xl text-muted-foreground leading-relaxed">
+							<p className="text-muted-foreground max-w-xl leading-relaxed">
 								We can design the compute, storage, management, and public network
 								paths around the constraints of your deployment.
 							</p>
 							<AppLink
-								className="mt-6 inline-flex border border-foreground bg-foreground px-5 py-3 font-medium text-background transition-colors hover:opacity-85"
+								className="border-foreground bg-foreground text-background mt-6 inline-flex border px-5 py-3 font-medium transition-colors hover:opacity-85"
 								href="/cluster"
 							>
 								Cluster design services

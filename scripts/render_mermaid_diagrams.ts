@@ -228,7 +228,7 @@ export async function renderMermaidMarkdownToImageMarkdown(
 	generatedFiles: string[];
 	markdown: string;
 }> {
-	const mermaidFenceRegex = /```mermaid[^\n]*\n([\s\S]*?)```/g;
+	const mermaidFenceRegex = /```mermaid[^\n]*\n(?<diagram>[\s\S]*?)```/gu;
 	const generatedFiles: string[] = [];
 	const diagramMatches = [...markdown.matchAll(mermaidFenceRegex)].map((match, matchIndex) => {
 		const [fullMatch, diagramBody = ''] = match;

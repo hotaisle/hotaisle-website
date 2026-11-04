@@ -43,9 +43,9 @@ const SECURITY_LOGOS: readonly SecurityLogo[] = [
 
 export function SecuritySection() {
 	return (
-		<section className="border-border/60 border-t bg-muted/30 py-14">
+		<section className="border-border/60 bg-muted/30 border-t py-14">
 			<div className="mx-auto max-w-7xl px-6">
-				<p className="mb-10 text-center font-medium text-muted-foreground text-xs uppercase tracking-widest">
+				<p className="text-muted-foreground mb-10 text-center text-xs font-medium tracking-widest uppercase">
 					Trusted by Industry Leaders & Secure by Design
 				</p>
 				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -74,7 +74,7 @@ export function SecuritySection() {
 						if (logo.href) {
 							return (
 								<a
-									className="flex min-h-28 items-center justify-center rounded-xl border border-border/60 bg-background/40 px-6 py-5 transition-colors hover:border-border hover:bg-background/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 dark:border-white/8 dark:bg-white/2 dark:hover:border-white/14 dark:hover:bg-white/4"
+									className="border-border/60 bg-background/40 hover:border-border hover:bg-background/60 focus-visible:ring-ring/50 flex min-h-28 items-center justify-center rounded-xl border px-6 py-5 transition-colors focus-visible:ring-2 focus-visible:outline-none dark:border-white/8 dark:bg-white/2 dark:hover:border-white/14 dark:hover:bg-white/4"
 									href={logo.href}
 									key={logo.src}
 								>
@@ -85,7 +85,7 @@ export function SecuritySection() {
 
 						return (
 							<div
-								className="flex min-h-28 items-center justify-center rounded-xl border border-border/60 bg-background/40 px-6 py-5 dark:border-white/8 dark:bg-white/2"
+								className="border-border/60 bg-background/40 flex min-h-28 items-center justify-center rounded-xl border px-6 py-5 dark:border-white/8 dark:bg-white/2"
 								key={logo.src}
 							>
 								{content}

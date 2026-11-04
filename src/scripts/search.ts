@@ -75,7 +75,7 @@ export function initializeSearchScript({ searchIndexUrl }: SearchScriptConfig): 
 		return await searchDataRequest;
 	};
 
-	const normalizeSearchText = (value: string) => value.trim().toLowerCase().replace(/\s+/g, ' ');
+	const normalizeSearchText = (value: string) => value.trim().toLowerCase().replace(/\s+/gu, ' ');
 
 	const toCanonicalDocumentHref = (href: string) => {
 		if (

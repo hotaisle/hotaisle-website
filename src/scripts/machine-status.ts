@@ -136,7 +136,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 	}
 
 	function ensureLiveRegion(documentRoot: Document, body: HTMLElement): HTMLDivElement {
-		const existingLiveRegion = documentRoot.getElementById(LIVE_REGION_ID);
+		const existingLiveRegion = documentRoot.querySelector(`#${LIVE_REGION_ID}`);
 		if (existingLiveRegion instanceof HTMLDivElement) {
 			return existingLiveRegion;
 		}
@@ -152,7 +152,7 @@ export function initializeMachineStatusScript(config: MachineStatusScriptConfig)
 	}
 
 	function ensureHomeSignalStack(documentRoot: Document, body: HTMLElement): HTMLDivElement {
-		const existingSignal = documentRoot.getElementById(HOME_SIGNAL_ID);
+		const existingSignal = documentRoot.querySelector(`#${HOME_SIGNAL_ID}`);
 		if (existingSignal instanceof HTMLDivElement) {
 			return existingSignal;
 		}
