@@ -2,6 +2,8 @@ import { ArrowLeft } from 'lucide-react';
 import { AppLink } from '@/components/AppLink.tsx';
 import { BlogContent } from '@/components/blog/BlogContent.tsx';
 import { ClickableImage } from '@/components/ClickableImage.tsx';
+import { OptimizedImage } from '@/components/OptimizedImage.tsx';
+import { VideoPreview } from '@/components/VideoPreview.tsx';
 import type { BlogPost } from '@/lib/content.ts';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
@@ -99,6 +101,72 @@ export function generateMetadata(post: BlogPost) {
 	};
 }
 
+function BlogCover({ post }: { post: BlogPost }) {
+	if (!post.coverImage) {
+		return null;
+	}
+	return (
+		<figure className="border-border bg-muted border p-2 sm:p-3 lg:self-center">
+			{post.videoSrc ? (
+				<VideoPreview
+					captions={post.videoCaptions}
+					poster={post.videoPoster}
+					src={post.videoSrc}
+					title={post.title}
+					transcript={post.videoTranscript}
+				>
+					<OptimizedImage
+						alt={post.title}
+						className={`aspect-video w-full object-cover object-left ${post.coverImageDark ? 'dark:hidden' : ''}`}
+						disableAvif
+						height={900}
+						src={post.coverImage}
+						width={1200}
+					/>
+					{post.coverImageDark ? (
+						<OptimizedImage
+							alt={post.title}
+							className="hidden aspect-video w-full object-cover object-left dark:block"
+							disableAvif
+							height={900}
+							src={post.coverImageDark}
+							width={1200}
+						/>
+					) : null}
+				</VideoPreview>
+			) : (
+				<>
+					<ClickableImage
+						alt={post.title}
+						className={`aspect-video w-full object-cover object-left ${post.coverImageDark ? 'dark:hidden' : ''}`}
+						disableAvif
+						height={900}
+						modalSrc={post.coverImage}
+						src={post.coverImage}
+						width={1200}
+					/>
+					{post.coverImageDark ? (
+						<ClickableImage
+							alt={`${post.title} dark cover image`}
+							className="hidden aspect-video w-full object-cover object-left dark:block"
+							disableAvif
+							height={900}
+							modalSrc={post.coverImageDark}
+							src={post.coverImageDark}
+							width={1200}
+						/>
+					) : null}
+				</>
+			)}
+			{post.videoSrc ? (
+				<figcaption className="text-muted-foreground mt-3 text-center text-sm">
+					Click to play the video
+				</figcaption>
+			) : null}
+		</figure>
+	);
+}
+
 export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[]; post: BlogPost }) {
 	let prettyDate: string | undefined;
 	if (post.date) {
@@ -154,30 +222,7 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 						) : null}
 					</div>
 
-					{post.coverImage ? (
-						<figure className="border-border bg-muted border p-2 sm:p-3 lg:self-center">
-							<ClickableImage
-								alt={post.title}
-								className={`aspect-video w-full object-cover object-left ${post.coverImageDark ? 'dark:hidden' : ''}`}
-								disableAvif
-								height={900}
-								modalSrc={post.coverImage}
-								src={post.coverImage}
-								width={1200}
-							/>
-							{post.coverImageDark ? (
-								<ClickableImage
-									alt={`${post.title} dark cover image`}
-									className="hidden aspect-video w-full object-cover object-left dark:block"
-									disableAvif
-									height={900}
-									modalSrc={post.coverImageDark}
-									src={post.coverImageDark}
-									width={1200}
-								/>
-							) : null}
-						</figure>
-					) : null}
+					<BlogCover post={post} />
 				</div>
 			</header>
 

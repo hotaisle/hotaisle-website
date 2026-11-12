@@ -1553,10 +1553,10 @@ img[data-image-modal="true"] {
 	box-shadow: none;
 }
 
-.ha-embedded-terminal-stage {
+.ha-embedded-terminal-stage,
+.ha-console-screenshot-stage {
 	position: relative;
 	z-index: 0;
-	display: none;
 	width: 100%;
 	max-width: 69.625rem;
 	padding-block-start: 1.25rem;
@@ -1564,7 +1564,12 @@ img[data-image-modal="true"] {
 	margin-inline: auto;
 }
 
-.ha-embedded-terminal-stage::before {
+.ha-embedded-terminal-stage {
+	display: none;
+}
+
+.ha-embedded-terminal-stage::before,
+.ha-console-screenshot-stage::before {
 	position: absolute;
 	inset: 0 1.25rem 1.25rem 0;
 	z-index: -1;
@@ -1572,7 +1577,8 @@ img[data-image-modal="true"] {
 	background: var(--hot-orange);
 }
 
-.ha-embedded-terminal {
+.ha-embedded-terminal,
+.ha-console-screenshot {
 	box-shadow: 0 1.75rem 4.5rem rgb(20 14 10 / 0.18);
 }
 
@@ -1694,7 +1700,8 @@ img[data-image-modal="true"] {
 	background: #050805;
 }
 
-:where(.dark) .ha-embedded-terminal {
+:where(.dark) .ha-embedded-terminal,
+:where(.dark) .ha-console-screenshot {
 	box-shadow: 0 2rem 6rem rgb(0 0 0 / 0.46);
 }
 

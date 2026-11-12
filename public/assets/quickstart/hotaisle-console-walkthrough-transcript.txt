@@ -1,0 +1,30 @@
+Hot Aisle Console walkthrough
+
+[Background music plays throughout.]
+[The Hot Aisle Console logo and console.hotaisle.app appear, followed by the URL being typed into a browser.]
+
+Sign in with your email.
+
+Approve the link in your browser.
+
+Create your team. Keep its compute and members together.
+
+Add credits whenever you need them.
+
+Pick two MI300X GPUs and the vLLM image.
+
+Hold to launch. Status updates automatically.
+
+Connect over SSH. Follow running time and cost.
+
+Hold to release it and stop billing.
+
+Review the run in machine history.
+
+Make the console yours. Choose light or dark.
+
+Set a default image for your next machine.
+
+Hot Aisle Console, enterprise compute at your fingertips.
+
+[The logo and console.hotaisle.app return on the closing card.]
