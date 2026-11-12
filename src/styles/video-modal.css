@@ -1,0 +1,94 @@
+.ha-video-preview {
+	position: relative;
+	display: block;
+	inline-size: 100%;
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+}
+.ha-video-preview__play {
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-start: 50%;
+	display: grid;
+	place-items: center;
+	inline-size: clamp(4.5rem, 9vw, 7rem);
+	aspect-ratio: 1;
+	color: #fff;
+	background: var(--hot-orange);
+	border: 2px solid rgb(255 255 255 / 0.9);
+	border-radius: 50%;
+	box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.4);
+	transform: translate(-50%, -50%);
+}
+.ha-video-preview__play svg {
+	inline-size: 45%;
+	block-size: 45%;
+	margin-inline-start: 5%;
+}
+.ha-video-preview:is(:hover, :focus-visible) .ha-video-preview__play {
+	color: var(--background);
+	background: var(--foreground);
+}
+.ha-video-preview:focus-visible,
+.ha-video-dialog button:focus-visible {
+	outline: 2px solid var(--hot-orange-contrast);
+	outline-offset: 4px;
+}
+.ha-video-dialog {
+	inline-size: min(80rem, calc(100% - 2rem));
+	max-block-size: calc(100% - 2rem);
+	padding: 1rem;
+	margin: auto;
+	color: var(--foreground);
+	background: var(--background);
+	border: 1px solid var(--border);
+	box-shadow: 0 1.75rem 4.5rem rgb(0 0 0 / 0.4);
+}
+.ha-video-dialog:modal {
+	overscroll-behavior: contain;
+}
+.ha-video-dialog::backdrop {
+	overflow: hidden;
+	overscroll-behavior: contain;
+	background: rgb(0 0 0 / 0.85);
+}
+.ha-video-dialog__header {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	justify-content: space-between;
+	margin-block-end: 1rem;
+}
+.ha-video-dialog__header h2 {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+}
+.ha-video-dialog__header button {
+	padding: 0.5rem 0.75rem;
+	font: inherit;
+	white-space: nowrap;
+	cursor: pointer;
+	background: var(--card);
+	border: 1px solid var(--border);
+}
+.ha-video-dialog video {
+	display: block;
+	inline-size: 100%;
+	block-size: auto;
+	max-block-size: calc(100dvh - 12rem);
+	background: #11110f;
+}
+.ha-video-dialog__links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	margin-block-start: 0.75rem;
+	font-size: 0.875rem;
+}
+.ha-video-dialog__links a {
+	color: var(--hot-orange-contrast);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}

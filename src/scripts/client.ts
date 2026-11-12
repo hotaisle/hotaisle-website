@@ -3,6 +3,7 @@ import { initializeCopyCommandScript } from '@/scripts/copy-command.ts';
 import { initializeMachineStatusScript } from '@/scripts/machine-status.ts';
 import { initializeMobileNavScript } from '@/scripts/mobile-nav.ts';
 import { initializeSearchScript } from '@/scripts/search.ts';
+import { initializeVideoModalScript } from '@/scripts/video-modal.ts';
 import { initializeWebMcpScript } from '@/scripts/webmcp.ts';
 
 const CLIENT_CONFIG_ID = 'hotaisle-client-config';
@@ -40,6 +41,7 @@ const readClientConfig = (): ClientConfig => {
 };
 
 initializeBlogImageModalScript();
+initializeVideoModalScript();
 initializeCopyCommandScript();
 initializeMobileNavScript();
 initializeWebMcpScript();
