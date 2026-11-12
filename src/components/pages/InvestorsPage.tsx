@@ -6,7 +6,7 @@ import { createPageMetadata } from '@/lib/metadata.ts';
 const EXPANSION_STORY = '/blog/case-for-small-distributed-on-demand-ai-compute';
 const OPERATING_PROOF = [
 	{ label: 'Not just revenue', value: 'Profitable' },
-	{ label: 'Customers served', value: '700+' },
+	{ label: 'Paying customers', value: '450+' },
 	{ label: 'Building and operating', value: '3 years' },
 	{ label: 'Backlog of compute requests', value: '2,000+ MI355X' },
 ] as const;
@@ -41,7 +41,7 @@ const STORY_CHAPTERS = [
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
-			'Back the next chapter of Hot Aisle: a profitable AI compute business with 700+ customers, three years of execution, and demand waiting for MI355X capacity.',
+			'Back the next chapter of Hot Aisle: a profitable AI compute business with 450+ paying customers, three years of execution, and demand waiting for MI355X capacity.',
 		image: '/assets/investors/global-inference-network.png',
 		imageAlt: 'A vision of regional Hot Aisle compute deployments connected around the world',
 		path: '/investors',
