@@ -8,11 +8,11 @@ WEBVTT
 Hello and welcome to Hot Aisle Console.
 
 2
-00:00:06.166 --> 00:00:08.466
+00:00:06.165 --> 00:00:08.465
 Sign in with your email.
 
 3
-00:00:12.273 --> 00:00:15.048
+00:00:12.268 --> 00:00:15.043
 Approve the link in your browser.
 
 4
@@ -20,35 +20,35 @@ Approve the link in your browser.
 Create your team. Keep its compute and members together.
 
 5
-00:00:21.425 --> 00:00:24.375
+00:00:21.420 --> 00:00:24.370
 Add credits whenever you need them.
 
 6
-00:00:27.526 --> 00:00:33.701
+00:00:27.522 --> 00:00:33.697
 Set up automatic rebill with a balance trigger, a top-up amount, and a monthly cap.
 
 7
-00:00:36.679 --> 00:00:42.479
+00:00:36.674 --> 00:00:42.474
 Pick two MI300X GPUs and the vLLM image.
 
 8
-00:00:42.781 --> 00:00:46.906
+00:00:42.776 --> 00:00:46.901
 Hold to launch. Status updates automatically.
 
 9
-00:00:48.882 --> 00:00:53.358
+00:00:48.878 --> 00:00:53.354
 Connect over SSH. Follow running time and cost.
 
 10
-00:00:54.986 --> 00:00:57.986
+00:00:54.983 --> 00:00:57.983
 Hold to release it and stop billing.
 
 11
-00:00:59.052 --> 00:01:01.952
+00:00:59.048 --> 00:01:01.948
 Review the run in machine history.
 
 12
-00:01:03.120 --> 00:01:07.095
+00:01:03.115 --> 00:01:07.090
 Make the console yours. Choose light or dark.
 
 13
@@ -56,5 +56,5 @@ Make the console yours. Choose light or dark.
 Set a default image for your next machine.
 
 14
-00:01:15.831 --> 00:01:20.531
+00:01:15.827 --> 00:01:20.527
 Hot Aisle Console, enterprise compute at your fingertips.
