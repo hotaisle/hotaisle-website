@@ -133,3 +133,10 @@ Agents must follow:
 4. **Edge cases** - Handle boundary conditions and error states
 5. **User experience** - Accessibility, performance, and usability considerations
 6. **Documentation** - Add comments for complex logic, but prefer self-documenting code
+
+### Console media synchronization
+
+- Follow the canonical [Console media synchronization process](https://github.com/hotaisle/hotaisle-console/blob/main/docs/media-sync.md), also available in a sibling Console checkout at `docs/media-sync.md`. It maps all README/Quick Start/blog images and the shared video, captions, transcript, and poster, with capture, encoding, validation, and release instructions.
+- Before creating or updating a PR, review whether Console UI, visible copy, theme/hardware visuals, demonstrated flows, media references, or the walkthrough changed after the last media refresh. If affected assets are stale and syncing is not already authorized, ask the user whether to sync the affected screenshots/video before opening the PR. Do not silently skip the question or assume old captures cover newer UI changes.
+- An explicit request to regenerate media already authorizes the sync. During an authorized release that says not to pause, complete the affected sync without another confirmation. State the media result in the PR body: refreshed with companion PRs, not affected with a reason, or deferred with the user's decision and remaining scope. This is a manual workflow check; CI does not detect stale media.
+- Update blog image sources under `src/content/blog/assets/introducing-hotaisle-console/`, not the generated `public/assets/blog/` mirror. Commit every full-size and responsive variant. Quick Start and the blog share the four `public/assets/quickstart/hotaisle-console-walkthrough*` delivery files; update/check them together. Preserve the blog date, funding section, and unrelated copy unless an editorial change is requested.
