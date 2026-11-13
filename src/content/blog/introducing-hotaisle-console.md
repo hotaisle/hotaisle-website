@@ -6,7 +6,7 @@ metaTitle: "Meet hotaisle-console | Hot Aisle"
 metaDescription: "Introducing the open source Hot Aisle web console for launching and managing AMD MI300X machines."
 metaKeywords: "hotaisle-console, Hot Aisle, AMD MI300X, GPU cloud, open source"
 author: "Jon Stevens"
-date: "11/11/2026"
+date: "11/12/2026"
 description: "A new way to launch and manage Hot Aisle machines from your browser."
 featured: false
 videoSrc: "/assets/quickstart/hotaisle-console-walkthrough.mp4"
@@ -47,7 +47,5 @@ We also ran a full source security review of hotaisle-console using Daybreak. Th
 [Open the console](https://console.hotaisle.app) and have a look. We're excited to see what you build.
 
 ## Looking for the right investor
-
-There's one problem with the new console: at the time of writing this post, we're totally full. You can log in, but there are no machines available to launch and play with.
 
 We want to add capacity, but it takes a lot of capital and comes with risk. We think we've thought through those risks as best we can. We have no debt, we take payment up front, and we're profitable. Best of all, our customers love us. We're looking for a lead investor who is an exact fit for our next round, and we can take our time finding one. If that sounds like you, [read more on our investors page](/investors).
