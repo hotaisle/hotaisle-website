@@ -11,9 +11,9 @@ import { createPageMetadata } from '@/lib/metadata.ts';
 const CONSOLE_SCREENSHOT = {
 	alt: 'Hot Aisle web console showing a running MI300X machine, its SSH command, GPU usage, and a server illustration',
 	dark: '/assets/quickstart/hotaisle-console-dark.jpg',
-	height: 1735,
+	height: 1080,
 	light: '/assets/quickstart/hotaisle-console.jpg',
-	width: 2069,
+	width: 1920,
 } as const;
 const CONSOLE_SCREENSHOT_VARIANTS = [
 	{ pictureClassName: 'dark:hidden', src: CONSOLE_SCREENSHOT.light },

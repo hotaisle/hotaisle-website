@@ -1,6 +1,5 @@
 Screenshots: hotaisle-console.jpg and hotaisle-console-dark.jpg
-Light source: https://github.com/hotaisle/hotaisle-console/blob/8bf50b3/docs/machine.jpg
-Dark source: https://github.com/hotaisle/hotaisle-console/blob/8bf50b3/docs/machine-dark.jpg
+Source project: https://github.com/hotaisle/hotaisle-console
 Captured from the console development preview using simulated machines.
 The following license also applies to generated WebP and AVIF variants.
 
