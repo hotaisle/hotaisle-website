@@ -31,6 +31,40 @@ const createFixture = (markup = MARKUP) => {
 };
 
 describe('video preview dialog', () => {
+	test('preserves content versions when opening media and fallback links', async () => {
+		const fixture = createFixture();
+		try {
+			const trigger = fixture.document.querySelector('button');
+			const version = '?v=1234567890abcdef';
+			for (const name of [
+				'video-modal',
+				'video-poster',
+				'video-captions',
+				'video-transcript',
+			]) {
+				const path = trigger?.getAttribute(`data-${name}`);
+				trigger?.setAttribute(`data-${name}`, `${path}${version}`);
+			}
+			trigger?.click();
+			expect(fixture.document.querySelector('video')?.getAttribute('src')).toBe(
+				`/assets/demo.mp4${version}`
+			);
+			expect(fixture.document.querySelector('video')?.getAttribute('poster')).toBe(
+				`/assets/poster.webp${version}`
+			);
+			expect(fixture.document.querySelector('track')?.getAttribute('src')).toBe(
+				`/assets/demo.en.vtt${version}`
+			);
+			expect(fixture.document.querySelector('dialog a')?.getAttribute('href')).toBe(
+				`/assets/transcript.txt${version}`
+			);
+			expect(fixture.document.querySelector('dialog a[target]')?.getAttribute('href')).toBe(
+				`/assets/demo.mp4${version}`
+			);
+		} finally {
+			await fixture.destroy();
+		}
+	});
 	test('loads media only after activation and opens a named native player with captions', async () => {
 		const fixture = createFixture();
 		try {
