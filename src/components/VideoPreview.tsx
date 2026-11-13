@@ -1,6 +1,7 @@
 import '@/styles/video-modal.css';
 import { Play } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { walkthroughAssetURL } from '@/lib/console-walkthrough.ts';
 
 interface VideoPreviewProps {
 	captions?: string;
@@ -27,11 +28,11 @@ export function VideoPreview({
 				aria-haspopup="dialog"
 				aria-label={`Play ${title}`}
 				className={`ha-video-preview ${className}`}
-				data-video-captions={captions}
-				data-video-modal={src}
-				data-video-poster={poster}
+				data-video-captions={walkthroughAssetURL(captions)}
+				data-video-modal={walkthroughAssetURL(src)}
+				data-video-poster={walkthroughAssetURL(poster)}
 				data-video-title={title}
-				data-video-transcript={transcript}
+				data-video-transcript={walkthroughAssetURL(transcript)}
 				type="button"
 			>
 				{children}
@@ -40,7 +41,7 @@ export function VideoPreview({
 				</span>
 			</button>
 			<noscript>
-				<a href={src}>Watch {title}</a>
+				<a href={walkthroughAssetURL(src)}>Watch {title}</a>
 			</noscript>
 		</>
 	);
