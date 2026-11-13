@@ -3,6 +3,8 @@ Hot Aisle Console walkthrough
 [Background music plays throughout.]
 [The Hot Aisle Console logo and console.hotaisle.app appear, followed by the URL being typed into a browser.]
 
+Hello and welcome to Hot Aisle Console.
+
 Sign in with your email.
 
 Approve the link in your browser.
@@ -10,6 +12,8 @@ Approve the link in your browser.
 Create your team. Keep its compute and members together.
 
 Add credits whenever you need them.
+
+Set up automatic rebill with a balance trigger, a top-up amount, and a monthly cap.
 
 Pick two MI300X GPUs and the vLLM image.
 
