@@ -15,6 +15,8 @@ const RESPONSIVE_IMAGE_SOURCE_PATHS = new Set([
 	'assets/home/automated-inference-platform.png',
 	'assets/mi300x/mi300x-amd-press.jpg',
 	'assets/mi300x/mi300x-amd-product.jpg',
+	'assets/quickstart/hotaisle-console.jpg',
+	'assets/quickstart/hotaisle-console-dark.jpg',
 	'assets/quickstart/terminal-provisioning-pixel-art-light.png',
 	'assets/quickstart/terminal-provisioning-pixel-art.png',
 ]);

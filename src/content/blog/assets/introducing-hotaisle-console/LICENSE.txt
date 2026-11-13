@@ -1,0 +1,3 @@
+Screenshots of hotaisle-console's simulated local development preview.
+Source: https://github.com/hotaisle/hotaisle-console
+License: MIT

@@ -32,6 +32,10 @@ const blog = defineCollection({
 		metaTitle: z.string().optional(),
 		tags: z.array(z.string()),
 		title: z.string(),
+		videoCaptions: z.string().optional(),
+		videoPoster: z.string().optional(),
+		videoSrc: z.string().optional(),
+		videoTranscript: z.string().optional(),
 	}),
 });
 

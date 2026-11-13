@@ -58,6 +58,8 @@ const INLINE_IMAGE_CLASS = 'blog-inline-image';
 const PORTRAIT_IMAGE_CLASS = 'blog-inline-image--portrait';
 const SMALL_IMAGE_CLASS = 'blog-inline-image--small';
 const SMALL_IMAGE_TITLE = 'small';
+const THEME_LIGHT_IMAGE_TITLE = 'theme-light';
+const THEME_DARK_IMAGE_TITLE = 'theme-dark';
 const PORTRAIT_IMAGE_RATIO_THRESHOLD = 1;
 const AUTHOR_SECTION_REGEX = /\n---\s*\n## About the Author[\s\S]*$/iu;
 const MERMAID_DIAGRAM_TITLE = 'mermaid-diagram';
@@ -97,6 +99,10 @@ interface RawBlogPost {
 	sourceModifiedAtMs: number;
 	tags: string[];
 	title: string;
+	videoCaptions?: string;
+	videoPoster?: string;
+	videoSrc?: string;
+	videoTranscript?: string;
 }
 
 interface ParsedBlogPost {
@@ -116,6 +122,10 @@ interface ParsedBlogPost {
 	sourceFileName: string;
 	tags: string[];
 	title: string;
+	videoCaptions?: string;
+	videoPoster?: string;
+	videoSrc?: string;
+	videoTranscript?: string;
 }
 
 interface ParsedLegacyMarkdown {
@@ -139,6 +149,10 @@ export interface GeneratedBlogPost {
 	slug: string;
 	tags: string[];
 	title: string;
+	videoCaptions?: string;
+	videoPoster?: string;
+	videoSrc?: string;
+	videoTranscript?: string;
 }
 
 interface BlogImageMetadata {
@@ -528,6 +542,10 @@ function parseBlogFile(
 		sourceFileName: fileName,
 		tags,
 		title,
+		videoCaptions: parsed.metadata['video captions']?.trim() || undefined,
+		videoPoster: parsed.metadata['video poster']?.trim() || undefined,
+		videoSrc: parsed.metadata['video src']?.trim() || undefined,
+		videoTranscript: parsed.metadata['video transcript']?.trim() || undefined,
 	};
 }
 
@@ -788,6 +806,16 @@ function extractImageHints(attributes: string): {
 	};
 }
 
+function getThemeImageClass(hints: string[]): string {
+	if (hints.includes(THEME_LIGHT_IMAGE_TITLE)) {
+		return 'blog-inline-image--theme-light';
+	}
+	if (hints.includes(THEME_DARK_IMAGE_TITLE)) {
+		return 'blog-inline-image--theme-dark';
+	}
+	return '';
+}
+
 function toDarkMermaidDiagramSource(sourcePath: string): string {
 	if (!MERMAID_LIGHT_SVG_SUFFIX_REGEX.test(sourcePath)) {
 		return sourcePath;
@@ -839,6 +867,10 @@ async function enhanceRenderedHtml(html: string): Promise<string> {
 			if (hints.includes(SMALL_IMAGE_TITLE)) {
 				classNames.push(SMALL_IMAGE_CLASS);
 			}
+			const themeClass = getThemeImageClass(hints);
+			if (themeClass) {
+				classNames.push(themeClass);
+			}
 			let mergedAttributes = appendClassAttribute(cleanedAttributes, classNames.join(' '));
 			mergedAttributes = `${mergedAttributes} role="button" tabindex="0" aria-haspopup="dialog"`;
 			const imgTag = `<img${mergedAttributes} src="${src}" width="${imageMetadata.width}" height="${imageMetadata.height}">`;
@@ -846,7 +878,7 @@ async function enhanceRenderedHtml(html: string): Promise<string> {
 			const replacementTag =
 				modernVariants.length === 0
 					? imgTag
-					: `<picture>${modernVariants.map((variant) => `<source srcset="${variant.src}" type="${variant.type}">`).join('')}${imgTag}</picture>`;
+					: `<picture${themeClass ? ` class="${themeClass}"` : ''}>${modernVariants.map((variant) => `<source srcset="${variant.src}" type="${variant.type}">`).join('')}${imgTag}</picture>`;
 			return { fullTag, replacementTag };
 		})
 	);
@@ -942,6 +974,10 @@ export async function loadBlogPosts(): Promise<GeneratedBlogPost[]> {
 				slug: post.slug,
 				tags: post.tags,
 				title: post.title,
+				videoCaptions: post.videoCaptions,
+				videoPoster: post.videoPoster,
+				videoSrc: post.videoSrc,
+				videoTranscript: post.videoTranscript,
 			};
 		})
 	);

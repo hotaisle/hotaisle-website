@@ -4,11 +4,25 @@ import CopyCommand from '@/components/CopyCommand.tsx';
 import { EmbeddedTerminal } from '@/components/EmbeddedTerminal.tsx';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
 import { TerminalTyping } from '@/components/TerminalTyping.tsx';
+import { VideoPreview } from '@/components/VideoPreview.tsx';
+import { CONSOLE_WALKTHROUGH } from '@/lib/console-walkthrough.ts';
 import { createPageMetadata } from '@/lib/metadata.ts';
+
+const CONSOLE_SCREENSHOT = {
+	alt: 'Hot Aisle web console showing a running MI300X machine, its SSH command, GPU usage, and a server illustration',
+	dark: '/assets/quickstart/hotaisle-console-dark.jpg',
+	height: 1080,
+	light: '/assets/quickstart/hotaisle-console.jpg',
+	width: 1920,
+} as const;
+const CONSOLE_SCREENSHOT_VARIANTS = [
+	{ pictureClassName: 'dark:hidden', src: CONSOLE_SCREENSHOT.light },
+	{ pictureClassName: 'hidden dark:block', src: CONSOLE_SCREENSHOT.dark },
+] as const;
 
 const FIRST_LAUNCH_STEPS = [
 	{
-		description: 'Log in to the terminal UI and create a team.',
+		description: 'Sign in on the web or via SSH and create a team.',
 		title: 'Create an account',
 	},
 	{
@@ -96,7 +110,7 @@ interface Resource {
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
-			'Get started with Hot Aisle in under 60 seconds, from SSH login through account setup and first workload.',
+			'Get started with Hot Aisle through the web console or SSH, from account setup to your first GPU workload.',
 		image: '/assets/og/hot-aisle-inference-cloud.png',
 		imageAlt: 'Hot Aisle branded share image',
 		path: '/quick-start',
@@ -195,7 +209,7 @@ export default function QuickStartPage() {
 						</div>
 						<div>
 							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
-								From terminal to isolated compute
+								From sign-in to isolated compute
 							</h1>
 							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
 								Self-service AMD GPU compute with no sales handoff in the way.
@@ -220,6 +234,79 @@ export default function QuickStartPage() {
 						))}
 					</div>
 				</header>
+
+				<section className="border-border border-b py-12">
+					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+						<h2 className="text-foreground text-4xl font-black md:text-5xl">
+							Connect via Web
+						</h2>
+						<div>
+							<p className="border-border bg-muted/35 border-l-hot-orange-contrast max-w-xl border border-l-2 px-4 py-3 text-base leading-relaxed">
+								<span className="text-hot-orange-contrast font-mono text-xs font-bold tracking-widest uppercase">
+									New
+								</span>{' '}
+								<span className="text-foreground">hotaisle-console is here.</span>{' '}
+								<AppLink
+									className="text-hot-orange-contrast hover:text-foreground font-medium underline underline-offset-4"
+									href="/blog/introducing-hotaisle-console"
+								>
+									Read the announcement
+								</AppLink>
+							</p>
+							<p className="text-muted-foreground mt-6 max-w-xl text-lg leading-relaxed">
+								Sign in to the Hot Aisle web console to create your team, add
+								credits, and launch and manage GPU machines from your browser.
+							</p>
+							<a
+								className="text-hot-orange-contrast hover:text-foreground mt-6 inline-flex items-center gap-2 text-xl font-bold"
+								href="https://console.hotaisle.app"
+								rel="noopener"
+								target="_blank"
+							>
+								Open console.hotaisle.app
+								<ArrowUpRight aria-hidden="true" size={24} />
+							</a>
+							<p className="text-muted-foreground mt-4 text-sm leading-relaxed">
+								The console is open source.{' '}
+								<a
+									className="text-hot-orange-contrast hover:text-foreground font-medium"
+									href="https://github.com/hotaisle/hotaisle-console"
+									rel="noopener"
+									target="_blank"
+								>
+									View hotaisle-console on GitHub
+								</a>
+							</p>
+						</div>
+					</div>
+					<figure className="mt-8">
+						<div className="ha-console-screenshot-stage">
+							<VideoPreview
+								{...CONSOLE_WALKTHROUGH}
+								className="ha-console-screenshot border-border bg-card border"
+							>
+								{CONSOLE_SCREENSHOT_VARIANTS.map(({ pictureClassName, src }) => (
+									<OptimizedImage
+										alt={CONSOLE_SCREENSHOT.alt}
+										className="block h-auto w-full"
+										decoding="async"
+										height={CONSOLE_SCREENSHOT.height}
+										key={src}
+										loading="lazy"
+										pictureClassName={pictureClassName}
+										responsiveWidths={[480, 672, 800]}
+										sizes="(max-width: 1152px) calc(100vw - 4.25rem), 1084px"
+										src={src}
+										width={CONSOLE_SCREENSHOT.width}
+									/>
+								))}
+							</VideoPreview>
+						</div>
+						<figcaption className="text-muted-foreground mt-3 text-center text-sm">
+							Click to play the video
+						</figcaption>
+					</figure>
+				</section>
 
 				<section className="border-border border-b py-12">
 					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">

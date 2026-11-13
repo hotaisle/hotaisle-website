@@ -25,6 +25,8 @@
 		"scripts/*.ts",
 		"src/content.config.ts",
 		"src/lib/**/*.ts",
+		"src/scripts/blog-image-modal*.ts",
+		"src/scripts/video-modal*.ts",
 		"src/scripts/theme.ts",
 		"src/worker/**/*.test.ts",
 		"src/env.d.ts"
