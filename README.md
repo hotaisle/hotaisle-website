@@ -51,6 +51,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - Local-only `.dev*` files are ignored by git and excluded from the static output.
 - Blog images under `src/content/blog/assets` are mirrored into `public/assets/blog` before Astro builds so `/assets/blog/...` remains stable.
 - Astro content collections load and validate blog and policy Markdown during development and static builds.
+- TypeScript is pinned to 6.0.3 because the current `astro check` does not support TypeScript 7.0.
 
 ### Useful scripts
 

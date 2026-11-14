@@ -1,8 +1,8 @@
 diff --git a/dist/renderer.js b/dist/renderer.js
-index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c5a889c79 100644
+index 077910eeb3822f38089dd3ad6a9f345ef2a2a38a..9068b2d60e0310f78f120da9f5de512dde890ac9 100644
 --- a/dist/renderer.js
 +++ b/dist/renderer.js
-@@ -5,6 +5,7 @@ import { rectangleSelection } from "./rectangle-selection.js";
+@@ -6,6 +6,7 @@ import { rectangleSelection } from "./rectangle-selection.js";
  import { markSelectionChanged, selectionMayExist } from "./selection-state.js";
  import { TrackedSelection, MAX_TRACKED_SELECTION_ROWS, } from "./tracked-selection.js";
  const DEFAULT_COLOR = 256;
@@ -10,7 +10,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
  const DEFAULT_FG_CSS = "var(--term-app-fg, var(--term-fg))";
  const DEFAULT_BG_CSS = "var(--term-app-bg, var(--term-bg))";
  const FLAG_BOLD = 0x01;
-@@ -15,18 +16,24 @@ const FLAG_REVERSE = 0x20;
+@@ -16,18 +17,24 @@ const FLAG_REVERSE = 0x20;
  const FLAG_INVISIBLE = 0x40;
  const FLAG_STRIKETHROUGH = 0x80;
  const DEFAULT_SCROLLBACK_OVERSCAN_ROWS = 10;
@@ -39,7 +39,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
  }
  /** Packed RGB for xterm palette indices 16-255. */
  function paletteRgb(index) {
-@@ -54,15 +61,13 @@ function cellColorPixel(index, rgb) {
+@@ -55,15 +62,13 @@ function cellColorPixel(index, rgb) {
              0
          : ((rgb << 8) | 0xff) >>> 0;
  }
@@ -60,7 +60,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
  }
  function cellBackgroundPixel(cell) {
      return cell.flags & FLAG_REVERSE
-@@ -72,8 +77,8 @@ function cellBackgroundPixel(cell) {
+@@ -73,8 +78,8 @@ function cellBackgroundPixel(cell) {
  function buildCellStyle({ fg, bg, flags, fgRgb, bgRgb, underlineStyle, underlineRgb }, includeBackground = true) {
      const reverse = flags & FLAG_REVERSE;
      const fgCSS = reverse
@@ -71,7 +71,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
      const bgCSS = includeBackground
          ? reverse
              ? (cellFgCSS(fg, fgRgb) ?? DEFAULT_FG_CSS)
-@@ -87,7 +92,7 @@ function buildCellStyle({ fg, bg, flags, fgRgb, bgRgb, underlineStyle, underline
+@@ -88,7 +93,7 @@ function buildCellStyle({ fg, bg, flags, fgRgb, bgRgb, underlineStyle, underline
      if (flags & FLAG_BOLD)
          style += "font-weight:bold;";
      if (flags & FLAG_DIM)
@@ -80,7 +80,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
      if (flags & FLAG_ITALIC)
          style += "font-style:italic;";
      const decorations = [];
-@@ -140,11 +145,30 @@ function escapeHTML(text) {
+@@ -141,11 +146,30 @@ function escapeHTML(text) {
          .replace(/>/g, "&gt;")
          .replace(/"/g, "&quot;");
  }
@@ -113,7 +113,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
      const flat = !style.includes("text-decoration:underline line-through;");
      if (!flat) {
          style = style.replace("text-decoration:underline line-through;", "text-decoration:underline;");
-@@ -155,8 +179,8 @@ function cellSpanPart(className, style, text) {
+@@ -156,8 +180,8 @@ function cellSpanPart(className, style, text) {
      const opening = `<span${classAttr}${styleAttr}>`;
      return {
          html: `${opening}${content}</span>`,
@@ -124,7 +124,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
      };
  }
  function safeLinkHref(uri) {
-@@ -164,7 +188,7 @@ function safeLinkHref(uri) {
+@@ -165,7 +189,7 @@ function safeLinkHref(uri) {
          return undefined;
      try {
          const url = new URL(uri);
@@ -133,7 +133,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
              ? url.href
              : undefined;
      }
-@@ -178,8 +202,9 @@ function linkIdentity(cell) {
+@@ -179,8 +203,9 @@ function linkIdentity(cell) {
      return cell.linkKey ?? `fallback\0${cell.linkId ?? ""}\0${cell.linkUri}`;
  }
  function resolveColors(fg, bg, flags, fgRgb, bgRgb) {
@@ -145,7 +145,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
      return flags & FLAG_REVERSE
          ? { fg: background, bg: foreground }
          : { fg: foreground, bg: background };
-@@ -604,7 +629,7 @@ export class Renderer {
+@@ -626,7 +651,7 @@ export class Renderer {
          const flushRun = (endCol) => {
              if (!runText)
                  return;
@@ -154,7 +154,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
              if (cursorCol >= runStart && cursorCol < endCol) {
                  const offset = cursorCol - runStart;
                  const before = runCells.slice(0, offset).join("");
-@@ -629,7 +654,7 @@ export class Renderer {
+@@ -651,7 +676,7 @@ export class Renderer {
              runCells = [];
          };
          const appendStyledSpan = (className, style, text, linkKey, linkUri) => {
@@ -163,7 +163,7 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
          };
          const flushCanvasRun = () => {
              if (!canvasCols)
-@@ -639,7 +664,12 @@ export class Renderer {
+@@ -661,7 +686,12 @@ export class Renderer {
              canvasCols = 0;
          };
          for (let col = 0; col < this.cols; col++) {
@@ -178,18 +178,18 @@ index a071bc6340f6aef3fdbf62a4fd64aa04795e2c51..6783435a56de9c83acc54b91e58dbe6c
              const cp = inBounds ? cell.char : 0;
              const width = inBounds ? (cell.width ?? 1) : 1;
 diff --git a/dist/wterm.js b/dist/wterm.js
-index 848e1c3f7880842c4439541fc4565ff4a42c0201..b513b97e68016b694dc3d6093a7b5f114992a0b6 100644
+index 6f31f07b5bed9eb2abf7bd3c157df387cd19b41d..ff2e63b2c9877b3ccce71c24d04c13485da30645 100644
 --- a/dist/wterm.js
 +++ b/dist/wterm.js
-@@ -12,6 +12,7 @@ import { SearchController, } from "./search.js";
- import { registerWebMCPTerminal, } from "./webmcp.js";
+@@ -13,6 +13,7 @@ import { registerWebMCPTerminal, } from "./webmcp.js";
  const SYNCHRONIZED_OUTPUT_TIMEOUT_MS = 1000;
  const PROGRAMMATIC_SCROLL_TOLERANCE = 1;
+ const TEXT_SYNC_IDLE_MS = 150;
 +const INTERACTIVE_ELEMENT_SELECTOR = 'a[href], button, input, select, textarea, [role="button"]';
- const pendingRenders = new Set();
- let renderFrameId = null;
- const THEME_PROPERTIES = [
-@@ -239,13 +240,8 @@ export class WTerm {
+ function findQueryPrefix(data, from) {
+     if (typeof data === "string")
+         return data.indexOf("\x1b[1", from);
+@@ -282,13 +283,8 @@ export class WTerm {
              if (event.defaultPrevented || this._historySelection.active)
                  return;
              const target = event.target;

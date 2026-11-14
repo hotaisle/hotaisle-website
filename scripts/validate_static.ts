@@ -175,7 +175,7 @@ function toStaticOutputPath(href: string): string | null {
 	return path.join(STATIC_OUTPUT_DIRECTORY, relativePath, 'index.html');
 }
 
-function getTagAttributes(tag: string): Record<string, string> {
+function getTagAttributes(tag: string): Partial<Record<string, string>> {
 	const attributes: Record<string, string> = {};
 	const tagBody = tag.slice(tag.indexOf(' ') + 1, tag.lastIndexOf('>'));
 

@@ -26,6 +26,7 @@ const config: CloudflareConfig = defineConfig({
 		observability: {
 			enabled: true,
 			headSamplingRate: 1,
+			issues: { enabled: true },
 			logs: { enabled: true, invocationLogs: true },
 			traces: { enabled: true },
 		},

@@ -20,7 +20,7 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 		<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-xl-3 border-border bg-border grid gap-y-px border md:grid-cols-2 xl:grid-cols-3">
 			{posts.map((post, index) => {
 				const isLatest = index === 0;
-				const isGuestPost = post.tags?.includes(GUEST_TAG) ?? false;
+				const isGuestPost = post.tags.includes(GUEST_TAG);
 				const postNumber = String(index + 1).padStart(2, '0');
 
 				return (
@@ -78,7 +78,7 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 							</p>
 
 							<div className="border-border text-muted-foreground mt-6 flex flex-wrap gap-x-3 gap-y-1 border-t pt-4 font-mono text-xs tracking-widest uppercase">
-								{post.tags?.slice(0, 3).map((tag: string) => (
+								{post.tags.slice(0, 3).map((tag: string) => (
 									<span key={tag}>{tag}</span>
 								))}
 							</div>

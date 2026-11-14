@@ -1,6 +1,6 @@
 # Ghostty WASM
 
-`public/assets/terminal/ghostty-vt.wasm` is copied from `@wterm/ghostty` 0.5.8.
+`public/assets/terminal/ghostty-vt.wasm` is copied from `@wterm/ghostty` 0.5.10.
 This version retains the upstream fix for Ghostty style leakage across screens.
 
 The fix initializes cells without a style ID to Ghostty's default style:
@@ -15,7 +15,7 @@ into otherwise unstyled cells after alternate-screen and TUI redraws.
 The expected SHA-256 is:
 
 ```text
-d8f93f5e38550958f459b34db9c4680bb4a935161a7a75a999d18e392b3c98d8
+dc9ab0dca64ddeaa9c0dbf9c03f41b0f578893eccc9eb517707c4f4f8355e780
 ```
 
 `src/lib/ghostty-wasm.ts` uses this hash as the public URL's cache key. Update the
