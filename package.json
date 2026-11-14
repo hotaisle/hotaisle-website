@@ -30,9 +30,9 @@
 		"@astrojs/react": "^7.1.2",
 		"@astrojs/sitemap": "^3.7.4",
 		"@tailwindcss/typography": "^0.5.20",
-		"@wterm/core": "0.5.8",
-		"@wterm/dom": "0.5.8",
-		"@wterm/ghostty": "0.5.8",
+		"@wterm/core": "0.5.10",
+		"@wterm/dom": "0.5.10",
+		"@wterm/ghostty": "0.5.10",
 		"astro": "^7.4.5",
 		"gray-matter": "^4.0.3",
 		"lucide-react": "^1.67.0",
@@ -72,6 +72,6 @@
 	"packageManager": "bun@1.4.4",
 	"patchedDependencies": {
 		"ssh2@1.17.0": "patches/ssh2@1.17.0.patch",
-		"@wterm/dom@0.5.8": "patches/@wterm%2Fdom@0.5.8.patch"
+		"@wterm/dom@0.5.10": "patches/@wterm%2Fdom@0.5.10.patch"
 	}
 }
