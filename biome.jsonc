@@ -61,6 +61,23 @@
 	},
 	"overrides": [
 		{
+			// Keep the related Kitty parser/bridge and their paired DOM fixtures together.
+			"includes": [
+				"src/lib/kitty-graphics.ts",
+				"src/lib/kitty-graphics.test.ts"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noExcessiveClassesPerFile": {
+							"level": "error",
+							"options": { "maxClasses": 2 }
+						}
+					}
+				}
+			}
+		},
+		{
 			"includes": ["**/*.test.ts"],
 			"linter": {
 				"rules": {
