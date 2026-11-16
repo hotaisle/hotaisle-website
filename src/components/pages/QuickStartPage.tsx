@@ -202,7 +202,7 @@ export default function QuickStartPage() {
 									src="/assets/quickstart/terminal-provisioning-pixel-art-light.png"
 									width={1448}
 								/>
-								<div className="pointer-events-none absolute right-[8%] bottom-[11%] left-[8%] overflow-hidden font-mono text-[0.55rem] text-emerald-600 sm:text-xs dark:text-green-400">
+								<div className="absolute right-[8%] bottom-[11%] left-[8%] overflow-hidden font-mono text-[0.55rem] text-emerald-600 sm:text-xs dark:text-green-400">
 									<TerminalTyping />
 								</div>
 							</figure>
