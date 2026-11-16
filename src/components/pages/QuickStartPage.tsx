@@ -39,7 +39,7 @@ const NEXT_STEP_RESOURCES = [
 	{
 		description:
 			'Start your container with an external volume so your work remains available after the container exits.',
-		href: 'https://rocm.docs.amd.com/projects/install-on-linux/en/latest/how-to/docker.html',
+		href: 'https://rocm.docs.amd.com/en/latest/install/docker-containers.html',
 		label: 'View Docker guide',
 		title: 'Quickstart with AMD',
 	},
