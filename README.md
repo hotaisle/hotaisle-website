@@ -27,6 +27,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 -   **🔍 Site-Wide Search**: Integrated Cmd+K command palette for instant navigation across documentation and blogs.
 -   **🛡️ Trust & Compliance**: Dedicated security sections highlighting SOC 2 Type 2 compliance and official Dell/AMD partnerships.
 -   **📝 Markdown Content Pipeline**: Robust blog and documentation engine powered by raw Markdown files with automated tag and date management.
+-   **Quick Start SSH shortcut**: Click the SSH command in the terminal illustration, or focus it and press Enter or Space, to copy the full command to the clipboard.
 
 ## 📦 Getting Started
 
