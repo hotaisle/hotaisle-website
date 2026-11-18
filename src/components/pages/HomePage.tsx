@@ -210,14 +210,16 @@ export default function Home() {
 					<div className="border-border mt-8 border-t">
 						{PLATFORM_LAYERS.map((layer) => (
 							<article
-								className="border-border grid gap-4 border-b py-6 sm:grid-cols-[12rem_1fr] sm:items-start"
+								className="border-border grid gap-4 border-b py-6 sm:grid-cols-[18rem_1fr] sm:items-start"
 								key={layer.title}
 							>
 								<div>
 									<p className="text-hot-orange-contrast font-mono text-xs tracking-[0.12em] whitespace-nowrap uppercase">
 										{layer.label}
 									</p>
-									<h3 className="mt-2 text-xl font-medium">{layer.title}</h3>
+									<h3 className="mt-2 text-xl font-medium whitespace-nowrap">
+										{layer.title}
+									</h3>
 								</div>
 								<p className="text-muted-foreground text-lg leading-8">
 									{layer.description}
