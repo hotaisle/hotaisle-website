@@ -13,25 +13,25 @@ const PLATFORM_LAYERS = [
 	{
 		description:
 			'Automated SONiC networking, PXE boot, host setup, operating systems, and current ROCm drivers.',
-		label: 'Physical layer',
+		label: 'Physical',
 		title: 'Hardware brought online',
 	},
 	{
 		description:
 			'NUMA-balanced KVM virtual machines with direct GPU access, designed for performance without noisy neighbors.',
-		label: 'Compute layer',
+		label: 'Compute',
 		title: 'Isolation by default',
 	},
 	{
 		description:
 			'One platform, exposed through our terminal UI (TUI), API, and CLI that your AI already knows how to use.',
-		label: 'Developer layer',
+		label: 'Developer',
 		title: 'Capacity on command',
 	},
 	{
 		description:
 			'Your team builds and deploys products and solutions here, using Hot Aisle as the underlying infrastructure. Our own additional tooling and support for this layer are coming soon.',
-		label: 'Application layer',
+		label: 'Application',
 		title: 'Build and deploy',
 	},
 ] as const;
