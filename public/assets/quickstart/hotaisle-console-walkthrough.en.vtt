@@ -8,53 +8,61 @@ WEBVTT
 Hello and welcome to Hot Aisle Console.
 
 2
-00:00:06.165 --> 00:00:08.465
+00:00:06.167 --> 00:00:08.467
 Sign in with your email.
 
 3
-00:00:12.268 --> 00:00:15.043
+00:00:11.256 --> 00:00:14.031
 Approve the link in your browser.
 
 4
-00:00:16.341 --> 00:00:20.691
+00:00:15.325 --> 00:00:19.675
 Create your team. Keep its compute and members together.
 
 5
-00:00:21.422 --> 00:00:24.372
+00:00:20.408 --> 00:00:23.358
 Add credits whenever you need them.
 
 6
-00:00:27.522 --> 00:00:33.697
+00:00:28.543 --> 00:00:34.718
 Set up automatic rebill with a balance trigger, a top-up amount, and a monthly cap.
 
 7
-00:00:36.674 --> 00:00:42.474
+00:00:37.697 --> 00:00:43.497
 Pick two MI300X GPUs and the vLLM image.
 
 8
-00:00:42.776 --> 00:00:46.901
+00:00:43.798 --> 00:00:47.923
 Hold to launch. Status updates automatically.
 
 9
-00:00:48.877 --> 00:00:53.353
+00:00:48.883 --> 00:00:53.359
 Connect over SSH. Follow running time and cost.
 
 10
-00:00:54.984 --> 00:00:57.984
+00:00:53.968 --> 00:00:56.968
 Hold to release it and stop billing.
 
 11
-00:00:59.048 --> 00:01:01.948
+00:00:58.035 --> 00:01:00.935
 Review the run in machine history.
 
 12
-00:01:05.034 --> 00:01:09.009
-Make the console yours. Choose light or dark.
+00:01:03.996 --> 00:01:06.946
+Team owners set member permissions.
 
 13
-00:01:11.251 --> 00:01:14.651
-Set a default image for your next machine.
+00:01:10.097 --> 00:01:15.797
+Create an API token. Give it SSH access to this team only.
 
 14
-00:01:17.862 --> 00:01:22.562
+00:01:19.783 --> 00:01:23.758
+Make the console yours. Choose light or dark.
+
+15
+00:01:24.984 --> 00:01:28.384
+Set a default image for your next machine.
+
+16
+00:01:29.560 --> 00:01:34.260
 Hot Aisle Console, enterprise compute at your fingertips.

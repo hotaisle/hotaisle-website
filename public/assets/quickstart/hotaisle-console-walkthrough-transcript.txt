@@ -25,6 +25,10 @@ Hold to release it and stop billing.
 
 Review the run in machine history.
 
+Team owners set member permissions.
+
+Create an API token. Give it SSH access to this team only.
+
 Make the console yours. Choose light or dark.
 
 Set a default image for your next machine.
