@@ -2,9 +2,9 @@
   <img src="public/hotaisle-logo.svg" alt="Hot Aisle Logo" width="400" />
   <br />
 
-  # Hot Aisle | AMD Exclusive AI Cloud
-  
-  **Frictionless access to MI300x GPUs. No Contracts. Just Performance.**
+# Hot Aisle | AMD Exclusive AI Cloud
+
+**Frictionless access to MI300x GPUs. No Contracts. Just Performance.**
 </div>
 
 ---
@@ -34,11 +34,13 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 ### Installation
 
 1.  **Install dependencies:**
+
     ```bash
     bun install
     ```
 
 2.  **Run the development server:**
+
     ```bash
     bun run dev
     ```
@@ -52,7 +54,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - Local-only `.dev*` files are ignored by git and excluded from the static output.
 - Blog images under `src/content/blog/assets` are mirrored into `public/assets/blog` before Astro builds so `/assets/blog/...` remains stable.
 - Astro content collections load and validate blog and policy Markdown during development and static builds.
-- TypeScript is pinned to 6.0.3 because the current `astro check` does not support TypeScript 7.0.
+- TypeScript is pinned to 6.0.3 because `astro check` rejects TypeScript 7 and Astro's experimental replacement requires TypeScript 7.1 or later.
 
 ### Useful scripts
 
@@ -81,7 +83,7 @@ bun run preview
 
 Preview cannot run alongside `bun run dev` because both use port 4174.
 
-Cloudflare configuration lives in `cloudflare.config.ts`; `vite.config.ts` configures Worker bundling, static assets, and local HTTPS. The `cf` CLI and Cloudflare Vite v2 plugin are pinned to matching beta releases. Worker development and builds invoke Vite directly so framework detection does not select Astro's separate static-site commands. Local Worker secrets continue to load from the ignored `.dev.vars` file. Generated deployment output and local state live in the ignored `.cloudflare` directory.
+Cloudflare configuration lives in `cloudflare.config.ts`; `vite.config.ts` configures Worker bundling, static assets, and local HTTPS. The `cf` CLI and Cloudflare Vite v2 plugin are pinned to matching release candidates. CI uses Node.js 24.22.3 to meet the `cf` CLI's Node.js 24.22.0 minimum on the Node.js 24 LTS line. Worker development and builds invoke Vite directly so framework detection does not select Astro's separate static-site commands. Local Worker secrets continue to load from the ignored `.dev.vars` file. Generated deployment output and local state live in the ignored `.cloudflare` directory.
 
 ### Realtime machine-status events
 
@@ -168,7 +170,6 @@ HOTAISLE_MACHINE_STATUS_TIMEOUT_MS=15000 \
 bun run machine-status:production
 ```
 
-
 ## 📂 Project Structure
 
 ```
@@ -194,6 +195,7 @@ hotaisle-website/
 ## 🎨 Branding
 
 The **Hot Aisle** brand is defined by:
+
 -   **Hot Aisle**: Name is "Hot Aisle"
 -   **Primary Color**: Hot Orange
 -   **Light Theme Orange**: `#ce4c11` (WCAG AA on white)
@@ -205,10 +207,10 @@ The **Hot Aisle** brand is defined by:
 
 All commits must be verified. If you don't set that up first, I have to uncheck the box and then recheck it.
 
-<img width="1192" height="145" alt="image" src="https://github.com/user-attachments/assets/ab086c4a-d0b8-44f9-bafd-8d3554be5855" />
+<img width="1192" height="145" alt="image" src="https://github.com/user-attachments/assets/ab086c4a-d0b8-44f9-bafd-8d3554be5855">
 
 ---
 
 <div align="center">
-  <sub>Built with ❤️ by the Hot Aisle Team</sub>
+	<sub>Built with ❤️ by the Hot Aisle Team</sub>
 </div>
