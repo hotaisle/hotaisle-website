@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "11/07/2024"
 description: "Hot Aisle Inc. is looking for an experienced and visionary CGO - marketing, sales, and business development leader. This role is critical in our journey as a rapidly growing company in the AI and HPC infrastructure space. We seek a true unicorn with a proven ability to get things done, wear multiple hats, and drive significant growth through strategic marketing, sales enablement, and business development initiatives. We realize that this role is a big ask, but we know that there are driven individuals who enjoy this type of challenge. In this high-impact role, you’ll shape our success story, working closely with the key members of management including founders, board and advisors, and take ownership of the business’s success."
 featured: false
-tags: ["Hiring"]
+tags: [ "Hiring" ]
 ---
 
 # **Chief Growth Officer – Marketing, Sales & Business Development Lead**
@@ -58,4 +58,4 @@ tags: ["Hiring"]
 
 **Apply if You Are:** A self-starter, strategic thinker, relationship builder, and expert executor with a knack for leveraging technology to drive results. This role is ideal for someone passionate about making a tangible impact and creating something extraordinary in the world of AI and HPC. If you’re ready to be part of an adventure where your contributions are recognized and valued, we want to meet you. Please reach out to us with a brief introduction and resume: [hello@hotaisle.ai](mailto:hello@hotaisle.ai)
 
-*Hot Aisle is an equal opportunity employer. We encourage people from all backgrounds to apply. We are committed to ensuring that our technology is made available and accessible to everyone. All employment decisions are made without regard to race, color, national origin, ancestry, sex, gender, gender identity or expression, sexual orientation, age, genetic information, religion, disability, medical condition, pregnancy, marital status, family status, veteran status, or any other characteristic protected by law.*
+_Hot Aisle is an equal opportunity employer. We encourage people from all backgrounds to apply. We are committed to ensuring that our technology is made available and accessible to everyone. All employment decisions are made without regard to race, color, national origin, ancestry, sex, gender, gender identity or expression, sexual orientation, age, genetic information, religion, disability, medical condition, pregnancy, marital status, family status, veteran status, or any other characteristic protected by law._

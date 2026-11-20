@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
-import { Client, type ClientChannel, type KeyboardInteractiveCallback, utils } from 'ssh2';
+import type { ClientChannel, KeyboardInteractiveCallback } from 'ssh2';
+import { Client, utils } from 'ssh2';
 
 const ADMIN_HOST = 'admin.hotaisle.app';
 const ADMIN_PORT = 22;

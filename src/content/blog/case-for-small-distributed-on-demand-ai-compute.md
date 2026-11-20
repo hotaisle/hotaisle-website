@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "09/01/2026"
 description: "Why Hot Aisle is building a distributed, on-demand AI compute platform one profitable, repeatable cluster at a time."
 featured: true
-tags: ["Thoughts"]
+tags: [ "Thoughts" ]
 ---
 
 Before starting Hot Aisle, I helped operate 150,000 AMD GPUs across seven data centers as part of one of the world’s largest Ethereum mining operations. When Ethereum moved from proof of work to proof of stake, the workload disappeared—but the experience left me with a clear understanding of what it takes to deploy, automate, and operate compute infrastructure at scale.

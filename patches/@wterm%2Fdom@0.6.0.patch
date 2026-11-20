@@ -178,10 +178,10 @@ index 077910eeb3822f38089dd3ad6a9f345ef2a2a38a..9068b2d60e0310f78f120da9f5de512d
              const cp = inBounds ? cell.char : 0;
              const width = inBounds ? (cell.width ?? 1) : 1;
 diff --git a/dist/wterm.js b/dist/wterm.js
-index 6f31f07b5bed9eb2abf7bd3c157df387cd19b41d..ff2e63b2c9877b3ccce71c24d04c13485da30645 100644
+index 581372e9dc3fe2213fac13e8de8d4dd975fad059..29e3889b692b2285e4f928d88c8d500fb75b09c5 100644
 --- a/dist/wterm.js
 +++ b/dist/wterm.js
-@@ -13,6 +13,7 @@ import { registerWebMCPTerminal, } from "./webmcp.js";
+@@ -14,6 +14,7 @@ import { registerWebMCPTerminal, } from "./webmcp.js";
  const SYNCHRONIZED_OUTPUT_TIMEOUT_MS = 1000;
  const PROGRAMMATIC_SCROLL_TOLERANCE = 1;
  const TEXT_SYNC_IDLE_MS = 150;
@@ -189,7 +189,7 @@ index 6f31f07b5bed9eb2abf7bd3c157df387cd19b41d..ff2e63b2c9877b3ccce71c24d04c1348
  function findQueryPrefix(data, from) {
      if (typeof data === "string")
          return data.indexOf("\x1b[1", from);
-@@ -282,13 +283,8 @@ export class WTerm {
+@@ -272,13 +273,8 @@ export class WTerm {
              if (event.defaultPrevented || this._historySelection.active)
                  return;
              const target = event.target;

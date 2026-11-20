@@ -10,7 +10,7 @@ date: "03/17/2026"
 description: "A practical guide to building a private ChatXYZ style environment using Open WebUI and a self-hosted vLLM instance on Hot Aisle. Covers architecture, SSH tunneling, and connecting a local interface to GPU-hosted inference."
 featured: false
 haFooter: true
-tags: ["GPU","vLLM","Open WebUI","ROCm","Inference","Guest"]
+tags: [ "GPU", "vLLM", "Open WebUI", "ROCm", "Inference", "Guest" ]
 ---
 
 # Creating Your Own ChatXYZ Powered by Hot Aisle and Open WebUI
@@ -39,7 +39,7 @@ Instead of opening inference ports publicly, we will access the model through an
 
 By the end of this guide you will have a working system that looks and behaves like a private ChatGPT instance, but runs entirely on infrastructure you control. This same pattern is widely used in enterprise environments for secure AI development and can easily be extended with additional models, authentication layers, or retrieval pipelines.
 
-While this guide focuses on a single model and a simple chat interface, the same architecture can be used as the foundation for much larger AI systems.  Many enterprise AI platforms follow this same pattern: GPU-hosted inference, an OpenAI-compatible API layer, and a separate user interface or application layer.
+While this guide focuses on a single model and a simple chat interface, the same architecture can be used as the foundation for much larger AI systems. Many enterprise AI platforms follow this same pattern: GPU-hosted inference, an OpenAI-compatible API layer, and a separate user interface or application layer.
 
 Once this structure is in place, it becomes straightforward to add additional models, integrate retrieval pipelines, connect external applications, or build custom AI tools on top of the same inference infrastructure.
 
@@ -175,7 +175,7 @@ If you have not already started Open WebUI start it and log in.
 
 ![openwebui-01](chatxyz-openwebui-hotaisle/openwebui-01.png)
 
-Next, we are going to connect to our model on Hot Aisle.  Click your name in the bottom left corner of the UI, and select Admin Panel.
+Next, we are going to connect to our model on Hot Aisle. Click your name in the bottom left corner of the UI, and select Admin Panel.
 
 ![openwebui-02](chatxyz-openwebui-hotaisle/openwebui-02.png)
 
@@ -183,11 +183,11 @@ Then, select Settings from the top menu, then Connections.
 
 ![openwebui-03](chatxyz-openwebui-hotaisle/openwebui-03.png)
 
-Click the + button next to Manage OpenAI API connections.  Add http://127.0.0.1:8000/v1 to the URL, and enter anything in the Bearer field under Auth.
+Click the + button next to Manage OpenAI API connections. Add http://127.0.0.1:8000/v1 to the URL, and enter anything in the Bearer field under Auth.
 
 ![openwebui0-5](chatxyz-openwebui-hotaisle/openwebui0-5.png)
 
-That's it.  Open WebUI will show the model you have running in the corner, and you can begin interacting with the UI.
+That's it. Open WebUI will show the model you have running in the corner, and you can begin interacting with the UI.
 
 ![openwebui-model](chatxyz-openwebui-hotaisle/openwebui-model.png)
 

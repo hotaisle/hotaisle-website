@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "09/22/2024"
 description: "Hot Aisle offers personalized, high-performance compute with bare metal access, customized pricing, uptime reliability, and expert collaboration on cutting-edge tech."
 featured: false
-tags: ["Thoughts"]
+tags: [ "Thoughts" ]
 ---
 
 # **Why Hot Aisle is Better than Hyperscalers: A Fun Breakdown**
@@ -20,7 +20,7 @@ Going with a hyperscaler might feel “safe” because they’re massive and hav
 
 ### **Bare Metal, Not Just APIs**
 
-Hyperscalers love to keep their hardware locked down. They don’t want you poking around under the hood because, honestly, they can’t handle the support load at that scale. At Hot Aisle, we *love* it when customers get hands-on. We’re a boutique operation, and we thrive on collaboration. Want to tweak BIOS settings to squeeze out every ounce of performance? Go for it! We’re here to help you push the limits and crush your goals, because your success is our success.
+Hyperscalers love to keep their hardware locked down. They don’t want you poking around under the hood because, honestly, they can’t handle the support load at that scale. At Hot Aisle, we _love_ it when customers get hands-on. We’re a boutique operation, and we thrive on collaboration. Want to tweak BIOS settings to squeeze out every ounce of performance? Go for it! We’re here to help you push the limits and crush your goals, because your success is our success.
 
 ### **Pricing That Works With You**
 

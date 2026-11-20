@@ -1,5 +1,7 @@
-import { type CollectionEntry, getCollection } from 'astro:content';
-import { type SearchResult, STATIC_SEARCH_PAGES } from '@/lib/search.ts';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import type { SearchResult } from '@/lib/search.ts';
+import { STATIC_SEARCH_PAGES } from '@/lib/search.ts';
 
 const HTML_TAG_REGEX = /<[^>]+>/gu;
 const HTML_ENTITY_REGEX = /&(?:[a-zA-Z]+|#\d+|#x[\da-fA-F]+);/gu;

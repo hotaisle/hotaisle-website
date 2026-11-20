@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'bun:test';
 import type { CellData, TerminalCore } from '@wterm/core';
+import type { KittyGraphicsParserEvent } from '@/lib/kitty-graphics.ts';
 import {
 	createKittyGraphicsQueryResponse,
 	findKittyPlaceholder,
 	KittyGraphicsBridge,
 	KittyGraphicsParser,
-	type KittyGraphicsParserEvent,
 } from '@/lib/kitty-graphics.ts';
 
 const ESC = '\x1b';

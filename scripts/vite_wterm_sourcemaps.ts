@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
-import { normalizePath, type Plugin } from 'vite';
+import type { Plugin } from 'vite';
+import { normalizePath } from 'vite';
 
 const WTERM_MODULE_PATTERN = /\/node_modules\/@wterm\/(?:core|dom|ghostty)\/dist\/[^?#]+\.js$/u;
 const SOURCE_MAP_COMMENT_PATTERN = /^[\t ]*\/\/[#@][\t ]*sourceMappingURL=[^\r\n]*/gmu;

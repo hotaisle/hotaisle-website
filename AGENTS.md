@@ -5,6 +5,7 @@ apply: always
 Agents must follow:
 
 ### General
+
 - Keep max allowed context/cache window.
 - Be friendly but cold. No praise or filler.
 - Minimize token usage. Don’t over-explain.
@@ -18,12 +19,14 @@ Agents must follow:
 - Treat the single-word command `release` as an explicit alias for `add, commit, push, PR, merge`: review and stage all intended changes, create focused Conventional Commits, push the working branch, open a ready-for-review pull request, wait for required checks, merge it, switch back to the default branch, and pull the merged result.
 
 ### Environment
+
 - Package manager: bun (never anything else)
 - Tests: `bun run test` (not any other service test, like pnpm or node).
 - It is always ok to run `bun run`
 - If Jon or Clint is making a change and `gh` will be used, switch `gh` to the correct `jon-hotaisle` or `clint-hotaisle` user first.
 
 ### Embedded terminal dependencies
+
 - Keep `@wterm/dom` and `@wterm/ghostty` on the same exact version.
 - Whenever `@wterm/ghostty` changes, copy `node_modules/@wterm/ghostty/wasm/ghostty-vt.wasm` to `public/assets/terminal/ghostty-vt.wasm` in the same change. Never upgrade the JavaScript package without its matching WASM binary.
 - Update the version and SHA-256 recorded in `scripts/ghostty-wasm/README.md` and the cache-busting SHA-256 in `src/lib/ghostty-wasm.ts` after copying the binary.
@@ -31,6 +34,7 @@ Agents must follow:
 - Run `src/lib/kitty-graphics-integration.test.ts` for every wterm dependency or patch change. It must exercise the installed renderer and public Ghostty WASM together; do not replace them with mocks. QR placeholders must remain invisible while adjacent text, image placement, fragmented transfers, resize, and cleanup still work.
 
 ### Code style
+
 - Prefer for...of over forEach.
 - Prefer block statements: if (!stored) { return []; }
 - Use optional chaining (`?.`) and nullish coalescing (`??`) for safer property access
@@ -56,8 +60,8 @@ Agents must follow:
 - Leverage TypeScript's type narrowing instead of type assertions
 - Use meaningful variable names instead of magic numbers - extract constants with descriptive names
 - Always generate valid HTML.
-    - Invalid: `<div><td></td></div>`
-    - Valid: `<div><table><tbody><tr><td></td></tr></tbody></table></div>`
+  - Invalid: `<div><td></td></div>`
+  - Valid: `<div><table><tbody><tr><td></td></tr></tbody></table></div>`
 - **Check code format**: `bun run check`
 - **Format and fix code**: `bun run fix`
 - Always `await` promises in async functions - don't forget to use the return value
@@ -66,6 +70,7 @@ Agents must follow:
 - Don't use async functions as Promise executors
 
 ### React
+
 - Use function components over class components
 - Call hooks at the top level only, never conditionally
 - Specify all dependencies in hook dependency arrays correctly
@@ -73,15 +78,15 @@ Agents must follow:
 - Nest children between opening and closing tags instead of passing as props
 - Don't define components inside other components
 - Use semantic HTML and ARIA attributes for accessibility:
-    - Provide meaningful alt text for images
-    - Use proper heading hierarchy
-    - Add labels for form inputs
-    - Include keyboard event handlers alongside mouse events
-    - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
-    - Add recommended attributes, like type="button" and width/height to img
-
+  - Provide meaningful alt text for images
+  - Use proper heading hierarchy
+  - Add labels for form inputs
+  - Include keyboard event handlers alongside mouse events
+  - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
+  - Add recommended attributes, like type="button" and width/height to img
 
 ### Tests
+
 - Wrap in top-level describe().
 - Use Go-style table-driven tests.
 - Be thorough and check for edge cases.
@@ -117,11 +122,13 @@ Agents must follow:
 - Whenever the website's visual system changes, review and update `scripts/lighthouse-report.css` and `scripts/generate_lighthouse_pages.ts` in the same change so their colors, typography, spacing, borders, navigation, footer, and theme behavior remain synchronized with the current site.
 
 ### Error Handling & Debugging
+
 - Throw `Error` objects with descriptive messages, not strings or other values
 - Use `try-catch` blocks meaningfully - don't catch errors just to rethrow them
 - Prefer early returns over nested conditionals for error cases
 
 ### Reviews
+
 - Call out inconsistent or nonsensical patterns briefly.
 - Suggest fixes for obvious bugs, even outside the immediate area.
 

@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "11/20/2024"
 description: "Jon Stevens speaking at the Dell Technologies booth during SC24"
 featured: false
-tags: ["Speaking"]
+tags: [ "Speaking" ]
 ---
 
 # Jon Stevens speaking at the Dell Technologies booth during SC24

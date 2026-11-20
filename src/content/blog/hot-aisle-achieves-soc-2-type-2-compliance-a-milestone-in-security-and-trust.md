@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "09/18/2025"
 description: "Hot Aisle has achieved SOC 2 Type 2 compliance, proving our commitment to security, reliability, and trust while delivering enterprise-grade AMD AI cloud infrastructure."
 featured: false
-tags: ["Announcements"]
+tags: [ "Announcements" ]
 ---
 
 # Hot Aisle Achieves SOC 2 Type 2 Compliance: A Milestone in Security and Trust
@@ -24,7 +24,7 @@ SOC 2 Type 2 is the standard for demonstrating that a company not only has the r
 
 ### **Why It Matters for Developers and Enterprises**
 
-AI workloads demand uncompromising performance *and* uncompromising trust. By completing SOC 2 Type 2, Hot Aisle offers both:
+AI workloads demand uncompromising performance _and_ uncompromising trust. By completing SOC 2 Type 2, Hot Aisle offers both:
 
 - **Secure access to AMD MI300x clusters** running on enterprise-grade Dell hardware.
 - **Peace of mind** for enterprises and developers who need compliance assurances.

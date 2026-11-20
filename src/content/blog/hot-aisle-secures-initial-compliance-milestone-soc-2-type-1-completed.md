@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "07/01/2025"
 description: "Hot Aisle has officially completed its SOC 2 Type 1 audit, marking a key milestone in our commitment to security and compliance. This achievement validates the strength of our internal controls and processes for handling customer data. With Type 2 already in motion and expected in three months, we’re on track to meet the highest standards in cloud infrastructure security. Special thanks to Sprinto and ATOM for their guidance and support throughout the process."
 featured: false
-tags: ["Announcements"]
+tags: [ "Announcements" ]
 ---
 
 # [**We now have SOC 2 Type 2!**](https://hotaisle.xyz/blog/hot-aisle-achieves-soc-2-type-2-compliance-a-milestone-in-security-and-trust/)
@@ -36,6 +36,5 @@ We couldn’t have done this without the help of our partners:
 If you’re considering SOC 2 compliance and want a referral to a trusted partner, we’re happy to give a referral.
 
 Hot Aisle is committed to making secure, high-performance compute accessible, without compromise. This is just the beginning.
-
 
 ![SOC 2 Type 1 Report](hot-aisle-secures-initial-compliance-milestone-soc-2-type-1-completed/image-1.png)

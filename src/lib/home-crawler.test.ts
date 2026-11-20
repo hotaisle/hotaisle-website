@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'bun:test';
+import type { CrawlerTheme, WorldPoint } from '@/lib/home-crawler.ts';
 import {
 	advanceCrawlerLegs,
 	CRAWLER_AGENTS,
 	CRAWLER_IMAGE,
 	CRAWLER_LEGS,
-	type CrawlerTheme,
 	createCrawlerLegs,
 	getCrawlerAgentPose,
 	getCrawlerProbe,
@@ -12,7 +12,6 @@ import {
 	projectCrawlerPoint,
 	STEP_LOOKAHEAD_SECONDS,
 	toWorldPoint,
-	type WorldPoint,
 } from '@/lib/home-crawler.ts';
 
 const THEMES: readonly CrawlerTheme[] = ['light', 'dark'];

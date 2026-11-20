@@ -1,13 +1,10 @@
+import type { CrawlerLeg, CrawlerPose, CrawlerTheme, WorldPoint } from '@/lib/home-crawler.ts';
 import {
 	CRAWLER_LEGS,
-	type CrawlerLeg,
-	type CrawlerPose,
-	type CrawlerTheme,
 	getCrawlerProbe,
 	getKnee,
 	projectCrawlerPoint,
 	toWorldPoint,
-	type WorldPoint,
 } from '@/lib/home-crawler.ts';
 
 const CHASSIS_OUTLINE = [

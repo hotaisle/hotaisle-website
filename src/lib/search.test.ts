@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test';
-import { findSearchResults, type SearchResult } from '@/lib/search.ts';
+import type { SearchResult } from '@/lib/search.ts';
+import { findSearchResults } from '@/lib/search.ts';
 
 const SEARCH_RESULTS: SearchResult[] = [
 	{
