@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "04/25/2025"
 description: "AMD TechTalk: Jon Stevens shares his journey from Ethereum mining to founding Hot Aisle, and his vision for democratizing AI and enterprise compute."
 featured: false
-tags: ["Interviews"]
+tags: [ "Interviews" ]
 ---
 
 # Empowering Developers with AMD AI Technologies in the Cloud

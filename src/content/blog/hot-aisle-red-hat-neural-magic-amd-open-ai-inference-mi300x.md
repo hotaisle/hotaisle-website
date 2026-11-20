@@ -9,10 +9,10 @@ author: "Jon Stevens"
 date: "05/15/2025"
 description: "Hot Aisle is teaming up with Red Hat’s Neural Magic and AMD to accelerate the future of open AI infrastructure. This collaboration showcases how high-performance inference on AMD MI300x hardware, powered by vLLM and sparse model optimization, can thrive outside of proprietary hyperscaler stacks. By providing bare-metal access and real-world benchmarking support, Hot Aisle enables faster iteration, deeper optimization, and meaningful upstream contributions, all in service of decentralizing and democratizing compute for developers, enterprises, and the broader open-source community."
 featured: false
-tags: ["Announcements"]
+tags: [ "Announcements" ]
 ---
 
-# *Computing for All: Hot Aisle + Red Hat (Neural Magic) + AMD*
+# _Computing for All: Hot Aisle + Red Hat (Neural Magic) + AMD_
 
 AI infrastructure is at a crossroads. The rapid acceleration of model size, complexity, and usage is outpacing the accessibility of the compute required to support it. Meanwhile, the traditional pathways to scalable performance, namely hyperscalers and proprietary stacks, remain expensive, opaque, and often exclusionary. At Hot Aisle, we believe there’s a better way forward: open hardware, open software, and infrastructure built on decentralization, not gatekeeping.
 

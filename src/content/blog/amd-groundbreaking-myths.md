@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "09/14/2024"
 description: "Groundbreaking myths"
 featured: false
-tags: ["Thoughts"]
+tags: [ "Thoughts" ]
 ---
 
 # Groundbreaking myths

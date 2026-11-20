@@ -1,7 +1,7 @@
+import type { CrawlerTheme } from '@/lib/home-crawler.ts';
 import {
 	advanceCrawlerLegs,
 	CRAWLER_AGENTS,
-	type CrawlerTheme,
 	createCrawlerLegs,
 	getCrawlerAgentPose,
 	STEP_LOOKAHEAD_SECONDS,

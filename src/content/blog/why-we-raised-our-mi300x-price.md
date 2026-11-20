@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "07/14/2026"
 description: "Why our MI300X VM price is changing, what remains the same, and why we believe AMD compute should stand on its own value."
 featured: false
-tags: ["Announcements","Thoughts"]
+tags: [ "Announcements", "Thoughts" ]
 ---
 
 > **TL;DR:** We raised the price of newly allocated MI300X VM compute because we are at full capacity and $1.99 no longer reflects the value of a battle-tested service, direct support, and AMD's position in the market. All customers now pay $2.99 per GPU hour for newly allocated compute, existing allocations remain at $1.99, and bare metal stays at $3.39.

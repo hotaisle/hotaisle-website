@@ -1,4 +1,5 @@
-import { bindings, type CloudflareConfig, defineConfig, exports } from 'cf/config';
+import type { CloudflareConfig } from 'cf/config';
+import { bindings, defineConfig, exports } from 'cf/config';
 
 const config: CloudflareConfig = defineConfig({
 	worker: {

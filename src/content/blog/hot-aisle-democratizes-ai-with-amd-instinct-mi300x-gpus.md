@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "04/20/2025"
 description: "Hot Aisle partners with AMD to democratize AI and HPC, delivering MI300X GPU-powered infrastructure accessible for diverse computing workloads."
 featured: false
-tags: ["Features"]
+tags: [ "Features" ]
 ---
 
 # **Hot Aisle and AMD Democratize AI with New Collaboration**

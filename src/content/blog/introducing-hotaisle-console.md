@@ -13,7 +13,7 @@ videoSrc: "/assets/quickstart/hotaisle-console-walkthrough.mp4"
 videoPoster: "/assets/quickstart/hotaisle-console-walkthrough-poster.webp"
 videoCaptions: "/assets/quickstart/hotaisle-console-walkthrough.en.vtt"
 videoTranscript: "/assets/quickstart/hotaisle-console-walkthrough-transcript.txt"
-tags: ["Announcements", "Open Source", "GPU"]
+tags: [ "Announcements", "Open Source", "GPU" ]
 ---
 
 We're excited to introduce [hotaisle-console](https://console.hotaisle.app), a web console for renting and managing Hot Aisle AMD MI300X machines. You can go from sign-in to an SSH command in a few clicks, with the machine's state and cost in view along the way.

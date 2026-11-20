@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "09/13/2024"
 description: "Cruising to the finish line"
 featured: false
-tags: ["Features"]
+tags: [ "Features" ]
 ---
 
 ## Introduction

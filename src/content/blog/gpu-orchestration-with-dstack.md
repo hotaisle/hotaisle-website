@@ -9,7 +9,7 @@ date: "03/02/2026"
 description: "Step-by-step guide to configuring `dstack` with Hot Aisle for AMD MI300X provisioning, development, inference, and training workflows."
 featured: false
 haFooter: true
-tags: ["GPU","Orchestration","dstack","AMD","MI300X","Guest"]
+tags: [ "GPU", "Orchestration", "dstack", "AMD", "MI300X", "Guest" ]
 ---
 
 # Orchestrating AMD GPUs with dstack
@@ -38,13 +38,13 @@ Then configure the Hot Aisle backend in `~/.dstack/server/config.yml`:
 
 ```yaml
 projects:
-  - name: main
-    backends:
-      - type: hotaisle
-        team_handle: ${HOTAISLE_TEAM_HANDLE}
-        creds:
-          type: api_key
-          api_key: ${HOTAISLE_API_KEY}
+    - name: main
+      backends:
+          - type: hotaisle
+            team_handle: ${HOTAISLE_TEAM_HANDLE}
+            creds:
+                type: api_key
+                api_key: ${HOTAISLE_API_KEY}
 ```
 
 After updating server config, start or restart `dstack server` so backend changes are picked up.
@@ -75,8 +75,8 @@ nodes: 0..4
 idle_duration: 30m
 
 resources:
-  # from 1 to 8 MI300X GPUs per VM
-  gpu: MI300X:1..8
+    # from 1 to 8 MI300X GPUs per VM
+    gpu: MI300X:1..8
 ```
 
 Apply it:
@@ -98,11 +98,11 @@ nodes: 2
 placement: cluster
 
 ssh_config:
-  user: ubuntu
-  identity_file: ~/.ssh/id_ed25519
-  hosts:
-    - 203.0.113.11
-    - 203.0.113.12
+    user: ubuntu
+    identity_file: ~/.ssh/id_ed25519
+    hosts:
+        - 203.0.113.11
+        - 203.0.113.12
 ```
 
 Apply:
@@ -127,7 +127,7 @@ image: rocm/dev-ubuntu-24.04:latest
 ide: cursor
 
 resources:
-  gpu: MI300X:1
+    gpu: MI300X:1
 ```
 
 Launch:
@@ -156,20 +156,20 @@ name: qwen3-coder-mi300x
 
 image: rocm/vllm:latest
 env:
-  - HF_TOKEN
+    - HF_TOKEN
 commands:
-  - |
-    vllm serve Qwen/Qwen3-Coder-30B-A3B-Instruct \
-      --port 8000 \
-      --block-size 256 \
-      --max-model-len 131272 \
-      --enable-auto-tool-choice \
-      --tool-call-parser qwen3_xml
+    - |
+        vllm serve Qwen/Qwen3-Coder-30B-A3B-Instruct \
+          --port 8000 \
+          --block-size 256 \
+          --max-model-len 131272 \
+          --enable-auto-tool-choice \
+          --tool-call-parser qwen3_xml
 port: 8000
 model: Qwen/Qwen3-Coder-30B-A3B-Instruct
 
 resources:
-  gpu: MI300X:1
+    gpu: MI300X:1
 ```
 
 Apply:
@@ -211,13 +211,13 @@ name: mi300x-sft
 
 image: rocm/pytorch:rocm7.2_ubuntu24.04_py3.12_pytorch_release_2.7.1
 env:
-  - HF_TOKEN
+    - HF_TOKEN
 commands:
-  - python -m pip install -U transformers datasets accelerate trl peft
-  - python train_sft.py --model Qwen/Qwen2.5-7B-Instruct --epochs 3
+    - python -m pip install -U transformers datasets accelerate trl peft
+    - python train_sft.py --model Qwen/Qwen2.5-7B-Instruct --epochs 3
 
 resources:
-  gpu: MI300X:1
+    gpu: MI300X:1
 ```
 
 For failed runs:
@@ -235,40 +235,41 @@ name: openclaw-mi300x
 
 python: "3.12"
 env:
-  - OPENCLAW_TOKEN
-  - MODEL_BASE_URL
-  - DSTACK_MODEL_TOKEN
+    - OPENCLAW_TOKEN
+    - MODEL_BASE_URL
+    - DSTACK_MODEL_TOKEN
 commands:
-  - curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard
-  - openclaw config set gateway.mode local
-  - openclaw config set gateway.auth.mode token
-  - openclaw config set gateway.auth.token "$OPENCLAW_TOKEN"
-  - openclaw config set gateway.trustedProxies '["127.0.0.1"]'
-  - |
-    openclaw config set models.providers.mi300x '{
-      "baseUrl":"'"$MODEL_BASE_URL"'",
-      "apiKey":"'"$DSTACK_MODEL_TOKEN"'",
-      "api":"openai-completions",
-      "models":[
-        {
-          "id":"Qwen/Qwen3-Coder-30B-A3B-Instruct",
-          "name":"Qwen3-Coder-30B-A3B-Instruct",
-          "reasoning":true,
-          "input":["text"],
-          "cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},
-          "contextWindow":131072,
-          "maxTokens":8192
-        }
-      ]
-    }' --json
-  - openclaw gateway
+    - curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard
+    - openclaw config set gateway.mode local
+    - openclaw config set gateway.auth.mode token
+    - openclaw config set gateway.auth.token "$OPENCLAW_TOKEN"
+    - openclaw config set gateway.trustedProxies '["127.0.0.1"]'
+    - |
+        openclaw config set models.providers.mi300x '{
+          "baseUrl":"'"$MODEL_BASE_URL"'",
+          "apiKey":"'"$DSTACK_MODEL_TOKEN"'",
+          "api":"openai-completions",
+          "models":[
+            {
+              "id":"Qwen/Qwen3-Coder-30B-A3B-Instruct",
+              "name":"Qwen3-Coder-30B-A3B-Instruct",
+              "reasoning":true,
+              "input":["text"],
+              "cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0},
+              "contextWindow":131072,
+              "maxTokens":8192
+            }
+          ]
+        }' --json
+    - openclaw gateway
 ports:
-  - 18789
+    - 18789
 ```
 
 The OpenClaw task above starts a local gateway on `localhost:18789` and points it to your model service endpoint.
 
 Use these variables when applying:
+
 - `MODEL_BASE_URL`: gateway service `/v1` endpoint (for example, `https://qwen3-coder-mi300x.<gateway-domain>/v1`)
 - `DSTACK_MODEL_TOKEN`: your `dstack` user token used by built-in service authentication
 

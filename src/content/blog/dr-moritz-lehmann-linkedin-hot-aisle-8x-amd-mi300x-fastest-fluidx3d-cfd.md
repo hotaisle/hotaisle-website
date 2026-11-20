@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "03/03/2025"
 description: "Hot Aisle Inc.'s 8x AMD MI300X Server Sets a New Performance Benchmark in FluidX3D CFD\nDr. Moritz Lehmann reports that Hot Aisle Inc.'s 8x AMD MI300X server is the fastest machine he has ever tested, achieving 205 GLUPs/s and 23 TB/s VRAM bandwidth in FluidX3D CFD. This system outperforms all competitors, leaving even Nvidia's GH200 and RTX 5090 far behind. With CUDA no longer the performance leader, OpenCL emerges as the key to unlocking AMD’s superior hardware.\nFluidX3D is fully OpenCL-compatible, running seamlessly across AMD, Intel, Nvidia, and Apple GPUs. Full benchmarks and source code available on https://github.com/ProjectPhysX/FluidX3D.\nSpecial thanks to Jon Stevens & Clint Armstrong for providing access to Hot Aisle's cutting-edge system!"
 featured: false
-tags: ["GPU"]
+tags: [ "GPU" ]
 ---
 
 # Hot Aisle Inc.'s 8x AMD MI300x server is the fastest computer I've ever tested in FluidX3D CFD, achieving a peak LBM performance of 205 GLUPs/s, and a combined VRAM bandwidth of 23 TB/s

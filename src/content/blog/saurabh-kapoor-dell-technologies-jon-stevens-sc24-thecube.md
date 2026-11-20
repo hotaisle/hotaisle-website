@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "11/21/2024"
 description: "Jon Stevens, CEO of Hot Aisle & Saurabh Kapoor, Director Product Management for Dell Technologies joins theCUBE hosts Savannah Peterson and Dave Vellante as we continue our coverage of SC24"
 featured: false
-tags: ["Interviews"]
+tags: [ "Interviews" ]
 ---
 
 # **Saurabh Kapoor, Dell Technologies & Jon Stevens, Hot Aisle | SC24**

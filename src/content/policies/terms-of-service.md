@@ -1,10 +1,10 @@
 ---
 title: Terms of Service
 description: Binding legal terms for use of the Hot Aisle cloud platform.
-date: '2026-02-05'
+date: "2026-02-05"
 ---
 
-* * *
+---
 
 Last modified: **May 25th, 2024**
 
@@ -12,19 +12,19 @@ This page contains Hot Aisle’s key Terms of Service and is a binding contract 
 
 The TOS is a binding legal contract; the Customer’s acceptance of it is required to use Hot Aisle Services. As such, the Customer may only use Hot Aisle Services if the Customer agrees that it has read, understood, and consented to be bound by the TOS. By creating an Account and using Hot Aisle Services, the Customer is representing to Hot Aisle that:
 
-*   The creation of an Account and use of Hot Aisle Services is in compliance with all laws, rules and regulations applicable to the Customer.
+-   The creation of an Account and use of Hot Aisle Services is in compliance with all laws, rules and regulations applicable to the Customer.
 
-*   In the case where the Customer is a natural person, they are (a) 18 years of age or older; and (b) have sufficient legal consent, permission and capacity to use Hot Aisle Services in applicable jurisdiction(s) as determined by the Customer.
+-   In the case where the Customer is a natural person, they are (a) 18 years of age or older; and (b) have sufficient legal consent, permission and capacity to use Hot Aisle Services in applicable jurisdiction(s) as determined by the Customer.
 
-*   In the case where a natural person is creating an Account and using Hot Aisle Services on behalf of a company, organization, or other entity, in those cases, they have the authority to bind that company, organization or other entity to this TOS and they agree to be legally bound by this TOS on behalf of such entity.
+-   In the case where a natural person is creating an Account and using Hot Aisle Services on behalf of a company, organization, or other entity, in those cases, they have the authority to bind that company, organization or other entity to this TOS and they agree to be legally bound by this TOS on behalf of such entity.
 
 There are other contractual documents that apply to the Customer’s use of the Hot Aisle Cloud Platform as a Covered Service, and the terms contained in those documents are incorporated in these TOS. The Customer should review these other documents, which can be found by clicking at the links below:
 
-*   Data Processing Agreement (DPA), which contains the applicable terms for Hot Aisle processing certain types of data on the Customer’s behalf. The Customer is responsible to determine and must alert Hot Aisle immediately if the Customer is subject to any Data Protection Laws that require the Customer and Hot Aisle to effectuate a DPA.
+-   Data Processing Agreement (DPA), which contains the applicable terms for Hot Aisle processing certain types of data on the Customer’s behalf. The Customer is responsible to determine and must alert Hot Aisle immediately if the Customer is subject to any Data Protection Laws that require the Customer and Hot Aisle to effectuate a DPA.
 
-*   Acceptable Use Policy (AUP), which sets out prohibited uses of the Hot Aisle Cloud Platform as a Covered Service, and which is effective at the time the Customer creates an Account.
+-   Acceptable Use Policy (AUP), which sets out prohibited uses of the Hot Aisle Cloud Platform as a Covered Service, and which is effective at the time the Customer creates an Account.
 
-*   Privacy Policy, which outlines how Hot Aisle may collect, use and/or share Customer Data in connection with performing services.
+-   Privacy Policy, which outlines how Hot Aisle may collect, use and/or share Customer Data in connection with performing services.
 
 ### Service Level Objectives
 
@@ -38,35 +38,35 @@ The following definitions apply to the TOS:
 
 “Customer Data” means:
 
-*   All data uploaded by the Customer to Hot Aisle infrastructure and;
+-   All data uploaded by the Customer to Hot Aisle infrastructure and;
 
-*   All data created by the Customer on Hot Aisle infrastructure.
+-   All data created by the Customer on Hot Aisle infrastructure.
 
 “Covered Service” means:
 
-*   Instances in Multiple Regions.
+-   Instances in Multiple Regions.
 
-*   A Single Instance.
+-   A Single Instance.
 
 “Downtime” means:
 
-*   For container instances: loss of external connectivity or persistent disk access for the Single Instance or, with respect to Instances in Multiple Regions, all applicable running instances.
+-   For container instances: loss of external connectivity or persistent disk access for the Single Instance or, with respect to Instances in Multiple Regions, all applicable running instances.
 
-*   Downtime does not include loss of external connectivity as a result of outages in upstream transit provider networks if the Customer is acquiring connectivity on a pass-through basis from Hot Aisle. If so, the respective Carrier terms of service will apply.
+-   Downtime does not include loss of external connectivity as a result of outages in upstream transit provider networks if the Customer is acquiring connectivity on a pass-through basis from Hot Aisle. If so, the respective Carrier terms of service will apply.
 
-*   “Downtime Period” means a period of one or more consecutive minutes of Downtime. Partial minutes or intermittent Downtime for a period of less than one minute will not be counted towards any Downtime Periods.
+-   “Downtime Period” means a period of one or more consecutive minutes of Downtime. Partial minutes or intermittent Downtime for a period of less than one minute will not be counted towards any Downtime Periods.
 
-*   “Financial Credit” means the following for a Single Region:
+-   “Financial Credit” means the following for a Single Region:
 
 | Monthly Uptime Percentage | Service Credit |
-| :--- | :--- |
-| 95% - 99% | 5% |
-| 90% - 94.999% | 10% |
-| < 89.999% | 15% |
+| :------------------------ | :------------- |
+| 95% - 99%                 | 5%             |
+| 90% - 94.999%             | 10%            |
+| < 89.999%                 | 15%            |
 
-*   “Monthly Uptime Percentage” means total number of minutes in a month, minus the number of minutes of Downtime suffered from all Downtime Periods in a month, divided by the total number of minutes in a month.
+-   “Monthly Uptime Percentage” means total number of minutes in a month, minus the number of minutes of Downtime suffered from all Downtime Periods in a month, divided by the total number of minutes in a month.
 
-*   “Single Instance” means a single container instance hosted as part of the Hot Aisle Cloud Platform Service.
+-   “Single Instance” means a single container instance hosted as part of the Hot Aisle Cloud Platform Service.
 
 ### Default Payment Terms and Billing
 

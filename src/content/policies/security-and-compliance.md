@@ -1,10 +1,10 @@
 ---
 title: Security and Compliance
 description: Overview of our security measures and SOC 2 status.
-date: '2026-02-05'
+date: "2026-02-05"
 ---
 
-* * *
+---
 
 Last modified: **May 25th, 2024**
 

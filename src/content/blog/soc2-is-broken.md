@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "03/26/2026"
 description: "Our honest take on why SOC2 is a fundamentally flawed compliance framework, and what that means for you."
 featured: true
-tags: ["Thoughts"]
+tags: [ "Thoughts" ]
 ---
 
 # SOC2 Is Broken — And The AICPA Knows It
@@ -26,7 +26,7 @@ The American Institute of Certified Public Accountants (AICPA) created SOC2. The
 
 The AICPA also licenses the right to perform SOC2 audits exclusively to Certified Public Accountants and their affiliated firms. They created the market, they control the market, and they collect licensing fees from every firm operating inside it.
 
-If a pharmaceutical company created both the drug approval standard *and* the exclusive right to approve drugs, we'd call that a conflict of interest and move on. The AICPA does exactly this, and the industry nods along because there's no alternative with equivalent brand recognition.
+If a pharmaceutical company created both the drug approval standard _and_ the exclusive right to approve drugs, we'd call that a conflict of interest and move on. The AICPA does exactly this, and the industry nods along because there's no alternative with equivalent brand recognition.
 
 ![The AICPA Conflict of Interest](soc2-is-broken/aicpa-conflict.png "modal")
 
@@ -80,7 +80,7 @@ One prominent compliance automation platform publishes a guide on why SOC2 is im
 
 Read those again. One word is absent: **security**.
 
-Not one of those reasons mentions protecting customer data. Not one mentions reducing the risk of a breach. Not one mentions the people on the other side of the contract who are trusting you with their infrastructure, their pipelines, their sensitive workloads. Every reason is about what SOC2 does *for the vendor*. Brand reputation. Competitive differentiation. Sales pipeline. Cost efficiency.
+Not one of those reasons mentions protecting customer data. Not one mentions reducing the risk of a breach. Not one mentions the people on the other side of the contract who are trusting you with their infrastructure, their pipelines, their sensitive workloads. Every reason is about what SOC2 does _for the vendor_. Brand reputation. Competitive differentiation. Sales pipeline. Cost efficiency.
 
 This is an accurate reflection of how the compliance industry thinks about SOC2 at large: as a business development tool, not a security standard. The badge is marketed as something you earn to win more deals, close enterprise contracts faster, and look better than the vendor next to you in a procurement spreadsheet. The customers you're trying to attract with that badge are the same ones whose data you're supposed to be protecting. That conflict of framing doesn't get discussed because everyone in the ecosystem benefits from keeping the focus on sales.
 
@@ -88,7 +88,7 @@ When the industry's own marketing materials don't mention security as a reason t
 
 ## What We Actually Do About It
 
-We don't think the answer is to ignore compliance or complain about the obvious failures that stand uncorrected for decades. Customers have procurement requirements and we respect that. SOC2 Type 2 is a signal that you've done *some* of the basic work. **We've done it.**
+We don't think the answer is to ignore compliance or complain about the obvious failures that stand uncorrected for decades. Customers have procurement requirements and we respect that. SOC2 Type 2 is a signal that you've done _some_ of the basic work. **We've done it.**
 
 But we treat our SOC2 certification as a floor, not a ceiling, and we're honest with customers about what it does and doesn't mean:
 

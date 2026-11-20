@@ -9,7 +9,7 @@ author: "Jon Stevens"
 date: "12/05/2024"
 description: "This article lays out an exciting vision of AI's transformative power in 2025, touching on agentic AI, enterprise adoption, sovereign AI, and AI's fusion with other technologies. However, it avoids addressing a key issue central to AI's rapid growth and deployment: the dominance of Nvidia in both AI hardware and software ecosystems. Here's why this omission is significant:"
 featured: false
-tags: ["Thoughts"]
+tags: [ "Thoughts" ]
 ---
 
 **Tech's Big Bang In 2025: AI Is The Spark Igniting A New Era**

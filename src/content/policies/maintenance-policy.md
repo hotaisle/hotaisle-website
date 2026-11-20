@@ -1,9 +1,10 @@
 ---
 title: Maintenance Policy
 description: Procedures for scheduled and emergency maintenance.
-date: '2026-02-22'
+date: "2026-02-22"
 ---
-* * *
+
+---
 
 Last modified: **February 22, 2026**
 
@@ -23,15 +24,15 @@ When performing planned maintenance that is deemed by Hot Aisle as "critical" in
 
 For purposes of this notification policy, "critical" maintenance will generally be deemed to be any planned changes to components that substantially impact:
 
-*   Data center power issues
+-   Data center power issues
 
-*   GPU servers
+-   GPU servers
 
-*   Internet connection
+-   Internet connection
 
-*   Networking
+-   Networking
 
-*   Virtual Server orchestration
+-   Virtual Server orchestration
 
 These listed areas are deemed by Hot Aisle to be critical to the general availability and operation of the Hot Aisle platform.
 
