@@ -21,6 +21,12 @@
 	box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.4);
 	transform: translate(-50%, -50%);
 }
+.ha-video-preview--corner .ha-video-preview__play {
+	inset-block: auto 1rem;
+	inset-inline: auto 1rem;
+	inline-size: 3.5rem;
+	transform: none;
+}
 .ha-video-preview__play svg {
 	inline-size: 45%;
 	block-size: 45%;

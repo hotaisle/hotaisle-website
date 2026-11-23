@@ -8,10 +8,3 @@ const metadata = generateMetadata();
 <BaseLayout metadata={metadata}>
 	<Page />
 </BaseLayout>
-
-<script>
-	import { initializeHomeCrawler } from '@/scripts/home-crawler.ts';
-
-	const cleanup = initializeHomeCrawler();
-	import.meta.hot?.dispose(cleanup);
-</script>
