@@ -1,6 +1,5 @@
 import { AppLink } from '@/components/AppLink.tsx';
-import { HomeCrawler } from '@/components/home/HomeCrawler.tsx';
-import { OptimizedImage } from '@/components/OptimizedImage.tsx';
+import { VideoPreview } from '@/components/VideoPreview.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
 
 const PLATFORM_LAYERS = [
@@ -95,17 +94,11 @@ export default function Home() {
 	return (
 		<div className="ha-home bg-background text-foreground overflow-x-hidden">
 			<section className="border-border border-b">
-				<div className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-12 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-16">
+				<div className="mx-auto grid max-w-7xl items-start gap-8 px-5 py-12 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-16">
 					<div className="relative z-10 max-w-2xl">
 						<h1 className="max-w-2xl text-6xl leading-[1.02] font-semibold sm:text-7xl lg:text-8xl">
-							Compute that keeps pace with the work
+							Your GPUs can take the night shift
 						</h1>
-						<p className="text-muted-foreground mt-8 max-w-2xl text-xl leading-9 sm:text-2xl">
-							Hot Aisle is novel developer-first cloud infrastructure for production
-							sovereign inference workloads. We automate the layers beneath Kubernetes
-							so your team can provision isolated AMD GPU compute in under a minute,
-							without contacting sales first.
-						</p>
 						<div className="mt-9 flex flex-wrap gap-3">
 							<AppLink
 								className="bg-foreground text-background inline-flex min-h-12 items-center gap-2 px-6 py-3 text-base font-medium transition-opacity hover:opacity-80"
@@ -120,55 +113,54 @@ export default function Home() {
 								Talk to an engineer
 							</AppLink>
 						</div>
-						<div className="ha-inset-dividers ha-inset-dividers-cols-3 border-border mt-8 grid max-w-2xl grid-cols-3 border-y py-6 lg:w-[calc(100%+5rem)]">
-							<div>
-								<p className="font-mono text-2xl">&lt; 60 sec</p>
-								<p className="text-muted-foreground mt-1 text-sm sm:text-base">
-									to a running VM
-								</p>
-							</div>
-							<div className="px-4">
-								<p className="font-mono text-2xl">700+</p>
-								<p className="text-muted-foreground mt-1 text-sm sm:text-base">
-									customers served
-								</p>
-							</div>
-							<div className="pl-4">
-								<p className="font-mono text-2xl">3 years</p>
-								<p className="text-muted-foreground mt-1 text-sm sm:text-base">
-									operating in production
-								</p>
-							</div>
-						</div>
 					</div>
 
-					<figure className="relative order-first mx-auto w-full max-w-3xl lg:order-0 lg:mr-0">
-						<div className="border-hot-orange/20 pointer-events-none absolute inset-3 border" />
-						<OptimizedImage
-							alt="3D pixel-art visualization of an automated GPU cloud platform"
-							className="relative aspect-16/10 w-full object-cover dark:hidden"
-							fetchPriority="high"
-							height={900}
-							loading="eager"
-							responsiveWidths={[480, 672, 800]}
-							sizes="(max-width: 1024px) 100vw, 45vw"
-							src="/assets/home/automated-inference-platform.png"
-							width={1600}
-						/>
-						<OptimizedImage
-							alt=""
-							aria-hidden="true"
-							className="relative hidden aspect-16/10 w-full object-cover dark:block"
-							fetchPriority="high"
-							height={900}
-							loading="eager"
-							responsiveWidths={[480, 672, 800]}
-							sizes="(max-width: 1024px) 100vw, 45vw"
-							src="/assets/home/automated-inference-platform-dark.png"
-							width={1600}
-						/>
-						<HomeCrawler />
-					</figure>
+					<div className="mx-auto w-full max-w-3xl lg:mr-0">
+						<figure>
+							<VideoPreview
+								className="ha-video-preview--corner border-border border"
+								poster="/assets/home/the-night-shift-v3-poster.webp"
+								src="/assets/home/the-night-shift-v3.mp4"
+								title="The Night Shift"
+							>
+								<img
+									alt="Hands typing at a keyboard in The Night Shift"
+									className="block aspect-video w-full"
+									fetchPriority="high"
+									height={1080}
+									loading="eager"
+									src="/assets/home/the-night-shift-v3-poster.webp"
+									width={1920}
+								/>
+							</VideoPreview>
+						</figure>
+						<p className="text-muted-foreground mt-8 max-w-2xl text-xl leading-9 sm:text-2xl">
+							Hot Aisle is novel developer-first cloud infrastructure for production
+							sovereign inference workloads. We automate the layers beneath Kubernetes
+							so your team can provision isolated AMD GPU compute in under a minute,
+							without contacting sales first.
+						</p>
+					</div>
+					<div className="ha-inset-dividers ha-inset-dividers-cols-3 border-border grid grid-cols-3 border-y py-6 lg:col-span-2">
+						<div>
+							<p className="font-mono text-2xl">&lt; 60 sec</p>
+							<p className="text-muted-foreground mt-1 text-sm sm:text-base">
+								to a running VM
+							</p>
+						</div>
+						<div className="px-4">
+							<p className="font-mono text-2xl">490+</p>
+							<p className="text-muted-foreground mt-1 text-sm sm:text-base">
+								paying customers
+							</p>
+						</div>
+						<div className="pl-4">
+							<p className="font-mono text-2xl">3 years</p>
+							<p className="text-muted-foreground mt-1 text-sm sm:text-base">
+								operating in production
+							</p>
+						</div>
+					</div>
 				</div>
 			</section>
 

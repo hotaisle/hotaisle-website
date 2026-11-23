@@ -55,6 +55,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - Blog images under `src/content/blog/assets` are mirrored into `public/assets/blog` before Astro builds so `/assets/blog/...` remains stable.
 - Astro content collections load and validate blog and policy Markdown during development and static builds.
 - TypeScript is pinned to 6.0.3 because `astro check` rejects TypeScript 7 and Astro's experimental replacement requires TypeScript 7.1 or later.
+- The homepage plays “The Night Shift” data center advertisement (`public/assets/home/the-night-shift-v3.mp4`), with an eagerly loaded poster from the opening hands-at-the-keyboard shot and on-demand playback. Quick Start and the Console blog post retain the separate narrated walkthrough.
 
 ### Useful scripts
 
