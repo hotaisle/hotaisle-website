@@ -141,21 +141,21 @@ export default function Home() {
 							without contacting sales first.
 						</p>
 					</div>
-					<div className="ha-inset-dividers ha-inset-dividers-cols-3 border-border grid grid-cols-3 border-y py-6 lg:col-span-2">
-						<div>
-							<p className="font-mono text-2xl">&lt; 60 sec</p>
+					<div className="divide-border grid grid-cols-3 divide-x py-6 text-center lg:col-span-2">
+						<div className="sm:px-6">
+							<p className="font-mono text-base sm:text-2xl">&lt; 60 sec</p>
 							<p className="text-muted-foreground mt-1 text-sm sm:text-base">
 								to a running VM
 							</p>
 						</div>
-						<div className="px-4">
-							<p className="font-mono text-2xl">490+</p>
+						<div className="sm:px-6">
+							<p className="font-mono text-base sm:text-2xl">490+</p>
 							<p className="text-muted-foreground mt-1 text-sm sm:text-base">
 								paying customers
 							</p>
 						</div>
-						<div className="pl-4">
-							<p className="font-mono text-2xl">3 years</p>
+						<div className="sm:px-6">
+							<p className="font-mono text-base sm:text-2xl">3 years</p>
 							<p className="text-muted-foreground mt-1 text-sm sm:text-base">
 								operating in production
 							</p>
@@ -189,20 +189,20 @@ export default function Home() {
 
 			<section className="border-border border-b">
 				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="max-w-xl text-5xl font-semibold sm:text-6xl">
+					<div className="flex flex-col gap-6">
+						<h2 className="text-4xl font-semibold text-balance sm:text-5xl lg:text-6xl">
 							Kubernetes is not the first layer
 						</h2>
-						<p className="text-muted-foreground max-w-3xl text-xl leading-9">
+						<p className="text-muted-foreground max-w-4xl text-xl leading-9">
 							Most providers stop at orchestration. We made the physical and virtual
 							layers programmable too, so the request that reaches Kubernetes already
 							has a network, an operating system, drivers, and a secure place to run.
 						</p>
 					</div>
-					<div className="border-border mt-8 border-t">
+					<div className="mt-8">
 						{PLATFORM_LAYERS.map((layer) => (
 							<article
-								className="border-border grid gap-4 border-b py-6 sm:grid-cols-[18rem_1fr] sm:items-start"
+								className="border-border grid gap-4 border-b py-6 last:border-b-0 sm:grid-cols-[18rem_1fr] sm:items-start"
 								key={layer.title}
 							>
 								<div>
@@ -224,26 +224,28 @@ export default function Home() {
 
 			<section className="border-border bg-muted/70 border-b">
 				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h2 className="max-w-2xl text-5xl font-semibold sm:text-6xl">
+					<div className="flex flex-col gap-6">
+						<h2 className="text-4xl font-semibold text-balance sm:text-5xl lg:text-6xl">
 							One platform. No artificial ceiling
 						</h2>
-						<p className="text-muted-foreground max-w-3xl text-xl leading-9">
+						<p className="text-muted-foreground max-w-4xl text-xl leading-9">
 							Start with one GPU for one minute. Scale to a group of isolated compute.
 							When the work needs it, move to a complete bare-metal cluster without
 							moving to another vendor.
 						</p>
 					</div>
-					<div className="border-border mt-8 border-t">
+					<div className="mt-8">
 						{OPERATING_POINTS.map((point) => (
 							<div
-								className="border-border grid gap-3 border-b py-6 text-lg sm:grid-cols-[8rem_1fr] sm:items-baseline"
+								className="border-border grid gap-3 border-b py-6 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:items-baseline sm:gap-6"
 								key={point.label}
 							>
-								<p className="text-hot-orange-contrast font-mono text-xs tracking-[0.12em] uppercase">
+								<p className="text-hot-orange-contrast text-2xl font-semibold">
 									{point.label}
 								</p>
-								<p>{point.description}</p>
+								<p className="text-xl leading-relaxed lg:text-2xl">
+									{point.description}
+								</p>
 							</div>
 						))}
 					</div>
@@ -252,22 +254,20 @@ export default function Home() {
 
 			<section className="border-border border-b">
 				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-						<div>
-							<h2 className="max-w-xl text-5xl font-semibold sm:text-6xl">
-								Infrastructure developers can use. Terms leadership can defend
-							</h2>
-						</div>
-						<p className="text-muted-foreground max-w-3xl text-xl leading-9">
+					<div className="flex flex-col gap-6">
+						<h2 className="text-4xl font-semibold text-balance sm:text-5xl lg:text-6xl">
+							Infrastructure developers can use. Terms leadership can defend
+						</h2>
+						<p className="text-muted-foreground max-w-4xl text-xl leading-9">
 							Your team gets a fast, composable interface to compute. Your business
 							gets clear pricing, hard isolation, and an operator accountable for the
 							entire path from hardware to workload.
 						</p>
 					</div>
-					<div className="ha-inset-dividers ha-inset-dividers-md-3 border-border mt-8 grid border-t md:grid-cols-3">
+					<div className="ha-inset-dividers ha-inset-dividers-md-3 mt-8 grid md:grid-cols-3">
 						{LEADERSHIP_POINTS.map((point, index) => (
 							<article
-								className={`border-border border-b py-7 ${index ? 'md:pl-7' : 'md:pr-7'}`}
+								className={`py-7 ${index ? 'md:pl-7' : 'md:pr-7'}`}
 								key={point.title}
 							>
 								<h3 className="text-xl font-medium">{point.title}</h3>
