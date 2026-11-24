@@ -187,6 +187,36 @@ export default function Home() {
 				</div>
 			</section>
 
+			<section className="border-border bg-muted/70 border-b">
+				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+					<div className="flex flex-col gap-6">
+						<h2 className="text-4xl font-semibold text-balance sm:text-5xl lg:text-6xl">
+							One platform. No artificial ceiling
+						</h2>
+						<p className="text-muted-foreground max-w-4xl text-xl leading-9">
+							Start with one GPU for one minute. Scale to a group of isolated compute.
+							When the work needs it, move to a complete bare-metal cluster without
+							moving to another vendor.
+						</p>
+					</div>
+					<div className="mt-8">
+						{OPERATING_POINTS.map((point) => (
+							<div
+								className="border-border grid gap-3 border-b py-6 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:items-baseline sm:gap-6"
+								key={point.label}
+							>
+								<p className="text-hot-orange-contrast text-2xl font-semibold">
+									{point.label}
+								</p>
+								<p className="text-xl leading-relaxed lg:text-2xl">
+									{point.description}
+								</p>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+
 			<section className="border-border border-b">
 				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
 					<div className="flex flex-col gap-6">
@@ -217,36 +247,6 @@ export default function Home() {
 									{layer.description}
 								</p>
 							</article>
-						))}
-					</div>
-				</div>
-			</section>
-
-			<section className="border-border bg-muted/70 border-b">
-				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-					<div className="flex flex-col gap-6">
-						<h2 className="text-4xl font-semibold text-balance sm:text-5xl lg:text-6xl">
-							One platform. No artificial ceiling
-						</h2>
-						<p className="text-muted-foreground max-w-4xl text-xl leading-9">
-							Start with one GPU for one minute. Scale to a group of isolated compute.
-							When the work needs it, move to a complete bare-metal cluster without
-							moving to another vendor.
-						</p>
-					</div>
-					<div className="mt-8">
-						{OPERATING_POINTS.map((point) => (
-							<div
-								className="border-border grid gap-3 border-b py-6 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:items-baseline sm:gap-6"
-								key={point.label}
-							>
-								<p className="text-hot-orange-contrast text-2xl font-semibold">
-									{point.label}
-								</p>
-								<p className="text-xl leading-relaxed lg:text-2xl">
-									{point.description}
-								</p>
-							</div>
 						))}
 					</div>
 				</div>
