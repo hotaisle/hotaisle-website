@@ -58,7 +58,7 @@ export default function PricingPage() {
 				<div className="via-background to-background absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-200 opacity-80 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-950" />
 
 				<div className="relative z-10 mx-auto max-w-4xl">
-					<h1 className="mb-6 text-5xl font-black tracking-tighter md:text-7xl">
+					<h1 className="mb-6 text-4xl font-black tracking-tighter sm:text-5xl md:text-7xl">
 						Transparent <span className="text-hot-orange">Pricing</span>
 					</h1>
 					<div className="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-4 text-left md:grid-cols-2">

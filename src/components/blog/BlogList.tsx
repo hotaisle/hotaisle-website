@@ -17,11 +17,9 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 	const threeColumnFillers = (3 - (posts.length % 3)) % 3;
 
 	return (
-		<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-xl-3 border-border bg-border grid gap-y-px border md:grid-cols-2 xl:grid-cols-3">
-			{posts.map((post, index) => {
-				const isLatest = index === 0;
+		<div className="ha-inset-dividers ha-inset-dividers-md-2 ha-inset-dividers-xl-3 border-border bg-border grid grid-cols-1 gap-y-px border wrap-anywhere md:grid-cols-2 xl:grid-cols-3">
+			{posts.map((post) => {
 				const isGuestPost = post.tags.includes(GUEST_TAG);
-				const postNumber = String(index + 1).padStart(2, '0');
 
 				return (
 					<AppLink
@@ -55,10 +53,6 @@ export function BlogList({ posts }: { posts: BlogPost[] }) {
 
 						<div className="flex flex-1 flex-col p-5 sm:p-6">
 							<div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-[0.12em] uppercase">
-								<span className="text-hot-orange-contrast">
-									{postNumber}
-									{isLatest ? ' / Latest' : ''}
-								</span>
 								<time className="text-muted-foreground" dateTime={post.date}>
 									{PUBLISH_DATE_FORMATTER.format(new Date(post.date))}
 								</time>

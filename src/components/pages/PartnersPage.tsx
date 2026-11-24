@@ -90,7 +90,7 @@ export default function PartnersPage() {
 							</figure>
 						</div>
 						<div>
-							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-4xl font-black tracking-tighter sm:text-5xl md:text-7xl">
 								Partnerships that move capacity
 							</h1>
 							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">

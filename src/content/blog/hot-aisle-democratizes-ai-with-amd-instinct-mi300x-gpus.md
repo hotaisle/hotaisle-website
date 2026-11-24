@@ -12,7 +12,7 @@ featured: false
 tags: [ "Features" ]
 ---
 
-# **Hot Aisle and AMD Democratize AI with New Collaboration**
+## **Hot Aisle and AMD Democratize AI with New Collaboration**
 
 We're thrilled to announce our latest collaboration with AMD, showcased in our new joint case study highlighting how Hot Aisle is making AI and high-performance computing (HPC) accessible to everyone with AMD Instinct™ MI300X GPUs.
 

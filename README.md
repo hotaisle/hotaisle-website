@@ -53,9 +53,11 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - Local TLS certs are generated automatically if `.dev-localhost-cert.pem` or `.dev-localhost-key.pem` are missing.
 - Local-only `.dev*` files are ignored by git and excluded from the static output.
 - Blog images under `src/content/blog/assets` are mirrored into `public/assets/blog` before Astro builds so `/assets/blog/...` remains stable.
+- Image generation can update tracked AVIF/WebP derivatives without changing their JPEG sources. Review and include those matching derivatives in media releases; CI skips image encoding.
 - Astro content collections load and validate blog and policy Markdown during development and static builds.
 - TypeScript is pinned to 6.0.3 because `astro check` rejects TypeScript 7 and Astro's experimental replacement requires TypeScript 7.1 or later.
 - The homepage plays “The Night Shift” data center advertisement (`public/assets/home/the-night-shift-v3.mp4`), with an eagerly loaded poster from the opening hands-at-the-keyboard shot and on-demand playback. Quick Start and the Console blog post retain the separate narrated walkthrough.
+- Check layout changes at 320px, 390px, 768px, and desktop widths. Keep grid tracks shrinkable, wrap long article URLs, and use one page-level H1 with H2/H3 headings in blog bodies.
 
 ### Useful scripts
 

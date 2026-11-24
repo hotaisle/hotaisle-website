@@ -12,7 +12,7 @@ featured: false
 tags: [ "Thoughts" ]
 ---
 
-# Groundbreaking myths
+## Groundbreaking myths
 
 We are beginning to notice the emergence of a new myth: the H200 is being called “groundbreaking.” In reality, the H200 is an H100 with more and faster RAM (80→141GB). [The compute side is unchanged](https://blog.spheron.network/nvidia-h100-vs-h200-a-detailed-comparison). While more memory is a positive development, it’s important to consider what [AMD](https://amd.com/) is doing, which is truly remarkable.
 
