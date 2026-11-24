@@ -12,9 +12,9 @@ featured: false
 tags: [ "Announcements" ]
 ---
 
-# [**We now have SOC 2 Type 2!**](https://hotaisle.xyz/blog/hot-aisle-achieves-soc-2-type-2-compliance-a-milestone-in-security-and-trust/)
+[**We now have SOC 2 Type 2!**](https://hotaisle.xyz/blog/hot-aisle-achieves-soc-2-type-2-compliance-a-milestone-in-security-and-trust/)
 
-# **Hot Aisle Achieves SOC 2 Type 1 Compliance**
+## **Hot Aisle Achieves SOC 2 Type 1 Compliance**
 
 We’re excited to announce that Hot Aisle has officially completed our SOC 2 Type 1 audit. This marks a major milestone in our journey to build a trusted, secure, and compliant cloud infrastructure platform.
 

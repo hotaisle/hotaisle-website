@@ -94,7 +94,7 @@ export default function AboutPage() {
 							</figure>
 						</div>
 						<div>
-							<h1 className="text-foreground max-w-3xl text-5xl font-black tracking-tighter md:text-7xl">
+							<h1 className="text-foreground max-w-3xl text-4xl font-black tracking-tighter sm:text-5xl md:text-7xl">
 								Pragmatic infrastructure execution
 							</h1>
 							<p className="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed md:text-xl">
@@ -123,10 +123,10 @@ export default function AboutPage() {
 					<div className="ha-inset-dividers ha-inset-dividers-md-2 bg-border mt-8 grid gap-y-px md:grid-cols-2">
 						{FOUNDERS.map((founder) => (
 							<article className="bg-background p-6" key={founder.name}>
-								<div className="grid gap-6 sm:grid-cols-[12rem_1fr] sm:items-start">
+								<div className="grid gap-6 sm:grid-cols-[12rem_1fr] sm:items-start md:grid-cols-1 lg:grid-cols-[10rem_1fr]">
 									<OptimizedImage
 										alt={founder.name}
-										className="border-border aspect-2/3 w-full border object-cover"
+										className="border-border aspect-2/3 w-full max-w-48 border object-cover"
 										height={256}
 										src={founder.image}
 										width={256}

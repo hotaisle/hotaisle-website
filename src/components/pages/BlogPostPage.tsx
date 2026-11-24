@@ -227,7 +227,7 @@ export default function BlogPostPage({ allPosts, post }: { allPosts: BlogPost[];
 			</header>
 
 			<article className="mx-auto max-w-4xl px-5 py-12 sm:px-8 lg:py-16">
-				<div className="ha-blog-article prose prose-lg prose-img:rounded-none prose-pre:rounded-none prose-img:border prose-img:border-border prose-a:text-hot-orange prose-blockquote:text-muted-foreground prose-code:text-hot-orange prose-headings:text-foreground prose-strong:text-foreground text-foreground prose-headings:tracking-normal prose-img:shadow-none max-w-none leading-relaxed">
+				<div className="ha-blog-article prose prose-lg prose-img:rounded-none prose-pre:rounded-none prose-img:border prose-img:border-border prose-a:text-hot-orange prose-blockquote:text-muted-foreground prose-code:text-hot-orange prose-headings:text-foreground prose-strong:text-foreground text-foreground prose-headings:tracking-normal prose-img:shadow-none max-w-none leading-relaxed wrap-anywhere">
 					<BlogContent
 						authorProfile={post.authorProfile}
 						contentHtml={post.contentHtml}

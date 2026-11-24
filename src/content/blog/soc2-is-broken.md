@@ -12,7 +12,7 @@ featured: true
 tags: [ "Thoughts" ]
 ---
 
-# SOC2 Is Broken — And The AICPA Knows It
+## SOC2 Is Broken — And The AICPA Knows It
 
 The recent situation with [Delve cutting corners on compliance work](https://www.inc.com/ben-sherry/the-delve-scandal-a-y-combinator-darling-just-got-hit-with-a-bombshell-fraud-accusation/91320652) was the final straw for me and I have to speak up. This event pulled back the curtain on something a lot of people in the industry already know but don’t say out loud: the incentives in the SOC2 ecosystem are misaligned, and the outcomes are not solving real problems.
 

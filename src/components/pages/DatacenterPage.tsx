@@ -45,14 +45,14 @@ export default function DatacenterPage() {
 		<div className="animation-fade-in bg-background text-foreground pb-12">
 			{/* Hero Section */}
 			<div className="border-border bg-muted/30 relative border-b">
-				<div className="container mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 py-16 md:flex-row">
-					<div className="flex-1 space-y-8">
+				<div className="container mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 py-16 lg:flex-row">
+					<div className="min-w-0 flex-1 space-y-8">
 						<div className="border-border bg-background text-foreground inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-bold tracking-wider uppercase shadow-sm">
 							<span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
 							Switch Pyramid • Grand Rapids, MI
 						</div>
 
-						<h1 className="text-foreground text-5xl leading-tight font-black tracking-tighter md:text-7xl">
+						<h1 className="text-foreground text-4xl leading-tight font-black tracking-tighter sm:text-5xl md:text-6xl xl:text-7xl">
 							Tier 5 <span className="text-hot-orange">Platinum</span>
 							<br />
 							Infrastructure

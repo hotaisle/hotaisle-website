@@ -614,7 +614,7 @@ main > section:not(.hero) {
 	}
 
 	.hero {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 	}
 
 	.hero-copy {
@@ -660,7 +660,7 @@ main > section:not(.hero) {
 
 	.hero-copy,
 	.hero-status {
-		padding: 2rem;
+		padding: 1.25rem;
 	}
 
 	.hero-copy {
