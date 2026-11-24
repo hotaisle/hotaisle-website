@@ -1,12 +1,12 @@
 ---
 title: Acceptable Use Policy
 description: Rules and prohibited activities for use of Hot Aisle services.
-date: "2026-02-05"
+date: "2026-11-24"
 ---
 
 ---
 
-Last modified: **May 25th, 2024**
+Last modified: **November 24th, 2026**
 
 This Acceptable Use Policy (this “AUP”) describes material and activities that are not allowed in connection with a Customer's use of Hot Aisle Services. This AUP is not exhaustive, and Hot Aisle reserves the right to take remedial action in connection with content or uses that Hot Aisle determines fall within the scope of this AUP, irrespective of whether the content or uses are specifically described below.
 
@@ -46,7 +46,7 @@ The Customer may not use Hot Aisle Services to violate the security or integrity
 
 The Customer may not make network connections to any users, hosts, or networks unless the Customer has express permission to communicate with them. Prohibited activities include but are not limited to:
 
--   Monitoring or Crawling: Monitoring or crawling of a System (as defined above) that impairs or disrupts the System being monitored or crawled, or other harvesting or scraping of any content of Hot Aisle Services;
+-   Monitoring or Crawling: Monitoring or crawling of a System (as defined above) that impairs or disrupts the System being monitored or crawled, or other harvesting or scraping of any content of Hot Aisle Services, except for the public GPU pricing use expressly permitted below;
 
 -   Deceitful Actions: Introducing intentionally, knowingly, or recklessly, any virus or other contaminating code into the Hot Aisle Cloud Platform as a Covered Service, or collecting, transmitting, or using information, including email addresses, screen names or other identifiers, by deceit or covert means (such as phishing, Internet scamming, password robbery, spidering, and harvesting);
 
@@ -61,6 +61,8 @@ The Customer may not make network connections to any users, hosts, or networks u
 -   Withholding Identity: Any activity intended to withhold or cloak identity or contact information, including the omission, deletion, forgery or misreporting of any transmission or identification information, such as return mailing and IP addresses; and
 
 -   Mining of Cryptocurrencies: Mining any cryptocurrency without explicit written permission.
+
+Hot Aisle expressly permits anyone, whether or not a Customer, to collect (including by automated crawling or scraping), copy, and publicly display Hot Aisle’s publicly published GPU prices, including on price comparison sites, without prior approval. This permission does not allow activity that impairs or disrupts Hot Aisle Services, bypasses access controls or rate limits, or accesses non-public information.
 
 ### Vulnerability Testing
 
