@@ -1,15 +1,10 @@
 import { toCanonicalDocumentHref } from '@/lib/canonical-href.ts';
+import { getSocialImage } from '@/lib/social-images.ts';
 
 const SITE_NAME = 'Hot Aisle';
 const SITE_URL = 'https://hotaisle.xyz';
 const SITE_LOCALE = 'en_US';
 const SITE_TWITTER_HANDLE = '@HotAisle';
-const DEFAULT_IMAGE = '/assets/og/hot-aisle-inference-cloud.png';
-const DEFAULT_IMAGE_ALT =
-	'Hot Aisle automated inference cloud with pixel-art AMD GPU infrastructure';
-const DEFAULT_IMAGE_WIDTH = 1200;
-const DEFAULT_IMAGE_HEIGHT = 630;
-const DEFAULT_IMAGE_TYPE = 'image/png';
 const SITE_METADATA_BASE = new URL(SITE_URL);
 const DEFAULT_KEYWORDS = [
 	'AMD GPU cloud',
@@ -66,27 +61,28 @@ function getKeywords(title: string, keywords: readonly string[] | undefined): st
 
 export function createPageMetadata({
 	description,
-	image = DEFAULT_IMAGE,
-	imageAlt = DEFAULT_IMAGE_ALT,
+	image,
+	imageAlt,
 	keywords,
 	path,
 	title,
 	type = 'website',
 }: PageMetadataOptions) {
 	const url = new URL(toCanonicalDocumentHref(path), SITE_URL).toString();
-	const imageUrl = new URL(image, SITE_URL).toString();
-	const imageType = getImageType(image);
+	const socialImage = getSocialImage(new URL(url).pathname);
+	const imageUrl = new URL(image ?? socialImage.url, SITE_URL).toString();
+	const imageType = image ? getImageType(image) : socialImage.type;
 	const imageDimensions: { height?: number; type?: string; width?: number } = {};
 
-	if (image === DEFAULT_IMAGE) {
-		imageDimensions.height = DEFAULT_IMAGE_HEIGHT;
-		imageDimensions.type = DEFAULT_IMAGE_TYPE;
-		imageDimensions.width = DEFAULT_IMAGE_WIDTH;
+	if (!image) {
+		imageDimensions.height = socialImage.height;
+		imageDimensions.type = socialImage.type;
+		imageDimensions.width = socialImage.width;
 	} else if (imageType) {
 		imageDimensions.type = imageType;
 	}
 	const imageMetadata = {
-		alt: imageAlt,
+		alt: imageAlt ?? (image ? title : socialImage.alt),
 		url: imageUrl,
 		...imageDimensions,
 	};

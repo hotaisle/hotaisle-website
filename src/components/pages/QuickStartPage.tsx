@@ -111,8 +111,6 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Get started with Hot Aisle through the web console or SSH, from account setup to your first GPU workload.',
-		image: '/assets/og/hot-aisle-inference-cloud.png',
-		imageAlt: 'Hot Aisle branded share image',
 		path: '/quick-start',
 		title: 'Quick Start',
 	});

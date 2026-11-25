@@ -52,8 +52,6 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Hot Aisle works with infrastructure, networking, orchestration, and deployment partners to bring AMD inference capacity online reliably.',
-		image: '/assets/partners/deployment-coordination-pixel-art.png',
-		imageAlt: '3D pixel-art coordinated data center deployment',
 		path: '/partners',
 		title: 'Partners',
 	});

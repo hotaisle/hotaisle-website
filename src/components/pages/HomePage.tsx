@@ -83,8 +83,6 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Automated AMD inference cloud. Launch isolated GPU compute in under a minute through the Hot Aisle terminal UI, API, or CLI.',
-		image: '/assets/og/hot-aisle-inference-cloud.png',
-		imageAlt: 'Hot Aisle automated inference cloud',
 		path: '/',
 		title: 'Hot Aisle | Automated Inference Cloud',
 	});

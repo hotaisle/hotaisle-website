@@ -75,8 +75,8 @@ function AdjacentPostNavigation({
 export function generateMetadata(post: BlogPost) {
 	const title = post.metaTitle ?? post.title;
 	const description = post.metaDescription ?? post.description;
-	const image = post.coverImage ?? '/assets/og/hot-aisle-inference-cloud.png';
-	const imageAlt = `${post.title} ${DEFAULT_BLOG_IMAGE_ALT_SUFFIX}`;
+	const image = post.coverImage ?? undefined;
+	const imageAlt = post.coverImage ? `${post.title} ${DEFAULT_BLOG_IMAGE_ALT_SUFFIX}` : undefined;
 	const publishedTime = post.date ? new Date(post.date).toISOString() : undefined;
 	const authors = post.author ? [post.author] : undefined;
 	const tags = post.tags.length ? post.tags : undefined;

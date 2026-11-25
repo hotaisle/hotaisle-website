@@ -56,8 +56,6 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Meet the Hot Aisle founders and learn how the company builds and operates developer-first AMD inference infrastructure.',
-		image: '/assets/about/operator-workspace-pixel-art.png',
-		imageAlt: '3D pixel-art cloud infrastructure engineering workspace',
 		path: '/about',
 		title: 'About Hot Aisle',
 	});
