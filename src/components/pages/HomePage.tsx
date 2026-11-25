@@ -29,7 +29,7 @@ const PLATFORM_LAYERS = [
 	},
 	{
 		description:
-			'Your team builds and deploys products and solutions here, using Hot Aisle as the underlying infrastructure. Our own additional tooling and support for this layer are coming soon.',
+			'Your team builds and deploys products and solutions here, using Hot Aisle as the underlying infrastructure. We handle all the financials, support and customer management using our automated tooling and monitoring.',
 		label: 'Application',
 		title: 'Build and deploy',
 	},
@@ -135,10 +135,10 @@ export default function Home() {
 							</VideoPreview>
 						</figure>
 						<p className="text-muted-foreground mt-8 max-w-2xl text-xl leading-9 sm:text-2xl">
-							Hot Aisle is novel developer-first cloud infrastructure for production
-							sovereign inference workloads. We automate the layers beneath Kubernetes
-							so your team can provision isolated AMD GPU compute in under a minute,
-							without contacting sales first.
+							Hot Aisle is developer-first cloud infrastructure for production
+							sovereign inference workloads. Our platform operating system, hotOS,
+							automates infrastructure so your team can provision isolated AMD GPU
+							compute in under a minute, without contacting sales first.
 						</p>
 					</div>
 					<div className="divide-border grid grid-cols-3 divide-x py-6 text-center lg:col-span-2">
@@ -221,12 +221,14 @@ export default function Home() {
 				<div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
 					<div className="flex flex-col gap-6">
 						<h2 className="text-4xl font-semibold text-balance sm:text-5xl lg:text-6xl">
-							Kubernetes is not the first layer
+							Our platform runs on hotOS, not Kubernetes
 						</h2>
 						<p className="text-muted-foreground max-w-4xl text-xl leading-9">
-							Most providers stop at orchestration. We made the physical and virtual
-							layers programmable too, so the request that reaches Kubernetes already
-							has a network, an operating system, drivers, and a secure place to run.
+							We built hotOS, our own platform operating system, to automate the
+							physical and virtual infrastructure: networking, host setup, operating
+							systems, drivers, and isolated compute. Our platform does not use
+							Kubernetes. Kubernetes is an optional layer you run on top, not a
+							dependency of hotOS.
 						</p>
 					</div>
 					<div className="mt-8">
@@ -286,9 +288,9 @@ export default function Home() {
 					<div>
 						<p className="text-muted-foreground max-w-3xl text-lg leading-8 sm:text-xl">
 							We monitor platform health and account usage, not the contents of your
-							work. Bare-metal customers control the whole machine. We keep the
-							environment secure, well-run, and backed by a support team that answers
-							like owners, because we are the owners.
+							work. Bare-metal customers control the whole machine, including BMC and
+							console access. We keep the environment secure, well-run, and backed by
+							a support team that answers like owners, because we are the owners.
 						</p>
 						<AppLink
 							className="border-border hover:bg-background mt-6 inline-flex min-h-12 items-center gap-2 border px-6 py-3 text-base font-medium transition-colors"
