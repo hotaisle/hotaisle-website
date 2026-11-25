@@ -57,7 +57,7 @@ The site is deployed on Cloudflare Workers. Most routes are statically generated
 - Astro content collections load and validate blog and policy Markdown during development and static builds.
 - TypeScript is pinned to 6.0.3 because `astro check` rejects TypeScript 7 and Astro's experimental replacement requires TypeScript 7.1 or later.
 - The homepage plays “The Night Shift” data center advertisement (`public/assets/home/the-night-shift-v3.mp4`), with an eagerly loaded poster from the opening hands-at-the-keyboard shot and on-demand playback. The stable delivery filename includes the refreshed closing card with a solid dark background and crisp rack outlines; its timing, audio, and opening poster are unchanged. Quick Start and the Console blog post retain the separate narrated walkthrough.
-- The homepage introduces the platform’s provision, meter, grow, and support capabilities before explaining the infrastructure beneath Kubernetes. Check layout changes at 320px, 390px, 768px, and desktop widths. Keep grid tracks shrinkable, wrap long article URLs, and use one page-level H1 with H2/H3 headings in blog bodies.
+- The homepage introduces the platform’s provision, meter, grow, and support capabilities before explaining hotOS, our own platform operating system. hotOS does not use Kubernetes; customers may run Kubernetes on top or run workloads directly. Check layout changes at 320px, 390px, 768px, and desktop widths. Keep grid tracks shrinkable, wrap long article URLs, and use one page-level H1 with H2/H3 headings in blog bodies.
 
 ### Useful scripts
 
