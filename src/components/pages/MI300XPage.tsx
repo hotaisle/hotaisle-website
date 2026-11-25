@@ -44,8 +44,6 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'AMD Instinct MI300X compute for isolated production inference, available through the Hot Aisle terminal UI, API, and CLI.',
-		image: '/assets/mi300x/mi300x-inference-pixel-art.png',
-		imageAlt: '3D pixel-art AMD Instinct MI300X accelerator',
 		path: '/mi300x',
 		title: 'AMD MI300X',
 	});

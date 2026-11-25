@@ -34,8 +34,6 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Documentation and discovery links for the Hot Aisle API, including access guidance and the live API reference.',
-		image: '/assets/docs/api-documentation-pixel-art.png',
-		imageAlt: '3D pixel-art API documentation workstation',
 		path: '/docs/api',
 		title: 'API Documentation',
 	});

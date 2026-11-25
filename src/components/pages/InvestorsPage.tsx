@@ -42,8 +42,6 @@ export function generateMetadata() {
 	return createPageMetadata({
 		description:
 			'Back the next chapter of Hot Aisle: a profitable AI compute business with 450+ paying customers, three years of execution, and demand waiting for MI355X capacity.',
-		image: '/assets/investors/global-inference-network.png',
-		imageAlt: 'A vision of regional Hot Aisle compute deployments connected around the world',
 		path: '/investors',
 		title: 'Investors | Hot Aisle',
 	});
