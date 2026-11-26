@@ -1,6 +1,9 @@
 import { AppLink } from '@/components/AppLink.tsx';
 import { VideoPreview } from '@/components/VideoPreview.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
+import { fingerprintPublicAsset } from '@/lib/versioned-public-asset.ts';
+
+const NIGHT_SHIFT_VIDEO_URL = fingerprintPublicAsset('/assets/home/the-night-shift-v3.mp4');
 
 const PLATFORM_LAYERS = [
 	{
@@ -118,7 +121,7 @@ export default function Home() {
 							<VideoPreview
 								className="ha-video-preview--corner border-border border"
 								poster="/assets/home/the-night-shift-v3-poster.webp"
-								src="/assets/home/the-night-shift-v3.mp4"
+								src={NIGHT_SHIFT_VIDEO_URL}
 								title="The Night Shift"
 							>
 								<img
