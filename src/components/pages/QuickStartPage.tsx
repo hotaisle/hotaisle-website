@@ -3,6 +3,7 @@ import { AppLink } from '@/components/AppLink.tsx';
 import CopyCommand from '@/components/CopyCommand.tsx';
 import { EmbeddedTerminal } from '@/components/EmbeddedTerminal.tsx';
 import { OptimizedImage } from '@/components/OptimizedImage.tsx';
+import { ResourceLinkList } from '@/components/ResourceLinkList.tsx';
 import { TerminalTyping } from '@/components/TerminalTyping.tsx';
 import { VideoPreview } from '@/components/VideoPreview.tsx';
 import { CONSOLE_WALKTHROUGH } from '@/lib/console-walkthrough.ts';
@@ -100,13 +101,6 @@ const PROGRAMMATIC_RESOURCES = [
 	},
 ] as const;
 
-interface Resource {
-	description: string;
-	href: string;
-	label: string;
-	title: string;
-}
-
 export function generateMetadata() {
 	return createPageMetadata({
 		description:
@@ -114,57 +108,6 @@ export function generateMetadata() {
 		path: '/quick-start',
 		title: 'Quick Start',
 	});
-}
-
-function ResourceLinkList({ resources }: { resources: readonly Resource[] }) {
-	const linkClassName = 'group block py-6 text-foreground';
-
-	return (
-		<ul className="[&>li:first-child>a]:pt-0 [&>li:last-child>a]:pb-0">
-			{resources.map((resource) => {
-				const isExternal = resource.href.startsWith('http');
-				const content = (
-					<>
-						<span className="flex items-start justify-between gap-6">
-							<span className="group-hover:text-hot-orange-contrast text-2xl font-bold transition-colors">
-								{resource.title}
-							</span>
-							<ArrowUpRight
-								aria-hidden="true"
-								className="text-hot-orange-contrast mt-1 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-								size={24}
-							/>
-						</span>
-						<span className="text-muted-foreground mt-2 block max-w-lg text-base leading-relaxed">
-							{resource.description}
-						</span>
-						<span className="text-hot-orange-contrast mt-4 block text-sm font-medium">
-							{resource.label}
-						</span>
-					</>
-				);
-
-				return (
-					<li className="border-border border-b last:border-b-0" key={resource.title}>
-						{isExternal ? (
-							<a
-								className={linkClassName}
-								href={resource.href}
-								rel="noopener"
-								target="_blank"
-							>
-								{content}
-							</a>
-						) : (
-							<AppLink className={linkClassName} href={resource.href}>
-								{content}
-							</AppLink>
-						)}
-					</li>
-				);
-			})}
-		</ul>
-	);
 }
 
 export default function QuickStartPage() {
