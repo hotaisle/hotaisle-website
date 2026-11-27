@@ -1,35 +1,43 @@
-import { AppLink } from '@/components/AppLink.tsx';
+import { ResourceLinkList } from '@/components/ResourceLinkList.tsx';
 import { createPageMetadata } from '@/lib/metadata.ts';
+
+const READ_POLICY_LABEL = 'Read policy';
 
 const POLICIES = [
 	{
 		description: 'The terms that govern use of Hot Aisle services.',
-		slug: 'terms-of-service',
+		href: '/policies/terms-of-service',
+		label: READ_POLICY_LABEL,
 		title: 'Terms of Service',
 	},
 	{
 		description: 'How Hot Aisle handles customer and account data.',
-		slug: 'privacy-policy',
+		href: '/policies/privacy-policy',
+		label: READ_POLICY_LABEL,
 		title: 'Privacy Policy',
 	},
 	{
 		description: 'The permitted use of Hot Aisle infrastructure.',
-		slug: 'acceptable-use-policy',
+		href: '/policies/acceptable-use-policy',
+		label: READ_POLICY_LABEL,
 		title: 'Acceptable Use Policy',
 	},
 	{
 		description: 'Security controls, practices, and compliance information.',
-		slug: 'security-and-compliance',
+		href: '/policies/security-and-compliance',
+		label: READ_POLICY_LABEL,
 		title: 'Security and Compliance',
 	},
 	{
 		description: 'Where Hot Aisle responsibilities end and customer responsibilities begin.',
-		slug: 'shared-responsibility-model',
+		href: '/policies/shared-responsibility-model',
+		label: READ_POLICY_LABEL,
 		title: 'Shared Responsibility',
 	},
 	{
 		description: 'How scheduled and emergency maintenance is handled.',
-		slug: 'maintenance-policy',
+		href: '/policies/maintenance-policy',
+		label: READ_POLICY_LABEL,
 		title: 'Maintenance Policy',
 	},
 ] as const;
@@ -45,46 +53,21 @@ export function generateMetadata() {
 
 export default function PoliciesIndexPage() {
 	return (
-		<main className="animation-fade-in bg-background text-foreground">
-			<div className="container mx-auto max-w-6xl px-6">
-				<header className="border-border border-b py-12 md:py-14">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<h1 className="text-foreground text-5xl font-black tracking-tighter md:text-7xl">
-							Policies, clearly stated
-						</h1>
-						<p className="text-muted-foreground max-w-2xl text-lg leading-relaxed md:text-xl">
-							The documents that govern Hot Aisle services, infrastructure, and shared
-							responsibilities.
-						</p>
-					</div>
+		<div className="animation-fade-in bg-background text-foreground pt-4 lg:pt-8">
+			<div className="ha-inset-dividers ha-inset-dividers-lg-2 container mx-auto grid max-w-6xl px-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+				<header className="py-10 lg:pr-16 xl:pr-20">
+					<h1 className="text-foreground max-w-sm text-5xl font-black tracking-tighter md:text-6xl">
+						Policies
+					</h1>
+					<p className="text-muted-foreground mt-6 max-w-md text-lg leading-relaxed">
+						The documents that govern Hot Aisle services, infrastructure, and shared
+						responsibilities.
+					</p>
 				</header>
-
-				<section className="py-12">
-					<div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-						<div className="border-border border-y lg:col-start-2">
-							{POLICIES.map((policy) => (
-								<AppLink
-									className="group border-border hover:bg-muted/35 grid gap-5 border-b py-7 transition-colors last:border-b-0 sm:grid-cols-[1fr_auto] sm:items-start sm:px-5"
-									href={`/policies/${policy.slug}`}
-									key={policy.slug}
-								>
-									<div>
-										<h2 className="text-foreground text-xl font-bold">
-											{policy.title}
-										</h2>
-										<p className="text-muted-foreground mt-3 leading-relaxed">
-											{policy.description}
-										</p>
-									</div>
-									<span className="text-hot-orange-contrast group-hover:text-foreground text-sm font-medium transition-colors">
-										Read policy
-									</span>
-								</AppLink>
-							))}
-						</div>
-					</div>
-				</section>
+				<div className="pb-10 lg:py-10 lg:pl-16">
+					<ResourceLinkList resources={POLICIES} />
+				</div>
 			</div>
-		</main>
+		</div>
 	);
 }
